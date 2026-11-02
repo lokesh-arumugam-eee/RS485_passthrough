@@ -1,0 +1,674 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AC_Controller_30 Coverage - main/sensors/sensirion_gas_index_algorithm.c</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">main/sensors</a> - sensirion_gas_index_algorithm.c<span style="font-size: 80%;"> (source / <a href="sensirion_gas_index_algorithm.c.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AC_Controller_30 Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">97.7&nbsp;%</td>
+            <td class="headerCovTableEntry">306</td>
+            <td class="headerCovTableEntry">299</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-05-08 12:18:40</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">25</td>
+            <td class="headerCovTableEntry">25</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryMed">78.3&nbsp;%</td>
+            <td class="headerCovTableEntry">60</td>
+            <td class="headerCovTableEntry">47</td>
+          </tr>
+                  <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /*</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  * Copyright (c) 2022, Sensirion AG</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  * All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions are met:</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  *</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  * * Redistributions of source code must retain the above copyright notice, this</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  *   list of conditions and the following disclaimer.</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * * Redistributions in binary form must reproduce the above copyright notice,</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *   this list of conditions and the following disclaimer in the documentation</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *   and/or other materials provided with the distribution.</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * * Neither the name of Sensirion AG nor the names of its</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *   contributors may be used to endorse or promote products derived from</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *   this software without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  */</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             : </span>
+<span id="L32"><span class="lineNum">      32</span>                 :             : #include &quot;sensirion_gas_index_algorithm.h&quot;</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : #include &lt;math.h&gt;</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : </span>
+<span id="L35"><span class="lineNum">      35</span>                 :             : static void GasIndexAlgorithm__init_instances(GasIndexAlgorithmParams* params);</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : static void GasIndexAlgorithm__mean_variance_estimator__set_parameters(</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :     GasIndexAlgorithmParams* params);</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : static void GasIndexAlgorithm__mean_variance_estimator__set_states(</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             :     GasIndexAlgorithmParams* params, float mean, float std, float uptime_gamma);</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : static float GasIndexAlgorithm__mean_variance_estimator__get_std(</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             :     const GasIndexAlgorithmParams* params);</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : static float GasIndexAlgorithm__mean_variance_estimator__get_mean(</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             :     const GasIndexAlgorithmParams* params);</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : static bool GasIndexAlgorithm__mean_variance_estimator__is_initialized(</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             :     GasIndexAlgorithmParams* params);</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : static void GasIndexAlgorithm__mean_variance_estimator___calculate_gamma(</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             :     GasIndexAlgorithmParams* params);</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : static void GasIndexAlgorithm__mean_variance_estimator__process(</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             :     GasIndexAlgorithmParams* params, float sraw);</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : static void</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : GasIndexAlgorithm__mean_variance_estimator___sigmoid__set_parameters(</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             :     GasIndexAlgorithmParams* params, float X0, float K);</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : static float GasIndexAlgorithm__mean_variance_estimator___sigmoid__process(</span>
+<span id="L54"><span class="lineNum">      54</span>                 :             :     GasIndexAlgorithmParams* params, float sample);</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             : static void</span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : GasIndexAlgorithm__mox_model__set_parameters(GasIndexAlgorithmParams* params,</span>
+<span id="L57"><span class="lineNum">      57</span>                 :             :                                              float SRAW_STD, float SRAW_MEAN);</span>
+<span id="L58"><span class="lineNum">      58</span>                 :             : static float</span>
+<span id="L59"><span class="lineNum">      59</span>                 :             : GasIndexAlgorithm__mox_model__process(GasIndexAlgorithmParams* params,</span>
+<span id="L60"><span class="lineNum">      60</span>                 :             :                                       float sraw);</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             : static void GasIndexAlgorithm__sigmoid_scaled__set_parameters(</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             :     GasIndexAlgorithmParams* params, float X0, float K, float offset_default);</span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : static float</span>
+<span id="L64"><span class="lineNum">      64</span>                 :             : GasIndexAlgorithm__sigmoid_scaled__process(GasIndexAlgorithmParams* params,</span>
+<span id="L65"><span class="lineNum">      65</span>                 :             :                                            float sample);</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : static void GasIndexAlgorithm__adaptive_lowpass__set_parameters(</span>
+<span id="L67"><span class="lineNum">      67</span>                 :             :     GasIndexAlgorithmParams* params);</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : static float</span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : GasIndexAlgorithm__adaptive_lowpass__process(GasIndexAlgorithmParams* params,</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             :                                              float sample);</span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : </span>
+<span id="L72"><span class="lineNum">      72</span>                 :<span class="tlaGNC tlaBgGNC">          14 : void GasIndexAlgorithm_init_with_sampling_interval(</span></span>
+<span id="L73"><span class="lineNum">      73</span>                 :             :     GasIndexAlgorithmParams* params, int32_t algorithm_type,</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             :     float sampling_interval) {</span>
+<span id="L75"><span class="lineNum">      75</span>                 :<span class="tlaGNC">          14 :     params-&gt;mAlgorithm_Type = algorithm_type;</span></span>
+<span id="L76"><span class="lineNum">      76</span>                 :<span class="tlaGNC">          14 :     params-&gt;mSamplingInterval = sampling_interval;</span></span>
+<span id="L77"><span class="lineNum">      77</span>         [<span class="tlaGBC" title="Branch 0 was taken 7 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 7 times"> + </span>]:<span class="tlaGNC">          14 :     if ((algorithm_type == GasIndexAlgorithm_ALGORITHM_TYPE_NOX)) {</span></span>
+<span id="L78"><span class="lineNum">      78</span>                 :<span class="tlaGNC">           7 :         params-&gt;mIndex_Offset = GasIndexAlgorithm_NOX_INDEX_OFFSET_DEFAULT;</span></span>
+<span id="L79"><span class="lineNum">      79</span>                 :<span class="tlaGNC">           7 :         params-&gt;mSraw_Minimum = GasIndexAlgorithm_NOX_SRAW_MINIMUM;</span></span>
+<span id="L80"><span class="lineNum">      80</span>                 :<span class="tlaGNC">           7 :         params-&gt;mGating_Max_Duration_Minutes =</span></span>
+<span id="L81"><span class="lineNum">      81</span>                 :             :             GasIndexAlgorithm_GATING_NOX_MAX_DURATION_MINUTES;</span>
+<span id="L82"><span class="lineNum">      82</span>                 :<span class="tlaGNC">           7 :         params-&gt;mInit_Duration_Mean = GasIndexAlgorithm_INIT_DURATION_MEAN_NOX;</span></span>
+<span id="L83"><span class="lineNum">      83</span>                 :<span class="tlaGNC">           7 :         params-&gt;mInit_Duration_Variance =</span></span>
+<span id="L84"><span class="lineNum">      84</span>                 :             :             GasIndexAlgorithm_INIT_DURATION_VARIANCE_NOX;</span>
+<span id="L85"><span class="lineNum">      85</span>                 :<span class="tlaGNC">           7 :         params-&gt;mGating_Threshold = GasIndexAlgorithm_GATING_THRESHOLD_NOX;</span></span>
+<span id="L86"><span class="lineNum">      86</span>                 :             :     } else {</span>
+<span id="L87"><span class="lineNum">      87</span>                 :<span class="tlaGNC">           7 :         params-&gt;mIndex_Offset = GasIndexAlgorithm_VOC_INDEX_OFFSET_DEFAULT;</span></span>
+<span id="L88"><span class="lineNum">      88</span>                 :<span class="tlaGNC">           7 :         params-&gt;mSraw_Minimum = GasIndexAlgorithm_VOC_SRAW_MINIMUM;</span></span>
+<span id="L89"><span class="lineNum">      89</span>                 :<span class="tlaGNC">           7 :         params-&gt;mGating_Max_Duration_Minutes =</span></span>
+<span id="L90"><span class="lineNum">      90</span>                 :             :             GasIndexAlgorithm_GATING_VOC_MAX_DURATION_MINUTES;</span>
+<span id="L91"><span class="lineNum">      91</span>                 :<span class="tlaGNC">           7 :         params-&gt;mInit_Duration_Mean = GasIndexAlgorithm_INIT_DURATION_MEAN_VOC;</span></span>
+<span id="L92"><span class="lineNum">      92</span>                 :<span class="tlaGNC">           7 :         params-&gt;mInit_Duration_Variance =</span></span>
+<span id="L93"><span class="lineNum">      93</span>                 :             :             GasIndexAlgorithm_INIT_DURATION_VARIANCE_VOC;</span>
+<span id="L94"><span class="lineNum">      94</span>                 :<span class="tlaGNC">           7 :         params-&gt;mGating_Threshold = GasIndexAlgorithm_GATING_THRESHOLD_VOC;</span></span>
+<span id="L95"><span class="lineNum">      95</span>                 :             :     }</span>
+<span id="L96"><span class="lineNum">      96</span>                 :<span class="tlaGNC">          14 :     params-&gt;mIndex_Gain = GasIndexAlgorithm_INDEX_GAIN;</span></span>
+<span id="L97"><span class="lineNum">      97</span>                 :<span class="tlaGNC">          14 :     params-&gt;mTau_Mean_Hours = GasIndexAlgorithm_TAU_MEAN_HOURS;</span></span>
+<span id="L98"><span class="lineNum">      98</span>                 :<span class="tlaGNC">          14 :     params-&gt;mTau_Variance_Hours = GasIndexAlgorithm_TAU_VARIANCE_HOURS;</span></span>
+<span id="L99"><span class="lineNum">      99</span>                 :<span class="tlaGNC">          14 :     params-&gt;mSraw_Std_Initial = GasIndexAlgorithm_SRAW_STD_INITIAL;</span></span>
+<span id="L100"><span class="lineNum">     100</span>                 :<span class="tlaGNC">          14 :     GasIndexAlgorithm_reset(params);</span></span>
+<span id="L101"><span class="lineNum">     101</span>                 :<span class="tlaGNC">          14 : }</span></span>
+<span id="L102"><span class="lineNum">     102</span>                 :             : </span>
+<span id="L103"><span class="lineNum">     103</span>                 :<span class="tlaGNC">          14 : void GasIndexAlgorithm_init(GasIndexAlgorithmParams* params,</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :             :                             int32_t algorithm_type) {</span>
+<span id="L105"><span class="lineNum">     105</span>                 :<span class="tlaGNC">          14 :     GasIndexAlgorithm_init_with_sampling_interval(</span></span>
+<span id="L106"><span class="lineNum">     106</span>                 :             :         params, algorithm_type, GasIndexAlgorithm_DEFAULT_SAMPLING_INTERVAL);</span>
+<span id="L107"><span class="lineNum">     107</span>                 :<span class="tlaGNC">          14 : }</span></span>
+<span id="L108"><span class="lineNum">     108</span>                 :             : </span>
+<span id="L109"><span class="lineNum">     109</span>                 :<span class="tlaGNC">          15 : void GasIndexAlgorithm_reset(GasIndexAlgorithmParams* params) {</span></span>
+<span id="L110"><span class="lineNum">     110</span>                 :<span class="tlaGNC">          15 :     params-&gt;mUptime = 0.f;</span></span>
+<span id="L111"><span class="lineNum">     111</span>                 :<span class="tlaGNC">          15 :     params-&gt;mSraw = 0.f;</span></span>
+<span id="L112"><span class="lineNum">     112</span>                 :<span class="tlaGNC">          15 :     params-&gt;mGas_Index = 0;</span></span>
+<span id="L113"><span class="lineNum">     113</span>                 :<span class="tlaGNC">          15 :     GasIndexAlgorithm__init_instances(params);</span></span>
+<span id="L114"><span class="lineNum">     114</span>                 :<span class="tlaGNC">          15 : }</span></span>
+<span id="L115"><span class="lineNum">     115</span>                 :             : </span>
+<span id="L116"><span class="lineNum">     116</span>                 :<span class="tlaGNC">          16 : static void GasIndexAlgorithm__init_instances(GasIndexAlgorithmParams* params) {</span></span>
+<span id="L117"><span class="lineNum">     117</span>                 :             : </span>
+<span id="L118"><span class="lineNum">     118</span>                 :<span class="tlaGNC">          16 :     GasIndexAlgorithm__mean_variance_estimator__set_parameters(params);</span></span>
+<span id="L119"><span class="lineNum">     119</span>                 :<span class="tlaGNC">          16 :     GasIndexAlgorithm__mox_model__set_parameters(</span></span>
+<span id="L120"><span class="lineNum">     120</span>                 :             :         params, GasIndexAlgorithm__mean_variance_estimator__get_std(params),</span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :         GasIndexAlgorithm__mean_variance_estimator__get_mean(params));</span>
+<span id="L122"><span class="lineNum">     122</span>         [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 7 times"> + </span>]:<span class="tlaGNC">          16 :     if ((params-&gt;mAlgorithm_Type == GasIndexAlgorithm_ALGORITHM_TYPE_NOX)) {</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaGNC">           9 :         GasIndexAlgorithm__sigmoid_scaled__set_parameters(</span></span>
+<span id="L124"><span class="lineNum">     124</span>                 :             :             params, GasIndexAlgorithm_SIGMOID_X0_NOX,</span>
+<span id="L125"><span class="lineNum">     125</span>                 :             :             GasIndexAlgorithm_SIGMOID_K_NOX,</span>
+<span id="L126"><span class="lineNum">     126</span>                 :             :             GasIndexAlgorithm_NOX_INDEX_OFFSET_DEFAULT);</span>
+<span id="L127"><span class="lineNum">     127</span>                 :             :     } else {</span>
+<span id="L128"><span class="lineNum">     128</span>                 :<span class="tlaGNC">           7 :         GasIndexAlgorithm__sigmoid_scaled__set_parameters(</span></span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :             params, GasIndexAlgorithm_SIGMOID_X0_VOC,</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             :             GasIndexAlgorithm_SIGMOID_K_VOC,</span>
+<span id="L131"><span class="lineNum">     131</span>                 :             :             GasIndexAlgorithm_VOC_INDEX_OFFSET_DEFAULT);</span>
+<span id="L132"><span class="lineNum">     132</span>                 :             :     }</span>
+<span id="L133"><span class="lineNum">     133</span>                 :<span class="tlaGNC">          16 :     GasIndexAlgorithm__adaptive_lowpass__set_parameters(params);</span></span>
+<span id="L134"><span class="lineNum">     134</span>                 :<span class="tlaGNC">          16 : }</span></span>
+<span id="L135"><span class="lineNum">     135</span>                 :             : </span>
+<span id="L136"><span class="lineNum">     136</span>                 :<span class="tlaGNC">           1 : void GasIndexAlgorithm_get_sampling_interval(</span></span>
+<span id="L137"><span class="lineNum">     137</span>                 :             :     const GasIndexAlgorithmParams* params, float* sampling_interval) {</span>
+<span id="L138"><span class="lineNum">     138</span>                 :<span class="tlaGNC">           1 :     *sampling_interval = params-&gt;mSamplingInterval;</span></span>
+<span id="L139"><span class="lineNum">     139</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L140"><span class="lineNum">     140</span>                 :             : </span>
+<span id="L141"><span class="lineNum">     141</span>                 :<span class="tlaGNC">           1 : void GasIndexAlgorithm_get_states(const GasIndexAlgorithmParams* params,</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :             :                                   float* state0, float* state1) {</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             : </span>
+<span id="L144"><span class="lineNum">     144</span>                 :<span class="tlaGNC">           1 :     *state0 = GasIndexAlgorithm__mean_variance_estimator__get_mean(params);</span></span>
+<span id="L145"><span class="lineNum">     145</span>                 :<span class="tlaGNC">           1 :     *state1 = GasIndexAlgorithm__mean_variance_estimator__get_std(params);</span></span>
+<span id="L146"><span class="lineNum">     146</span>                 :<span class="tlaGNC">           1 :     return;</span></span>
+<span id="L147"><span class="lineNum">     147</span>                 :             : }</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             : </span>
+<span id="L149"><span class="lineNum">     149</span>                 :<span class="tlaGNC">           1 : void GasIndexAlgorithm_set_states(GasIndexAlgorithmParams* params, float state0,</span></span>
+<span id="L150"><span class="lineNum">     150</span>                 :             :                                   float state1) {</span>
+<span id="L151"><span class="lineNum">     151</span>                 :             : </span>
+<span id="L152"><span class="lineNum">     152</span>                 :<span class="tlaGNC">           1 :     GasIndexAlgorithm__mean_variance_estimator__set_states(</span></span>
+<span id="L153"><span class="lineNum">     153</span>                 :             :         params, state0, state1, GasIndexAlgorithm_PERSISTENCE_UPTIME_GAMMA);</span>
+<span id="L154"><span class="lineNum">     154</span>                 :<span class="tlaGNC">           1 :     GasIndexAlgorithm__mox_model__set_parameters(</span></span>
+<span id="L155"><span class="lineNum">     155</span>                 :             :         params, GasIndexAlgorithm__mean_variance_estimator__get_std(params),</span>
+<span id="L156"><span class="lineNum">     156</span>                 :             :         GasIndexAlgorithm__mean_variance_estimator__get_mean(params));</span>
+<span id="L157"><span class="lineNum">     157</span>                 :<span class="tlaGNC">           1 :     params-&gt;mSraw = state0;</span></span>
+<span id="L158"><span class="lineNum">     158</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L159"><span class="lineNum">     159</span>                 :             : </span>
+<span id="L160"><span class="lineNum">     160</span>                 :<span class="tlaGNC">           1 : void GasIndexAlgorithm_set_tuning_parameters(</span></span>
+<span id="L161"><span class="lineNum">     161</span>                 :             :     GasIndexAlgorithmParams* params, int32_t index_offset,</span>
+<span id="L162"><span class="lineNum">     162</span>                 :             :     int32_t learning_time_offset_hours, int32_t learning_time_gain_hours,</span>
+<span id="L163"><span class="lineNum">     163</span>                 :             :     int32_t gating_max_duration_minutes, int32_t std_initial,</span>
+<span id="L164"><span class="lineNum">     164</span>                 :             :     int32_t gain_factor) {</span>
+<span id="L165"><span class="lineNum">     165</span>                 :             : </span>
+<span id="L166"><span class="lineNum">     166</span>                 :<span class="tlaGNC">           1 :     params-&gt;mIndex_Offset = ((float)(index_offset));</span></span>
+<span id="L167"><span class="lineNum">     167</span>                 :<span class="tlaGNC">           1 :     params-&gt;mTau_Mean_Hours = ((float)(learning_time_offset_hours));</span></span>
+<span id="L168"><span class="lineNum">     168</span>                 :<span class="tlaGNC">           1 :     params-&gt;mTau_Variance_Hours = ((float)(learning_time_gain_hours));</span></span>
+<span id="L169"><span class="lineNum">     169</span>                 :<span class="tlaGNC">           1 :     params-&gt;mGating_Max_Duration_Minutes =</span></span>
+<span id="L170"><span class="lineNum">     170</span>                 :<span class="tlaGNC">           1 :         ((float)(gating_max_duration_minutes));</span></span>
+<span id="L171"><span class="lineNum">     171</span>                 :<span class="tlaGNC">           1 :     params-&gt;mSraw_Std_Initial = ((float)(std_initial));</span></span>
+<span id="L172"><span class="lineNum">     172</span>                 :<span class="tlaGNC">           1 :     params-&gt;mIndex_Gain = ((float)(gain_factor));</span></span>
+<span id="L173"><span class="lineNum">     173</span>                 :<span class="tlaGNC">           1 :     GasIndexAlgorithm__init_instances(params);</span></span>
+<span id="L174"><span class="lineNum">     174</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L175"><span class="lineNum">     175</span>                 :             : </span>
+<span id="L176"><span class="lineNum">     176</span>                 :<span class="tlaGNC">           1 : void GasIndexAlgorithm_get_tuning_parameters(</span></span>
+<span id="L177"><span class="lineNum">     177</span>                 :             :     const GasIndexAlgorithmParams* params, int32_t* index_offset,</span>
+<span id="L178"><span class="lineNum">     178</span>                 :             :     int32_t* learning_time_offset_hours, int32_t* learning_time_gain_hours,</span>
+<span id="L179"><span class="lineNum">     179</span>                 :             :     int32_t* gating_max_duration_minutes, int32_t* std_initial,</span>
+<span id="L180"><span class="lineNum">     180</span>                 :             :     int32_t* gain_factor) {</span>
+<span id="L181"><span class="lineNum">     181</span>                 :             : </span>
+<span id="L182"><span class="lineNum">     182</span>                 :<span class="tlaGNC">           1 :     *index_offset = ((int32_t)(params-&gt;mIndex_Offset));</span></span>
+<span id="L183"><span class="lineNum">     183</span>                 :<span class="tlaGNC">           1 :     *learning_time_offset_hours = ((int32_t)(params-&gt;mTau_Mean_Hours));</span></span>
+<span id="L184"><span class="lineNum">     184</span>                 :<span class="tlaGNC">           1 :     *learning_time_gain_hours = ((int32_t)(params-&gt;mTau_Variance_Hours));</span></span>
+<span id="L185"><span class="lineNum">     185</span>                 :<span class="tlaGNC">           1 :     *gating_max_duration_minutes =</span></span>
+<span id="L186"><span class="lineNum">     186</span>                 :<span class="tlaGNC">           1 :         ((int32_t)(params-&gt;mGating_Max_Duration_Minutes));</span></span>
+<span id="L187"><span class="lineNum">     187</span>                 :<span class="tlaGNC">           1 :     *std_initial = ((int32_t)(params-&gt;mSraw_Std_Initial));</span></span>
+<span id="L188"><span class="lineNum">     188</span>                 :<span class="tlaGNC">           1 :     *gain_factor = ((int32_t)(params-&gt;mIndex_Gain));</span></span>
+<span id="L189"><span class="lineNum">     189</span>                 :<span class="tlaGNC">           1 :     return;</span></span>
+<span id="L190"><span class="lineNum">     190</span>                 :             : }</span>
+<span id="L191"><span class="lineNum">     191</span>                 :             : </span>
+<span id="L192"><span class="lineNum">     192</span>                 :<span class="tlaGNC">        3102 : void GasIndexAlgorithm_process(GasIndexAlgorithmParams* params, int32_t sraw,</span></span>
+<span id="L193"><span class="lineNum">     193</span>                 :             :                                int32_t* gas_index) {</span>
+<span id="L194"><span class="lineNum">     194</span>                 :             : </span>
+<span id="L195"><span class="lineNum">     195</span>         [<span class="tlaGBC" title="Branch 0 was taken 184 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2918 times"> + </span>]:<span class="tlaGNC">        3102 :     if ((params-&gt;mUptime &lt;= GasIndexAlgorithm_INITIAL_BLACKOUT)) {</span></span>
+<span id="L196"><span class="lineNum">     196</span>                 :<span class="tlaGNC">         184 :         params-&gt;mUptime = (params-&gt;mUptime + params-&gt;mSamplingInterval);</span></span>
+<span id="L197"><span class="lineNum">     197</span>                 :             :     } else {</span>
+<span id="L198"><span class="lineNum">     198</span>   [<span class="tlaGBC" title="Branch 0 was taken 2918 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 2918 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">        2918 :         if (((sraw &gt; 0) &amp;&amp; (sraw &lt; 65000))) {</span></span>
+<span id="L199"><span class="lineNum">     199</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2918 times"> + </span>]:<span class="tlaGNC">        2918 :             if ((sraw &lt; (params-&gt;mSraw_Minimum + 1))) {</span></span>
+<span id="L200"><span class="lineNum">     200</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 sraw = (params-&gt;mSraw_Minimum + 1);</span></span>
+<span id="L201"><span class="lineNum">     201</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2918 times"> + </span>]:<span class="tlaGNC tlaBgGNC">        2918 :             } else if ((sraw &gt; (params-&gt;mSraw_Minimum + 32767))) {</span></span>
+<span id="L202"><span class="lineNum">     202</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 sraw = (params-&gt;mSraw_Minimum + 32767);</span></span>
+<span id="L203"><span class="lineNum">     203</span>                 :             :             }</span>
+<span id="L204"><span class="lineNum">     204</span>                 :<span class="tlaGNC tlaBgGNC">        2918 :             params-&gt;mSraw = ((float)((sraw - params-&gt;mSraw_Minimum)));</span></span>
+<span id="L205"><span class="lineNum">     205</span>                 :             :         }</span>
+<span id="L206"><span class="lineNum">     206</span>         [<span class="tlaGBC" title="Branch 0 was taken 1458 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1460 times"> + </span>]:<span class="tlaGNC">        2918 :         if (((params-&gt;mAlgorithm_Type ==</span></span>
+<span id="L207"><span class="lineNum">     207</span>         [<span class="tlaGBC" title="Branch 0 was taken 1456 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">        1458 :               GasIndexAlgorithm_ALGORITHM_TYPE_VOC) ||</span></span>
+<span id="L208"><span class="lineNum">     208</span>                 :<span class="tlaGNC">        1458 :              GasIndexAlgorithm__mean_variance_estimator__is_initialized(</span></span>
+<span id="L209"><span class="lineNum">     209</span>                 :             :                  params))) {</span>
+<span id="L210"><span class="lineNum">     210</span>                 :<span class="tlaGNC">        2916 :             params-&gt;mGas_Index =</span></span>
+<span id="L211"><span class="lineNum">     211</span>                 :<span class="tlaGNC">        2916 :                 GasIndexAlgorithm__mox_model__process(params, params-&gt;mSraw);</span></span>
+<span id="L212"><span class="lineNum">     212</span>                 :<span class="tlaGNC">        2916 :             params-&gt;mGas_Index = GasIndexAlgorithm__sigmoid_scaled__process(</span></span>
+<span id="L213"><span class="lineNum">     213</span>                 :             :                 params, params-&gt;mGas_Index);</span>
+<span id="L214"><span class="lineNum">     214</span>                 :             :         } else {</span>
+<span id="L215"><span class="lineNum">     215</span>                 :<span class="tlaGNC">           2 :             params-&gt;mGas_Index = params-&gt;mIndex_Offset;</span></span>
+<span id="L216"><span class="lineNum">     216</span>                 :             :         }</span>
+<span id="L217"><span class="lineNum">     217</span>                 :<span class="tlaGNC">        2918 :         params-&gt;mGas_Index = GasIndexAlgorithm__adaptive_lowpass__process(</span></span>
+<span id="L218"><span class="lineNum">     218</span>                 :             :             params, params-&gt;mGas_Index);</span>
+<span id="L219"><span class="lineNum">     219</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2913 times"> + </span>]:<span class="tlaGNC">        2918 :         if ((params-&gt;mGas_Index &lt; 0.5f)) {</span></span>
+<span id="L220"><span class="lineNum">     220</span>                 :<span class="tlaGNC">           5 :             params-&gt;mGas_Index = 0.5f;</span></span>
+<span id="L221"><span class="lineNum">     221</span>                 :             :         }</span>
+<span id="L222"><span class="lineNum">     222</span>         [<span class="tlaGBC" title="Branch 0 was taken 2918 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        2918 :         if ((params-&gt;mSraw &gt; 0.f)) {</span></span>
+<span id="L223"><span class="lineNum">     223</span>                 :<span class="tlaGNC">        2918 :             GasIndexAlgorithm__mean_variance_estimator__process(params,</span></span>
+<span id="L224"><span class="lineNum">     224</span>                 :             :                                                                 params-&gt;mSraw);</span>
+<span id="L225"><span class="lineNum">     225</span>                 :<span class="tlaGNC">        2918 :             GasIndexAlgorithm__mox_model__set_parameters(</span></span>
+<span id="L226"><span class="lineNum">     226</span>                 :             :                 params,</span>
+<span id="L227"><span class="lineNum">     227</span>                 :             :                 GasIndexAlgorithm__mean_variance_estimator__get_std(params),</span>
+<span id="L228"><span class="lineNum">     228</span>                 :             :                 GasIndexAlgorithm__mean_variance_estimator__get_mean(params));</span>
+<span id="L229"><span class="lineNum">     229</span>                 :             :         }</span>
+<span id="L230"><span class="lineNum">     230</span>                 :             :     }</span>
+<span id="L231"><span class="lineNum">     231</span>                 :<span class="tlaGNC">        3102 :     *gas_index = ((int32_t)((params-&gt;mGas_Index + 0.5f)));</span></span>
+<span id="L232"><span class="lineNum">     232</span>                 :<span class="tlaGNC">        3102 :     return;</span></span>
+<span id="L233"><span class="lineNum">     233</span>                 :             : }</span>
+<span id="L234"><span class="lineNum">     234</span>                 :             : </span>
+<span id="L235"><span class="lineNum">     235</span>                 :<span class="tlaGNC">          16 : static void GasIndexAlgorithm__mean_variance_estimator__set_parameters(</span></span>
+<span id="L236"><span class="lineNum">     236</span>                 :             :     GasIndexAlgorithmParams* params) {</span>
+<span id="L237"><span class="lineNum">     237</span>                 :             : </span>
+<span id="L238"><span class="lineNum">     238</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator___Initialized = false;</span></span>
+<span id="L239"><span class="lineNum">     239</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator___Mean = 0.f;</span></span>
+<span id="L240"><span class="lineNum">     240</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator___Sraw_Offset = 0.f;</span></span>
+<span id="L241"><span class="lineNum">     241</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator___Std = params-&gt;mSraw_Std_Initial;</span></span>
+<span id="L242"><span class="lineNum">     242</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator___Gamma_Mean =</span></span>
+<span id="L243"><span class="lineNum">     243</span>                 :             :         (((GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__ADDITIONAL_GAMMA_MEAN_SCALING *</span>
+<span id="L244"><span class="lineNum">     244</span>                 :<span class="tlaGNC">          16 :            GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__GAMMA_SCALING) *</span></span>
+<span id="L245"><span class="lineNum">     245</span>                 :<span class="tlaGNC">          16 :           (params-&gt;mSamplingInterval / 3600.f)) /</span></span>
+<span id="L246"><span class="lineNum">     246</span>                 :<span class="tlaGNC">          16 :          (params-&gt;mTau_Mean_Hours + (params-&gt;mSamplingInterval / 3600.f)));</span></span>
+<span id="L247"><span class="lineNum">     247</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator___Gamma_Variance =</span></span>
+<span id="L248"><span class="lineNum">     248</span>                 :<span class="tlaGNC">          16 :         ((GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__GAMMA_SCALING *</span></span>
+<span id="L249"><span class="lineNum">     249</span>                 :<span class="tlaGNC">          16 :           (params-&gt;mSamplingInterval / 3600.f)) /</span></span>
+<span id="L250"><span class="lineNum">     250</span>                 :<span class="tlaGNC">          16 :          (params-&gt;mTau_Variance_Hours + (params-&gt;mSamplingInterval / 3600.f)));</span></span>
+<span id="L251"><span class="lineNum">     251</span>         [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 7 times"> + </span>]:<span class="tlaGNC">          16 :     if ((params-&gt;mAlgorithm_Type == GasIndexAlgorithm_ALGORITHM_TYPE_NOX)) {</span></span>
+<span id="L252"><span class="lineNum">     252</span>                 :<span class="tlaGNC">           9 :         params-&gt;m_Mean_Variance_Estimator___Gamma_Initial_Mean =</span></span>
+<span id="L253"><span class="lineNum">     253</span>                 :             :             (((GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__ADDITIONAL_GAMMA_MEAN_SCALING *</span>
+<span id="L254"><span class="lineNum">     254</span>                 :<span class="tlaGNC">           9 :                GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__GAMMA_SCALING) *</span></span>
+<span id="L255"><span class="lineNum">     255</span>                 :<span class="tlaGNC">           9 :               params-&gt;mSamplingInterval) /</span></span>
+<span id="L256"><span class="lineNum">     256</span>                 :<span class="tlaGNC">           9 :              (GasIndexAlgorithm_TAU_INITIAL_MEAN_NOX +</span></span>
+<span id="L257"><span class="lineNum">     257</span>                 :<span class="tlaGNC">           9 :               params-&gt;mSamplingInterval));</span></span>
+<span id="L258"><span class="lineNum">     258</span>                 :             :     } else {</span>
+<span id="L259"><span class="lineNum">     259</span>                 :<span class="tlaGNC">           7 :         params-&gt;m_Mean_Variance_Estimator___Gamma_Initial_Mean =</span></span>
+<span id="L260"><span class="lineNum">     260</span>                 :             :             (((GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__ADDITIONAL_GAMMA_MEAN_SCALING *</span>
+<span id="L261"><span class="lineNum">     261</span>                 :<span class="tlaGNC">           7 :                GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__GAMMA_SCALING) *</span></span>
+<span id="L262"><span class="lineNum">     262</span>                 :<span class="tlaGNC">           7 :               params-&gt;mSamplingInterval) /</span></span>
+<span id="L263"><span class="lineNum">     263</span>                 :<span class="tlaGNC">           7 :              (GasIndexAlgorithm_TAU_INITIAL_MEAN_VOC +</span></span>
+<span id="L264"><span class="lineNum">     264</span>                 :<span class="tlaGNC">           7 :               params-&gt;mSamplingInterval));</span></span>
+<span id="L265"><span class="lineNum">     265</span>                 :             :     }</span>
+<span id="L266"><span class="lineNum">     266</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator___Gamma_Initial_Variance =</span></span>
+<span id="L267"><span class="lineNum">     267</span>                 :<span class="tlaGNC">          16 :         ((GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__GAMMA_SCALING *</span></span>
+<span id="L268"><span class="lineNum">     268</span>                 :<span class="tlaGNC">          16 :           params-&gt;mSamplingInterval) /</span></span>
+<span id="L269"><span class="lineNum">     269</span>                 :<span class="tlaGNC">          16 :          (GasIndexAlgorithm_TAU_INITIAL_VARIANCE + params-&gt;mSamplingInterval));</span></span>
+<span id="L270"><span class="lineNum">     270</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator__Gamma_Mean = 0.f;</span></span>
+<span id="L271"><span class="lineNum">     271</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator__Gamma_Variance = 0.f;</span></span>
+<span id="L272"><span class="lineNum">     272</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator___Uptime_Gamma = 0.f;</span></span>
+<span id="L273"><span class="lineNum">     273</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator___Uptime_Gating = 0.f;</span></span>
+<span id="L274"><span class="lineNum">     274</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Mean_Variance_Estimator___Gating_Duration_Minutes = 0.f;</span></span>
+<span id="L275"><span class="lineNum">     275</span>                 :<span class="tlaGNC">          16 : }</span></span>
+<span id="L276"><span class="lineNum">     276</span>                 :             : </span>
+<span id="L277"><span class="lineNum">     277</span>                 :<span class="tlaGNC">           1 : static void GasIndexAlgorithm__mean_variance_estimator__set_states(</span></span>
+<span id="L278"><span class="lineNum">     278</span>                 :             :     GasIndexAlgorithmParams* params, float mean, float std,</span>
+<span id="L279"><span class="lineNum">     279</span>                 :             :     float uptime_gamma) {</span>
+<span id="L280"><span class="lineNum">     280</span>                 :             : </span>
+<span id="L281"><span class="lineNum">     281</span>                 :<span class="tlaGNC">           1 :     params-&gt;m_Mean_Variance_Estimator___Mean = mean;</span></span>
+<span id="L282"><span class="lineNum">     282</span>                 :<span class="tlaGNC">           1 :     params-&gt;m_Mean_Variance_Estimator___Std = std;</span></span>
+<span id="L283"><span class="lineNum">     283</span>                 :<span class="tlaGNC">           1 :     params-&gt;m_Mean_Variance_Estimator___Uptime_Gamma = uptime_gamma;</span></span>
+<span id="L284"><span class="lineNum">     284</span>                 :<span class="tlaGNC">           1 :     params-&gt;m_Mean_Variance_Estimator___Initialized = true;</span></span>
+<span id="L285"><span class="lineNum">     285</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L286"><span class="lineNum">     286</span>                 :             : </span>
+<span id="L287"><span class="lineNum">     287</span>                 :<span class="tlaGNC">        2936 : static float GasIndexAlgorithm__mean_variance_estimator__get_std(</span></span>
+<span id="L288"><span class="lineNum">     288</span>                 :             :     const GasIndexAlgorithmParams* params) {</span>
+<span id="L289"><span class="lineNum">     289</span>                 :             : </span>
+<span id="L290"><span class="lineNum">     290</span>                 :<span class="tlaGNC">        2936 :     return params-&gt;m_Mean_Variance_Estimator___Std;</span></span>
+<span id="L291"><span class="lineNum">     291</span>                 :             : }</span>
+<span id="L292"><span class="lineNum">     292</span>                 :             : </span>
+<span id="L293"><span class="lineNum">     293</span>                 :<span class="tlaGNC">        2936 : static float GasIndexAlgorithm__mean_variance_estimator__get_mean(</span></span>
+<span id="L294"><span class="lineNum">     294</span>                 :             :     const GasIndexAlgorithmParams* params) {</span>
+<span id="L295"><span class="lineNum">     295</span>                 :             : </span>
+<span id="L296"><span class="lineNum">     296</span>                 :<span class="tlaGNC">        5872 :     return (params-&gt;m_Mean_Variance_Estimator___Mean +</span></span>
+<span id="L297"><span class="lineNum">     297</span>                 :<span class="tlaGNC">        2936 :             params-&gt;m_Mean_Variance_Estimator___Sraw_Offset);</span></span>
+<span id="L298"><span class="lineNum">     298</span>                 :             : }</span>
+<span id="L299"><span class="lineNum">     299</span>                 :             : </span>
+<span id="L300"><span class="lineNum">     300</span>                 :<span class="tlaGNC">        1458 : static bool GasIndexAlgorithm__mean_variance_estimator__is_initialized(</span></span>
+<span id="L301"><span class="lineNum">     301</span>                 :             :     GasIndexAlgorithmParams* params) {</span>
+<span id="L302"><span class="lineNum">     302</span>                 :             : </span>
+<span id="L303"><span class="lineNum">     303</span>                 :<span class="tlaGNC">        1458 :     return params-&gt;m_Mean_Variance_Estimator___Initialized;</span></span>
+<span id="L304"><span class="lineNum">     304</span>                 :             : }</span>
+<span id="L305"><span class="lineNum">     305</span>                 :             : </span>
+<span id="L306"><span class="lineNum">     306</span>                 :<span class="tlaGNC">        2914 : static void GasIndexAlgorithm__mean_variance_estimator___calculate_gamma(</span></span>
+<span id="L307"><span class="lineNum">     307</span>                 :             :     GasIndexAlgorithmParams* params) {</span>
+<span id="L308"><span class="lineNum">     308</span>                 :             : </span>
+<span id="L309"><span class="lineNum">     309</span>                 :             :     float uptime_limit;</span>
+<span id="L310"><span class="lineNum">     310</span>                 :             :     float sigmoid_gamma_mean;</span>
+<span id="L311"><span class="lineNum">     311</span>                 :             :     float gamma_mean;</span>
+<span id="L312"><span class="lineNum">     312</span>                 :             :     float gating_threshold_mean;</span>
+<span id="L313"><span class="lineNum">     313</span>                 :             :     float sigmoid_gating_mean;</span>
+<span id="L314"><span class="lineNum">     314</span>                 :             :     float sigmoid_gamma_variance;</span>
+<span id="L315"><span class="lineNum">     315</span>                 :             :     float gamma_variance;</span>
+<span id="L316"><span class="lineNum">     316</span>                 :             :     float gating_threshold_variance;</span>
+<span id="L317"><span class="lineNum">     317</span>                 :             :     float sigmoid_gating_variance;</span>
+<span id="L318"><span class="lineNum">     318</span>                 :             : </span>
+<span id="L319"><span class="lineNum">     319</span>                 :<span class="tlaGNC">        2914 :     uptime_limit = (GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__FIX16_MAX -</span></span>
+<span id="L320"><span class="lineNum">     320</span>                 :<span class="tlaGNC">        2914 :                     params-&gt;mSamplingInterval);</span></span>
+<span id="L321"><span class="lineNum">     321</span>         [<span class="tlaGBC" title="Branch 0 was taken 2914 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        2914 :     if ((params-&gt;m_Mean_Variance_Estimator___Uptime_Gamma &lt; uptime_limit)) {</span></span>
+<span id="L322"><span class="lineNum">     322</span>                 :<span class="tlaGNC">        2914 :         params-&gt;m_Mean_Variance_Estimator___Uptime_Gamma =</span></span>
+<span id="L323"><span class="lineNum">     323</span>                 :<span class="tlaGNC">        2914 :             (params-&gt;m_Mean_Variance_Estimator___Uptime_Gamma +</span></span>
+<span id="L324"><span class="lineNum">     324</span>                 :<span class="tlaGNC">        2914 :              params-&gt;mSamplingInterval);</span></span>
+<span id="L325"><span class="lineNum">     325</span>                 :             :     }</span>
+<span id="L326"><span class="lineNum">     326</span>         [<span class="tlaGBC" title="Branch 0 was taken 2914 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        2914 :     if ((params-&gt;m_Mean_Variance_Estimator___Uptime_Gating &lt; uptime_limit)) {</span></span>
+<span id="L327"><span class="lineNum">     327</span>                 :<span class="tlaGNC">        2914 :         params-&gt;m_Mean_Variance_Estimator___Uptime_Gating =</span></span>
+<span id="L328"><span class="lineNum">     328</span>                 :<span class="tlaGNC">        2914 :             (params-&gt;m_Mean_Variance_Estimator___Uptime_Gating +</span></span>
+<span id="L329"><span class="lineNum">     329</span>                 :<span class="tlaGNC">        2914 :              params-&gt;mSamplingInterval);</span></span>
+<span id="L330"><span class="lineNum">     330</span>                 :             :     }</span>
+<span id="L331"><span class="lineNum">     331</span>                 :<span class="tlaGNC">        2914 :     GasIndexAlgorithm__mean_variance_estimator___sigmoid__set_parameters(</span></span>
+<span id="L332"><span class="lineNum">     332</span>                 :             :         params, params-&gt;mInit_Duration_Mean,</span>
+<span id="L333"><span class="lineNum">     333</span>                 :             :         GasIndexAlgorithm_INIT_TRANSITION_MEAN);</span>
+<span id="L334"><span class="lineNum">     334</span>                 :             :     sigmoid_gamma_mean =</span>
+<span id="L335"><span class="lineNum">     335</span>                 :<span class="tlaGNC">        2914 :         GasIndexAlgorithm__mean_variance_estimator___sigmoid__process(</span></span>
+<span id="L336"><span class="lineNum">     336</span>                 :             :             params, params-&gt;m_Mean_Variance_Estimator___Uptime_Gamma);</span>
+<span id="L337"><span class="lineNum">     337</span>                 :<span class="tlaGNC">        2914 :     gamma_mean = (params-&gt;m_Mean_Variance_Estimator___Gamma_Mean +</span></span>
+<span id="L338"><span class="lineNum">     338</span>                 :<span class="tlaGNC">        2914 :                   ((params-&gt;m_Mean_Variance_Estimator___Gamma_Initial_Mean -</span></span>
+<span id="L339"><span class="lineNum">     339</span>                 :<span class="tlaGNC">        2914 :                     params-&gt;m_Mean_Variance_Estimator___Gamma_Mean) *</span></span>
+<span id="L340"><span class="lineNum">     340</span>                 :             :                    sigmoid_gamma_mean));</span>
+<span id="L341"><span class="lineNum">     341</span>                 :<span class="tlaGNC">        2914 :     gating_threshold_mean =</span></span>
+<span id="L342"><span class="lineNum">     342</span>                 :<span class="tlaGNC">        2914 :         (params-&gt;mGating_Threshold +</span></span>
+<span id="L343"><span class="lineNum">     343</span>                 :<span class="tlaGNC">        2914 :          ((GasIndexAlgorithm_GATING_THRESHOLD_INITIAL -</span></span>
+<span id="L344"><span class="lineNum">     344</span>                 :<span class="tlaGNC">        5828 :            params-&gt;mGating_Threshold) *</span></span>
+<span id="L345"><span class="lineNum">     345</span>                 :<span class="tlaGNC">        2914 :           GasIndexAlgorithm__mean_variance_estimator___sigmoid__process(</span></span>
+<span id="L346"><span class="lineNum">     346</span>                 :             :               params, params-&gt;m_Mean_Variance_Estimator___Uptime_Gating)));</span>
+<span id="L347"><span class="lineNum">     347</span>                 :<span class="tlaGNC">        2914 :     GasIndexAlgorithm__mean_variance_estimator___sigmoid__set_parameters(</span></span>
+<span id="L348"><span class="lineNum">     348</span>                 :             :         params, gating_threshold_mean,</span>
+<span id="L349"><span class="lineNum">     349</span>                 :             :         GasIndexAlgorithm_GATING_THRESHOLD_TRANSITION);</span>
+<span id="L350"><span class="lineNum">     350</span>                 :             :     sigmoid_gating_mean =</span>
+<span id="L351"><span class="lineNum">     351</span>                 :<span class="tlaGNC">        2914 :         GasIndexAlgorithm__mean_variance_estimator___sigmoid__process(</span></span>
+<span id="L352"><span class="lineNum">     352</span>                 :             :             params, params-&gt;mGas_Index);</span>
+<span id="L353"><span class="lineNum">     353</span>                 :<span class="tlaGNC">        2914 :     params-&gt;m_Mean_Variance_Estimator__Gamma_Mean =</span></span>
+<span id="L354"><span class="lineNum">     354</span>                 :<span class="tlaGNC">        2914 :         (sigmoid_gating_mean * gamma_mean);</span></span>
+<span id="L355"><span class="lineNum">     355</span>                 :<span class="tlaGNC">        2914 :     GasIndexAlgorithm__mean_variance_estimator___sigmoid__set_parameters(</span></span>
+<span id="L356"><span class="lineNum">     356</span>                 :             :         params, params-&gt;mInit_Duration_Variance,</span>
+<span id="L357"><span class="lineNum">     357</span>                 :             :         GasIndexAlgorithm_INIT_TRANSITION_VARIANCE);</span>
+<span id="L358"><span class="lineNum">     358</span>                 :             :     sigmoid_gamma_variance =</span>
+<span id="L359"><span class="lineNum">     359</span>                 :<span class="tlaGNC">        2914 :         GasIndexAlgorithm__mean_variance_estimator___sigmoid__process(</span></span>
+<span id="L360"><span class="lineNum">     360</span>                 :             :             params, params-&gt;m_Mean_Variance_Estimator___Uptime_Gamma);</span>
+<span id="L361"><span class="lineNum">     361</span>                 :<span class="tlaGNC">        2914 :     gamma_variance =</span></span>
+<span id="L362"><span class="lineNum">     362</span>                 :<span class="tlaGNC">        2914 :         (params-&gt;m_Mean_Variance_Estimator___Gamma_Variance +</span></span>
+<span id="L363"><span class="lineNum">     363</span>                 :<span class="tlaGNC">        2914 :          ((params-&gt;m_Mean_Variance_Estimator___Gamma_Initial_Variance -</span></span>
+<span id="L364"><span class="lineNum">     364</span>                 :<span class="tlaGNC">        2914 :            params-&gt;m_Mean_Variance_Estimator___Gamma_Variance) *</span></span>
+<span id="L365"><span class="lineNum">     365</span>                 :<span class="tlaGNC">        2914 :           (sigmoid_gamma_variance - sigmoid_gamma_mean)));</span></span>
+<span id="L366"><span class="lineNum">     366</span>                 :<span class="tlaGNC">        2914 :     gating_threshold_variance =</span></span>
+<span id="L367"><span class="lineNum">     367</span>                 :<span class="tlaGNC">        2914 :         (params-&gt;mGating_Threshold +</span></span>
+<span id="L368"><span class="lineNum">     368</span>                 :<span class="tlaGNC">        2914 :          ((GasIndexAlgorithm_GATING_THRESHOLD_INITIAL -</span></span>
+<span id="L369"><span class="lineNum">     369</span>                 :<span class="tlaGNC">        5828 :            params-&gt;mGating_Threshold) *</span></span>
+<span id="L370"><span class="lineNum">     370</span>                 :<span class="tlaGNC">        2914 :           GasIndexAlgorithm__mean_variance_estimator___sigmoid__process(</span></span>
+<span id="L371"><span class="lineNum">     371</span>                 :             :               params, params-&gt;m_Mean_Variance_Estimator___Uptime_Gating)));</span>
+<span id="L372"><span class="lineNum">     372</span>                 :<span class="tlaGNC">        2914 :     GasIndexAlgorithm__mean_variance_estimator___sigmoid__set_parameters(</span></span>
+<span id="L373"><span class="lineNum">     373</span>                 :             :         params, gating_threshold_variance,</span>
+<span id="L374"><span class="lineNum">     374</span>                 :             :         GasIndexAlgorithm_GATING_THRESHOLD_TRANSITION);</span>
+<span id="L375"><span class="lineNum">     375</span>                 :             :     sigmoid_gating_variance =</span>
+<span id="L376"><span class="lineNum">     376</span>                 :<span class="tlaGNC">        2914 :         GasIndexAlgorithm__mean_variance_estimator___sigmoid__process(</span></span>
+<span id="L377"><span class="lineNum">     377</span>                 :             :             params, params-&gt;mGas_Index);</span>
+<span id="L378"><span class="lineNum">     378</span>                 :<span class="tlaGNC">        2914 :     params-&gt;m_Mean_Variance_Estimator__Gamma_Variance =</span></span>
+<span id="L379"><span class="lineNum">     379</span>                 :<span class="tlaGNC">        2914 :         (sigmoid_gating_variance * gamma_variance);</span></span>
+<span id="L380"><span class="lineNum">     380</span>                 :<span class="tlaGNC">        2914 :     params-&gt;m_Mean_Variance_Estimator___Gating_Duration_Minutes =</span></span>
+<span id="L381"><span class="lineNum">     381</span>                 :<span class="tlaGNC">        2914 :         (params-&gt;m_Mean_Variance_Estimator___Gating_Duration_Minutes +</span></span>
+<span id="L382"><span class="lineNum">     382</span>                 :<span class="tlaGNC">        2914 :          ((params-&gt;mSamplingInterval / 60.f) *</span></span>
+<span id="L383"><span class="lineNum">     383</span>                 :<span class="tlaGNC">        2914 :           (((1.f - sigmoid_gating_mean) *</span></span>
+<span id="L384"><span class="lineNum">     384</span>                 :<span class="tlaGNC">        2914 :             (1.f + GasIndexAlgorithm_GATING_MAX_RATIO)) -</span></span>
+<span id="L385"><span class="lineNum">     385</span>                 :             :            GasIndexAlgorithm_GATING_MAX_RATIO)));</span>
+<span id="L386"><span class="lineNum">     386</span>         [<span class="tlaGBC" title="Branch 0 was taken 2914 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        2914 :     if ((params-&gt;m_Mean_Variance_Estimator___Gating_Duration_Minutes &lt; 0.f)) {</span></span>
+<span id="L387"><span class="lineNum">     387</span>                 :<span class="tlaGNC">        2914 :         params-&gt;m_Mean_Variance_Estimator___Gating_Duration_Minutes = 0.f;</span></span>
+<span id="L388"><span class="lineNum">     388</span>                 :             :     }</span>
+<span id="L389"><span class="lineNum">     389</span>                 :<span class="tlaGNC">        2914 :     if ((params-&gt;m_Mean_Variance_Estimator___Gating_Duration_Minutes &gt;</span></span>
+<span id="L390"><span class="lineNum">     390</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2914 times"> + </span>]:<span class="tlaGNC">        2914 :          params-&gt;mGating_Max_Duration_Minutes)) {</span></span>
+<span id="L391"><span class="lineNum">     391</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         params-&gt;m_Mean_Variance_Estimator___Uptime_Gating = 0.f;</span></span>
+<span id="L392"><span class="lineNum">     392</span>                 :             :     }</span>
+<span id="L393"><span class="lineNum">     393</span>                 :<span class="tlaGNC tlaBgGNC">        2914 : }</span></span>
+<span id="L394"><span class="lineNum">     394</span>                 :             : </span>
+<span id="L395"><span class="lineNum">     395</span>                 :<span class="tlaGNC">        2918 : static void GasIndexAlgorithm__mean_variance_estimator__process(</span></span>
+<span id="L396"><span class="lineNum">     396</span>                 :             :     GasIndexAlgorithmParams* params, float sraw) {</span>
+<span id="L397"><span class="lineNum">     397</span>                 :             : </span>
+<span id="L398"><span class="lineNum">     398</span>                 :             :     float delta_sgp;</span>
+<span id="L399"><span class="lineNum">     399</span>                 :             :     float c;</span>
+<span id="L400"><span class="lineNum">     400</span>                 :             :     float additional_scaling;</span>
+<span id="L401"><span class="lineNum">     401</span>                 :             : </span>
+<span id="L402"><span class="lineNum">     402</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2914 times"> + </span>]:<span class="tlaGNC">        2918 :     if ((params-&gt;m_Mean_Variance_Estimator___Initialized == false)) {</span></span>
+<span id="L403"><span class="lineNum">     403</span>                 :<span class="tlaGNC">           4 :         params-&gt;m_Mean_Variance_Estimator___Initialized = true;</span></span>
+<span id="L404"><span class="lineNum">     404</span>                 :<span class="tlaGNC">           4 :         params-&gt;m_Mean_Variance_Estimator___Sraw_Offset = sraw;</span></span>
+<span id="L405"><span class="lineNum">     405</span>                 :<span class="tlaGNC">           4 :         params-&gt;m_Mean_Variance_Estimator___Mean = 0.f;</span></span>
+<span id="L406"><span class="lineNum">     406</span>                 :             :     } else {</span>
+<span id="L407"><span class="lineNum">     407</span>         [<span class="tlaGBC" title="Branch 0 was taken 2649 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 265 times"> + </span>]:<span class="tlaGNC">        2914 :         if (((params-&gt;m_Mean_Variance_Estimator___Mean &gt;= 100.f) ||</span></span>
+<span id="L408"><span class="lineNum">     408</span>         [<span class="tlaGBC" title="Branch 0 was taken 237 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2412 times"> + </span>]:<span class="tlaGNC">        2649 :              (params-&gt;m_Mean_Variance_Estimator___Mean &lt;= -100.f))) {</span></span>
+<span id="L409"><span class="lineNum">     409</span>                 :<span class="tlaGNC">         502 :             params-&gt;m_Mean_Variance_Estimator___Sraw_Offset =</span></span>
+<span id="L410"><span class="lineNum">     410</span>                 :<span class="tlaGNC">         502 :                 (params-&gt;m_Mean_Variance_Estimator___Sraw_Offset +</span></span>
+<span id="L411"><span class="lineNum">     411</span>                 :<span class="tlaGNC">         502 :                  params-&gt;m_Mean_Variance_Estimator___Mean);</span></span>
+<span id="L412"><span class="lineNum">     412</span>                 :<span class="tlaGNC">         502 :             params-&gt;m_Mean_Variance_Estimator___Mean = 0.f;</span></span>
+<span id="L413"><span class="lineNum">     413</span>                 :             :         }</span>
+<span id="L414"><span class="lineNum">     414</span>                 :<span class="tlaGNC">        2914 :         sraw = (sraw - params-&gt;m_Mean_Variance_Estimator___Sraw_Offset);</span></span>
+<span id="L415"><span class="lineNum">     415</span>                 :<span class="tlaGNC">        2914 :         GasIndexAlgorithm__mean_variance_estimator___calculate_gamma(params);</span></span>
+<span id="L416"><span class="lineNum">     416</span>                 :<span class="tlaGNC">        2914 :         delta_sgp = ((sraw - params-&gt;m_Mean_Variance_Estimator___Mean) /</span></span>
+<span id="L417"><span class="lineNum">     417</span>                 :             :                      GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__GAMMA_SCALING);</span>
+<span id="L418"><span class="lineNum">     418</span>         [<span class="tlaGBC" title="Branch 0 was taken 1543 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1371 times"> + </span>]:<span class="tlaGNC">        2914 :         if ((delta_sgp &lt; 0.f)) {</span></span>
+<span id="L419"><span class="lineNum">     419</span>                 :<span class="tlaGNC">        1543 :             c = (params-&gt;m_Mean_Variance_Estimator___Std - delta_sgp);</span></span>
+<span id="L420"><span class="lineNum">     420</span>                 :             :         } else {</span>
+<span id="L421"><span class="lineNum">     421</span>                 :<span class="tlaGNC">        1371 :             c = (params-&gt;m_Mean_Variance_Estimator___Std + delta_sgp);</span></span>
+<span id="L422"><span class="lineNum">     422</span>                 :             :         }</span>
+<span id="L423"><span class="lineNum">     423</span>                 :<span class="tlaGNC">        2914 :         additional_scaling = 1.f;</span></span>
+<span id="L424"><span class="lineNum">     424</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2914 times"> + </span>]:<span class="tlaGNC">        2914 :         if ((c &gt; 1440.f)) {</span></span>
+<span id="L425"><span class="lineNum">     425</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             additional_scaling = ((c / 1440.f) * (c / 1440.f));</span></span>
+<span id="L426"><span class="lineNum">     426</span>                 :             :         }</span>
+<span id="L427"><span class="lineNum">     427</span>                 :<span class="tlaGNC tlaBgGNC">        2914 :         params-&gt;m_Mean_Variance_Estimator___Std =</span></span>
+<span id="L428"><span class="lineNum">     428</span>                 :<span class="tlaGNC">        2914 :             (sqrtf((additional_scaling *</span></span>
+<span id="L429"><span class="lineNum">     429</span>                 :<span class="tlaGNC">        2914 :                     (GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__GAMMA_SCALING -</span></span>
+<span id="L430"><span class="lineNum">     430</span>                 :<span class="tlaGNC">        2914 :                      params-&gt;m_Mean_Variance_Estimator__Gamma_Variance))) *</span></span>
+<span id="L431"><span class="lineNum">     431</span>                 :<span class="tlaGNC">        2914 :              sqrtf(</span></span>
+<span id="L432"><span class="lineNum">     432</span>                 :<span class="tlaGNC">        2914 :                  ((params-&gt;m_Mean_Variance_Estimator___Std *</span></span>
+<span id="L433"><span class="lineNum">     433</span>                 :<span class="tlaGNC">        2914 :                    (params-&gt;m_Mean_Variance_Estimator___Std /</span></span>
+<span id="L434"><span class="lineNum">     434</span>                 :<span class="tlaGNC">        2914 :                     (GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__GAMMA_SCALING *</span></span>
+<span id="L435"><span class="lineNum">     435</span>                 :             :                      additional_scaling))) +</span>
+<span id="L436"><span class="lineNum">     436</span>                 :<span class="tlaGNC">        2914 :                   (((params-&gt;m_Mean_Variance_Estimator__Gamma_Variance *</span></span>
+<span id="L437"><span class="lineNum">     437</span>                 :<span class="tlaGNC">        2914 :                      delta_sgp) /</span></span>
+<span id="L438"><span class="lineNum">     438</span>                 :<span class="tlaGNC">        2914 :                     additional_scaling) *</span></span>
+<span id="L439"><span class="lineNum">     439</span>                 :             :                    delta_sgp))));</span>
+<span id="L440"><span class="lineNum">     440</span>                 :<span class="tlaGNC">        2914 :         params-&gt;m_Mean_Variance_Estimator___Mean =</span></span>
+<span id="L441"><span class="lineNum">     441</span>                 :<span class="tlaGNC">        2914 :             (params-&gt;m_Mean_Variance_Estimator___Mean +</span></span>
+<span id="L442"><span class="lineNum">     442</span>                 :<span class="tlaGNC">        2914 :              ((params-&gt;m_Mean_Variance_Estimator__Gamma_Mean * delta_sgp) /</span></span>
+<span id="L443"><span class="lineNum">     443</span>                 :             :               GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__ADDITIONAL_GAMMA_MEAN_SCALING));</span>
+<span id="L444"><span class="lineNum">     444</span>                 :             :     }</span>
+<span id="L445"><span class="lineNum">     445</span>                 :<span class="tlaGNC">        2918 : }</span></span>
+<span id="L446"><span class="lineNum">     446</span>                 :             : </span>
+<span id="L447"><span class="lineNum">     447</span>                 :             : static void</span>
+<span id="L448"><span class="lineNum">     448</span>                 :<span class="tlaGNC">       11656 : GasIndexAlgorithm__mean_variance_estimator___sigmoid__set_parameters(</span></span>
+<span id="L449"><span class="lineNum">     449</span>                 :             :     GasIndexAlgorithmParams* params, float X0, float K) {</span>
+<span id="L450"><span class="lineNum">     450</span>                 :             : </span>
+<span id="L451"><span class="lineNum">     451</span>                 :<span class="tlaGNC">       11656 :     params-&gt;m_Mean_Variance_Estimator___Sigmoid__K = K;</span></span>
+<span id="L452"><span class="lineNum">     452</span>                 :<span class="tlaGNC">       11656 :     params-&gt;m_Mean_Variance_Estimator___Sigmoid__X0 = X0;</span></span>
+<span id="L453"><span class="lineNum">     453</span>                 :<span class="tlaGNC">       11656 : }</span></span>
+<span id="L454"><span class="lineNum">     454</span>                 :             : </span>
+<span id="L455"><span class="lineNum">     455</span>                 :<span class="tlaGNC">       17484 : static float GasIndexAlgorithm__mean_variance_estimator___sigmoid__process(</span></span>
+<span id="L456"><span class="lineNum">     456</span>                 :             :     GasIndexAlgorithmParams* params, float sample) {</span>
+<span id="L457"><span class="lineNum">     457</span>                 :             : </span>
+<span id="L458"><span class="lineNum">     458</span>                 :             :     float x;</span>
+<span id="L459"><span class="lineNum">     459</span>                 :             : </span>
+<span id="L460"><span class="lineNum">     460</span>                 :<span class="tlaGNC">       17484 :     x = (params-&gt;m_Mean_Variance_Estimator___Sigmoid__K *</span></span>
+<span id="L461"><span class="lineNum">     461</span>                 :<span class="tlaGNC">       17484 :          (sample - params-&gt;m_Mean_Variance_Estimator___Sigmoid__X0));</span></span>
+<span id="L462"><span class="lineNum">     462</span>         [<span class="tlaGBC" title="Branch 0 was taken 6268 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 11216 times"> + </span>]:<span class="tlaGNC">       17484 :     if ((x &lt; -50.f)) {</span></span>
+<span id="L463"><span class="lineNum">     463</span>                 :<span class="tlaGNC">        6268 :         return 1.f;</span></span>
+<span id="L464"><span class="lineNum">     464</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 11216 times"> + </span>]:<span class="tlaGNC">       11216 :     } else if ((x &gt; 50.f)) {</span></span>
+<span id="L465"><span class="lineNum">     465</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         return 0.f;</span></span>
+<span id="L466"><span class="lineNum">     466</span>                 :             :     } else {</span>
+<span id="L467"><span class="lineNum">     467</span>                 :<span class="tlaGNC tlaBgGNC">       11216 :         return (1.f / (1.f + expf(x)));</span></span>
+<span id="L468"><span class="lineNum">     468</span>                 :             :     }</span>
+<span id="L469"><span class="lineNum">     469</span>                 :             : }</span>
+<span id="L470"><span class="lineNum">     470</span>                 :             : </span>
+<span id="L471"><span class="lineNum">     471</span>                 :             : static void</span>
+<span id="L472"><span class="lineNum">     472</span>                 :<span class="tlaGNC">        2935 : GasIndexAlgorithm__mox_model__set_parameters(GasIndexAlgorithmParams* params,</span></span>
+<span id="L473"><span class="lineNum">     473</span>                 :             :                                              float SRAW_STD, float SRAW_MEAN) {</span>
+<span id="L474"><span class="lineNum">     474</span>                 :             : </span>
+<span id="L475"><span class="lineNum">     475</span>                 :<span class="tlaGNC">        2935 :     params-&gt;m_Mox_Model__Sraw_Std = SRAW_STD;</span></span>
+<span id="L476"><span class="lineNum">     476</span>                 :<span class="tlaGNC">        2935 :     params-&gt;m_Mox_Model__Sraw_Mean = SRAW_MEAN;</span></span>
+<span id="L477"><span class="lineNum">     477</span>                 :<span class="tlaGNC">        2935 : }</span></span>
+<span id="L478"><span class="lineNum">     478</span>                 :             : </span>
+<span id="L479"><span class="lineNum">     479</span>                 :             : static float</span>
+<span id="L480"><span class="lineNum">     480</span>                 :<span class="tlaGNC">        2916 : GasIndexAlgorithm__mox_model__process(GasIndexAlgorithmParams* params,</span></span>
+<span id="L481"><span class="lineNum">     481</span>                 :             :                                       float sraw) {</span>
+<span id="L482"><span class="lineNum">     482</span>                 :             : </span>
+<span id="L483"><span class="lineNum">     483</span>         [<span class="tlaGBC" title="Branch 0 was taken 1456 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1460 times"> + </span>]:<span class="tlaGNC">        2916 :     if ((params-&gt;mAlgorithm_Type == GasIndexAlgorithm_ALGORITHM_TYPE_NOX)) {</span></span>
+<span id="L484"><span class="lineNum">     484</span>                 :<span class="tlaGNC">        1456 :         return (((sraw - params-&gt;m_Mox_Model__Sraw_Mean) /</span></span>
+<span id="L485"><span class="lineNum">     485</span>                 :<span class="tlaGNC">        1456 :                  GasIndexAlgorithm_SRAW_STD_NOX) *</span></span>
+<span id="L486"><span class="lineNum">     486</span>                 :<span class="tlaGNC">        1456 :                 params-&gt;mIndex_Gain);</span></span>
+<span id="L487"><span class="lineNum">     487</span>                 :             :     } else {</span>
+<span id="L488"><span class="lineNum">     488</span>                 :<span class="tlaGNC">        1460 :         return (((sraw - params-&gt;m_Mox_Model__Sraw_Mean) /</span></span>
+<span id="L489"><span class="lineNum">     489</span>                 :<span class="tlaGNC">        1460 :                  (-1.f * (params-&gt;m_Mox_Model__Sraw_Std +</span></span>
+<span id="L490"><span class="lineNum">     490</span>                 :<span class="tlaGNC">        1460 :                           GasIndexAlgorithm_SRAW_STD_BONUS_VOC))) *</span></span>
+<span id="L491"><span class="lineNum">     491</span>                 :<span class="tlaGNC">        1460 :                 params-&gt;mIndex_Gain);</span></span>
+<span id="L492"><span class="lineNum">     492</span>                 :             :     }</span>
+<span id="L493"><span class="lineNum">     493</span>                 :             : }</span>
+<span id="L494"><span class="lineNum">     494</span>                 :             : </span>
+<span id="L495"><span class="lineNum">     495</span>                 :<span class="tlaGNC">          16 : static void GasIndexAlgorithm__sigmoid_scaled__set_parameters(</span></span>
+<span id="L496"><span class="lineNum">     496</span>                 :             :     GasIndexAlgorithmParams* params, float X0, float K, float offset_default) {</span>
+<span id="L497"><span class="lineNum">     497</span>                 :             : </span>
+<span id="L498"><span class="lineNum">     498</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Sigmoid_Scaled__K = K;</span></span>
+<span id="L499"><span class="lineNum">     499</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Sigmoid_Scaled__X0 = X0;</span></span>
+<span id="L500"><span class="lineNum">     500</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Sigmoid_Scaled__Offset_Default = offset_default;</span></span>
+<span id="L501"><span class="lineNum">     501</span>                 :<span class="tlaGNC">          16 : }</span></span>
+<span id="L502"><span class="lineNum">     502</span>                 :             : </span>
+<span id="L503"><span class="lineNum">     503</span>                 :             : static float</span>
+<span id="L504"><span class="lineNum">     504</span>                 :<span class="tlaGNC">        2916 : GasIndexAlgorithm__sigmoid_scaled__process(GasIndexAlgorithmParams* params,</span></span>
+<span id="L505"><span class="lineNum">     505</span>                 :             :                                            float sample) {</span>
+<span id="L506"><span class="lineNum">     506</span>                 :             : </span>
+<span id="L507"><span class="lineNum">     507</span>                 :             :     float x;</span>
+<span id="L508"><span class="lineNum">     508</span>                 :             :     float shift;</span>
+<span id="L509"><span class="lineNum">     509</span>                 :             : </span>
+<span id="L510"><span class="lineNum">     510</span>                 :<span class="tlaGNC">        2916 :     x = (params-&gt;m_Sigmoid_Scaled__K * (sample - params-&gt;m_Sigmoid_Scaled__X0));</span></span>
+<span id="L511"><span class="lineNum">     511</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2916 times"> + </span>]:<span class="tlaGNC">        2916 :     if ((x &lt; -50.f)) {</span></span>
+<span id="L512"><span class="lineNum">     512</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         return GasIndexAlgorithm_SIGMOID_L;</span></span>
+<span id="L513"><span class="lineNum">     513</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2916 times"> + </span>]:<span class="tlaGNC tlaBgGNC">        2916 :     } else if ((x &gt; 50.f)) {</span></span>
+<span id="L514"><span class="lineNum">     514</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         return 0.f;</span></span>
+<span id="L515"><span class="lineNum">     515</span>                 :             :     } else {</span>
+<span id="L516"><span class="lineNum">     516</span>         [<span class="tlaGBC" title="Branch 0 was taken 837 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2079 times"> + </span>]:<span class="tlaGNC tlaBgGNC">        2916 :         if ((sample &gt;= 0.f)) {</span></span>
+<span id="L517"><span class="lineNum">     517</span>         [<span class="tlaGBC" title="Branch 0 was taken 375 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 462 times"> + </span>]:<span class="tlaGNC">         837 :             if ((params-&gt;m_Sigmoid_Scaled__Offset_Default == 1.f)) {</span></span>
+<span id="L518"><span class="lineNum">     518</span>                 :<span class="tlaGNC">         375 :                 shift = ((500.f / 499.f) * (1.f - params-&gt;mIndex_Offset));</span></span>
+<span id="L519"><span class="lineNum">     519</span>                 :             :             } else {</span>
+<span id="L520"><span class="lineNum">     520</span>                 :<span class="tlaGNC">         462 :                 shift = ((GasIndexAlgorithm_SIGMOID_L -</span></span>
+<span id="L521"><span class="lineNum">     521</span>                 :<span class="tlaGNC">         462 :                           (5.f * params-&gt;mIndex_Offset)) /</span></span>
+<span id="L522"><span class="lineNum">     522</span>                 :             :                          4.f);</span>
+<span id="L523"><span class="lineNum">     523</span>                 :             :             }</span>
+<span id="L524"><span class="lineNum">     524</span>                 :<span class="tlaGNC">         837 :             return (((GasIndexAlgorithm_SIGMOID_L + shift) / (1.f + expf(x))) -</span></span>
+<span id="L525"><span class="lineNum">     525</span>                 :             :                     shift);</span>
+<span id="L526"><span class="lineNum">     526</span>                 :             :         } else {</span>
+<span id="L527"><span class="lineNum">     527</span>                 :<span class="tlaGNC">        2079 :             return ((params-&gt;mIndex_Offset /</span></span>
+<span id="L528"><span class="lineNum">     528</span>                 :<span class="tlaGNC">        2079 :                      params-&gt;m_Sigmoid_Scaled__Offset_Default) *</span></span>
+<span id="L529"><span class="lineNum">     529</span>                 :<span class="tlaGNC">        2079 :                     (GasIndexAlgorithm_SIGMOID_L / (1.f + expf(x))));</span></span>
+<span id="L530"><span class="lineNum">     530</span>                 :             :         }</span>
+<span id="L531"><span class="lineNum">     531</span>                 :             :     }</span>
+<span id="L532"><span class="lineNum">     532</span>                 :             : }</span>
+<span id="L533"><span class="lineNum">     533</span>                 :             : </span>
+<span id="L534"><span class="lineNum">     534</span>                 :<span class="tlaGNC">          16 : static void GasIndexAlgorithm__adaptive_lowpass__set_parameters(</span></span>
+<span id="L535"><span class="lineNum">     535</span>                 :             :     GasIndexAlgorithmParams* params) {</span>
+<span id="L536"><span class="lineNum">     536</span>                 :             : </span>
+<span id="L537"><span class="lineNum">     537</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Adaptive_Lowpass__A1 =</span></span>
+<span id="L538"><span class="lineNum">     538</span>                 :<span class="tlaGNC">          16 :         (params-&gt;mSamplingInterval /</span></span>
+<span id="L539"><span class="lineNum">     539</span>                 :<span class="tlaGNC">          16 :          (GasIndexAlgorithm_LP_TAU_FAST + params-&gt;mSamplingInterval));</span></span>
+<span id="L540"><span class="lineNum">     540</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Adaptive_Lowpass__A2 =</span></span>
+<span id="L541"><span class="lineNum">     541</span>                 :<span class="tlaGNC">          16 :         (params-&gt;mSamplingInterval /</span></span>
+<span id="L542"><span class="lineNum">     542</span>                 :<span class="tlaGNC">          16 :          (GasIndexAlgorithm_LP_TAU_SLOW + params-&gt;mSamplingInterval));</span></span>
+<span id="L543"><span class="lineNum">     543</span>                 :<span class="tlaGNC">          16 :     params-&gt;m_Adaptive_Lowpass___Initialized = false;</span></span>
+<span id="L544"><span class="lineNum">     544</span>                 :<span class="tlaGNC">          16 : }</span></span>
+<span id="L545"><span class="lineNum">     545</span>                 :             : </span>
+<span id="L546"><span class="lineNum">     546</span>                 :             : static float</span>
+<span id="L547"><span class="lineNum">     547</span>                 :<span class="tlaGNC">        2918 : GasIndexAlgorithm__adaptive_lowpass__process(GasIndexAlgorithmParams* params,</span></span>
+<span id="L548"><span class="lineNum">     548</span>                 :             :                                              float sample) {</span>
+<span id="L549"><span class="lineNum">     549</span>                 :             : </span>
+<span id="L550"><span class="lineNum">     550</span>                 :             :     float abs_delta;</span>
+<span id="L551"><span class="lineNum">     551</span>                 :             :     float F1;</span>
+<span id="L552"><span class="lineNum">     552</span>                 :             :     float tau_a;</span>
+<span id="L553"><span class="lineNum">     553</span>                 :             :     float a3;</span>
+<span id="L554"><span class="lineNum">     554</span>                 :             : </span>
+<span id="L555"><span class="lineNum">     555</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2914 times"> + </span>]:<span class="tlaGNC">        2918 :     if ((params-&gt;m_Adaptive_Lowpass___Initialized == false)) {</span></span>
+<span id="L556"><span class="lineNum">     556</span>                 :<span class="tlaGNC">           4 :         params-&gt;m_Adaptive_Lowpass___X1 = sample;</span></span>
+<span id="L557"><span class="lineNum">     557</span>                 :<span class="tlaGNC">           4 :         params-&gt;m_Adaptive_Lowpass___X2 = sample;</span></span>
+<span id="L558"><span class="lineNum">     558</span>                 :<span class="tlaGNC">           4 :         params-&gt;m_Adaptive_Lowpass___X3 = sample;</span></span>
+<span id="L559"><span class="lineNum">     559</span>                 :<span class="tlaGNC">           4 :         params-&gt;m_Adaptive_Lowpass___Initialized = true;</span></span>
+<span id="L560"><span class="lineNum">     560</span>                 :             :     }</span>
+<span id="L561"><span class="lineNum">     561</span>                 :<span class="tlaGNC">        2918 :     params-&gt;m_Adaptive_Lowpass___X1 =</span></span>
+<span id="L562"><span class="lineNum">     562</span>                 :<span class="tlaGNC">        2918 :         (((1.f - params-&gt;m_Adaptive_Lowpass__A1) *</span></span>
+<span id="L563"><span class="lineNum">     563</span>                 :<span class="tlaGNC">        2918 :           params-&gt;m_Adaptive_Lowpass___X1) +</span></span>
+<span id="L564"><span class="lineNum">     564</span>                 :<span class="tlaGNC">        2918 :          (params-&gt;m_Adaptive_Lowpass__A1 * sample));</span></span>
+<span id="L565"><span class="lineNum">     565</span>                 :<span class="tlaGNC">        2918 :     params-&gt;m_Adaptive_Lowpass___X2 =</span></span>
+<span id="L566"><span class="lineNum">     566</span>                 :<span class="tlaGNC">        2918 :         (((1.f - params-&gt;m_Adaptive_Lowpass__A2) *</span></span>
+<span id="L567"><span class="lineNum">     567</span>                 :<span class="tlaGNC">        2918 :           params-&gt;m_Adaptive_Lowpass___X2) +</span></span>
+<span id="L568"><span class="lineNum">     568</span>                 :<span class="tlaGNC">        2918 :          (params-&gt;m_Adaptive_Lowpass__A2 * sample));</span></span>
+<span id="L569"><span class="lineNum">     569</span>                 :<span class="tlaGNC">        2918 :     abs_delta =</span></span>
+<span id="L570"><span class="lineNum">     570</span>                 :<span class="tlaGNC">        2918 :         (params-&gt;m_Adaptive_Lowpass___X1 - params-&gt;m_Adaptive_Lowpass___X2);</span></span>
+<span id="L571"><span class="lineNum">     571</span>         [<span class="tlaGBC" title="Branch 0 was taken 1471 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1447 times"> + </span>]:<span class="tlaGNC">        2918 :     if ((abs_delta &lt; 0.f)) {</span></span>
+<span id="L572"><span class="lineNum">     572</span>                 :<span class="tlaGNC">        1471 :         abs_delta = (-1.f * abs_delta);</span></span>
+<span id="L573"><span class="lineNum">     573</span>                 :             :     }</span>
+<span id="L574"><span class="lineNum">     574</span>                 :<span class="tlaGNC">        2918 :     F1 = expf((GasIndexAlgorithm_LP_ALPHA * abs_delta));</span></span>
+<span id="L575"><span class="lineNum">     575</span>                 :<span class="tlaGNC">        2918 :     tau_a = (((GasIndexAlgorithm_LP_TAU_SLOW - GasIndexAlgorithm_LP_TAU_FAST) *</span></span>
+<span id="L576"><span class="lineNum">     576</span>                 :             :               F1) +</span>
+<span id="L577"><span class="lineNum">     577</span>                 :             :              GasIndexAlgorithm_LP_TAU_FAST);</span>
+<span id="L578"><span class="lineNum">     578</span>                 :<span class="tlaGNC">        2918 :     a3 = (params-&gt;mSamplingInterval / (params-&gt;mSamplingInterval + tau_a));</span></span>
+<span id="L579"><span class="lineNum">     579</span>                 :<span class="tlaGNC">        2918 :     params-&gt;m_Adaptive_Lowpass___X3 =</span></span>
+<span id="L580"><span class="lineNum">     580</span>                 :<span class="tlaGNC">        2918 :         (((1.f - a3) * params-&gt;m_Adaptive_Lowpass___X3) + (a3 * sample));</span></span>
+<span id="L581"><span class="lineNum">     581</span>                 :<span class="tlaGNC">        2918 :     return params-&gt;m_Adaptive_Lowpass___X3;</span></span>
+<span id="L582"><span class="lineNum">     582</span>                 :             : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

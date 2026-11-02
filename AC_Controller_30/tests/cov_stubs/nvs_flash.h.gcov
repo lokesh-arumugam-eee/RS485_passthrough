@@ -1,0 +1,15 @@
+        -:    0:Source:/mnt/d/Projects/Modbus_project/Modbus_cpplib_S3/AC_Controller_30/tests/cov_stubs/stubs/nvs_flash.h
+        -:    0:Graph:build/main/mqtt/mqtt_manager.gcno
+        -:    0:Data:build/main/mqtt/mqtt_manager.gcda
+        -:    0:Runs:1
+        -:    1:#pragma once
+        -:    2:#include "esp_err.h"
+        -:    3:#define ESP_ERR_NVS_NO_FREE_PAGES    0x1101
+        -:    4:#define ESP_ERR_NVS_NEW_VERSION_FOUND 0x1102
+        -:    5:#define ESP_ERR_NVS_NOT_ENOUGH_SPACE 0x1103
+function nvs_flash_init called 0 returned 0% blocks executed 0%
+    #####:    6:static inline esp_err_t nvs_flash_init(void){return ESP_OK;}
+        -:    7:static inline esp_err_t nvs_flash_init_partition(const char* partition_label){(void)partition_label;return ESP_OK;}
+        -:    8:static inline esp_err_t nvs_flash_erase(void){return ESP_OK;}
+        -:    9:static inline esp_err_t nvs_flash_erase_partition(const char* partition_label){(void)partition_label;return ESP_OK;}
+        -:   10:static inline esp_err_t nvs_flash_deinit(void){return ESP_OK;}

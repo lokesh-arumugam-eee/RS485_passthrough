@@ -1,0 +1,1 @@
+genhtml /mnt/d/Projects/Modbus_project/Modbus_cpplib_S3/AC_Controller_30/tests/cov_stubs/build/coverage_filtered.info --output-directory /mnt/d/Projects/Modbus_project/Modbus_cpplib_S3/AC_Controller_30/tests/cov_stubs/html_report --title 'AC_Controller_30 Coverage' --legend --branch-coverage

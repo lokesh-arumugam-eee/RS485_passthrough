@@ -1,0 +1,21 @@
+        -:    0:Source:/mnt/d/Projects/Modbus_project/Modbus_cpplib_S3/AC_Controller_30/tests/cov_stubs/stubs/esp_err.h
+        -:    0:Graph:build/main/xmodem/xmodem.gcno
+        -:    0:Data:build/main/xmodem/xmodem.gcda
+        -:    0:Runs:2
+        -:    1:#pragma once
+        -:    2:#include <stdint.h>
+        -:    3:#include "esp_bit_defs.h"
+        -:    4:typedef int32_t esp_err_t;
+        -:    5:#define ESP_OK            0
+        -:    6:#define ESP_FAIL         -1
+        -:    7:#define ESP_ERR_NO_MEM   0x101
+        -:    8:#define ESP_ERR_NOT_FOUND 0x105
+        -:    9:#define ESP_ERR_INVALID_ARG 0x102
+        -:   10:#define ESP_ERR_INVALID_STATE 0x103
+        -:   11:#define ESP_ERR_TIMEOUT   0x107
+        -:   12:#define ESP_ERR_INVALID_CRC 0x108
+        -:   13:#define ESP_ERR_NVS_NOT_FOUND 0x1100
+        -:   14:#define ESP_ERROR_CHECK(x) (x)
+        -:   15:#define ESP_ERROR_CHECK_WITHOUT_ABORT(x) (x)
+function esp_err_to_name called 4 returned 100% blocks executed 100%
+        4:   16:static inline const char* esp_err_to_name(esp_err_t e){(void)e;return "ERR";}

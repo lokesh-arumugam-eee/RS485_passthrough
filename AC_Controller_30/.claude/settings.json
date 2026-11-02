@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wsl.exe -e bash -c \"grep -nE 'Jio_' /mnt/d/Projects/Modbus_project/Modbus_cpplib_S3/AC_Controller_30/main/SafeFunctions/Jio_EA_Safe_Functions.h | grep '\\(' | head -20\")"
+    ]
+  }
+}

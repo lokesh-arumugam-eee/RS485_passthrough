@@ -1,0 +1,627 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AC_Controller_30 Coverage - tests/cov_stubs/esp_stubs.c</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">tests/cov_stubs</a> - esp_stubs.c<span style="font-size: 80%;"> (source / <a href="esp_stubs.c.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AC_Controller_30 Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">46.9&nbsp;%</td>
+            <td class="headerCovTableEntry">256</td>
+            <td class="headerCovTableEntry">120</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-05-08 12:18:40</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">30.2&nbsp;%</td>
+            <td class="headerCovTableEntry">169</td>
+            <td class="headerCovTableEntry">51</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">57.8&nbsp;%</td>
+            <td class="headerCovTableEntry">116</td>
+            <td class="headerCovTableEntry">67</td>
+          </tr>
+                  <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /* Runtime stub implementations for ESP-IDF non-static functions */</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : #include &lt;stdint.h&gt;</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : #include &lt;stdbool.h&gt;</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : #include &lt;stddef.h&gt;</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : #include &lt;stdio.h&gt;</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : #include &lt;stdlib.h&gt;</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : #include &lt;string.h&gt;</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : #include &lt;stdarg.h&gt;</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : #include &lt;time.h&gt;</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : </span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : /* esp_err_t */</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : typedef int32_t esp_err_t;</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : #define ESP_OK  0</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : #define ESP_FAIL -1</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : </span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             : /*  esp_netif                                                           */</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : typedef struct { uint32_t addr; } esp_ip4_addr_t;</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             : typedef struct { esp_ip4_addr_t ip; esp_ip4_addr_t netmask; esp_ip4_addr_t gw; } esp_netif_ip_info_t;</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             : typedef void* esp_netif_t;</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             : </span>
+<span id="L23"><span class="lineNum">      23</span>                 :<span class="tlaUNC tlaBgUNC">           0 : esp_netif_t esp_netif_create_default_wifi_sta(void)      { return NULL; }</span></span>
+<span id="L24"><span class="lineNum">      24</span>                 :<span class="tlaUNC">           0 : esp_netif_t esp_netif_create_default_wifi_ap(void)       { return NULL; }</span></span>
+<span id="L25"><span class="lineNum">      25</span>                 :<span class="tlaUNC">           0 : void esp_netif_destroy_default_wifi(esp_netif_t *esp_netif){ (void)esp_netif; }</span></span>
+<span id="L26"><span class="lineNum">      26</span>                 :             : </span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             : /*  esp_event loop (non-static additional helpers)                     */</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             : typedef const char* esp_event_base_t;</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             : typedef void* esp_event_loop_handle_t;</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             : </span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : /* Event base definitions (extern declared in esp_wifi.h / esp_netif.h) */</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : esp_event_base_t WIFI_EVENT = &quot;WIFI_EVENT&quot;;</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             : esp_event_base_t IP_EVENT   = &quot;IP_EVENT&quot;;</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : </span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : /*  FreeRTOS Queue stubs                                               */</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : typedef uint32_t TickType_t;</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : typedef int      BaseType_t;</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : typedef void*    QueueHandle_t;</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : </span>
+<span id="L44"><span class="lineNum">      44</span>                 :<span class="tlaUNC">           0 : QueueHandle_t xQueueCreate(uint32_t uxQueueLength, uint32_t uxItemSize){</span></span>
+<span id="L45"><span class="lineNum">      45</span>                 :<span class="tlaUNC">           0 :     (void)uxQueueLength; (void)uxItemSize; return (QueueHandle_t)malloc(1);</span></span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : }</span>
+<span id="L47"><span class="lineNum">      47</span>                 :<span class="tlaUNC">           0 : void vQueueDelete(QueueHandle_t xQueue){ free(xQueue); }</span></span>
+<span id="L48"><span class="lineNum">      48</span>                 :<span class="tlaUNC">           0 : BaseType_t xQueueSend(QueueHandle_t xQueue, const void *pvItemToQueue, TickType_t xTicksToWait){</span></span>
+<span id="L49"><span class="lineNum">      49</span>                 :<span class="tlaUNC">           0 :     (void)xQueue; (void)pvItemToQueue; (void)xTicksToWait; return 1;</span></span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : }</span>
+<span id="L51"><span class="lineNum">      51</span>                 :<span class="tlaGNC tlaBgGNC">           4 : BaseType_t xQueueReceive(QueueHandle_t xQueue, void *pvBuffer, TickType_t xTicksToWait){</span></span>
+<span id="L52"><span class="lineNum">      52</span>                 :<span class="tlaGNC">           4 :     (void)xQueue; (void)pvBuffer; (void)xTicksToWait; return 0;</span></span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : }</span>
+<span id="L54"><span class="lineNum">      54</span>                 :<span class="tlaUNC tlaBgUNC">           0 : BaseType_t xQueueSendFromISR(QueueHandle_t xQueue, const void *pvItemToQueue, BaseType_t *pxHigherPriorityTaskWoken){</span></span>
+<span id="L55"><span class="lineNum">      55</span>                 :<span class="tlaUNC">           0 :     (void)xQueue; (void)pvItemToQueue; (void)pxHigherPriorityTaskWoken; return 1;</span></span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : }</span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : </span>
+<span id="L58"><span class="lineNum">      58</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L59"><span class="lineNum">      59</span>                 :             : /*  vTaskDelay / xTaskGetTickCount (non-static)                        */</span>
+<span id="L60"><span class="lineNum">      60</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L61"><span class="lineNum">      61</span>                 :<span class="tlaUNC">           0 : void    vTaskDelay(TickType_t xTicks){ (void)xTicks; }</span></span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : /* Increment each call so retry/timeout loops eventually exit instead of</span>
+<span id="L63"><span class="lineNum">      63</span>                 :             :    spinning forever (e.g. uart_read_cb in modbus_rtu.c). */</span>
+<span id="L64"><span class="lineNum">      64</span>                 :<span class="tlaUNC">           0 : TickType_t xTaskGetTickCount(void){ static TickType_t t = 0; return t++; }</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :<span class="tlaUNC">           0 : void    vTaskDelete(void *h){ (void)h; }</span></span>
+<span id="L66"><span class="lineNum">      66</span>                 :<span class="tlaUNC">           0 : BaseType_t xTaskCreate(void (*f)(void*), const char *n, uint32_t d, void *p, uint32_t prio, void **h){</span></span>
+<span id="L67"><span class="lineNum">      67</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     (void)f;(void)n;(void)d;(void)p;(void)prio;if(h)*h=NULL;return 1;</span></span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : }</span>
+<span id="L69"><span class="lineNum">      69</span>                 :<span class="tlaUNC">           0 : BaseType_t xTaskCreatePinnedToCore(void (*f)(void*), const char *n, uint32_t d, void *p, uint32_t prio, void **h, int core){</span></span>
+<span id="L70"><span class="lineNum">      70</span>                 :<span class="tlaUNC">           0 :     (void)core; return xTaskCreate(f,n,d,p,prio,h);</span></span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : }</span>
+<span id="L72"><span class="lineNum">      72</span>                 :             : </span>
+<span id="L73"><span class="lineNum">      73</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             : /*  Semaphore non-static helpers                                        */</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L76"><span class="lineNum">      76</span>                 :<span class="tlaGNC tlaBgGNC">           4 : void* xSemaphoreCreateMutex(void){ return malloc(1); }</span></span>
+<span id="L77"><span class="lineNum">      77</span>                 :<span class="tlaUNC tlaBgUNC">           0 : void* xSemaphoreCreateBinary(void){ return malloc(1); }</span></span>
+<span id="L78"><span class="lineNum">      78</span>                 :<span class="tlaUNC">           0 : int   xSemaphoreTake(void *s, TickType_t t){ (void)s;(void)t; return 1; }</span></span>
+<span id="L79"><span class="lineNum">      79</span>                 :<span class="tlaUNC">           0 : int   xSemaphoreGive(void *s){ (void)s; return 1; }</span></span>
+<span id="L80"><span class="lineNum">      80</span>                 :<span class="tlaUNC">           0 : void  vSemaphoreDelete(void *s){ free(s); }</span></span>
+<span id="L81"><span class="lineNum">      81</span>                 :             : </span>
+<span id="L82"><span class="lineNum">      82</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L83"><span class="lineNum">      83</span>                 :             : /*  EventGroup non-static helpers                                       */</span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L85"><span class="lineNum">      85</span>                 :             : typedef uint32_t EventBits_t;</span>
+<span id="L86"><span class="lineNum">      86</span>                 :<span class="tlaUNC">           0 : void*      xEventGroupCreate(void){ return malloc(sizeof(uint32_t)); }</span></span>
+<span id="L87"><span class="lineNum">      87</span>                 :<span class="tlaUNC">           0 : void       vEventGroupDelete(void *eg){ free(eg); }</span></span>
+<span id="L88"><span class="lineNum">      88</span>                 :<span class="tlaUNC">           0 : EventBits_t xEventGroupSetBits(void *eg, EventBits_t bits){ (void)eg; return bits; }</span></span>
+<span id="L89"><span class="lineNum">      89</span>                 :<span class="tlaUNC">           0 : EventBits_t xEventGroupClearBits(void *eg, EventBits_t bits){ (void)eg;(void)bits; return 0; }</span></span>
+<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaUNC">           0 : EventBits_t xEventGroupWaitBits(void *eg, EventBits_t bw, int clr, int all, TickType_t t){ (void)eg;(void)clr;(void)all;(void)t; return bw; }</span></span>
+<span id="L91"><span class="lineNum">      91</span>                 :<span class="tlaUNC">           0 : EventBits_t xEventGroupGetBits(void *eg){ (void)eg; return 0; }</span></span>
+<span id="L92"><span class="lineNum">      92</span>                 :             : </span>
+<span id="L93"><span class="lineNum">      93</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L94"><span class="lineNum">      94</span>                 :             : /*  esp_timer non-static                                                */</span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L96"><span class="lineNum">      96</span>                 :             : typedef struct { void (*cb)(void*); void *arg; } esp_timer_impl_t;</span>
+<span id="L97"><span class="lineNum">      97</span>                 :             : typedef esp_timer_impl_t* esp_timer_handle_t;</span>
+<span id="L98"><span class="lineNum">      98</span>                 :             : typedef struct { void (*callback)(void*); void *arg; int dispatch_method; const char *name; bool skip_unhandled_events; } esp_timer_create_args_t;</span>
+<span id="L99"><span class="lineNum">      99</span>                 :             : </span>
+<span id="L100"><span class="lineNum">     100</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_timer_create(const esp_timer_create_args_t *a, esp_timer_handle_t *out){</span></span>
+<span id="L101"><span class="lineNum">     101</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     (void)a; if(out)*out=NULL; return ESP_OK;</span></span>
+<span id="L102"><span class="lineNum">     102</span>                 :             : }</span>
+<span id="L103"><span class="lineNum">     103</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_timer_start_once(esp_timer_handle_t t, uint64_t us){ (void)t;(void)us; return ESP_OK; }</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_timer_start_periodic(esp_timer_handle_t t, uint64_t p){ (void)t;(void)p; return ESP_OK; }</span></span>
+<span id="L105"><span class="lineNum">     105</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_timer_stop(esp_timer_handle_t t){ (void)t; return ESP_OK; }</span></span>
+<span id="L106"><span class="lineNum">     106</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_timer_delete(esp_timer_handle_t t){ (void)t; return ESP_OK; }</span></span>
+<span id="L107"><span class="lineNum">     107</span>                 :<span class="tlaUNC">           0 : int64_t   esp_timer_get_time(void){ return 0; }</span></span>
+<span id="L108"><span class="lineNum">     108</span>                 :<span class="tlaUNC">           0 : bool      esp_timer_is_active(esp_timer_handle_t t){ (void)t; return false; }</span></span>
+<span id="L109"><span class="lineNum">     109</span>                 :             : </span>
+<span id="L110"><span class="lineNum">     110</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L111"><span class="lineNum">     111</span>                 :             : /*  GPIO non-static                                                     */</span>
+<span id="L112"><span class="lineNum">     112</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L113"><span class="lineNum">     113</span>                 :<span class="tlaUNC">           0 : esp_err_t gpio_config(const void *cfg){ (void)cfg; return ESP_OK; }</span></span>
+<span id="L114"><span class="lineNum">     114</span>                 :<span class="tlaUNC">           0 : esp_err_t gpio_set_direction(int pin, int mode){ (void)pin;(void)mode; return ESP_OK; }</span></span>
+<span id="L115"><span class="lineNum">     115</span>                 :<span class="tlaUNC">           0 : esp_err_t gpio_set_level(int pin, uint32_t level){ (void)pin;(void)level; return ESP_OK; }</span></span>
+<span id="L116"><span class="lineNum">     116</span>                 :<span class="tlaUNC">           0 : int       gpio_get_level(int pin){ (void)pin; return 0; }</span></span>
+<span id="L117"><span class="lineNum">     117</span>                 :             : </span>
+<span id="L118"><span class="lineNum">     118</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L119"><span class="lineNum">     119</span>                 :             : /*  LEDC non-static                                                     */</span>
+<span id="L120"><span class="lineNum">     120</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L121"><span class="lineNum">     121</span>                 :<span class="tlaUNC">           0 : esp_err_t ledc_timer_config(const void *cfg){ (void)cfg; return ESP_OK; }</span></span>
+<span id="L122"><span class="lineNum">     122</span>                 :<span class="tlaUNC">           0 : esp_err_t ledc_channel_config(const void *cfg){ (void)cfg; return ESP_OK; }</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaUNC">           0 : esp_err_t ledc_set_duty(int m, int ch, uint32_t d){ (void)m;(void)ch;(void)d; return ESP_OK; }</span></span>
+<span id="L124"><span class="lineNum">     124</span>                 :<span class="tlaUNC">           0 : esp_err_t ledc_update_duty(int m, int ch){ (void)m;(void)ch; return ESP_OK; }</span></span>
+<span id="L125"><span class="lineNum">     125</span>                 :<span class="tlaUNC">           0 : uint32_t  ledc_get_duty(int m, int ch){ (void)m;(void)ch; return 0; }</span></span>
+<span id="L126"><span class="lineNum">     126</span>                 :             : </span>
+<span id="L127"><span class="lineNum">     127</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L128"><span class="lineNum">     128</span>                 :             : /*  UART non-static                                                     */</span>
+<span id="L129"><span class="lineNum">     129</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L130"><span class="lineNum">     130</span>                 :<span class="tlaUNC">           0 : esp_err_t uart_driver_install(int p, int rx, int tx, int q, QueueHandle_t *qu, int f){</span></span>
+<span id="L131"><span class="lineNum">     131</span>                 :<span class="tlaUNC">           0 :     (void)p;(void)rx;(void)tx;(void)q;(void)qu;(void)f; return ESP_OK;</span></span>
+<span id="L132"><span class="lineNum">     132</span>                 :             : }</span>
+<span id="L133"><span class="lineNum">     133</span>                 :<span class="tlaUNC">           0 : esp_err_t uart_param_config(int p, const void *cfg){ (void)p;(void)cfg; return ESP_OK; }</span></span>
+<span id="L134"><span class="lineNum">     134</span>                 :<span class="tlaUNC">           0 : esp_err_t uart_set_pin(int p, int tx, int rx, int rts, int cts){ (void)p;(void)tx;(void)rx;(void)rts;(void)cts; return ESP_OK; }</span></span>
+<span id="L135"><span class="lineNum">     135</span>                 :<span class="tlaUNC">           0 : int       uart_read_bytes(int p, void *buf, uint32_t len, TickType_t t){ (void)p;(void)buf;(void)len;(void)t; return 0; }</span></span>
+<span id="L136"><span class="lineNum">     136</span>                 :<span class="tlaUNC">           0 : int       uart_write_bytes(int p, const void *src, size_t sz){ (void)p;(void)src; return (int)sz; }</span></span>
+<span id="L137"><span class="lineNum">     137</span>                 :<span class="tlaUNC">           0 : esp_err_t uart_flush(int p){ (void)p; return ESP_OK; }</span></span>
+<span id="L138"><span class="lineNum">     138</span>                 :<span class="tlaUNC">           0 : esp_err_t uart_flush_input(int p){ (void)p; return ESP_OK; }</span></span>
+<span id="L139"><span class="lineNum">     139</span>                 :<span class="tlaUNC">           0 : esp_err_t uart_wait_tx_done(int p, TickType_t t){ (void)p;(void)t; return ESP_OK; }</span></span>
+<span id="L140"><span class="lineNum">     140</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 : esp_err_t uart_get_buffered_data_len(int p, size_t *sz){ (void)p;if(sz)*sz=0; return ESP_OK; }</span></span>
+<span id="L141"><span class="lineNum">     141</span>                 :<span class="tlaUNC">           0 : esp_err_t uart_set_baudrate(int p, uint32_t b){ (void)p;(void)b; return ESP_OK; }</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :             : </span>
+<span id="L143"><span class="lineNum">     143</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L144"><span class="lineNum">     144</span>                 :             : /*  NVS non-static                                                      */</span>
+<span id="L145"><span class="lineNum">     145</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L146"><span class="lineNum">     146</span>                 :             : extern esp_err_t _stub_nvs_open_ret;</span>
+<span id="L147"><span class="lineNum">     147</span>                 :             : extern esp_err_t _stub_nvs_commit_ret;</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             : extern esp_err_t _stub_nvs_set_blob_ret;</span>
+<span id="L149"><span class="lineNum">     149</span>                 :             : extern esp_err_t _stub_nvs_get_blob_ret;</span>
+<span id="L150"><span class="lineNum">     150</span>                 :             : extern int       _stub_nvs_corrupt_key;</span>
+<span id="L151"><span class="lineNum">     151</span>                 :<span class="tlaGNC tlaBgGNC">          49 : esp_err_t nvs_open(const char *n, int m, void **h){</span></span>
+<span id="L152"><span class="lineNum">     152</span>                 :             :     (void)n;(void)m;</span>
+<span id="L153"><span class="lineNum">     153</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 45 times"> + </span>]:<span class="tlaGNC">          49 :     if (_stub_nvs_open_ret != ESP_OK) return _stub_nvs_open_ret;</span></span>
+<span id="L154"><span class="lineNum">     154</span>         [<span class="tlaGBC" title="Branch 0 was taken 45 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          45 :     if (h) *h = (void*)0x1; /* non-NULL handle so `if(my_handle)` true branch runs */</span></span>
+<span id="L155"><span class="lineNum">     155</span>                 :<span class="tlaGNC">          45 :     return ESP_OK;</span></span>
+<span id="L156"><span class="lineNum">     156</span>                 :             : }</span>
+<span id="L157"><span class="lineNum">     157</span>                 :<span class="tlaGNC">          41 : esp_err_t nvs_close(void *h){ (void)h; return ESP_OK; }</span></span>
+<span id="L158"><span class="lineNum">     158</span>                 :<span class="tlaGNC">          32 : esp_err_t nvs_commit(void *h){ (void)h; return _stub_nvs_commit_ret; }</span></span>
+<span id="L159"><span class="lineNum">     159</span>                 :             : /* nvs_set_blob / nvs_get_blob are defined later with a real in-memory store. */</span>
+<span id="L160"><span class="lineNum">     160</span>                 :<span class="tlaUNC tlaBgUNC">           0 : esp_err_t nvs_set_str(void *h, const char *k, const char *v){ (void)h;(void)k;(void)v; return ESP_OK; }</span></span>
+<span id="L161"><span class="lineNum">     161</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 : esp_err_t nvs_get_str(void *h, const char *k, char *v, size_t *l){ (void)h;(void)k;if(v&amp;&amp;l&amp;&amp;*l&gt;0)v[0]='\0'; return ESP_OK; }</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L162"><span class="lineNum">     162</span>                 :<span class="tlaUNC">           0 : esp_err_t nvs_set_u8(void *h, const char *k, uint8_t v){ (void)h;(void)k;(void)v; return ESP_OK; }</span></span>
+<span id="L163"><span class="lineNum">     163</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 : esp_err_t nvs_get_u8(void *h, const char *k, uint8_t *v){ (void)h;(void)k;if(v)*v=0; return ESP_OK; }</span></span>
+<span id="L164"><span class="lineNum">     164</span>                 :<span class="tlaUNC">           0 : esp_err_t nvs_set_i32(void *h, const char *k, int32_t v){ (void)h;(void)k;(void)v; return ESP_OK; }</span></span>
+<span id="L165"><span class="lineNum">     165</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 : esp_err_t nvs_get_i32(void *h, const char *k, int32_t *v){ (void)h;(void)k;if(v)*v=0; return ESP_OK; }</span></span>
+<span id="L166"><span class="lineNum">     166</span>                 :<span class="tlaUNC">           0 : esp_err_t nvs_erase_key(void *h, const char *k){ (void)h;(void)k; return ESP_OK; }</span></span>
+<span id="L167"><span class="lineNum">     167</span>                 :             : </span>
+<span id="L168"><span class="lineNum">     168</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             : /*  MAC                                                                 */</span>
+<span id="L170"><span class="lineNum">     170</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L171"><span class="lineNum">     171</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_read_mac(uint8_t *mac, int type){</span></span>
+<span id="L172"><span class="lineNum">     172</span>                 :             :     (void)type;</span>
+<span id="L173"><span class="lineNum">     173</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(mac){ mac[0]=0xAA;mac[1]=0xBB;mac[2]=0xCC;mac[3]=0xDD;mac[4]=0xEE;mac[5]=0xFF; }</span></span>
+<span id="L174"><span class="lineNum">     174</span>                 :<span class="tlaUNC">           0 :     return ESP_OK;</span></span>
+<span id="L175"><span class="lineNum">     175</span>                 :             : }</span>
+<span id="L176"><span class="lineNum">     176</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_base_mac_addr_get(uint8_t *mac){ return esp_read_mac(mac,0); }</span></span>
+<span id="L177"><span class="lineNum">     177</span>                 :             : </span>
+<span id="L178"><span class="lineNum">     178</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L179"><span class="lineNum">     179</span>                 :             : /*  BLE stubs                                                           */</span>
+<span id="L180"><span class="lineNum">     180</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L181"><span class="lineNum">     181</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_bt_controller_init(void *cfg){ (void)cfg; return ESP_OK; }</span></span>
+<span id="L182"><span class="lineNum">     182</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_bt_controller_enable(uint8_t m){ (void)m; return ESP_OK; }</span></span>
+<span id="L183"><span class="lineNum">     183</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_bt_controller_disable(void){ return ESP_OK; }</span></span>
+<span id="L184"><span class="lineNum">     184</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_bt_controller_deinit(void){ return ESP_OK; }</span></span>
+<span id="L185"><span class="lineNum">     185</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_bt_mem_release(uint8_t m){ (void)m; return ESP_OK; }</span></span>
+<span id="L186"><span class="lineNum">     186</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_bt_controller_mem_release(uint8_t m){ (void)m; return ESP_OK; }</span></span>
+<span id="L187"><span class="lineNum">     187</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_bluedroid_init(void){ return ESP_OK; }</span></span>
+<span id="L188"><span class="lineNum">     188</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_bluedroid_enable(void){ return ESP_OK; }</span></span>
+<span id="L189"><span class="lineNum">     189</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_bluedroid_disable(void){ return ESP_OK; }</span></span>
+<span id="L190"><span class="lineNum">     190</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_bluedroid_deinit(void){ return ESP_OK; }</span></span>
+<span id="L191"><span class="lineNum">     191</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gap_register_callback(void *cb){ (void)cb; return ESP_OK; }</span></span>
+<span id="L192"><span class="lineNum">     192</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gap_config_adv_data(void *d){ (void)d; return ESP_OK; }</span></span>
+<span id="L193"><span class="lineNum">     193</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gap_set_device_name(const char *n){ (void)n; return ESP_OK; }</span></span>
+<span id="L194"><span class="lineNum">     194</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gap_start_advertising(void *p){ (void)p; return ESP_OK; }</span></span>
+<span id="L195"><span class="lineNum">     195</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gap_stop_advertising(void){ return ESP_OK; }</span></span>
+<span id="L196"><span class="lineNum">     196</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gatts_register_callback(void *cb){ (void)cb; return ESP_OK; }</span></span>
+<span id="L197"><span class="lineNum">     197</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gatts_app_register(uint16_t id){ (void)id; return ESP_OK; }</span></span>
+<span id="L198"><span class="lineNum">     198</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gatts_create_attr_tab(const void *db, uint8_t gi, uint16_t n, uint8_t sid){ (void)db;(void)gi;(void)n;(void)sid; return ESP_OK; }</span></span>
+<span id="L199"><span class="lineNum">     199</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gatts_start_service(uint16_t h){ (void)h; return ESP_OK; }</span></span>
+<span id="L200"><span class="lineNum">     200</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gatts_send_indicate(uint8_t gi, uint16_t ci, uint16_t ah, uint16_t vl, uint8_t *v, bool nc){ (void)gi;(void)ci;(void)ah;(void)vl;(void)v;(void)nc; return ESP_OK; }</span></span>
+<span id="L201"><span class="lineNum">     201</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gatts_send_response(uint8_t gi, uint16_t ci, uint32_t tid, int st, void *rsp){ (void)gi;(void)ci;(void)tid;(void)st;(void)rsp; return ESP_OK; }</span></span>
+<span id="L202"><span class="lineNum">     202</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ble_gatt_set_local_mtu(uint16_t mtu){ (void)mtu; return ESP_OK; }</span></span>
+<span id="L203"><span class="lineNum">     203</span>                 :<span class="tlaUNC">           0 : const uint8_t *esp_bt_dev_get_address(void){ static uint8_t a[6]={0}; return a; }</span></span>
+<span id="L204"><span class="lineNum">     204</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_bt_dev_set_device_name(const char *n){ (void)n; return ESP_OK; }</span></span>
+<span id="L205"><span class="lineNum">     205</span>                 :             : </span>
+<span id="L206"><span class="lineNum">     206</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L207"><span class="lineNum">     207</span>                 :             : /*  MQTT stub (non-static)                                              */</span>
+<span id="L208"><span class="lineNum">     208</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L209"><span class="lineNum">     209</span>                 :             : int        _stub_mqtt_init_null        = 0;</span>
+<span id="L210"><span class="lineNum">     210</span>                 :             : esp_err_t  _stub_mqtt_start_ret        = 0; /* ESP_OK */</span>
+<span id="L211"><span class="lineNum">     211</span>                 :             : esp_err_t  _stub_mqtt_register_evt_ret = 0;</span>
+<span id="L212"><span class="lineNum">     212</span>                 :             : int        _stub_mqtt_publish_ret      = 0;</span>
+<span id="L213"><span class="lineNum">     213</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 9 times"> + </span>]:<span class="tlaGNC tlaBgGNC">          10 : void* esp_mqtt_client_init(const void *cfg){ (void)cfg; return _stub_mqtt_init_null ? NULL : (void*)(uintptr_t)0xCAFEBABE; }</span></span>
+<span id="L214"><span class="lineNum">     214</span>                 :<span class="tlaGNC">           8 : esp_err_t esp_mqtt_client_start(void *c){ (void)c; return _stub_mqtt_start_ret; }</span></span>
+<span id="L215"><span class="lineNum">     215</span>                 :<span class="tlaUNC tlaBgUNC">           0 : esp_err_t esp_mqtt_client_stop(void *c){ (void)c; return ESP_OK; }</span></span>
+<span id="L216"><span class="lineNum">     216</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_mqtt_client_destroy(void *c){ (void)c; return ESP_OK; }</span></span>
+<span id="L217"><span class="lineNum">     217</span>                 :<span class="tlaGNC tlaBgGNC">           7 : int esp_mqtt_client_publish(void *c, const char *t, const char *d, int l, int q, int r){ (void)c;(void)t;(void)d;(void)l;(void)q;(void)r; return _stub_mqtt_publish_ret; }</span></span>
+<span id="L218"><span class="lineNum">     218</span>                 :<span class="tlaUNC tlaBgUNC">           0 : int esp_mqtt_client_subscribe(void *c, const char *t, int q){ (void)c;(void)t;(void)q; return 0; }</span></span>
+<span id="L219"><span class="lineNum">     219</span>                 :             : /* esp_wifi runtime stubs (so we can drive failure paths in firmware) */</span>
+<span id="L220"><span class="lineNum">     220</span>                 :             : typedef int wifi_mode_t;</span>
+<span id="L221"><span class="lineNum">     221</span>                 :             : esp_err_t _stub_wifi_set_config_ret_storage = 0; /* dummy if not yet defined */</span>
+<span id="L222"><span class="lineNum">     222</span>                 :             : extern esp_err_t _stub_wifi_set_config_ret;</span>
+<span id="L223"><span class="lineNum">     223</span>                 :             : extern esp_err_t _stub_wifi_start_ret;</span>
+<span id="L224"><span class="lineNum">     224</span>                 :             : extern esp_err_t _stub_wifi_stop_ret;</span>
+<span id="L225"><span class="lineNum">     225</span>                 :<span class="tlaGNC tlaBgGNC">           1 : esp_err_t esp_wifi_init(const void *c){ (void)c; return ESP_OK; }</span></span>
+<span id="L226"><span class="lineNum">     226</span>                 :<span class="tlaGNC">           9 : esp_err_t esp_wifi_start(void){ return _stub_wifi_start_ret; }</span></span>
+<span id="L227"><span class="lineNum">     227</span>                 :<span class="tlaGNC">           9 : esp_err_t esp_wifi_stop(void){ return _stub_wifi_stop_ret; }</span></span>
+<span id="L228"><span class="lineNum">     228</span>                 :<span class="tlaGNC">          27 : esp_err_t esp_wifi_connect(void){ return ESP_OK; }</span></span>
+<span id="L229"><span class="lineNum">     229</span>                 :<span class="tlaUNC tlaBgUNC">           0 : esp_err_t esp_wifi_disconnect(void){ return ESP_OK; }</span></span>
+<span id="L230"><span class="lineNum">     230</span>                 :<span class="tlaGNC tlaBgGNC">           3 : esp_err_t esp_wifi_set_mode(wifi_mode_t m){ (void)m; return ESP_OK; }</span></span>
+<span id="L231"><span class="lineNum">     231</span>                 :<span class="tlaGNC">          10 : esp_err_t esp_wifi_set_config(int i, void *c){ (void)i; (void)c; return _stub_wifi_set_config_ret; }</span></span>
+<span id="L232"><span class="lineNum">     232</span>                 :             : esp_err_t _stub_wifi_get_ap_info_ret = 0; /* ESP_OK by default */</span>
+<span id="L233"><span class="lineNum">     233</span>                 :<span class="tlaGNC">          11 : esp_err_t esp_wifi_sta_get_ap_info(void *r){ (void)r; return _stub_wifi_get_ap_info_ret; }</span></span>
+<span id="L234"><span class="lineNum">     234</span>                 :             : </span>
+<span id="L235"><span class="lineNum">     235</span>                 :             : /* Mqtt handler dispatch (declared in mqtt_client.h stub) */</span>
+<span id="L236"><span class="lineNum">     236</span>                 :             : typedef void (*_stub_mqtt_evt_handler_t)(void *handler_args, const char *base, int32_t event_id, void *event_data);</span>
+<span id="L237"><span class="lineNum">     237</span>                 :             : _stub_mqtt_evt_handler_t _stub_mqtt_handler = NULL;</span>
+<span id="L238"><span class="lineNum">     238</span>                 :             : void *_stub_mqtt_handler_arg = NULL;</span>
+<span id="L239"><span class="lineNum">     239</span>                 :             : </span>
+<span id="L240"><span class="lineNum">     240</span>                 :             : /* BLE GAP/GATTS callback storage so coverage tests can dispatch BLE events</span>
+<span id="L241"><span class="lineNum">     241</span>                 :             :    to firmware's static event handlers. */</span>
+<span id="L242"><span class="lineNum">     242</span>                 :             : typedef void (*_stub_gap_cb_t)(int event, void *param);</span>
+<span id="L243"><span class="lineNum">     243</span>                 :             : typedef void (*_stub_gatts_cb_t)(int event, int gatts_if, void *param);</span>
+<span id="L244"><span class="lineNum">     244</span>                 :             : _stub_gap_cb_t   _stub_gap_cb   = NULL;</span>
+<span id="L245"><span class="lineNum">     245</span>                 :             : _stub_gatts_cb_t _stub_gatts_cb = NULL;</span>
+<span id="L246"><span class="lineNum">     246</span>                 :<span class="tlaGNC">           9 : esp_err_t esp_mqtt_client_register_event(void *c, int e, void *h, void *a){ (void)c;(void)e; _stub_mqtt_handler=(_stub_mqtt_evt_handler_t)h; _stub_mqtt_handler_arg=a; return _stub_mqtt_register_evt_ret; }</span></span>
+<span id="L247"><span class="lineNum">     247</span>                 :<span class="tlaUNC tlaBgUNC">           0 : esp_err_t esp_mqtt_set_config(void *c, const void *cfg){ (void)c;(void)cfg; return ESP_OK; }</span></span>
+<span id="L248"><span class="lineNum">     248</span>                 :             : </span>
+<span id="L249"><span class="lineNum">     249</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L250"><span class="lineNum">     250</span>                 :             : /*  HTTP client stub (non-static)                                       */</span>
+<span id="L251"><span class="lineNum">     251</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L252"><span class="lineNum">     252</span>                 :<span class="tlaGNC tlaBgGNC">          20 : void* esp_http_client_init(const void *cfg){ (void)cfg; return (void*)(uintptr_t)0xDEADBEEF; }</span></span>
+<span id="L253"><span class="lineNum">     253</span>                 :             : /* Stub-controlled HTTP behaviour. Tests can poke these to drive download_task</span>
+<span id="L254"><span class="lineNum">     254</span>                 :             :    and get_ota_manifest through their data-processing branches. */</span>
+<span id="L255"><span class="lineNum">     255</span>                 :             : int      _stub_http_read_count = 0;       /* 0 = no data, N = return N bytes once then 0 */</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             : int64_t  _stub_http_content_length = 0;   /* what fetch_headers returns */</span>
+<span id="L257"><span class="lineNum">     257</span>                 :             : const char *_stub_http_read_data = NULL;  /* if non-NULL, copy this on the first read */</span>
+<span id="L258"><span class="lineNum">     258</span>                 :             : esp_err_t _stub_http_perform_ret = ESP_OK;</span>
+<span id="L259"><span class="lineNum">     259</span>                 :             : esp_err_t _stub_http_open_ret    = ESP_OK;</span>
+<span id="L260"><span class="lineNum">     260</span>                 :             : int       _stub_http_status_code = 200;</span>
+<span id="L261"><span class="lineNum">     261</span>                 :<span class="tlaGNC">           8 : esp_err_t esp_http_client_perform(void *c){ (void)c; return _stub_http_perform_ret; }</span></span>
+<span id="L262"><span class="lineNum">     262</span>                 :<span class="tlaGNC">          15 : esp_err_t esp_http_client_cleanup(void *c){ (void)c; return ESP_OK; }</span></span>
+<span id="L263"><span class="lineNum">     263</span>                 :<span class="tlaGNC">          12 : esp_err_t esp_http_client_open(void *c, int l){ (void)c;(void)l; return _stub_http_open_ret; }</span></span>
+<span id="L264"><span class="lineNum">     264</span>                 :<span class="tlaUNC tlaBgUNC">           0 : esp_err_t esp_http_client_close(void *c){ (void)c; return ESP_OK; }</span></span>
+<span id="L265"><span class="lineNum">     265</span>                 :<span class="tlaGNC tlaBgGNC">           7 : int esp_http_client_get_status_code(void *c){ (void)c; return _stub_http_status_code; }</span></span>
+<span id="L266"><span class="lineNum">     266</span>                 :<span class="tlaUNC tlaBgUNC">           0 : int64_t esp_http_client_get_content_length(void *c){ (void)c; return 0; }</span></span>
+<span id="L267"><span class="lineNum">     267</span>                 :<span class="tlaGNC tlaBgGNC">          13 : int esp_http_client_read(void *c, char *buf, int len){</span></span>
+<span id="L268"><span class="lineNum">     268</span>                 :             :     (void)c;</span>
+<span id="L269"><span class="lineNum">     269</span>         [<span class="tlaGBC" title="Branch 0 was taken 7 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 6 times"> + </span>]:<span class="tlaGNC">          13 :     if (_stub_http_read_count &gt; 0) {</span></span>
+<span id="L270"><span class="lineNum">     270</span>                 :<span class="tlaGNC">           7 :         int n = (_stub_http_read_count &lt; len) ? _stub_http_read_count : len;</span></span>
+<span id="L271"><span class="lineNum">     271</span>   [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           7 :         if (_stub_http_read_data &amp;&amp; buf) {</span></span>
+<span id="L272"><span class="lineNum">     272</span>                 :<span class="tlaGNC">           4 :             memcpy(buf, _stub_http_read_data, n);</span></span>
+<span id="L273"><span class="lineNum">     273</span>                 :<span class="tlaGNC">           4 :             _stub_http_read_data += n;</span></span>
+<span id="L274"><span class="lineNum">     274</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           3 :         } else if (buf) {</span></span>
+<span id="L275"><span class="lineNum">     275</span>                 :<span class="tlaGNC">           3 :             memset(buf, 0xAB, n);</span></span>
+<span id="L276"><span class="lineNum">     276</span>                 :             :         }</span>
+<span id="L277"><span class="lineNum">     277</span>                 :<span class="tlaGNC">           7 :         _stub_http_read_count -= n;</span></span>
+<span id="L278"><span class="lineNum">     278</span>                 :<span class="tlaGNC">           7 :         return n;</span></span>
+<span id="L279"><span class="lineNum">     279</span>                 :             :     }</span>
+<span id="L280"><span class="lineNum">     280</span>                 :<span class="tlaGNC">           6 :     return 0;</span></span>
+<span id="L281"><span class="lineNum">     281</span>                 :             : }</span>
+<span id="L282"><span class="lineNum">     282</span>                 :<span class="tlaUNC tlaBgUNC">           0 : int esp_http_client_write(void *c, const char *buf, int len){ (void)c;(void)buf; return len; }</span></span>
+<span id="L283"><span class="lineNum">     283</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_http_client_set_header(void *c, const char *k, const char *v){ (void)c;(void)k;(void)v; return ESP_OK; }</span></span>
+<span id="L284"><span class="lineNum">     284</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_http_client_set_url(void *c, const char *u){ (void)c;(void)u; return ESP_OK; }</span></span>
+<span id="L285"><span class="lineNum">     285</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_http_client_set_method(void *c, int m){ (void)c;(void)m; return ESP_OK; }</span></span>
+<span id="L286"><span class="lineNum">     286</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_http_client_set_post_field(void *c, const char *d, int l){ (void)c;(void)d;(void)l; return ESP_OK; }</span></span>
+<span id="L287"><span class="lineNum">     287</span>                 :<span class="tlaGNC tlaBgGNC">          10 : int64_t   esp_http_client_fetch_headers(void *c){ (void)c; return _stub_http_content_length; }</span></span>
+<span id="L288"><span class="lineNum">     288</span>                 :<span class="tlaGNC">           3 : bool      esp_http_client_is_complete_data_received(void *c){ (void)c; return true; }</span></span>
+<span id="L289"><span class="lineNum">     289</span>                 :             : </span>
+<span id="L290"><span class="lineNum">     290</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L291"><span class="lineNum">     291</span>                 :             : /*  OTA non-static                                                      */</span>
+<span id="L292"><span class="lineNum">     292</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L293"><span class="lineNum">     293</span>                 :             : typedef struct { uint8_t type; uint8_t subtype; uint32_t address; uint32_t size; char label[16]; bool encrypted; } esp_partition_t;</span>
+<span id="L294"><span class="lineNum">     294</span>                 :             : typedef void* esp_ota_handle_t;</span>
+<span id="L295"><span class="lineNum">     295</span>                 :             : static esp_partition_t _running_part = {0,0x10,0x10000,0x100000,&quot;app0&quot;,false};</span>
+<span id="L296"><span class="lineNum">     296</span>                 :             : static esp_partition_t _next_part    = {0,0x11,0x110000,0x100000,&quot;ota_0&quot;,false};</span>
+<span id="L297"><span class="lineNum">     297</span>                 :             : int _stub_ota_running_null = 0; /* if 1, esp_ota_get_running_partition returns NULL */</span>
+<span id="L298"><span class="lineNum">     298</span>                 :             : int _stub_ota_next_null    = 0; /* if 1, esp_ota_get_next_update_partition returns NULL */</span>
+<span id="L299"><span class="lineNum">     299</span>                 :             : esp_err_t _stub_ota_begin_ret      = ESP_OK;</span>
+<span id="L300"><span class="lineNum">     300</span>                 :             : esp_err_t _stub_ota_write_ret      = ESP_OK;</span>
+<span id="L301"><span class="lineNum">     301</span>                 :             : esp_err_t _stub_ota_end_ret        = ESP_OK;</span>
+<span id="L302"><span class="lineNum">     302</span>                 :             : esp_err_t _stub_ota_set_boot_ret   = ESP_OK;</span>
+<span id="L303"><span class="lineNum">     303</span>         [<span class="tlaGBC" title="Branch 0 was taken 22 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4 times"> + </span>]:<span class="tlaGNC">          26 : const esp_partition_t* esp_ota_get_next_update_partition(const esp_partition_t *s){ (void)s; return _stub_ota_next_null ? NULL : &amp;_next_part; }</span></span>
+<span id="L304"><span class="lineNum">     304</span>         [<span class="tlaGBC" title="Branch 0 was taken 8 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           9 : const esp_partition_t* esp_ota_get_running_partition(void){ return _stub_ota_running_null ? NULL : &amp;_running_part; }</span></span>
+<span id="L305"><span class="lineNum">     305</span>                 :<span class="tlaUNC tlaBgUNC">           0 : const esp_partition_t* esp_ota_get_boot_partition(void){ return &amp;_running_part; }</span></span>
+<span id="L306"><span class="lineNum">     306</span>                 :             : /* Partition iterator — when _stub_partition_iter_count &gt; 0, yield that many</span>
+<span id="L307"><span class="lineNum">     307</span>                 :             :    iterations of _running_part / _next_part alternating. Use void* in the</span>
+<span id="L308"><span class="lineNum">     308</span>                 :             :    signature here to avoid pulling in esp_ota_ops.h's typedefs. */</span>
+<span id="L309"><span class="lineNum">     309</span>                 :             : int _stub_partition_iter_count = 0;</span>
+<span id="L310"><span class="lineNum">     310</span>                 :             : static int _stub_partition_iter_pos  = 0;</span>
+<span id="L311"><span class="lineNum">     311</span>                 :<span class="tlaGNC tlaBgGNC">           3 : void* esp_partition_find(int type, int subtype, const char *label){</span></span>
+<span id="L312"><span class="lineNum">     312</span>                 :             :     (void)type;(void)subtype;(void)label;</span>
+<span id="L313"><span class="lineNum">     313</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           3 :     if (_stub_partition_iter_count &lt;= 0) return NULL;</span></span>
+<span id="L314"><span class="lineNum">     314</span>                 :<span class="tlaGNC">           1 :     _stub_partition_iter_pos = 0;</span></span>
+<span id="L315"><span class="lineNum">     315</span>                 :<span class="tlaGNC">           1 :     return (void*)(uintptr_t)1;</span></span>
+<span id="L316"><span class="lineNum">     316</span>                 :             : }</span>
+<span id="L317"><span class="lineNum">     317</span>                 :<span class="tlaGNC">           3 : const esp_partition_t* esp_partition_get(void *iterator){</span></span>
+<span id="L318"><span class="lineNum">     318</span>                 :             :     (void)iterator;</span>
+<span id="L319"><span class="lineNum">     319</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           3 :     return (_stub_partition_iter_pos &amp; 1) ? &amp;_next_part : &amp;_running_part;</span></span>
+<span id="L320"><span class="lineNum">     320</span>                 :             : }</span>
+<span id="L321"><span class="lineNum">     321</span>                 :<span class="tlaGNC">           3 : void* esp_partition_next(void *iterator){</span></span>
+<span id="L322"><span class="lineNum">     322</span>                 :<span class="tlaGNC">           3 :     _stub_partition_iter_pos++;</span></span>
+<span id="L323"><span class="lineNum">     323</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           3 :     if (_stub_partition_iter_pos &gt;= _stub_partition_iter_count) return NULL;</span></span>
+<span id="L324"><span class="lineNum">     324</span>                 :<span class="tlaGNC">           2 :     return iterator;</span></span>
+<span id="L325"><span class="lineNum">     325</span>                 :             : }</span>
+<span id="L326"><span class="lineNum">     326</span>                 :<span class="tlaGNC">           3 : void esp_partition_iterator_release(void *iterator){ (void)iterator; }</span></span>
+<span id="L327"><span class="lineNum">     327</span>         [<span class="tlaGBC" title="Branch 0 was taken 13 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          13 : esp_err_t esp_ota_begin(const esp_partition_t *p, size_t sz, esp_ota_handle_t *h){ (void)p;(void)sz;if(h)*h=(esp_ota_handle_t)0x1234; return _stub_ota_begin_ret; }</span></span>
+<span id="L328"><span class="lineNum">     328</span>                 :<span class="tlaGNC">           9 : esp_err_t esp_ota_write(esp_ota_handle_t h, const void *d, size_t sz){ (void)h;(void)d;(void)sz; return _stub_ota_write_ret; }</span></span>
+<span id="L329"><span class="lineNum">     329</span>                 :<span class="tlaGNC">           4 : esp_err_t esp_ota_end(esp_ota_handle_t h){ (void)h; return _stub_ota_end_ret; }</span></span>
+<span id="L330"><span class="lineNum">     330</span>                 :<span class="tlaGNC">           4 : esp_err_t esp_ota_set_boot_partition(const esp_partition_t *p){ (void)p; return _stub_ota_set_boot_ret; }</span></span>
+<span id="L331"><span class="lineNum">     331</span>                 :<span class="tlaGNC">           6 : esp_err_t esp_ota_abort(esp_ota_handle_t h){ (void)h; return ESP_OK; }</span></span>
+<span id="L332"><span class="lineNum">     332</span>                 :             : </span>
+<span id="L333"><span class="lineNum">     333</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L334"><span class="lineNum">     334</span>                 :             : /*  SPIFFS / VFS                                                        */</span>
+<span id="L335"><span class="lineNum">     335</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L336"><span class="lineNum">     336</span>                 :             : esp_err_t _stub_spiffs_register_ret = ESP_OK;</span>
+<span id="L337"><span class="lineNum">     337</span>                 :             : esp_err_t _stub_spiffs_info_ret     = ESP_OK;</span>
+<span id="L338"><span class="lineNum">     338</span>                 :             : size_t    _stub_spiffs_info_used_override = 0;</span>
+<span id="L339"><span class="lineNum">     339</span>                 :             : </span>
+<span id="L340"><span class="lineNum">     340</span>                 :             : /* Generic stub error knobs — tests can toggle these to drive firmware error paths. */</span>
+<span id="L341"><span class="lineNum">     341</span>                 :             : esp_err_t _stub_wifi_set_config_ret  = ESP_OK;</span>
+<span id="L342"><span class="lineNum">     342</span>                 :             : esp_err_t _stub_wifi_start_ret       = ESP_OK;</span>
+<span id="L343"><span class="lineNum">     343</span>                 :             : esp_err_t _stub_wifi_stop_ret        = ESP_OK;</span>
+<span id="L344"><span class="lineNum">     344</span>                 :             : esp_err_t _stub_nvs_open_ret         = ESP_OK;</span>
+<span id="L345"><span class="lineNum">     345</span>                 :             : esp_err_t _stub_nvs_commit_ret       = ESP_OK;</span>
+<span id="L346"><span class="lineNum">     346</span>                 :             : esp_err_t _stub_nvs_set_blob_ret     = ESP_OK;</span>
+<span id="L347"><span class="lineNum">     347</span>                 :             : esp_err_t _stub_nvs_get_blob_ret     = ESP_OK;  /* if non-OK, nvs_get_blob returns this */</span>
+<span id="L348"><span class="lineNum">     348</span>                 :             : int       _stub_nvs_corrupt_key      = 0;       /* if 1, get_blob returns OK but with garbage Key field */</span>
+<span id="L349"><span class="lineNum">     349</span>                 :             : size_t    _stub_nvs_get_len_override = 0;       /* if nonzero, *length forced to this value (drives len-mismatch firmware paths) */</span>
+<span id="L350"><span class="lineNum">     350</span>                 :             : esp_err_t _stub_event_register_ret   = ESP_OK;</span>
+<span id="L351"><span class="lineNum">     351</span>                 :             : int       _stub_socket_ret           = 0;     /* if -1, socket() returns -1 */</span>
+<span id="L352"><span class="lineNum">     352</span>                 :             : int       _stub_connect_ret          = 0;     /* if -1, connect() returns -1 */</span>
+<span id="L353"><span class="lineNum">     353</span>                 :<span class="tlaGNC">          11 : esp_err_t esp_vfs_spiffs_register(const void *cfg){ (void)cfg; return _stub_spiffs_register_ret; }</span></span>
+<span id="L354"><span class="lineNum">     354</span>                 :<span class="tlaUNC tlaBgUNC">           0 : esp_err_t esp_vfs_spiffs_unregister(const char *label){ (void)label; return ESP_OK; }</span></span>
+<span id="L355"><span class="lineNum">     355</span>                 :<span class="tlaGNC tlaBgGNC">          16 : esp_err_t esp_spiffs_info(const char *label, size_t *total, size_t *used){</span></span>
+<span id="L356"><span class="lineNum">     356</span>                 :             :     (void)label;</span>
+<span id="L357"><span class="lineNum">     357</span>         [<span class="tlaGBC" title="Branch 0 was taken 16 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          16 :     if (total) *total = 1048576;</span></span>
+<span id="L358"><span class="lineNum">     358</span>         [<span class="tlaGBC" title="Branch 0 was taken 16 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          16 :     if (used)  *used  = _stub_spiffs_info_used_override ? _stub_spiffs_info_used_override : 0;</span></span>
+<span id="L359"><span class="lineNum">     359</span>                 :<span class="tlaGNC">          16 :     return _stub_spiffs_info_ret;</span></span>
+<span id="L360"><span class="lineNum">     360</span>                 :             : }</span>
+<span id="L361"><span class="lineNum">     361</span>                 :<span class="tlaUNC tlaBgUNC">           0 : bool      esp_spiffs_mounted(const char *label){ (void)label; return true; }</span></span>
+<span id="L362"><span class="lineNum">     362</span>                 :             : esp_err_t _stub_spiffs_check_ret = 0; /* ESP_OK by default; tests poke to drive failure */</span>
+<span id="L363"><span class="lineNum">     363</span>                 :<span class="tlaGNC tlaBgGNC">           7 : esp_err_t esp_spiffs_check(const char *label){ (void)label; return _stub_spiffs_check_ret; }</span></span>
+<span id="L364"><span class="lineNum">     364</span>                 :<span class="tlaGNC">           1 : esp_err_t esp_spiffs_format(const char *label){ (void)label; return ESP_OK; }</span></span>
+<span id="L365"><span class="lineNum">     365</span>                 :             : </span>
+<span id="L366"><span class="lineNum">     366</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L367"><span class="lineNum">     367</span>                 :             : /*  I2C non-static                                                      */</span>
+<span id="L368"><span class="lineNum">     368</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L369"><span class="lineNum">     369</span>                 :<span class="tlaUNC tlaBgUNC">           0 : esp_err_t i2c_param_config(int p, const void *cfg){ (void)p;(void)cfg; return ESP_OK; }</span></span>
+<span id="L370"><span class="lineNum">     370</span>                 :<span class="tlaUNC">           0 : esp_err_t i2c_driver_install(int p, int m, size_t rx, size_t tx, int f){ (void)p;(void)m;(void)rx;(void)tx;(void)f; return ESP_OK; }</span></span>
+<span id="L371"><span class="lineNum">     371</span>                 :<span class="tlaUNC">           0 : void*     i2c_cmd_link_create(void){ return malloc(1); }</span></span>
+<span id="L372"><span class="lineNum">     372</span>                 :<span class="tlaUNC">           0 : void      i2c_cmd_link_delete(void *h){ free(h); }</span></span>
+<span id="L373"><span class="lineNum">     373</span>                 :<span class="tlaUNC">           0 : esp_err_t i2c_master_start(void *h){ (void)h; return ESP_OK; }</span></span>
+<span id="L374"><span class="lineNum">     374</span>                 :<span class="tlaUNC">           0 : esp_err_t i2c_master_stop(void *h){ (void)h; return ESP_OK; }</span></span>
+<span id="L375"><span class="lineNum">     375</span>                 :<span class="tlaUNC">           0 : esp_err_t i2c_master_write_byte(void *h, uint8_t d, bool a){ (void)h;(void)d;(void)a; return ESP_OK; }</span></span>
+<span id="L376"><span class="lineNum">     376</span>                 :<span class="tlaUNC">           0 : esp_err_t i2c_master_write(void *h, const uint8_t *d, size_t l, bool a){ (void)h;(void)d;(void)l;(void)a; return ESP_OK; }</span></span>
+<span id="L377"><span class="lineNum">     377</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 : esp_err_t i2c_master_read_byte(void *h, uint8_t *d, int a){ (void)h;if(d)*d=0;(void)a; return ESP_OK; }</span></span>
+<span id="L378"><span class="lineNum">     378</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 : esp_err_t i2c_master_read(void *h, uint8_t *d, size_t l, int a){ (void)h;if(d&amp;&amp;l)memset(d,0,l);(void)a; return ESP_OK; }</span></span>
+<span id="L379"><span class="lineNum">     379</span>                 :<span class="tlaUNC">           0 : esp_err_t i2c_master_cmd_begin(int p, void *h, TickType_t t){ (void)p;(void)h;(void)t; return ESP_OK; }</span></span>
+<span id="L380"><span class="lineNum">     380</span>                 :             : </span>
+<span id="L381"><span class="lineNum">     381</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L382"><span class="lineNum">     382</span>                 :             : /*  ping stubs                                                          */</span>
+<span id="L383"><span class="lineNum">     383</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L384"><span class="lineNum">     384</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 : esp_err_t esp_ping_new_session(const void *cfg, const void *cb, void **hdl){ (void)cfg;(void)cb;if(hdl)*hdl=NULL; return ESP_OK; }</span></span>
+<span id="L385"><span class="lineNum">     385</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ping_start(void *h){ (void)h; return ESP_OK; }</span></span>
+<span id="L386"><span class="lineNum">     386</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ping_stop(void *h){ (void)h; return ESP_OK; }</span></span>
+<span id="L387"><span class="lineNum">     387</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ping_delete_session(void *h){ (void)h; return ESP_OK; }</span></span>
+<span id="L388"><span class="lineNum">     388</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_ping_get_profile(void *h, int p, void *d, uint32_t s){ (void)h;(void)p;(void)d;(void)s; return ESP_OK; }</span></span>
+<span id="L389"><span class="lineNum">     389</span>                 :             : </span>
+<span id="L390"><span class="lineNum">     390</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L391"><span class="lineNum">     391</span>                 :             : /*  esp_system non-static (for TUs that don't include esp_system.h)   */</span>
+<span id="L392"><span class="lineNum">     392</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L393"><span class="lineNum">     393</span>                 :<span class="tlaGNC tlaBgGNC">           3 : void esp_restart(void){}</span></span>
+<span id="L394"><span class="lineNum">     394</span>                 :             : </span>
+<span id="L395"><span class="lineNum">     395</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L396"><span class="lineNum">     396</span>                 :             : /*  NVS in-memory blob store (so set/get round-trips correctly)        */</span>
+<span id="L397"><span class="lineNum">     397</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L398"><span class="lineNum">     398</span>                 :             : #define _NVS_MAX_BLOBS 16</span>
+<span id="L399"><span class="lineNum">     399</span>                 :             : #define _NVS_MAX_KEY    32</span>
+<span id="L400"><span class="lineNum">     400</span>                 :             : #define _NVS_MAX_BLOB   512</span>
+<span id="L401"><span class="lineNum">     401</span>                 :             : typedef struct {</span>
+<span id="L402"><span class="lineNum">     402</span>                 :             :     char key[_NVS_MAX_KEY];</span>
+<span id="L403"><span class="lineNum">     403</span>                 :             :     uint8_t data[_NVS_MAX_BLOB];</span>
+<span id="L404"><span class="lineNum">     404</span>                 :             :     size_t  len;</span>
+<span id="L405"><span class="lineNum">     405</span>                 :             :     int     used;</span>
+<span id="L406"><span class="lineNum">     406</span>                 :             : } _nvs_blob_t;</span>
+<span id="L407"><span class="lineNum">     407</span>                 :             : static _nvs_blob_t _nvs_blobs[_NVS_MAX_BLOBS];</span>
+<span id="L408"><span class="lineNum">     408</span>                 :             : </span>
+<span id="L409"><span class="lineNum">     409</span>                 :<span class="tlaGNC">          29 : esp_err_t nvs_set_blob(void *handle, const char *key, const void *value, size_t length) {</span></span>
+<span id="L410"><span class="lineNum">     410</span>                 :             :     (void)handle;</span>
+<span id="L411"><span class="lineNum">     411</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 24 times"> + </span>]:<span class="tlaGNC">          29 :     if (_stub_nvs_set_blob_ret != ESP_OK) return _stub_nvs_set_blob_ret;</span></span>
+<span id="L412"><span class="lineNum">     412</span>   [<span class="tlaGBC" title="Branch 0 was taken 24 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 24 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          24 :     if (!key || !value || length &gt; _NVS_MAX_BLOB) return ESP_FAIL;</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaGBC" title="Branch 5 was taken 24 times"> + </span>]
+<span id="L413"><span class="lineNum">     413</span>                 :             :     /* Update existing key */</span>
+<span id="L414"><span class="lineNum">     414</span>         [<span class="tlaGBC" title="Branch 0 was taken 173 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 6 times"> + </span>]:<span class="tlaGNC">         179 :     for (int i = 0; i &lt; _NVS_MAX_BLOBS; i++) {</span></span>
+<span id="L415"><span class="lineNum">     415</span>   [<span class="tlaGBC" title="Branch 0 was taken 92 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 81 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 18 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 74 times"> + </span>]:<span class="tlaGNC">         173 :         if (_nvs_blobs[i].used &amp;&amp; strncmp(_nvs_blobs[i].key, key, _NVS_MAX_KEY) == 0) {</span></span>
+<span id="L416"><span class="lineNum">     416</span>                 :<span class="tlaGNC">          18 :             memcpy(_nvs_blobs[i].data, value, length);</span></span>
+<span id="L417"><span class="lineNum">     417</span>                 :<span class="tlaGNC">          18 :             _nvs_blobs[i].len = length;</span></span>
+<span id="L418"><span class="lineNum">     418</span>                 :<span class="tlaGNC">          18 :             return ESP_OK;</span></span>
+<span id="L419"><span class="lineNum">     419</span>                 :             :         }</span>
+<span id="L420"><span class="lineNum">     420</span>                 :             :     }</span>
+<span id="L421"><span class="lineNum">     421</span>                 :             :     /* Insert new */</span>
+<span id="L422"><span class="lineNum">     422</span>         [<span class="tlaGBC" title="Branch 0 was taken 21 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          21 :     for (int i = 0; i &lt; _NVS_MAX_BLOBS; i++) {</span></span>
+<span id="L423"><span class="lineNum">     423</span>         [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 15 times"> + </span>]:<span class="tlaGNC">          21 :         if (!_nvs_blobs[i].used) {</span></span>
+<span id="L424"><span class="lineNum">     424</span>                 :<span class="tlaGNC">           6 :             strncpy(_nvs_blobs[i].key, key, _NVS_MAX_KEY - 1);</span></span>
+<span id="L425"><span class="lineNum">     425</span>                 :<span class="tlaGNC">           6 :             _nvs_blobs[i].key[_NVS_MAX_KEY - 1] = '\0';</span></span>
+<span id="L426"><span class="lineNum">     426</span>                 :<span class="tlaGNC">           6 :             memcpy(_nvs_blobs[i].data, value, length);</span></span>
+<span id="L427"><span class="lineNum">     427</span>                 :<span class="tlaGNC">           6 :             _nvs_blobs[i].len = length;</span></span>
+<span id="L428"><span class="lineNum">     428</span>                 :<span class="tlaGNC">           6 :             _nvs_blobs[i].used = 1;</span></span>
+<span id="L429"><span class="lineNum">     429</span>                 :<span class="tlaGNC">           6 :             return ESP_OK;</span></span>
+<span id="L430"><span class="lineNum">     430</span>                 :             :         }</span>
+<span id="L431"><span class="lineNum">     431</span>                 :             :     }</span>
+<span id="L432"><span class="lineNum">     432</span>                 :<span class="tlaUNC tlaBgUNC">           0 :     return ESP_FAIL;</span></span>
+<span id="L433"><span class="lineNum">     433</span>                 :             : }</span>
+<span id="L434"><span class="lineNum">     434</span>                 :<span class="tlaGNC tlaBgGNC">          16 : esp_err_t nvs_get_blob(void *handle, const char *key, void *out_value, size_t *length) {</span></span>
+<span id="L435"><span class="lineNum">     435</span>                 :             :     (void)handle;</span>
+<span id="L436"><span class="lineNum">     436</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 12 times"> + </span>]:<span class="tlaGNC">          16 :     if (_stub_nvs_get_blob_ret != ESP_OK) return _stub_nvs_get_blob_ret;</span></span>
+<span id="L437"><span class="lineNum">     437</span>   [<span class="tlaGBC" title="Branch 0 was taken 12 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 12 times"> + </span>]:<span class="tlaGNC">          12 :     if (!key || !length) return 0x1102;  /* ESP_ERR_NVS_NOT_FOUND */</span></span>
+<span id="L438"><span class="lineNum">     438</span>         [<span class="tlaGBC" title="Branch 0 was taken 61 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">          62 :     for (int i = 0; i &lt; _NVS_MAX_BLOBS; i++) {</span></span>
+<span id="L439"><span class="lineNum">     439</span>   [<span class="tlaGBC" title="Branch 0 was taken 45 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 16 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 11 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 34 times"> + </span>]:<span class="tlaGNC">          61 :         if (_nvs_blobs[i].used &amp;&amp; strncmp(_nvs_blobs[i].key, key, _NVS_MAX_KEY) == 0) {</span></span>
+<span id="L440"><span class="lineNum">     440</span>                 :<span class="tlaGNC">          11 :             size_t to_copy = (_nvs_blobs[i].len &lt; *length) ? _nvs_blobs[i].len : *length;</span></span>
+<span id="L441"><span class="lineNum">     441</span>         [<span class="tlaGBC" title="Branch 0 was taken 11 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          11 :             if (out_value) {</span></span>
+<span id="L442"><span class="lineNum">     442</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 9 times"> + </span>]:<span class="tlaGNC">          11 :                 if (_stub_nvs_corrupt_key) {</span></span>
+<span id="L443"><span class="lineNum">     443</span>                 :             :                     /* Drive the firmware's &quot;Key mismatch&quot; else branch */</span>
+<span id="L444"><span class="lineNum">     444</span>                 :<span class="tlaGNC">           2 :                     memset(out_value, 0x00, to_copy);</span></span>
+<span id="L445"><span class="lineNum">     445</span>                 :             :                 } else {</span>
+<span id="L446"><span class="lineNum">     446</span>                 :<span class="tlaGNC">           9 :                     memcpy(out_value, _nvs_blobs[i].data, to_copy);</span></span>
+<span id="L447"><span class="lineNum">     447</span>                 :             :                 }</span>
+<span id="L448"><span class="lineNum">     448</span>                 :             :             }</span>
+<span id="L449"><span class="lineNum">     449</span>                 :             :             /* If the test forces a length, override; lets us drive the</span>
+<span id="L450"><span class="lineNum">     450</span>                 :             :                &quot;Key==0xAA &amp;&amp; len != sizeof&quot; else branch without disturbing</span>
+<span id="L451"><span class="lineNum">     451</span>                 :             :                the stored data's Key byte. */</span>
+<span id="L452"><span class="lineNum">     452</span>                 :<span class="tlaGNC">          22 :             *length = _stub_nvs_get_len_override ? _stub_nvs_get_len_override</span></span>
+<span id="L453"><span class="lineNum">     453</span>         [<span class="tlaGBC" title="Branch 0 was taken 10 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">          11 :                                                   : _nvs_blobs[i].len;</span></span>
+<span id="L454"><span class="lineNum">     454</span>                 :<span class="tlaGNC">          11 :             return ESP_OK;</span></span>
+<span id="L455"><span class="lineNum">     455</span>                 :             :         }</span>
+<span id="L456"><span class="lineNum">     456</span>                 :             :     }</span>
+<span id="L457"><span class="lineNum">     457</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :     if (length) *length = 0;</span></span>
+<span id="L458"><span class="lineNum">     458</span>                 :<span class="tlaGNC">           1 :     return 0x1102; /* ESP_ERR_NVS_NOT_FOUND */</span></span>
+<span id="L459"><span class="lineNum">     459</span>                 :             : }</span>
+<span id="L460"><span class="lineNum">     460</span>                 :             : </span>
+<span id="L461"><span class="lineNum">     461</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L462"><span class="lineNum">     462</span>                 :             : /*  esp_event with shared dispatch table across all TUs                */</span>
+<span id="L463"><span class="lineNum">     463</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L464"><span class="lineNum">     464</span>                 :             : #include &quot;esp_event.h&quot;</span>
+<span id="L465"><span class="lineNum">     465</span>                 :             : #define _STUB_EVT_MAX 16</span>
+<span id="L466"><span class="lineNum">     466</span>                 :             : typedef struct {</span>
+<span id="L467"><span class="lineNum">     467</span>                 :             :     esp_event_base_t base;</span>
+<span id="L468"><span class="lineNum">     468</span>                 :             :     int32_t          id;</span>
+<span id="L469"><span class="lineNum">     469</span>                 :             :     esp_event_handler_t handler;</span>
+<span id="L470"><span class="lineNum">     470</span>                 :             :     void            *arg;</span>
+<span id="L471"><span class="lineNum">     471</span>                 :             :     int              used;</span>
+<span id="L472"><span class="lineNum">     472</span>                 :             : } _stub_evt_entry_t;</span>
+<span id="L473"><span class="lineNum">     473</span>                 :             : static _stub_evt_entry_t _stub_evt_table[_STUB_EVT_MAX];</span>
+<span id="L474"><span class="lineNum">     474</span>                 :             : </span>
+<span id="L475"><span class="lineNum">     475</span>                 :<span class="tlaGNC">           2 : static esp_err_t _stub_evt_register(esp_event_base_t b, int32_t id, esp_event_handler_t h, void *a) {</span></span>
+<span id="L476"><span class="lineNum">     476</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           3 :     for (int i = 0; i &lt; _STUB_EVT_MAX; i++) {</span></span>
+<span id="L477"><span class="lineNum">     477</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           3 :         if (!_stub_evt_table[i].used) {</span></span>
+<span id="L478"><span class="lineNum">     478</span>                 :<span class="tlaGNC">           2 :             _stub_evt_table[i].base = b;</span></span>
+<span id="L479"><span class="lineNum">     479</span>                 :<span class="tlaGNC">           2 :             _stub_evt_table[i].id = id;</span></span>
+<span id="L480"><span class="lineNum">     480</span>                 :<span class="tlaGNC">           2 :             _stub_evt_table[i].handler = h;</span></span>
+<span id="L481"><span class="lineNum">     481</span>                 :<span class="tlaGNC">           2 :             _stub_evt_table[i].arg = a;</span></span>
+<span id="L482"><span class="lineNum">     482</span>                 :<span class="tlaGNC">           2 :             _stub_evt_table[i].used = 1;</span></span>
+<span id="L483"><span class="lineNum">     483</span>                 :<span class="tlaGNC">           2 :             return ESP_OK;</span></span>
+<span id="L484"><span class="lineNum">     484</span>                 :             :         }</span>
+<span id="L485"><span class="lineNum">     485</span>                 :             :     }</span>
+<span id="L486"><span class="lineNum">     486</span>                 :<span class="tlaUNC tlaBgUNC">           0 :     return ESP_OK;</span></span>
+<span id="L487"><span class="lineNum">     487</span>                 :             : }</span>
+<span id="L488"><span class="lineNum">     488</span>                 :<span class="tlaGNC tlaBgGNC">           1 : esp_err_t esp_event_loop_create_default(void){return ESP_OK;}</span></span>
+<span id="L489"><span class="lineNum">     489</span>                 :<span class="tlaUNC tlaBgUNC">           0 : esp_err_t esp_event_loop_create(const esp_event_loop_args_t *a, esp_event_loop_handle_t *l){(void)a;(void)l;return ESP_OK;}</span></span>
+<span id="L490"><span class="lineNum">     490</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_event_loop_delete_default(void){return ESP_OK;}</span></span>
+<span id="L491"><span class="lineNum">     491</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_event_handler_register(esp_event_base_t b, int32_t id, esp_event_handler_t h, void *a){</span></span>
+<span id="L492"><span class="lineNum">     492</span>                 :<span class="tlaUNC">           0 :     return _stub_evt_register(b, id, h, a);</span></span>
+<span id="L493"><span class="lineNum">     493</span>                 :             : }</span>
+<span id="L494"><span class="lineNum">     494</span>                 :<span class="tlaUNC">           0 : esp_err_t esp_event_handler_register_with(esp_event_loop_handle_t l, esp_event_base_t b, int32_t id, esp_event_handler_t h, void *a){</span></span>
+<span id="L495"><span class="lineNum">     495</span>                 :<span class="tlaUNC">           0 :     (void)l; return _stub_evt_register(b, id, h, a);</span></span>
+<span id="L496"><span class="lineNum">     496</span>                 :             : }</span>
+<span id="L497"><span class="lineNum">     497</span>                 :<span class="tlaGNC tlaBgGNC">           2 : esp_err_t esp_event_handler_instance_register(esp_event_base_t b, int32_t id, esp_event_handler_t h, void *a, esp_event_handler_instance_t *inst){</span></span>
+<span id="L498"><span class="lineNum">     498</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           2 :     if (inst) *inst = NULL;</span></span>
+<span id="L499"><span class="lineNum">     499</span>                 :<span class="tlaGNC">           2 :     return _stub_evt_register(b, id, h, a);</span></span>
+<span id="L500"><span class="lineNum">     500</span>                 :             : }</span>
+<span id="L501"><span class="lineNum">     501</span>                 :<span class="tlaUNC tlaBgUNC">           0 : esp_err_t esp_event_handler_unregister(esp_event_base_t b, int32_t id, esp_event_handler_t h){</span></span>
+<span id="L502"><span class="lineNum">     502</span>                 :             :     (void)b; (void)id;</span>
+<span id="L503"><span class="lineNum">     503</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     for (int i = 0; i &lt; _STUB_EVT_MAX; i++) {</span></span>
+<span id="L504"><span class="lineNum">     504</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if (_stub_evt_table[i].used &amp;&amp; _stub_evt_table[i].handler == h) {</span></span>
+<span id="L505"><span class="lineNum">     505</span>                 :<span class="tlaUNC">           0 :             _stub_evt_table[i].used = 0;</span></span>
+<span id="L506"><span class="lineNum">     506</span>                 :             :         }</span>
+<span id="L507"><span class="lineNum">     507</span>                 :             :     }</span>
+<span id="L508"><span class="lineNum">     508</span>                 :<span class="tlaUNC">           0 :     return ESP_OK;</span></span>
+<span id="L509"><span class="lineNum">     509</span>                 :             : }</span>
+<span id="L510"><span class="lineNum">     510</span>                 :<span class="tlaGNC tlaBgGNC">          30 : esp_err_t esp_event_post(esp_event_base_t b, int32_t id, void *d, size_t ds, uint32_t tw){</span></span>
+<span id="L511"><span class="lineNum">     511</span>                 :             :     (void)ds; (void)tw;</span>
+<span id="L512"><span class="lineNum">     512</span>         [<span class="tlaGBC" title="Branch 0 was taken 480 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 30 times"> + </span>]:<span class="tlaGNC">         510 :     for (int i = 0; i &lt; _STUB_EVT_MAX; i++) {</span></span>
+<span id="L513"><span class="lineNum">     513</span>         [<span class="tlaGBC" title="Branch 0 was taken 420 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 60 times"> + </span>]:<span class="tlaGNC">         480 :         if (!_stub_evt_table[i].used) continue;</span></span>
+<span id="L514"><span class="lineNum">     514</span>         [<span class="tlaGBC" title="Branch 0 was taken 29 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 31 times"> + </span>]:<span class="tlaGNC">          60 :         if (_stub_evt_table[i].base == b &amp;&amp;</span></span>
+<span id="L515"><span class="lineNum">     515</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 28 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          29 :             (_stub_evt_table[i].id == ESP_EVENT_ANY_ID || _stub_evt_table[i].id == id)) {</span></span>
+<span id="L516"><span class="lineNum">     516</span>                 :<span class="tlaGNC">          29 :             _stub_evt_table[i].handler(_stub_evt_table[i].arg, b, id, d);</span></span>
+<span id="L517"><span class="lineNum">     517</span>                 :             :         }</span>
+<span id="L518"><span class="lineNum">     518</span>                 :             :     }</span>
+<span id="L519"><span class="lineNum">     519</span>                 :<span class="tlaGNC">          30 :     return ESP_OK;</span></span>
+<span id="L520"><span class="lineNum">     520</span>                 :             : }</span>
+<span id="L521"><span class="lineNum">     521</span>                 :<span class="tlaUNC tlaBgUNC">           0 : esp_err_t esp_event_post_to(esp_event_loop_handle_t l, esp_event_base_t b, int32_t id, void *d, size_t ds, uint32_t tw){</span></span>
+<span id="L522"><span class="lineNum">     522</span>                 :<span class="tlaUNC">           0 :     (void)l; return esp_event_post(b, id, d, ds, tw);</span></span>
+<span id="L523"><span class="lineNum">     523</span>                 :             : }</span>
+<span id="L524"><span class="lineNum">     524</span>                 :             : </span>
+<span id="L525"><span class="lineNum">     525</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L526"><span class="lineNum">     526</span>                 :             : /*  Firmware functions declared in headers but never defined           */</span>
+<span id="L527"><span class="lineNum">     527</span>                 :             : /* ------------------------------------------------------------------ */</span>
+<span id="L528"><span class="lineNum">     528</span>                 :             : #include &lt;time.h&gt;</span>
+<span id="L529"><span class="lineNum">     529</span>                 :<span class="tlaGNC tlaBgGNC">           1 : __attribute__((weak)) void set_current_time(time_t t){ (void)t; }</span></span>
+<span id="L530"><span class="lineNum">     530</span>                 :<span class="tlaGNC">           3 : __attribute__((weak)) int  get_cmd_type(unsigned char b){ (void)b; return 0; }</span></span>
+<span id="L531"><span class="lineNum">     531</span>                 :<span class="tlaGNC">           1 : __attribute__((weak)) int  ReadFromFile(const char *path, unsigned char *buf, int len){ (void)path;(void)buf;(void)len; return 0; }</span></span>
+<span id="L532"><span class="lineNum">     532</span>                 :<span class="tlaGNC">           2 : __attribute__((weak)) int  WriteIntoFile(const char *path, const unsigned char *buf, int len){ (void)path;(void)buf;(void)len; return 0; }</span></span>
+<span id="L533"><span class="lineNum">     533</span>                 :<span class="tlaGNC">           1 : __attribute__((weak)) void LIR_task_init(void){}</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

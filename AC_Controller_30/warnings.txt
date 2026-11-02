@@ -1,0 +1,268 @@
+Enabled checks:
+    clang-analyzer-apiModeling.Errno
+    clang-analyzer-apiModeling.TrustNonnull
+    clang-analyzer-apiModeling.TrustReturnsNonnull
+    clang-analyzer-apiModeling.google.GTest
+    clang-analyzer-apiModeling.llvm.CastValue
+    clang-analyzer-apiModeling.llvm.ReturnValue
+    clang-analyzer-core.BitwiseShift
+    clang-analyzer-core.CallAndMessage
+    clang-analyzer-core.CallAndMessageModeling
+    clang-analyzer-core.DivideZero
+    clang-analyzer-core.DynamicTypePropagation
+    clang-analyzer-core.NonNullParamChecker
+    clang-analyzer-core.NonnilStringConstants
+    clang-analyzer-core.NullDereference
+    clang-analyzer-core.StackAddrEscapeBase
+    clang-analyzer-core.StackAddressEscape
+    clang-analyzer-core.UndefinedBinaryOperatorResult
+    clang-analyzer-core.VLASize
+    clang-analyzer-core.builtin.BuiltinFunctions
+    clang-analyzer-core.builtin.NoReturnFunctions
+    clang-analyzer-core.uninitialized.ArraySubscript
+    clang-analyzer-core.uninitialized.Assign
+    clang-analyzer-core.uninitialized.Branch
+    clang-analyzer-core.uninitialized.CapturedBlockVariable
+    clang-analyzer-core.uninitialized.NewArraySize
+    clang-analyzer-core.uninitialized.UndefReturn
+    clang-analyzer-cplusplus.ArrayDelete
+    clang-analyzer-cplusplus.InnerPointer
+    clang-analyzer-cplusplus.Move
+    clang-analyzer-cplusplus.NewDelete
+    clang-analyzer-cplusplus.NewDeleteLeaks
+    clang-analyzer-cplusplus.PlacementNew
+    clang-analyzer-cplusplus.PureVirtualCall
+    clang-analyzer-cplusplus.SelfAssignment
+    clang-analyzer-cplusplus.SmartPtrModeling
+    clang-analyzer-cplusplus.StringChecker
+    clang-analyzer-cplusplus.VirtualCallModeling
+    clang-analyzer-deadcode.DeadStores
+    clang-analyzer-fuchsia.HandleChecker
+    clang-analyzer-nullability.NullPassedToNonnull
+    clang-analyzer-nullability.NullReturnedFromNonnull
+    clang-analyzer-nullability.NullabilityBase
+    clang-analyzer-nullability.NullableDereferenced
+    clang-analyzer-nullability.NullablePassedToNonnull
+    clang-analyzer-nullability.NullableReturnedFromNonnull
+    clang-analyzer-optin.core.EnumCastOutOfRange
+    clang-analyzer-optin.cplusplus.UninitializedObject
+    clang-analyzer-optin.cplusplus.VirtualCall
+    clang-analyzer-optin.mpi.MPI-Checker
+    clang-analyzer-optin.osx.OSObjectCStyleCast
+    clang-analyzer-optin.osx.cocoa.localizability.EmptyLocalizationContextChecker
+    clang-analyzer-optin.osx.cocoa.localizability.NonLocalizedStringChecker
+    clang-analyzer-optin.performance.GCDAntipattern
+    clang-analyzer-optin.performance.Padding
+    clang-analyzer-optin.portability.UnixAPI
+    clang-analyzer-optin.taint.TaintedAlloc
+    clang-analyzer-osx.API
+    clang-analyzer-osx.MIG
+    clang-analyzer-osx.NSOrCFErrorDerefChecker
+    clang-analyzer-osx.NumberObjectConversion
+    clang-analyzer-osx.OSObjectRetainCount
+    clang-analyzer-osx.ObjCProperty
+    clang-analyzer-osx.SecKeychainAPI
+    clang-analyzer-osx.cocoa.AtSync
+    clang-analyzer-osx.cocoa.AutoreleaseWrite
+    clang-analyzer-osx.cocoa.ClassRelease
+    clang-analyzer-osx.cocoa.Dealloc
+    clang-analyzer-osx.cocoa.IncompatibleMethodTypes
+    clang-analyzer-osx.cocoa.Loops
+    clang-analyzer-osx.cocoa.MissingSuperCall
+    clang-analyzer-osx.cocoa.NSAutoreleasePool
+    clang-analyzer-osx.cocoa.NSError
+    clang-analyzer-osx.cocoa.NilArg
+    clang-analyzer-osx.cocoa.NonNilReturnValue
+    clang-analyzer-osx.cocoa.ObjCGenerics
+    clang-analyzer-osx.cocoa.RetainCount
+    clang-analyzer-osx.cocoa.RetainCountBase
+    clang-analyzer-osx.cocoa.RunLoopAutoreleaseLeak
+    clang-analyzer-osx.cocoa.SelfInit
+    clang-analyzer-osx.cocoa.SuperDealloc
+    clang-analyzer-osx.cocoa.UnusedIvars
+    clang-analyzer-osx.cocoa.VariadicMethodTypes
+    clang-analyzer-osx.coreFoundation.CFError
+    clang-analyzer-osx.coreFoundation.CFNumber
+    clang-analyzer-osx.coreFoundation.CFRetainRelease
+    clang-analyzer-osx.coreFoundation.containers.OutOfBounds
+    clang-analyzer-osx.coreFoundation.containers.PointerSizedValues
+    clang-analyzer-security.FloatLoopCounter
+    clang-analyzer-security.PutenvStackArray
+    clang-analyzer-security.SetgidSetuidOrder
+    clang-analyzer-security.cert.env.InvalidPtr
+    clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling
+    clang-analyzer-security.insecureAPI.SecuritySyntaxChecker
+    clang-analyzer-security.insecureAPI.UncheckedReturn
+    clang-analyzer-security.insecureAPI.bcmp
+    clang-analyzer-security.insecureAPI.bcopy
+    clang-analyzer-security.insecureAPI.bzero
+    clang-analyzer-security.insecureAPI.decodeValueOfObjCType
+    clang-analyzer-security.insecureAPI.getpw
+    clang-analyzer-security.insecureAPI.gets
+    clang-analyzer-security.insecureAPI.mkstemp
+    clang-analyzer-security.insecureAPI.mktemp
+    clang-analyzer-security.insecureAPI.rand
+    clang-analyzer-security.insecureAPI.strcpy
+    clang-analyzer-security.insecureAPI.vfork
+    clang-analyzer-unix.API
+    clang-analyzer-unix.BlockInCriticalSection
+    clang-analyzer-unix.DynamicMemoryModeling
+    clang-analyzer-unix.Errno
+    clang-analyzer-unix.Malloc
+    clang-analyzer-unix.MallocSizeof
+    clang-analyzer-unix.MismatchedDeallocator
+    clang-analyzer-unix.StdCLibraryFunctions
+    clang-analyzer-unix.Stream
+    clang-analyzer-unix.Vfork
+    clang-analyzer-unix.cstring.BadSizeArg
+    clang-analyzer-unix.cstring.CStringModeling
+    clang-analyzer-unix.cstring.NullArg
+    clang-analyzer-valist.CopyToSelf
+    clang-analyzer-valist.Uninitialized
+    clang-analyzer-valist.Unterminated
+    clang-analyzer-valist.ValistBase
+    clang-analyzer-webkit.NoUncountedMemberChecker
+    clang-analyzer-webkit.RefCntblBaseVirtualDtor
+    clang-analyzer-webkit.UncountedLambdaCapturesChecker
+
+Running clang-tidy for 14 files out of 14 in compilation database ...
+
+[ 1/14][0.7s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\uart\uart_app.c
+
+[ 2/14][0.7s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\modbus\data.c
+
+[ 3/14][0.8s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\main.c
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\main.c:49:5: error: call to undeclared function 'sprintf_s'; ISO C99 and later do not support implicit function declarations [clang-diagnostic-implicit-function-declaration]
+
+   49 |     sprintf_s(printf_buffer, sizeof(printf_buffer), format, args);
+
+      |     ^
+
+1 error generated.
+
+
+Error while processing D:/Projects/Modbus_project/Modbus_poll_code_with_cpp_lib/AC_Controller_30/main/main.c.
+
+
+Found compiler error(s).
+
+
+
+
+[ 4/14][0.9s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\TimeManagement\TimeManagement.c
+
+[ 5/14][0.9s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\wifi\wifiConnect.c
+
+[ 6/14][0.9s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\ble_spp\ble_spp_server_demo.c
+
+[ 7/14][0.6s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\ota\ota.c
+
+[ 8/14][1.1s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\xmodem\xmodem.c
+
+[ 9/14][1.4s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions\Jio_EA_Safe_Functions.cpp
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions\Jio_EA_Safe_Functions.cpp:171:9: warning: use of invalidated pointer 'strerror((*__errno()))' in a function call [clang-analyzer-security.cert.env.InvalidPtr]
+
+  171 |                 ret = Jio_032112_EA_memcpy_s(&errstr[Jio_032109_EA_strnlen_s("sscanf_s: ", sizeof("sscanf_s: "))], l_sz_buff_remaining_size, strerror(errno), Jio_032110_EA_Get_String_Size(strerror(errno))); 
+
+      |                       ^                                                                                                                      ~~~~~~~~~~~~~~~
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions\Jio_EA_Safe_Functions.cpp:141:18: note: Assuming the condition is false
+
+  141 |     if (UNLIKELY(buffer == NULL)) {
+
+      |                  ^
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions/Jio_EA_Safe_Functions.h:29:41: note: expanded from macro 'UNLIKELY'
+
+   29 | #define UNLIKELY(x) __builtin_expect(!!(x), 0)
+
+      |                                         ^
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions\Jio_EA_Safe_Functions.cpp:141:5: note: Taking false branch
+
+  141 |     if (UNLIKELY(buffer == NULL)) {
+
+      |     ^
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions\Jio_EA_Safe_Functions.cpp:148:18: note: Assuming the condition is false
+
+  148 |     if (UNLIKELY(fmt == NULL)) {
+
+      |                  ^
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions/Jio_EA_Safe_Functions.h:29:41: note: expanded from macro 'UNLIKELY'
+
+   29 | #define UNLIKELY(x) __builtin_expect(!!(x), 0)
+
+      |                                         ^
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions\Jio_EA_Safe_Functions.cpp:148:5: note: Taking false branch
+
+  148 |     if (UNLIKELY(fmt == NULL)) {
+
+      |     ^
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions\Jio_EA_Safe_Functions.cpp:160:18: note: Assuming 'ret' is < 0
+
+  160 |     if (UNLIKELY(ret < 0)) { /* always -1 EOF */
+
+      |                  ^
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions/Jio_EA_Safe_Functions.h:29:41: note: expanded from macro 'UNLIKELY'
+
+   29 | #define UNLIKELY(x) __builtin_expect(!!(x), 0)
+
+      |                                         ^
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions\Jio_EA_Safe_Functions.cpp:160:5: note: Taking true branch
+
+  160 |     if (UNLIKELY(ret < 0)) { /* always -1 EOF */
+
+      |     ^
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions\Jio_EA_Safe_Functions.cpp:171:128: note: previous function call was here
+
+  171 |                 ret = Jio_032112_EA_memcpy_s(&errstr[Jio_032109_EA_strnlen_s("sscanf_s: ", sizeof("sscanf_s: "))], l_sz_buff_remaining_size, strerror(errno), Jio_032110_EA_Get_String_Size(strerror(errno))); 
+
+      |                                                                                                                                              ^~~~~~~~~~~~~~~
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions\Jio_EA_Safe_Functions.cpp:171:175: note: 'strerror' call may invalidate the result of the previous 'strerror'
+
+  171 |                 ret = Jio_032112_EA_memcpy_s(&errstr[Jio_032109_EA_strnlen_s("sscanf_s: ", sizeof("sscanf_s: "))], l_sz_buff_remaining_size, strerror(errno), Jio_032110_EA_Get_String_Size(strerror(errno))); 
+
+      |                                                                                                                                                                                             ^~~~~~~~~~~~~~~
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\SafeFunctions\Jio_EA_Safe_Functions.cpp:171:9: note: use of invalidated pointer 'strerror((*__errno()))' in a function call
+
+  171 |                 ret = Jio_032112_EA_memcpy_s(&errstr[Jio_032109_EA_strnlen_s("sscanf_s: ", sizeof("sscanf_s: "))], l_sz_buff_remaining_size, strerror(errno), Jio_032110_EA_Get_String_Size(strerror(errno))); 
+
+      |                       ^                                                                                                                      ~~~~~~~~~~~~~~~
+
+1 warning generated.
+
+
+
+
+[10/14][2.6s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\controller\controller.c
+
+[11/14][3.7s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\mqtt\mqtt_manager.c
+
+D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\mqtt\mqtt_manager.c:422:9: warning: unused variable 'msg_id' [clang-diagnostic-unused-variable]
+
+  422 |     int msg_id = 0;
+
+      |         ^~~~~~
+
+1 warning generated.
+
+
+
+
+[12/14][5.1s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\modbus\modbus.c
+
+[13/14][6.6s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\configuration\configuration.c
+
+[14/14][9.7s] C:\Espressif\tools\esp-clang\esp-19.1.2_20250312\esp-clang\bin\clang-tidy.EXE -header-filter=main/.* -p=D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\build D:\Projects\Modbus_project\Modbus_poll_code_with_cpp_lib\AC_Controller_30\main\modbus\nanomodbus.c
+

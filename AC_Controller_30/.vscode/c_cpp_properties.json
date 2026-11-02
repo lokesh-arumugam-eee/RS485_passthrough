@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "ESP-IDF",
+            "compilerPath": "C:\\Espressif\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32s3-elf-gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/main/safec/inc",
+                "${workspaceFolder}/main/safec/safeclib/include",
+                "${workspaceFolder}/main/safec/safeclib/src",
+                "C:/Espressif/frameworks/esp-idf-v5.5-2/components/**",
+                "${workspaceFolder}/main"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/main/safec"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "windowsSdkVersion": "10.0.26100.0",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,9 @@
+        -:    0:Source:/mnt/d/Projects/Modbus_project/Modbus_cpplib_S3/AC_Controller_30/tests/cov_stubs/stubs/esp_rom_sys.h
+        -:    0:Graph:build/main/xmodem/xmodem.gcno
+        -:    0:Data:build/main/xmodem/xmodem.gcda
+        -:    0:Runs:2
+        -:    1:#pragma once
+        -:    2:#include <stdint.h>
+function esp_rom_delay_us called 2 returned 100% blocks executed 100%
+        2:    3:static inline void esp_rom_delay_us(uint32_t us){(void)us;}
+        -:    4:static inline void esp_rom_printf(const char *fmt, ...){}

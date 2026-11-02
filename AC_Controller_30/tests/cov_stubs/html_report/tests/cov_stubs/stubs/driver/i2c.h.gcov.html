@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AC_Controller_30 Coverage - tests/cov_stubs/stubs/driver/i2c.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">tests/cov_stubs/stubs/driver</a> - i2c.h<span style="font-size: 80%;"> (source / <a href="i2c.h.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AC_Controller_30 Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">4</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-05-08 12:18:40</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">4</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">25.0&nbsp;%</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">1</td>
+          </tr>
+                  <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : #pragma once</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : #include &quot;esp_err.h&quot;</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : #include &lt;stdint.h&gt;</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : #include &lt;stddef.h&gt;</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : #include &quot;driver/gpio.h&quot;</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : #include &quot;freertos/FreeRTOS.h&quot;</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : </span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : typedef int i2c_port_t;</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : #define I2C_NUM_0 0</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : #define I2C_NUM_1 1</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : #define I2C_NUM_MAX 2</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : </span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : typedef enum { I2C_MODE_SLAVE=0, I2C_MODE_MASTER } i2c_mode_t;</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : typedef void* i2c_cmd_handle_t;</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : </span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : typedef struct {</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :     i2c_mode_t mode;</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :     int sda_io_num;</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :     int scl_io_num;</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :     bool sda_pullup_en;</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :     bool scl_pullup_en;</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :     union {</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :         struct { uint32_t clk_speed; } master;</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :         struct { uint8_t addr_10bit_en; uint16_t slave_addr; uint32_t maximum_speed; } slave;</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :     };</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :     uint32_t clk_flags;</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : } i2c_config_t;</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             : </span>
+<span id="L29"><span class="lineNum">      29</span>                 :<span class="tlaGNC tlaBgGNC">           5 : static inline esp_err_t i2c_param_config(i2c_port_t i2c_num, const i2c_config_t *i2c_conf){(void)i2c_num;(void)i2c_conf;return ESP_OK;}</span></span>
+<span id="L30"><span class="lineNum">      30</span>                 :<span class="tlaGNC">           5 : static inline esp_err_t i2c_driver_install(i2c_port_t i2c_num, i2c_mode_t mode, size_t slv_rx_buf_len, size_t slv_tx_buf_len, int intr_alloc_flags){(void)i2c_num;(void)mode;(void)slv_rx_buf_len;(void)slv_tx_buf_len;(void)intr_alloc_flags;return ESP_OK;}</span></span>
+<span id="L31"><span class="lineNum">      31</span>                 :             : static inline i2c_cmd_handle_t i2c_cmd_link_create(void){return (i2c_cmd_handle_t)malloc(1);}</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             : static inline void i2c_cmd_link_delete(i2c_cmd_handle_t cmd_handle){free(cmd_handle);}</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : static inline esp_err_t i2c_master_start(i2c_cmd_handle_t cmd_handle){(void)cmd_handle;return ESP_OK;}</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : static inline esp_err_t i2c_master_stop(i2c_cmd_handle_t cmd_handle){(void)cmd_handle;return ESP_OK;}</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             : static inline esp_err_t i2c_master_write_byte(i2c_cmd_handle_t cmd_handle, uint8_t data, bool ack_en){(void)cmd_handle;(void)data;(void)ack_en;return ESP_OK;}</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : static inline esp_err_t i2c_master_write(i2c_cmd_handle_t cmd_handle, const uint8_t *data, size_t data_len, bool ack_en){(void)cmd_handle;(void)data;(void)data_len;(void)ack_en;return ESP_OK;}</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : static inline esp_err_t i2c_master_read_byte(i2c_cmd_handle_t cmd_handle, uint8_t *data, int ack){(void)cmd_handle;if(data)*data=0;(void)ack;return ESP_OK;}</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : static inline esp_err_t i2c_master_read(i2c_cmd_handle_t cmd_handle, uint8_t *data, size_t data_len, int ack){(void)cmd_handle;if(data)memset(data,0,data_len);(void)ack;return ESP_OK;}</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : static inline esp_err_t i2c_master_cmd_begin(i2c_port_t i2c_num, i2c_cmd_handle_t cmd_handle, TickType_t ticks_to_wait){(void)i2c_num;(void)cmd_handle;(void)ticks_to_wait;return ESP_OK;}</span>
+<span id="L40"><span class="lineNum">      40</span>                 :<span class="tlaGNC">          17 : static inline esp_err_t i2c_master_write_to_device(i2c_port_t i2c_num, uint8_t device_address, const uint8_t *write_buffer, size_t write_size, TickType_t ticks_to_wait){(void)i2c_num;(void)device_address;(void)write_buffer;(void)write_size;(void)ticks_to_wait;return ESP_OK;}</span></span>
+<span id="L41"><span class="lineNum">      41</span>         [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           6 : static inline esp_err_t i2c_master_read_from_device(i2c_port_t i2c_num, uint8_t device_address, uint8_t *read_buffer, size_t read_size, TickType_t ticks_to_wait){(void)i2c_num;(void)device_address;if(read_buffer)memset(read_buffer,0,read_size);(void)ticks_to_wait;return ESP_OK;}</span></span>
+<span id="L42"><span class="lineNum">      42</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 : static inline esp_err_t i2c_master_write_read_device(i2c_port_t i2c_num, uint8_t device_address, const uint8_t *write_buffer, size_t write_size, uint8_t *read_buffer, size_t read_size, TickType_t ticks_to_wait){(void)i2c_num;(void)device_address;(void)write_buffer;(void)write_size;if(read_buffer)memset(read_buffer,0,read_size);(void)ticks_to_wait;return ESP_OK;}</span></span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : #define I2C_MASTER_ACK  0</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : #define I2C_MASTER_NACK 1</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : #define I2C_MASTER_LAST_NACK 2</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : #define I2C_MASTER_READ  1</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : #define I2C_MASTER_WRITE 0</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : #include &lt;string.h&gt;</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

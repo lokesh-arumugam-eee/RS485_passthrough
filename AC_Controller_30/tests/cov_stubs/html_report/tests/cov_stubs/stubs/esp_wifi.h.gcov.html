@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AC_Controller_30 Coverage - tests/cov_stubs/stubs/esp_wifi.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">tests/cov_stubs/stubs</a> - esp_wifi.h<span style="font-size: 80%;"> (source / <a href="esp_wifi.h.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AC_Controller_30 Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-05-08 12:18:40</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : #pragma once</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : #include &quot;esp_err.h&quot;</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : #include &quot;esp_event.h&quot;</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : #include &lt;stdint.h&gt;</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : #include &lt;stdbool.h&gt;</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : typedef enum { WIFI_MODE_NULL=0, WIFI_MODE_STA, WIFI_MODE_AP, WIFI_MODE_APSTA } wifi_mode_t;</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : typedef enum { WIFI_AUTH_OPEN=0, WIFI_AUTH_WEP, WIFI_AUTH_WPA_PSK, WIFI_AUTH_WPA2_PSK, WIFI_AUTH_WPA_WPA2_PSK, WIFI_AUTH_WPA2_ENTERPRISE, WIFI_AUTH_WPA3_PSK, WIFI_AUTH_WPA2_WPA3_PSK, WIFI_AUTH_WAPI_PSK, WIFI_AUTH_MAX } wifi_auth_mode_t;</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : typedef enum {</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :     WIFI_EVENT_WIFI_READY=0,</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :     WIFI_EVENT_SCAN_DONE,</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :     WIFI_EVENT_STA_START,</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :     WIFI_EVENT_STA_STOP,</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :     WIFI_EVENT_STA_CONNECTED,</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :     WIFI_EVENT_STA_DISCONNECTED,</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :     WIFI_EVENT_STA_AUTHMODE_CHANGE,</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :     WIFI_EVENT_STA_WPS_ER_SUCCESS,</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :     WIFI_EVENT_STA_WPS_ER_FAILED,</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :     WIFI_EVENT_STA_WPS_ER_TIMEOUT,</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :     WIFI_EVENT_AP_START,</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :     WIFI_EVENT_AP_STOP,</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :     WIFI_EVENT_AP_STACONNECTED,</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :     WIFI_EVENT_AP_STADISCONNECTED,</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :     WIFI_EVENT_MAX</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : } wifi_event_t;</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             : typedef enum { WIFI_STORAGE_FLASH=0, WIFI_STORAGE_RAM } wifi_storage_t;</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             : typedef struct { uint8_t ssid[32]; uint8_t password[64]; bool bssid_set; uint8_t bssid[6]; wifi_auth_mode_t threshold_authmode; bool sae_pwe_h2e; } wifi_sta_config_t;</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : typedef union { wifi_sta_config_t sta; } wifi_config_t;</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             : typedef struct { int8_t rssi; uint8_t ssid[33]; uint8_t bssid[6]; } wifi_ap_record_t;</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             : ESP_EVENT_DECLARE_BASE(WIFI_EVENT);</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             : /* Forward decls — definitions in esp_stubs.c so coverage tests can poke</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :    _stub_wifi_*_ret knobs to drive firmware error paths. */</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             : extern esp_err_t _stub_wifi_set_config_ret;</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : extern esp_err_t _stub_wifi_start_ret;</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : extern esp_err_t _stub_wifi_stop_ret;</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             : esp_err_t esp_wifi_init(const void*c);</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : esp_err_t esp_wifi_start(void);</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : esp_err_t esp_wifi_stop(void);</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : esp_err_t esp_wifi_connect(void);</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : esp_err_t esp_wifi_disconnect(void);</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : esp_err_t esp_wifi_set_mode(wifi_mode_t m);</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : esp_err_t esp_wifi_set_config(int i, wifi_config_t *c);</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : static inline esp_err_t esp_wifi_get_config(int i,wifi_config_t*c){(void)i;(void)c;return ESP_OK;}</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : extern esp_err_t _stub_wifi_get_ap_info_ret;</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : esp_err_t esp_wifi_sta_get_ap_info(wifi_ap_record_t*r);</span>
+<span id="L45"><span class="lineNum">      45</span>                 :<span class="tlaGNC tlaBgGNC">           3 : static inline esp_err_t esp_wifi_set_storage(wifi_storage_t storage){(void)storage;return ESP_OK;}</span></span>
+<span id="L46"><span class="lineNum">      46</span>                 :<span class="tlaGNC">           3 : static inline esp_err_t esp_wifi_set_max_tx_power(int8_t power){(void)power;return ESP_OK;}</span></span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : #define WIFI_IF_STA 0</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : #define WIFI_IF_AP  1</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             : typedef struct {} wifi_init_config_t;</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : #define WIFI_INIT_CONFIG_DEFAULT() {}</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

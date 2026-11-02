@@ -1,0 +1,405 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AC_Controller_30 Coverage - main/main.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">main</a> - main.c<span style="font-size: 80%;"> (source / <a href="main.c.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AC_Controller_30 Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">91.2&nbsp;%</td>
+            <td class="headerCovTableEntry">125</td>
+            <td class="headerCovTableEntry">114</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-05-08 12:18:40</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">5</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryMed">78.3&nbsp;%</td>
+            <td class="headerCovTableEntry">60</td>
+            <td class="headerCovTableEntry">47</td>
+          </tr>
+                  <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : #include &quot;main.h&quot;</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : #include &quot;xmodem/xmodem.h&quot;</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : #include &quot;driver/gpio.h&quot;</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : #include &quot;driver/uart.h&quot;</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : #include &quot;esp_bit_defs.h&quot;</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : #include &quot;esp_err.h&quot;</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : #include &quot;esp_heap_caps.h&quot;</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : #include &quot;esp_log.h&quot;</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : #include &quot;esp_spiffs.h&quot;</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : #include &quot;esp_system.h&quot;</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : #include &quot;esp_vfs_usb_serial_jtag.h&quot;</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : #include &quot;esp_mac.h&quot;</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : #include &quot;mqtt_manager.h&quot;</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : #include &quot;multi_heap.h&quot;</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : #include &quot;nvs_flash.h&quot;</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : #include &quot;soc/gpio_num.h&quot;</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             : #include &quot;wifiConnect.h&quot;</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             : #include &quot;ota/ota.h&quot;</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : #include &lt;stddef.h&gt;</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             : #include &lt;stdint.h&gt;</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             : #include &lt;inttypes.h&gt;</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             : </span>
+<span id="L23"><span class="lineNum">      23</span>                 :             : #include &quot;ble_spp/ble_spp_server_demo.h&quot;</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : #include &quot;controller/controller.h&quot;</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             : #include &quot;TimeManagement.h&quot;</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             : #include &quot;mqtt_manager.h&quot;</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : #include &quot;modbus/modbus_rtu.h&quot;</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             : #include &quot;modbus/modbus_tcp.h&quot;</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             : #include &quot;uart/uart_app.h&quot;</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             : #include &quot;configuration/configuration.h&quot;</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             : #include &quot;http.h&quot;</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             : #include &quot;sensors.h&quot;</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : #define ACM_LOG_TAG &quot;ACM_main&quot;</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : </span>
+<span id="L35"><span class="lineNum">      35</span>                 :             : uart_event_t event;</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : void cstm_app_main(void);</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : </span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : // Custom printf function</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : char printf_buffer[MAX_LOG_LENGTH];</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             :         uint8_t mac_ble[6];</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             :         uint8_t mac_Wifi[6];</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             :         uint8_t frequency=38;</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             :         uint8_t irlenlim=0;</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : </span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : char version[16];</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : char release_date[16];</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : /* When set non-zero, app_main exits after one while-loop iteration. Defined</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             :    here so the host coverage harness can call app_main once to exercise its</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             :    initialization and main-loop branches. Not used (and harmless) on target. */</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : int g_app_main_test_break = 0;</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             :         </span>
+<span id="L52"><span class="lineNum">      52</span>                 :<span class="tlaGNC tlaBgGNC">          91 : void My_printf(const char *format, ...) {</span></span>
+<span id="L53"><span class="lineNum">      53</span>                 :             :   va_list args;</span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : </span>
+<span id="L55"><span class="lineNum">      55</span>                 :             :   // Start the variadic arguments</span>
+<span id="L56"><span class="lineNum">      56</span>                 :<span class="tlaGNC">          91 :   va_start(args, format);</span></span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : </span>
+<span id="L58"><span class="lineNum">      58</span>                 :             :   // Format the string (use vsnprintf: passing va_list to sprintf_j's &quot;...&quot; crashes on x86-64)</span>
+<span id="L59"><span class="lineNum">      59</span>                 :<span class="tlaGNC">          91 :     vsnprintf(printf_buffer, sizeof(printf_buffer), format, args);</span></span>
+<span id="L60"><span class="lineNum">      60</span>   [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 85 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 3 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 3 times"> + </span> :<span class="tlaGNC">          91 :         if((g_u8_acceptFileRx == 0) || (g_u8_SendFileXMDMTx == 0||g_u8_acceptfwRx==0||g_u8_addtlDisblFlgfrlg==0))</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 6 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 7 was taken 1 time"> + </span>]
+<span id="L61"><span class="lineNum">      61</span>                 :             :         {</span>
+<span id="L62"><span class="lineNum">      62</span>                 :<span class="tlaGNC">          90 :                  ESP_LOGI(ACM_LOG_TAG, &quot;%s&quot;, printf_buffer);</span></span>
+<span id="L63"><span class="lineNum">      63</span>                 :<span class="tlaGNC">          90 :      uart_write_bytes(UART_NUM_1, printf_buffer, strlen(printf_buffer));</span></span>
+<span id="L64"><span class="lineNum">      64</span>                 :             :         }</span>
+<span id="L65"><span class="lineNum">      65</span>                 :             : </span>
+<span id="L66"><span class="lineNum">      66</span>                 :             :   </span>
+<span id="L67"><span class="lineNum">      67</span>                 :             : // Send the formatted string over communication medium</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : </span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : else{</span>
+<span id="L70"><span class="lineNum">      70</span>                 :<span class="tlaGNC">           1 :   ble_spp_SendData(strlen(printf_buffer), (uint8_t *)printf_buffer);</span></span>
+<span id="L71"><span class="lineNum">      71</span>                 :             :   }</span>
+<span id="L72"><span class="lineNum">      72</span>                 :             :   // Clean up the variadic arguments</span>
+<span id="L73"><span class="lineNum">      73</span>                 :<span class="tlaGNC">          91 :   va_end(args);</span></span>
+<span id="L74"><span class="lineNum">      74</span>                 :             :   </span>
+<span id="L75"><span class="lineNum">      75</span>                 :<span class="tlaGNC">          91 : }</span></span>
+<span id="L76"><span class="lineNum">      76</span>                 :<span class="tlaGNC">           3 : void ota_diag(void)</span></span>
+<span id="L77"><span class="lineNum">      77</span>                 :             : {</span>
+<span id="L78"><span class="lineNum">      78</span>                 :<span class="tlaGNC">           3 :     const esp_partition_t *running = esp_ota_get_running_partition();</span></span>
+<span id="L79"><span class="lineNum">      79</span>                 :             :    // ESP_LOGI(&quot;OTA_DIAG&quot;, &quot;Running partition: label=%s, type=0x%x, subtype=0x%x, addr=0x%x, size=%d&quot;, running-&gt;label, running-&gt;type, running-&gt;subtype, running-&gt;address, running-&gt;size);</span>
+<span id="L80"><span class="lineNum">      80</span>                 :<span class="tlaGNC">           3 :  ESP_LOGI(&quot;OTA_DIAG&quot;, &quot;Running from: %s type=0x%x,subtype=0x%x,addr=0x%x,size=%&quot;PRIu32,running-&gt;label, (unsigned int)running-&gt;type, (unsigned int)running-&gt;subtype,</span></span>
+<span id="L81"><span class="lineNum">      81</span>                 :             :                 (unsigned int)running-&gt;address, running-&gt;size);</span>
+<span id="L82"><span class="lineNum">      82</span>                 :<span class="tlaGNC">           3 :     const esp_partition_t *next = esp_ota_get_next_update_partition(NULL);</span></span>
+<span id="L83"><span class="lineNum">      83</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           3 :     if (next) {</span></span>
+<span id="L84"><span class="lineNum">      84</span>                 :<span class="tlaGNC">           2 :                 ESP_LOGI(&quot;OTA_DIAG&quot;, &quot;Next OTA partition: %s at 0x%x size=%&quot;PRIu32,next-&gt;label,(unsigned int) next-&gt;address,next-&gt;size);</span></span>
+<span id="L85"><span class="lineNum">      85</span>                 :             :         //ESP_LOGI(&quot;OTA_DIAG&quot;, &quot;Next OTA partition: %s at 0x%x size=%d&quot;, next-&gt;label, next-&gt;address, next-&gt;size);</span>
+<span id="L86"><span class="lineNum">      86</span>                 :             :     } else {</span>
+<span id="L87"><span class="lineNum">      87</span>                 :<span class="tlaGNC">           1 :         ESP_LOGE(&quot;OTA_DIAG&quot;, &quot;esp_ota_get_next_update_partition(NULL) returned NULL&quot;);</span></span>
+<span id="L88"><span class="lineNum">      88</span>                 :             :     }</span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : </span>
+<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaGNC">           3 :     esp_partition_iterator_t it = esp_partition_find(ESP_PARTITION_TYPE_APP, ESP_PARTITION_SUBTYPE_ANY, NULL);</span></span>
+<span id="L91"><span class="lineNum">      91</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">           6 :     while (it) {</span></span>
+<span id="L92"><span class="lineNum">      92</span>                 :<span class="tlaGNC">           3 :         const esp_partition_t *p = esp_partition_get(it);</span></span>
+<span id="L93"><span class="lineNum">      93</span>                 :<span class="tlaGNC">           3 :         ESP_LOGI(&quot;OTA_DIAG&quot;, &quot;Partition: label=%s subtype=0x%x addr=0x%x size=%&quot;PRIu32,p-&gt;label,(unsigned int) p-&gt;subtype, (unsigned int)p-&gt;address, p-&gt;size);</span></span>
+<span id="L94"><span class="lineNum">      94</span>                 :<span class="tlaGNC">           3 :         it = esp_partition_next(it);</span></span>
+<span id="L95"><span class="lineNum">      95</span>                 :             :     }</span>
+<span id="L96"><span class="lineNum">      96</span>                 :<span class="tlaGNC">           3 :     esp_partition_iterator_release(it);</span></span>
+<span id="L97"><span class="lineNum">      97</span>                 :<span class="tlaGNC">           3 : }</span></span>
+<span id="L98"><span class="lineNum">      98</span>                 :<span class="tlaGNC">           3 : void endislog()</span></span>
+<span id="L99"><span class="lineNum">      99</span>                 :             : {</span>
+<span id="L100"><span class="lineNum">     100</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           3 :  if(excutelog==1)</span></span>
+<span id="L101"><span class="lineNum">     101</span>                 :             :  {</span>
+<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaGNC">           2 :          excutelog=0;</span></span>
+<span id="L103"><span class="lineNum">     103</span>                 :<span class="tlaGNC">           2 :          ReadWriteNVS(1, (uint8_t *)&amp;log_endis, &quot;LOG_EN&quot;, 1);</span></span>
+<span id="L104"><span class="lineNum">     104</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           2 :          if(log_endis==1)</span></span>
+<span id="L105"><span class="lineNum">     105</span>                 :             :          {</span>
+<span id="L106"><span class="lineNum">     106</span>                 :             :                   </span>
+<span id="L107"><span class="lineNum">     107</span>                 :             :                   // Enable only errors</span>
+<span id="L108"><span class="lineNum">     108</span>                 :<span class="tlaGNC">           1 :         esp_log_level_set(&quot;*&quot;, ESP_LOG_ERROR);</span></span>
+<span id="L109"><span class="lineNum">     109</span>                 :             : </span>
+<span id="L110"><span class="lineNum">     110</span>                 :             :         // Enable info and above</span>
+<span id="L111"><span class="lineNum">     111</span>                 :<span class="tlaGNC">           1 :         esp_log_level_set(&quot;*&quot;, ESP_LOG_INFO);</span></span>
+<span id="L112"><span class="lineNum">     112</span>                 :             :          }</span>
+<span id="L113"><span class="lineNum">     113</span>                 :             :          else {</span>
+<span id="L114"><span class="lineNum">     114</span>                 :<span class="tlaGNC">           1 :         esp_log_level_set(&quot;*&quot;, ESP_LOG_NONE);</span></span>
+<span id="L115"><span class="lineNum">     115</span>                 :             :      }</span>
+<span id="L116"><span class="lineNum">     116</span>                 :             :  }              </span>
+<span id="L117"><span class="lineNum">     117</span>                 :<span class="tlaGNC">           3 : }</span></span>
+<span id="L118"><span class="lineNum">     118</span>                 :             : </span>
+<span id="L119"><span class="lineNum">     119</span>                 :<span class="tlaGNC">          11 : void Mount_SPIFFS_Flash(void) {</span></span>
+<span id="L120"><span class="lineNum">     120</span>                 :<span class="tlaGNC">          11 :     ESP_LOGI(ACM_LOG_TAG, &quot;Initializing SPIFFS&quot;);</span></span>
+<span id="L121"><span class="lineNum">     121</span>                 :             : </span>
+<span id="L122"><span class="lineNum">     122</span>                 :<span class="tlaGNC">          11 :     esp_vfs_spiffs_conf_t conf = {</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :             :         .base_path = &quot;/spiffs&quot;,</span>
+<span id="L124"><span class="lineNum">     124</span>                 :             :         .partition_label = NULL,</span>
+<span id="L125"><span class="lineNum">     125</span>                 :             :         .max_files = 5,</span>
+<span id="L126"><span class="lineNum">     126</span>                 :             :         .format_if_mount_failed = true</span>
+<span id="L127"><span class="lineNum">     127</span>                 :             :     };</span>
+<span id="L128"><span class="lineNum">     128</span>                 :             : </span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :     // 1. Register Filesystem</span>
+<span id="L130"><span class="lineNum">     130</span>                 :<span class="tlaGNC">          11 :     esp_err_t ret = esp_vfs_spiffs_register(&amp;conf);</span></span>
+<span id="L131"><span class="lineNum">     131</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 8 times"> + </span>]:<span class="tlaGNC">          11 :     if (ret != ESP_OK) {</span></span>
+<span id="L132"><span class="lineNum">     132</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span>]:<span class="tlaGNC">           3 :         const char* err_msg = (ret == ESP_FAIL) ? &quot;Failed to mount/format&quot; :</span></span>
+<span id="L133"><span class="lineNum">     133</span>                 :             :                               (ret == ESP_ERR_NOT_FOUND) ? &quot;Partition not found&quot; : &quot;Init failed&quot;;</span>
+<span id="L134"><span class="lineNum">     134</span>                 :<span class="tlaGNC">           3 :         ESP_LOGE(ACM_LOG_TAG, &quot;%s (%s)&quot;, err_msg, esp_err_to_name(ret));</span></span>
+<span id="L135"><span class="lineNum">     135</span>                 :<span class="tlaGNC">           9 :         return;</span></span>
+<span id="L136"><span class="lineNum">     136</span>                 :             :     }</span>
+<span id="L137"><span class="lineNum">     137</span>                 :             : </span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :     // 2. Get Partition Info</span>
+<span id="L139"><span class="lineNum">     139</span>                 :<span class="tlaGNC">           8 :     size_t total = 0, used = 0;</span></span>
+<span id="L140"><span class="lineNum">     140</span>                 :<span class="tlaGNC">           8 :     ret = esp_spiffs_info(conf.partition_label, &amp;total, &amp;used);</span></span>
+<span id="L141"><span class="lineNum">     141</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 7 times"> + </span>]:<span class="tlaGNC">           8 :     if (ret != ESP_OK) {</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :<span class="tlaGNC">           1 :         ESP_LOGE(ACM_LOG_TAG, &quot;Failed to get info. Formatting...&quot;);</span></span>
+<span id="L143"><span class="lineNum">     143</span>                 :<span class="tlaGNC">           1 :         esp_spiffs_format(conf.partition_label);</span></span>
+<span id="L144"><span class="lineNum">     144</span>                 :<span class="tlaGNC">           1 :         return;</span></span>
+<span id="L145"><span class="lineNum">     145</span>                 :             :     }</span>
+<span id="L146"><span class="lineNum">     146</span>                 :             : </span>
+<span id="L147"><span class="lineNum">     147</span>                 :<span class="tlaGNC">           7 :     ESP_LOGI(ACM_LOG_TAG, &quot;Partition size: total: %d, used: %d&quot;, total, used);</span></span>
+<span id="L148"><span class="lineNum">     148</span>                 :             : </span>
+<span id="L149"><span class="lineNum">     149</span>                 :             :     // 3. Consistency Check (Guard Clause Style)</span>
+<span id="L150"><span class="lineNum">     150</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           7 :     if (used &lt;= total) {</span></span>
+<span id="L151"><span class="lineNum">     151</span>                 :<span class="tlaGNC">           5 :         return; // Everything is fine, exit early</span></span>
+<span id="L152"><span class="lineNum">     152</span>                 :             :     }</span>
+<span id="L153"><span class="lineNum">     153</span>                 :             : </span>
+<span id="L154"><span class="lineNum">     154</span>                 :<span class="tlaGNC">           2 :     ESP_LOGW(ACM_LOG_TAG, &quot;Used &gt; Total. Running SPIFFS_check().&quot;);</span></span>
+<span id="L155"><span class="lineNum">     155</span>                 :<span class="tlaGNC">           2 :     ret = esp_spiffs_check(conf.partition_label);</span></span>
+<span id="L156"><span class="lineNum">     156</span>                 :             :     </span>
+<span id="L157"><span class="lineNum">     157</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           2 :     if (ret != ESP_OK) {</span></span>
+<span id="L158"><span class="lineNum">     158</span>                 :<span class="tlaGNC">           1 :         ESP_LOGE(ACM_LOG_TAG, &quot;SPIFFS_check() failed (%s)&quot;, esp_err_to_name(ret));</span></span>
+<span id="L159"><span class="lineNum">     159</span>                 :             :     } else {</span>
+<span id="L160"><span class="lineNum">     160</span>                 :<span class="tlaGNC">           1 :         ESP_LOGI(ACM_LOG_TAG, &quot;SPIFFS_check() successful&quot;);</span></span>
+<span id="L161"><span class="lineNum">     161</span>                 :             :     }</span>
+<span id="L162"><span class="lineNum">     162</span>                 :             : }</span>
+<span id="L163"><span class="lineNum">     163</span>                 :             : </span>
+<span id="L164"><span class="lineNum">     164</span>                 :<span class="tlaGNC">           4 : void app_main() {</span></span>
+<span id="L165"><span class="lineNum">     165</span>                 :<span class="tlaGNC">           4 :         ESP_LOGI(&quot;RESET&quot;, &quot;Reason: %d&quot;, esp_reset_reason());</span></span>
+<span id="L166"><span class="lineNum">     166</span>                 :<span class="tlaGNC">           4 :     sprintf_j(version, sizeof(version), &quot;%03d:%03d:%03d&quot;,FW_VERHIGH,FW_VERLOW,FW_VERPATCH);</span></span>
+<span id="L167"><span class="lineNum">     167</span>                 :<span class="tlaGNC">           4 :     sprintf_j(release_date, sizeof(release_date), &quot;%02d:%02d:%04d&quot;,REL_DA,REL_MO,REL_YR);</span></span>
+<span id="L168"><span class="lineNum">     168</span>                 :             :         //ota_diag();</span>
+<span id="L169"><span class="lineNum">     169</span>                 :<span class="tlaGNC">           4 :         const esp_partition_t *update_partition = esp_ota_get_next_update_partition(NULL);</span></span>
+<span id="L170"><span class="lineNum">     170</span>                 :<span class="tlaGNC">           4 :         esp_ota_begin(update_partition, OTA_SIZE_UNKNOWN, &amp;ota_handle);</span></span>
+<span id="L171"><span class="lineNum">     171</span>                 :             : </span>
+<span id="L172"><span class="lineNum">     172</span>                 :<span class="tlaGNC">           4 :         ESP_LOGI(ACM_LOG_TAG, &quot;FW VERSION: %s,REL_DATE:%s&quot;,version,release_date);</span></span>
+<span id="L173"><span class="lineNum">     173</span>                 :             :      // LED_init();</span>
+<span id="L174"><span class="lineNum">     174</span>                 :             :     // Enable only errors</span>
+<span id="L175"><span class="lineNum">     175</span>                 :<span class="tlaGNC">           4 :     esp_log_level_set(&quot;*&quot;, ESP_LOG_ERROR);</span></span>
+<span id="L176"><span class="lineNum">     176</span>                 :             : </span>
+<span id="L177"><span class="lineNum">     177</span>                 :             :     // Enable info and above</span>
+<span id="L178"><span class="lineNum">     178</span>                 :<span class="tlaGNC">           4 :     esp_log_level_set(&quot;*&quot;, ESP_LOG_INFO);</span></span>
+<span id="L179"><span class="lineNum">     179</span>                 :             : </span>
+<span id="L180"><span class="lineNum">     180</span>                 :<span class="tlaGNC">           4 :         esp_read_mac(mac_ble, ESP_MAC_BT);</span></span>
+<span id="L181"><span class="lineNum">     181</span>                 :<span class="tlaGNC">           4 :         esp_read_mac(mac_Wifi, ESP_MAC_WIFI_STA);</span></span>
+<span id="L182"><span class="lineNum">     182</span>                 :             : </span>
+<span id="L183"><span class="lineNum">     183</span>                 :             :   char device_name[63];</span>
+<span id="L184"><span class="lineNum">     184</span>                 :<span class="tlaGNC">           4 :   uint16_t len=0;</span></span>
+<span id="L185"><span class="lineNum">     185</span>                 :             :   </span>
+<span id="L186"><span class="lineNum">     186</span>                 :<span class="tlaGNC">           4 :   len = sprintf_j(device_name, sizeof(device_name), &quot;{\&quot;BLE_MAC\&quot;:\&quot;%02X:%02X:%02X:%02X:%02X:%02X\&quot;,&quot;,mac_ble[0],mac_ble[1],mac_ble[2],mac_ble[3],mac_ble[4],mac_ble[5]);</span></span>
+<span id="L187"><span class="lineNum">     187</span>                 :<span class="tlaGNC">           4 :   sprintf_j(device_name+len, sizeof(device_name)-len, &quot;\&quot;WIFI_MAC\&quot;:\&quot;%02X:%02X:%02X:%02X:%02X:%02X\&quot;}&quot;,mac_Wifi[0],mac_Wifi[1],mac_Wifi[2],mac_Wifi[3],mac_Wifi[4],mac_Wifi[5]);</span></span>
+<span id="L188"><span class="lineNum">     188</span>                 :<span class="tlaGNC">           4 :   esp_err_t ret = nvs_flash_init();</span></span>
+<span id="L189"><span class="lineNum">     189</span>   [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 4 times"> + </span>]:<span class="tlaGNC">           4 :   if (ret == ESP_ERR_NVS_NO_FREE_PAGES ||</span></span>
+<span id="L190"><span class="lineNum">     190</span>                 :             :       ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {</span>
+<span id="L191"><span class="lineNum">     191</span>                 :<span class="tlaUNC tlaBgUNC">           0 :     ESP_ERROR_CHECK(nvs_flash_erase());</span></span>
+<span id="L192"><span class="lineNum">     192</span>                 :<span class="tlaUNC">           0 :     ret = nvs_flash_init();</span></span>
+<span id="L193"><span class="lineNum">     193</span>                 :             :   }</span>
+<span id="L194"><span class="lineNum">     194</span>                 :             :   ESP_ERROR_CHECK(ret);</span>
+<span id="L195"><span class="lineNum">     195</span>                 :<span class="tlaGNC tlaBgGNC">           4 :   vTaskDelay(5000 / portTICK_PERIOD_MS);</span></span>
+<span id="L196"><span class="lineNum">     196</span>                 :             :         // Load config (from NVS or static)</span>
+<span id="L197"><span class="lineNum">     197</span>                 :             : </span>
+<span id="L198"><span class="lineNum">     198</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">           4 :     if (ReadWriteNVS_wifiConfig(0, &amp;wifiConfig) != ESP_OK) {</span></span>
+<span id="L199"><span class="lineNum">     199</span>                 :<span class="tlaGNC">           1 :         memset_j(&amp;wifiConfig,sizeof(WIFICONFIG_S), 0, sizeof(wifiConfig));</span></span>
+<span id="L200"><span class="lineNum">     200</span>                 :<span class="tlaGNC">           1 :         printf(&quot;Failed to read Wi-Fi config from NVS\n&quot;);</span></span>
+<span id="L201"><span class="lineNum">     201</span>                 :             :     }</span>
+<span id="L202"><span class="lineNum">     202</span>                 :             : </span>
+<span id="L203"><span class="lineNum">     203</span>                 :<span class="tlaGNC">           4 :   Mount_SPIFFS_Flash();</span></span>
+<span id="L204"><span class="lineNum">     204</span>                 :             :   //delete_config_file(config_path);</span>
+<span id="L205"><span class="lineNum">     205</span>                 :             : </span>
+<span id="L206"><span class="lineNum">     206</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 4 times"> + </span>]:<span class="tlaGNC">           4 :  if (!file_exists(config_path))</span></span>
+<span id="L207"><span class="lineNum">     207</span>                 :             :  {</span>
+<span id="L208"><span class="lineNum">     208</span>                 :<span class="tlaUNC tlaBgUNC">           0 :       ESP_LOGW(&quot;STORAGE&quot;, &quot;Config file missing, creating default...&quot;);</span></span>
+<span id="L209"><span class="lineNum">     209</span>                 :<span class="tlaUNC">           0 :       save_config_json();</span></span>
+<span id="L210"><span class="lineNum">     210</span>                 :             : }</span>
+<span id="L211"><span class="lineNum">     211</span>                 :             : </span>
+<span id="L212"><span class="lineNum">     212</span>                 :             :  // Usage in app_main:</span>
+<span id="L213"><span class="lineNum">     213</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">           4 :  if (file_exists(config_path)) {</span></span>
+<span id="L214"><span class="lineNum">     214</span>                 :<span class="tlaGNC">           4 :      ESP_LOGI(&quot;STORAGE&quot;, &quot;Config file found!&quot;);</span></span>
+<span id="L215"><span class="lineNum">     215</span>                 :             : </span>
+<span id="L216"><span class="lineNum">     216</span>                 :<span class="tlaGNC">           4 :      char* config_raw = read_config_to_buffer(config_path);</span></span>
+<span id="L217"><span class="lineNum">     217</span>                 :<span class="tlaGNC">           4 :      ESP_LOGI(&quot;JSON&quot;, &quot;%s&quot;,config_raw);</span></span>
+<span id="L218"><span class="lineNum">     218</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           4 :           if (config_raw != NULL) {</span></span>
+<span id="L219"><span class="lineNum">     219</span>                 :             :                  //PARSE: Hydrate your dynamic structs (the function we just built)</span>
+<span id="L220"><span class="lineNum">     220</span>                 :<span class="tlaGNC">           4 :                   init_system_settings(config_raw);</span></span>
+<span id="L221"><span class="lineNum">     221</span>                 :<span class="tlaGNC">           4 :                   parse_mbr_settings(config_raw);</span></span>
+<span id="L222"><span class="lineNum">     222</span>                 :<span class="tlaGNC">           4 :                   parse_profile_settings(config_raw);</span></span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :                  //CLEANUP: Free the temporary text buffer</span>
+<span id="L224"><span class="lineNum">     224</span>                 :<span class="tlaGNC">           4 :                   free(config_raw);</span></span>
+<span id="L225"><span class="lineNum">     225</span>                 :<span class="tlaGNC">           4 :                   Check_config();</span></span>
+<span id="L226"><span class="lineNum">     226</span>                 :<span class="tlaGNC">           4 :                   debug_print_configs();</span></span>
+<span id="L227"><span class="lineNum">     227</span>                 :             :           }</span>
+<span id="L228"><span class="lineNum">     228</span>                 :             :  }</span>
+<span id="L229"><span class="lineNum">     229</span>                 :             :  </span>
+<span id="L230"><span class="lineNum">     230</span>                 :<span class="tlaGNC">           4 :   ble_gap_gatt_spp_init();</span></span>
+<span id="L231"><span class="lineNum">     231</span>                 :             : </span>
+<span id="L232"><span class="lineNum">     232</span>                 :<span class="tlaGNC">           4 :   mqtt_init();</span></span>
+<span id="L233"><span class="lineNum">     233</span>                 :             :   </span>
+<span id="L234"><span class="lineNum">     234</span>                 :<span class="tlaGNC">           4 :   ESP_LOGI(&quot;MAIN&quot;,&quot;%s&quot;,device_name);</span></span>
+<span id="L235"><span class="lineNum">     235</span>                 :             :   //ESP_LOGI(&quot;MAIN&quot;,&quot;DISABLING ALL LOGS&quot;);</span>
+<span id="L236"><span class="lineNum">     236</span>                 :             :  // if(log_endis==0)</span>
+<span id="L237"><span class="lineNum">     237</span>                 :             :  //esp_log_level_set(&quot;*&quot;, ESP_LOG_NONE);</span>
+<span id="L238"><span class="lineNum">     238</span>                 :             : </span>
+<span id="L239"><span class="lineNum">     239</span>                 :<span class="tlaGNC">           4 :   TimeMngmt_init();</span></span>
+<span id="L240"><span class="lineNum">     240</span>                 :<span class="tlaGNC">           4 :   vTaskDelay(5000 / portTICK_PERIOD_MS);</span></span>
+<span id="L241"><span class="lineNum">     241</span>                 :<span class="tlaGNC">           4 :   i2c_master_init();</span></span>
+<span id="L242"><span class="lineNum">     242</span>                 :<span class="tlaGNC">           4 :   Controller_init();</span></span>
+<span id="L243"><span class="lineNum">     243</span>                 :<span class="tlaGNC">           4 :       Read_sensor(AIR_QUALITY_SENSOR);</span></span>
+<span id="L244"><span class="lineNum">     244</span>                 :<span class="tlaGNC">           4 :   uart_init();</span></span>
+<span id="L245"><span class="lineNum">     245</span>                 :<span class="tlaGNC">           4 :   modbus_app_init();  //uart1_init();</span></span>
+<span id="L246"><span class="lineNum">     246</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">           4 :   if(ip_config[0].St_ip_En_dis==1)</span></span>
+<span id="L247"><span class="lineNum">     247</span>                 :<span class="tlaGNC">           1 :      tcp_app_init();</span></span>
+<span id="L248"><span class="lineNum">     248</span>                 :<span class="tlaGNC">           4 :   int length=0;</span></span>
+<span id="L249"><span class="lineNum">     249</span>                 :<span class="tlaGNC">           4 :   int count =0;</span></span>
+<span id="L250"><span class="lineNum">     250</span>                 :<span class="tlaGNC">           4 :   int ota_count =0;</span></span>
+<span id="L251"><span class="lineNum">     251</span>                 :<span class="tlaGNC">           4 :   i2c_mutex = xSemaphoreCreateMutex();</span></span>
+<span id="L252"><span class="lineNum">     252</span>                 :             : </span>
+<span id="L253"><span class="lineNum">     253</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 4 times"> + </span>]:<span class="tlaGNC">           4 :     if (i2c_mutex == NULL) {</span></span>
+<span id="L254"><span class="lineNum">     254</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         printf(&quot;Failed to create I2C mutex\n&quot;);</span></span>
+<span id="L255"><span class="lineNum">     255</span>                 :             :     }</span>
+<span id="L256"><span class="lineNum">     256</span>                 :<span class="tlaGNC tlaBgGNC">           4 :   xTaskCreate(Read_sensor_task, &quot;Read_sensor_task&quot;, 1024 * 2, NULL, 5, NULL);</span></span>
+<span id="L257"><span class="lineNum">     257</span>                 :<span class="tlaGNC">           4 :   memset_j(server_url, sizeof(server_url), 0, sizeof(server_url));</span></span>
+<span id="L258"><span class="lineNum">     258</span>                 :             :   while (1) {</span>
+<span id="L259"><span class="lineNum">     259</span>                 :             : </span>
+<span id="L260"><span class="lineNum">     260</span>                 :<span class="tlaGNC">           4 :           vTaskDelay(pdMS_TO_TICKS(500));</span></span>
+<span id="L261"><span class="lineNum">     261</span>                 :             :           //endislog();</span>
+<span id="L262"><span class="lineNum">     262</span>                 :             :     //---------------------------------------</span>
+<span id="L263"><span class="lineNum">     263</span>                 :             :       // Wait for UART events (RX FIFO full, timeout, etc.)</span>
+<span id="L264"><span class="lineNum">     264</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 4 times"> + </span>]:<span class="tlaGNC">           4 :       if (xQueueReceive(uart_queue, &amp;event, pdMS_TO_TICKS(1000))) {</span></span>
+<span id="L265"><span class="lineNum">     265</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :           if (event.type == UART_DATA) {</span></span>
+<span id="L266"><span class="lineNum">     266</span>                 :<span class="tlaUNC">           0 :               length = uart_read_bytes(UART_PORT, (void *)uart_rx_buffer, event.size, 0);</span></span>
+<span id="L267"><span class="lineNum">     267</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :               if (length &gt; 0) {</span></span>
+<span id="L268"><span class="lineNum">     268</span>                 :<span class="tlaUNC">           0 :                   esp_event_post(AC_CNTRL_EVENT_BASE, EVENT_ID_UART_DATA_RX, (void *)uart_rx_buffer, length + 1, portMAX_DELAY);</span></span>
+<span id="L269"><span class="lineNum">     269</span>                 :             :               }</span>
+<span id="L270"><span class="lineNum">     270</span>                 :             :           }</span>
+<span id="L271"><span class="lineNum">     271</span>                 :             :       }</span>
+<span id="L272"><span class="lineNum">     272</span>                 :             :       //----------------------------------------------------------------------------------</span>
+<span id="L273"><span class="lineNum">     273</span>                 :             : </span>
+<span id="L274"><span class="lineNum">     274</span>                 :             :     //   if(count++&gt;1)</span>
+<span id="L275"><span class="lineNum">     275</span>                 :             :     //   {</span>
+<span id="L276"><span class="lineNum">     276</span>                 :             :     //     Read_sensor(AIR_QUALITY_SENSOR);</span>
+<span id="L277"><span class="lineNum">     277</span>                 :             :     //     count=0;</span>
+<span id="L278"><span class="lineNum">     278</span>                 :             :     //     // ESP_LOGI(&quot;MAIN&quot;, &quot;Reading sensor data\n&quot;);</span>
+<span id="L279"><span class="lineNum">     279</span>                 :             :     //     // Read_sensor(PRECISION_LIGHT);</span>
+<span id="L280"><span class="lineNum">     280</span>                 :             :     //     // vTaskDelay(pdMS_TO_TICKS(10));</span>
+<span id="L281"><span class="lineNum">     281</span>                 :             :     //     // Read_sensor(TEMP_HUMIDITY);</span>
+<span id="L282"><span class="lineNum">     282</span>                 :             :     //     // vTaskDelay(pdMS_TO_TICKS(10));</span>
+<span id="L283"><span class="lineNum">     283</span>                 :             :     //     // Read_sensor(HIGH_ACC_HUMIDITY_TEMP);</span>
+<span id="L284"><span class="lineNum">     284</span>                 :             :     //     // vTaskDelay(pdMS_TO_TICKS(10));</span>
+<span id="L285"><span class="lineNum">     285</span>                 :             :     //     // Read_sensor(THREE_AXIS_MAGNETOMETER);</span>
+<span id="L286"><span class="lineNum">     286</span>                 :             :     //     // vTaskDelay(pdMS_TO_TICKS(10)); </span>
+<span id="L287"><span class="lineNum">     287</span>                 :             :     //   }</span>
+<span id="L288"><span class="lineNum">     288</span>                 :             : </span>
+<span id="L289"><span class="lineNum">     289</span>                 :             :       //--------------------------------------------------------------------------------------</span>
+<span id="L290"><span class="lineNum">     290</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC tlaBgGNC">           4 :       if((httpserver_params.is_ota==1||httpserver_params.is_ota==2) &amp;&amp; otataskstarted== 0)</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 1 time"> + </span>]
+<span id="L291"><span class="lineNum">     291</span>                 :             :       {</span>
+<span id="L292"><span class="lineNum">     292</span>                 :             : </span>
+<span id="L293"><span class="lineNum">     293</span>                 :             :         // time_t now;</span>
+<span id="L294"><span class="lineNum">     294</span>                 :             :         // char strftime_buf[64];</span>
+<span id="L295"><span class="lineNum">     295</span>                 :             :         // struct tm timeinfo;</span>
+<span id="L296"><span class="lineNum">     296</span>                 :             :         // time(&amp;now);</span>
+<span id="L297"><span class="lineNum">     297</span>                 :             :         // localtime_r(&amp;now, &amp;timeinfo);</span>
+<span id="L298"><span class="lineNum">     298</span>                 :             :         // strftime(strftime_buf, sizeof(strftime_buf), &quot;%c&quot;, &amp;timeinfo);</span>
+<span id="L299"><span class="lineNum">     299</span>                 :             :         // ESP_LOGI(&quot;TIME_CHECK&quot;, &quot;The current date/time is: %s&quot;, strftime_buf);</span>
+<span id="L300"><span class="lineNum">     300</span>                 :<span class="tlaGNC">           2 :         ota_count++;</span></span>
+<span id="L301"><span class="lineNum">     301</span>                 :<span class="tlaGNC">           2 :         printf(&quot;OTA Check Count: %d\n&quot;, ota_count);</span></span>
+<span id="L302"><span class="lineNum">     302</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           2 :         if(ota_count&gt;30)</span></span>
+<span id="L303"><span class="lineNum">     303</span>                 :             :         {</span>
+<span id="L304"><span class="lineNum">     304</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             ota_count=0;</span></span>
+<span id="L305"><span class="lineNum">     305</span>                 :<span class="tlaUNC">           0 :             check_for_updates();</span></span>
+<span id="L306"><span class="lineNum">     306</span>                 :             :         }</span>
+<span id="L307"><span class="lineNum">     307</span>                 :             :       }</span>
+<span id="L308"><span class="lineNum">     308</span>                 :             :       /* Test-mode escape hatch: never fires on target (flag stays 0). */</span>
+<span id="L309"><span class="lineNum">     309</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">           4 :       if (g_app_main_test_break) break;</span></span>
+<span id="L310"><span class="lineNum">     310</span>                 :             :   }</span>
+<span id="L311"><span class="lineNum">     311</span>                 :<span class="tlaGNC">           4 : }</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

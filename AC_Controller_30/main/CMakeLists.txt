@@ -1,0 +1,27 @@
+idf_component_register(
+    SRCS 
+        "main.c"
+        "ble_spp/ble_spp_server_demo.c"
+        "xmodem/xmodem.c"
+        "controller/controller.c"
+        "TimeManagement/TimeManagement.c"
+        "mqtt/mqtt_manager.c"
+        "wifi/wifiConnect.c"
+        "uart/uart_app.c"
+        "ota/ota.c"
+        "ota/http_server.c"
+        "ota/chunked_ota.c"
+        "ota/log_capture.c"
+        "sensors/sensors.c"
+        "sensors/sensirion_gas_index_algorithm.c"
+        "configuration/configuration.c"
+        "modbus/modbus_tcp.c"
+        "modbus/modbus_rtu.c"
+        "modbus/nanomodbus.c"
+        "modbus/data.c"
+	    "SafeFunctions/Jio_EA_Safe_Functions.cpp"
+    INCLUDE_DIRS      "." "ble_spp" "xmodem" "controller" "TimeManagement" "mqtt" "wifi" "uart" "ota" "modbus" "configuration" "SafeFunctions" "sensors" # optional, add here public include directories
+    PRIV_INCLUDE_DIRS   # optional, add here private include directories
+    REQUIRES            # optional, list the public requirements (component names)
+    PRIV_REQUIRES       # optional, list the private requirements
+)

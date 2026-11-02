@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AC_Controller_30 Coverage - tests/cov_stubs/stubs/driver/gpio.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">tests/cov_stubs/stubs/driver</a> - gpio.h<span style="font-size: 80%;"> (source / <a href="gpio.h.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AC_Controller_30 Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-05-08 12:18:40</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : #pragma once</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : #include &quot;esp_err.h&quot;</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : #include &lt;stdint.h&gt;</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : #include &quot;soc/gpio_num.h&quot;</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : </span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : typedef gpio_num_t gpio_num_t;</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : typedef enum { GPIO_MODE_DISABLE=0, GPIO_MODE_INPUT=1, GPIO_MODE_OUTPUT=2, GPIO_MODE_OUTPUT_OD=6, GPIO_MODE_INPUT_OUTPUT_OD=7, GPIO_MODE_INPUT_OUTPUT=3 } gpio_mode_t;</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : typedef enum { GPIO_PULLUP_DISABLE=0, GPIO_PULLUP_ENABLE=1 } gpio_pullup_t;</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : typedef enum { GPIO_PULLDOWN_DISABLE=0, GPIO_PULLDOWN_ENABLE=1 } gpio_pulldown_t;</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : typedef enum { GPIO_INTR_DISABLE=0, GPIO_INTR_POSEDGE=1, GPIO_INTR_NEGEDGE=2, GPIO_INTR_ANYEDGE=3, GPIO_INTR_LOW_LEVEL=4, GPIO_INTR_HIGH_LEVEL=5 } gpio_int_type_t;</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : </span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : typedef struct {</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :     uint64_t pin_bit_mask;</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :     gpio_mode_t mode;</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :     gpio_pullup_t pull_up_en;</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :     gpio_pulldown_t pull_down_en;</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :     gpio_int_type_t intr_type;</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             : } gpio_config_t;</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : </span>
+<span id="L20"><span class="lineNum">      20</span>                 :             : typedef void (*gpio_isr_t)(void*);</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             : static inline esp_err_t gpio_config(const gpio_config_t *pGPIOConfig){(void)pGPIOConfig;return ESP_OK;}</span>
+<span id="L22"><span class="lineNum">      22</span>                 :<span class="tlaGNC tlaBgGNC">           1 : static inline esp_err_t gpio_set_direction(gpio_num_t gpio_num, gpio_mode_t mode){(void)gpio_num;(void)mode;return ESP_OK;}</span></span>
+<span id="L23"><span class="lineNum">      23</span>                 :<span class="tlaGNC">          40 : static inline esp_err_t gpio_set_level(gpio_num_t gpio_num, uint32_t level){(void)gpio_num;(void)level;return ESP_OK;}</span></span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : static inline int gpio_get_level(gpio_num_t gpio_num){(void)gpio_num;return 0;}</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             : static inline esp_err_t gpio_set_pull_mode(gpio_num_t gpio_num, int pull){(void)gpio_num;(void)pull;return ESP_OK;}</span>
+<span id="L26"><span class="lineNum">      26</span>                 :<span class="tlaGNC">           1 : static inline esp_err_t gpio_reset_pin(gpio_num_t gpio_num){(void)gpio_num;return ESP_OK;}</span></span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : static inline esp_err_t gpio_isr_handler_add(gpio_num_t gpio_num, gpio_isr_t isr_handler, void *args){(void)gpio_num;(void)isr_handler;(void)args;return ESP_OK;}</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             : static inline esp_err_t gpio_install_isr_service(int intr_alloc_flags){(void)intr_alloc_flags;return ESP_OK;}</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             : #define GPIO_PIN_SEL(x) (1ULL&lt;&lt;(x))</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

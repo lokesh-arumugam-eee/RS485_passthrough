@@ -1,0 +1,30 @@
+        -:    0:Source:/mnt/d/Projects/Modbus_project/Modbus_cpplib_S3/AC_Controller_30/tests/cov_stubs/stubs/esp_timer.h
+        -:    0:Graph:build/main/xmodem/xmodem.gcno
+        -:    0:Data:build/main/xmodem/xmodem.gcda
+        -:    0:Runs:2
+        -:    1:#pragma once
+        -:    2:#include "esp_err.h"
+        -:    3:#include <stdint.h>
+        -:    4:#include <stdbool.h>
+        -:    5:
+        -:    6:typedef struct esp_timer* esp_timer_handle_t;
+        -:    7:typedef void (*esp_timer_cb_t)(void* arg);
+        -:    8:
+        -:    9:typedef struct {
+        -:   10:    esp_timer_cb_t callback;
+        -:   11:    void* arg;
+        -:   12:    int dispatch_method;
+        -:   13:    const char* name;
+        -:   14:    bool skip_unhandled_events;
+        -:   15:} esp_timer_create_args_t;
+        -:   16:
+        -:   17:static inline esp_err_t esp_timer_create(const esp_timer_create_args_t* create_args, esp_timer_handle_t* out_handle){(void)create_args;if(out_handle)*out_handle=NULL;return ESP_OK;}
+function esp_timer_start_once called 8 returned 100% blocks executed 100%
+        8:   18:static inline esp_err_t esp_timer_start_once(esp_timer_handle_t timer, uint64_t timeout_us){(void)timer;(void)timeout_us;return ESP_OK;}
+        -:   19:static inline esp_err_t esp_timer_start_periodic(esp_timer_handle_t timer, uint64_t period){(void)timer;(void)period;return ESP_OK;}
+function esp_timer_stop called 26 returned 100% blocks executed 100%
+       26:   20:static inline esp_err_t esp_timer_stop(esp_timer_handle_t timer){(void)timer;return ESP_OK;}
+        -:   21:static inline esp_err_t esp_timer_delete(esp_timer_handle_t timer){(void)timer;return ESP_OK;}
+        -:   22:static inline int64_t esp_timer_get_time(void){return 0;}
+        -:   23:static inline bool esp_timer_is_active(esp_timer_handle_t timer){(void)timer;return false;}
+        -:   24:#define ESP_TIMER_TASK 0

@@ -1,0 +1,1256 @@
+        -:    0:Source:../../main/mqtt/mqtt_manager.c
+        -:    0:Graph:build/main/mqtt/mqtt_manager.gcno
+        -:    0:Data:build/main/mqtt/mqtt_manager.gcda
+        -:    0:Runs:1
+        -:    1:#include "main.h"
+        -:    2:#include "mqtt_manager.h"
+        -:    3:#include <stdint.h>
+        -:    4:#include <string.h>
+        -:    5:#include "wifiConnect.h"
+        -:    6:#include "TimeManagement.h"
+        -:    7:#include "ble_spp_server_demo.h"
+        -:    8:#include "controller.h"
+        -:    9:#include "esp_event.h"
+        -:   10:#include "esp_log.h"
+        -:   11:#include "esp_mac.h"
+        -:   12:#include "esp_netif.h"
+        -:   13:#include "esp_system.h"
+        -:   14:#include "configuration/configuration.h"
+        -:   15:#include "controller.h"
+        -:   16:
+        -:   17:// #include "mqtt5_client.h"
+        -:   18:#include "xmodem.h"
+        -:   19:#include "cJSON.h"
+        -:   20:#include "esp_wifi.h"
+        -:   21:#include "mqtt_client.h"
+        -:   22:#include "mqtt_supported_features.h"
+        -:   23:#include "nvs_flash.h"
+        -:   24:#include "portmacro.h"
+        -:   25://#include "ftp.h"
+        -:   26:
+        -:   27:
+        -:   28:
+        -:   29:MQTT_CONFIG_s Mqtt_Config = {
+        -:   30:    .BROKER_URL = EXAMPLE_BROKER_URL,
+        -:   31:    .Device_Psw = EXAMPLE_Device_Psw,
+        -:   32:};
+        -:   33:
+        -:   34:char *mqtt_rebuild_buf = NULL;
+        -:   35:int mqtt_rebuild_pos = 0;
+        -:   36:
+        -:   37:static const char *TAG = "mqtt_manager";
+        -:   38:RESPONSE_s response_s;
+        -:   39:static uint32_t seqid = 0;
+        -:   40:bool force_PUB_ON = 0;
+        -:   41:bool Mqtt_is_connected=0;
+        -:   42:int btn_status[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        -:   43:
+        -:   44:
+        -:   45:extern void wifi_init_sta(void);
+        -:   46:void run_telemetry_cycle(uint32_t hr_min_sec);
+        -:   47:esp_err_t ReadWriteNVS_MqttConfig(uint8_t Type, MQTT_CONFIG_s *Mqtt_Config_t);
+        -:   48:esp_err_t change_Mqtt_credentials(const char *broker_url,const char *device_psw);
+        -:   49:char* build_combined_telemetry(const char* target_dev_id);
+        -:   50:char* generate_health_json(void);
+        -:   51:char* create_rdn_packet(void);
+        -:   52:void Push_MQTT_Paket(char *payload);
+        -:   53:esp_mqtt_client_handle_t client = NULL;
+        -:   54:wifi_ap_record_t ap_info;
+        -:   55:static void mqtt_event_handler(void *handler_args, esp_event_base_t base,int32_t event_id, void *event_data);
+        -:   56:char* generate_response_json(void);
+        -:   57:
+        -:   58:char url[128], pwd[64];
+        -:   59:
+        -:   60:uint8_t mac[6];
+        -:   61:
+        -:   62: #if (MQTT_DETAILS == JIO_MQTT ||MQTT_DETAILS == TRUEPOWER_MQTT)
+        -:   63: #define TOPIC_BASE "jeiot/svc03122024/IRDEVICE"
+        -:   64: #define PUB_EVNT_TOPIC_SUFFIX "/uc/fwd/events"
+        -:   65: #define PUB_ALRT_TOPIC_SUFFIX "/uc/fwd/alerts"
+        -:   66: #define SUB_TOPIC_SUFFIX "/uc/rev/cmd"
+        -:   67: #elif(MQTT_DETAILS == THINGSBOARD_MQTT)
+        -:   68:  #define TOPIC_BASE "v1/devices/me/telemetry"
+        -:   69:  #define PUB_EVNT_TOPIC_SUFFIX "/events"
+        -:   70:  #define PUB_ALRT_TOPIC_SUFFIX "/alerts"
+        -:   71:  #define SUB_TOPIC_SUFFIX "/cmd"
+        -:   72:  #endif
+        -:   73:char Device_MAC_ADD[64] = "A0:76:4E:53:20:D8"; // 34:B7A:F6:45:BC
+        -:   74:// char Device_Psw[] = "rIU0uFSonuRoo6u";
+        -:   75:char MQTT_SUB_TOPIC[128], MQTT_PUB_EVNT_TOPIC[128], MQTT_PUB_ALRT_TOPIC[128],TOPIC_BS[30];
+        -:   76:void build_mqtt_topic();
+        -:   77:
+        -:   78:
+function build_mqtt_topic called 1 returned 100% blocks executed 100%
+        1:   79:void build_mqtt_topic() {
+        -:   80:
+        -:   81:#if (MQTTDetails == Dynamic)
+        -:   82:  esp_err_t err = esp_read_mac(mac, WIFI_IF_STA);
+        -:   83:#elif((MQTTDetails == Maunal))
+        -:   84:
+        1:   85:  mac[0] =  0xA0;
+        1:   86:  mac[1] =  0x76;
+        1:   87:  mac[2] =  0x4E;
+        1:   88:  mac[3] =  0x53;
+        1:   89:  mac[4] =  0x13;
+        1:   90:  mac[5] =  0x84;
+        -:   91:#endif
+        -:   92:
+        1:   93:  ESP_LOGE(TAG, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3],mac[4], mac[5]);
+call    0 returned 100%
+        -:   94:
+        -:   95:#if (MQTTDetails == Dynamic)
+        -:   96:  if (err == ESP_OK) {
+        -:   97:#endif
+        -:   98:
+        -:   99:#if (MQTT_DETAILS == JIO_MQTT ||MQTT_DETAILS == TRUEPOWER_MQTT)
+        1:  100:	sprintf_j(TOPIC_BS, sizeof(TOPIC_BS),"jeiot/%s/IRDEVICE",SVC_CODE);
+call    0 returned 100%
+        1:  101:    sprintf_j(Device_MAC_ADD, sizeof(Device_MAC_ADD),
+        1:  102:             "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3],
+        1:  103:             mac[4], mac[5]);
+call    0 returned 100%
+        1:  104:    sprintf_j(MQTT_PUB_EVNT_TOPIC, sizeof(MQTT_PUB_EVNT_TOPIC),
+        1:  105:             "%s/%02X:%02X:%02X:%02X:%02X:%02X%s", TOPIC_BS, mac[0], mac[1],
+        1:  106:             mac[2], mac[3], mac[4], mac[5], PUB_EVNT_TOPIC_SUFFIX);
+call    0 returned 100%
+        1:  107:    sprintf_j(MQTT_PUB_ALRT_TOPIC, sizeof(MQTT_PUB_ALRT_TOPIC),
+        1:  108:             "%s/%02X:%02X:%02X:%02X:%02X:%02X%s", TOPIC_BS, mac[0], mac[1],
+        1:  109:             mac[2], mac[3], mac[4], mac[5], PUB_ALRT_TOPIC_SUFFIX);
+call    0 returned 100%
+        1:  110:    sprintf_j(MQTT_SUB_TOPIC, sizeof(MQTT_SUB_TOPIC),
+        1:  111:             "%s/%02X:%02X:%02X:%02X:%02X:%02X/uc/rev%s", TOPIC_BS, mac[0], mac[1],
+        1:  112:             mac[2], mac[3], mac[4], mac[5], SUB_TOPIC_SUFFIX);
+call    0 returned 100%
+        -:  113:#elif(MQTT_DETAILS == THINGSBOARD_MQTT)
+        -:  114:sprintf_j(Device_MAC_ADD, sizeof(Device_MAC_ADD),
+        -:  115:             "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3],
+        -:  116:             mac[4], mac[5]);
+        -:  117:sprintf_j(TOPIC_BS, sizeof(TOPIC_BS),"%s",TOPIC_BASE);
+        -:  118:sprintf_j(MQTT_PUB_EVNT_TOPIC, sizeof(MQTT_PUB_EVNT_TOPIC),"%s",TOPIC_BS);
+        -:  119:sprintf_j(MQTT_PUB_ALRT_TOPIC, sizeof(MQTT_PUB_ALRT_TOPIC),"%s",TOPIC_BS);
+        -:  120:sprintf_j(MQTT_SUB_TOPIC, sizeof(MQTT_SUB_TOPIC),"%s",TOPIC_BS);
+        -:  121:
+        -:  122:#endif
+        1:  123:    ESP_LOGE(TAG, "Device_MAC_ADD:%s", Device_MAC_ADD);
+call    0 returned 100%
+        1:  124:    ESP_LOGE(TAG, "MQTT_PUB_EVNT_TOPIC:%s", MQTT_PUB_EVNT_TOPIC);
+call    0 returned 100%
+        1:  125:    ESP_LOGE(TAG, "MQTT_PUB_ALRT_TOPIC:%s", MQTT_PUB_ALRT_TOPIC);
+call    0 returned 100%
+        1:  126:    ESP_LOGE(TAG, "MQTT_SUB_TOPIC:%s", MQTT_SUB_TOPIC);
+call    0 returned 100%
+        -:  127:#if (MQTTDetails == Dynamic)
+        -:  128:  } else {
+        -:  129:    ESP_LOGE(TAG, "Failed to read MAC address!");
+        -:  130:  }
+        -:  131:#endif
+        1:  132:}
+        -:  133:
+function change_Mqtt_credentials called 10 returned 100% blocks executed 100%
+       10:  134:esp_err_t change_Mqtt_credentials(const char *broker_url,
+        -:  135:                                  const char *device_psw) {
+        -:  136:  // Stop and destroy existing client if present
+       10:  137:  if (client != NULL) {
+branch  0 taken 80% (fallthrough)
+branch  1 taken 20%
+        8:  138:    esp_mqtt_client_stop(client);
+call    0 returned 100%
+        8:  139:    esp_mqtt_client_destroy(client);
+call    0 returned 100%
+        8:  140:    client = NULL;
+        8:  141:     ESP_LOGI(TAG, "MQTT client cleared");
+call    0 returned 100%
+        -:  142:  }
+        -:  143: 
+        -:  144:  // // Read updated configuration from NVS or fallback to passed-in values
+        -:  145:  // if (ReadWriteNVS_MqttConfig(0, &Mqtt_Config) == ESP_OK) {
+       10:  146:  memset_j(pwd, sizeof(pwd), 0, sizeof(pwd));
+call    0 returned 100%
+       10:  147:	strcpy_j((char *)pwd,sizeof(pwd),(const char *)device_psw,strlen(device_psw));
+call    0 returned 100%
+       10:  148:  ESP_LOGI(TAG, "MQTT credentials -> Password: %s", device_psw);
+call    0 returned 100%
+        -:  149:  // } else {
+        -:  150:	// strcpy_j((char *)url, sizeof(url), (const char *)broker_url,strlen(broker_url));
+        -:  151:	// strcpy_j((char *)pwd, sizeof(pwd), (const char *)device_psw,strlen(device_psw));
+        -:  152:  // }
+        -:  153: 
+       10:  154:  esp_mqtt_client_config_t mqtt_cfg = {
+        -:  155:      .broker.address.uri = EXAMPLE_BROKER_URL,
+        -:  156:	#if (MQTT_DETAILS == JIO_MQTT)
+        -:  157:      .credentials.username = (const char *)Device_MAC_ADD,
+        -:  158:	#elif(MQTT_DETAILS == TRUEPOWER_MQTT)
+        -:  159:	  .credentials.username = (const char *)"invendis",
+        -:  160:	#elif(MQTT_DETAILS == THINGSBOARD_MQTT)
+        -:  161:	  .credentials.username = (const char *)"RTU_BRIDGE",
+        -:  162:	#endif
+        -:  163:      .credentials.client_id = (const char *)Device_MAC_ADD,
+        -:  164:      .credentials.authentication.password = pwd,
+        -:  165:      // Uncomment and add TLS certificate if needed
+        -:  166:      #if (MQTT_DETAILS == JIO_MQTT)
+        -:  167:      .broker.verification.certificate = (const char *)server_cert_pem_start,
+        -:  168:      #endif
+        -:  169:      //.broker.verification.certificate_len = server_cert_pem_end -
+        -:  170:      // server_cert_pem_start,
+        -:  171:  };
+        -:  172:
+       10:  173:  ESP_LOGI(TAG, "MQTT credentials -> USERNAME: %s : PASSWORD: %s", mqtt_cfg.credentials.username, mqtt_cfg.credentials.authentication.password);
+call    0 returned 100%
+        -:  174:
+       10:  175:  client = esp_mqtt_client_init(&mqtt_cfg);
+call    0 returned 100%
+       10:  176:  if (client == NULL) {
+branch  0 taken 10% (fallthrough)
+branch  1 taken 90%
+        1:  177:    ESP_LOGE(TAG, "Failed to initialize MQTT client");
+call    0 returned 100%
+        1:  178:    return ESP_FAIL;
+        -:  179:  }
+        -:  180:
+        9:  181:  esp_err_t err = esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID,
+call    0 returned 100%
+        -:  182:                                                 mqtt_event_handler, NULL);
+        9:  183:  if (err != ESP_OK) {
+branch  0 taken 11% (fallthrough)
+branch  1 taken 89%
+        1:  184:    ESP_LOGE(TAG, "Failed to register MQTT event handler");
+call    0 returned 100%
+        1:  185:    return err;
+        -:  186:  }
+        -:  187:
+        8:  188:  err = esp_mqtt_client_start(client);
+call    0 returned 100%
+        8:  189:  if (err != ESP_OK) {
+branch  0 taken 12% (fallthrough)
+branch  1 taken 88%
+        1:  190:    ESP_LOGE(TAG, "Failed to start MQTT client");
+call    0 returned 100%
+        1:  191:    return err;
+        -:  192:  }
+        -:  193:
+        7:  194:  return ESP_OK;
+        -:  195:}
+        -:  196:
+function ReadWriteNVS_MqttConfig called 21 returned 100% blocks executed 100%
+       21:  197:esp_err_t ReadWriteNVS_MqttConfig(uint8_t Type, MQTT_CONFIG_s *Mqtt_Config_t) {
+       21:  198:  esp_err_t ret = ESP_OK;
+        -:  199:  nvs_handle_t my_handle;
+       21:  200:  ret = nvs_open("nvs", NVS_READWRITE, &my_handle);
+call    0 returned 100%
+       21:  201:  if (ret != ESP_OK) {
+branch  0 taken 5% (fallthrough)
+branch  1 taken 95%
+        1:  202:    ESP_LOGE("NVS", "Failed to open NVS handle ret-%s", esp_err_to_name(ret));
+call    0 returned 100%
+call    1 returned 100%
+        1:  203:    return ret;
+        -:  204:  }
+       20:  205:  if (Type == 1 || Type == 2) { // write
+branch  0 taken 40% (fallthrough)
+branch  1 taken 60%
+branch  2 taken 12% (fallthrough)
+branch  3 taken 88%
+       13:  206:    Mqtt_Config_t->Key = 0xAA;
+       13:  207:    ret = nvs_set_blob(my_handle, "Mqtt_Config", Mqtt_Config_t,
+call    0 returned 100%
+        -:  208:                       sizeof(MQTT_CONFIG_s));
+       13:  209:    if (ret != ESP_OK) {
+branch  0 taken 15% (fallthrough)
+branch  1 taken 85%
+        2:  210:      ESP_LOGE("NVS", "Failed to store string in NVS");
+call    0 returned 100%
+        2:  211:      nvs_close(my_handle);
+call    0 returned 100%
+        2:  212:      return ret;
+        -:  213:    }
+        -:  214:  } else { // read
+        7:  215:    MQTT_CONFIG_s Mqtt_Config_tt = {0};
+        7:  216:    size_t len = sizeof(MQTT_CONFIG_s);
+        7:  217:    ret = nvs_get_blob(my_handle, "Mqtt_Config", &Mqtt_Config_tt, &len);
+call    0 returned 100%
+        7:  218:    if (ret != ESP_OK) {
+branch  0 taken 14% (fallthrough)
+branch  1 taken 86%
+        1:  219:      ESP_LOGE("NVS", "Failed to read string in NVS ret-%s",
+call    0 returned 100%
+call    1 returned 100%
+        -:  220:               esp_err_to_name(ret));
+        1:  221:      nvs_close(my_handle);
+call    0 returned 100%
+        3:  222:      return ret;
+        -:  223:    }
+        6:  224:    if (Mqtt_Config_tt.Key == 0xAA && len == sizeof(MQTT_CONFIG_s)) { // old
+branch  0 taken 83% (fallthrough)
+branch  1 taken 17%
+branch  2 taken 80% (fallthrough)
+branch  3 taken 20%
+        -:  225:                                                                      // data
+        4:  226:      memcpy_j(Mqtt_Config_t, sizeof(MQTT_CONFIG_s), (const void *)&Mqtt_Config_tt, len);
+call    0 returned 100%
+        -:  227:    } else {
+        2:  228:      ESP_LOGE("NVS", "Failed Key mismatch ret-%s", esp_err_to_name(ret));
+call    0 returned 100%
+call    1 returned 100%
+        2:  229:      nvs_close(my_handle);
+call    0 returned 100%
+        2:  230:      return ESP_ERR_INVALID_CRC;
+        -:  231:    }
+        -:  232:  }
+        -:  233:  // Commit the changes to NVS
+       15:  234:  ret = nvs_commit(my_handle);
+call    0 returned 100%
+       15:  235:  if (ret != ESP_OK) {
+branch  0 taken 7% (fallthrough)
+branch  1 taken 93%
+        1:  236:    ESP_LOGE("NVS", "Failed to commit data to NVS");
+call    0 returned 100%
+        1:  237:    nvs_close(my_handle);
+call    0 returned 100%
+        1:  238:    return ret;
+        -:  239:  }
+       14:  240:  ESP_LOGE("NVS",
+branch  0 taken 29% (fallthrough)
+branch  1 taken 71%
+call    2 returned 100%
+        -:  241:          "%s Success in NVS under key '%s'",
+        -:  242:          Type == 0 ? "Read" : "write", "Mqtt_Config");
+       14:  243:  nvs_close(my_handle);
+call    0 returned 100%
+       14:  244:  ESP_LOGE("NVS", "%d",ret);
+call    0 returned 100%
+        -:  245:  // if (ret == ESP_OK && Type == 2)
+        -:  246:  //   change_Mqtt_credentials((const char *)EXAMPLE_BROKER_URL,
+        -:  247:  //                           (const char *)Mqtt_Config_t->Device_Psw);
+       14:  248:  return ret;
+        -:  249:}
+        -:  250:
+function log_error_if_nonzero called 6 returned 100% blocks executed 100%
+        6:  251:static void log_error_if_nonzero(const char *message, int error_code) {
+        6:  252:  if (error_code != 0) {
+branch  0 taken 50% (fallthrough)
+branch  1 taken 50%
+        3:  253:    ESP_LOGE(TAG, "Last error %s: 0x%x", message, error_code);
+call    0 returned 100%
+        -:  254:  }
+        6:  255:}
+        -:  256:/*
+        -:  257: * @brief Event handler registered to receive MQTT events
+        -:  258: *
+        -:  259: *  This function is called by the MQTT client event loop.
+        -:  260: *
+        -:  261: * @param handler_args user data registered to the event.
+        -:  262: * @param base Event base for the handler(always MQTT Base in this example).
+        -:  263: * @param event_id The id for the received event.
+        -:  264: * @param event_data The data for the event, esp_mqtt_event_handle_t.
+        -:  265: */
+function mqtt_event_handler called 14 returned 100% blocks executed 100%
+       14:  266:static void mqtt_event_handler(void *handler_args, esp_event_base_t base,
+        -:  267:                               int32_t event_id, void *event_data) {
+        -:  268:  ESP_LOGD(TAG,
+        -:  269:           "Event dispatched from event loop base=%s, event_id=%" PRIi32 "",
+        -:  270:           base, event_id);
+       14:  271:  esp_mqtt_event_handle_t event = event_data;
+       14:  272:  esp_mqtt_client_handle_t client = event->client;
+        -:  273:  int msg_id;
+       14:  274:  switch ((esp_mqtt_event_id_t)event_id) {
+branch  0 taken 7%
+branch  1 taken 7%
+branch  2 taken 7%
+branch  3 taken 7%
+branch  4 taken 7%
+branch  5 taken 36%
+branch  6 taken 21%
+branch  7 taken 7%
+        1:  275:  case MQTT_EVENT_CONNECTED:
+        1:  276:    Custom1_printf("\n MQTT_EVENT_CONNECTED");
+call    0 returned 100%
+        1:  277:    Mqtt_is_connected =1;
+        1:  278:    force_PUB_ON = 1;
+        1:  279:     msg_id = esp_mqtt_client_subscribe(client, MQTT_SUB_TOPIC, 1);
+call    0 returned 100%
+        1:  280:     ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+call    0 returned 100%
+        -:  281:
+        1:  282:    break;
+        1:  283:  case MQTT_EVENT_DISCONNECTED:
+        1:  284:    Custom1_printf("\n MQTT_EVENT_DISCONNECTED");
+call    0 returned 100%
+        1:  285:    Mqtt_is_connected=0;
+        1:  286:    break;
+        -:  287:
+        1:  288:  case MQTT_EVENT_SUBSCRIBED:
+        1:  289:    Custom_printf("\n MQTT_EVENT_SUBSCRIBED, msg_id=%d", event->msg_id);
+call    0 returned 100%
+        1:  290:    break;
+        -:  291:    
+        1:  292:  case MQTT_EVENT_UNSUBSCRIBED:
+        1:  293:    ESP_LOGI(TAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
+call    0 returned 100%
+        1:  294:    break;
+        -:  295:    
+        1:  296:  case MQTT_EVENT_PUBLISHED:
+        1:  297:    Custom_printf("\n MQTT_EVENT_PUBLISHED, msg_id=%d", event->msg_id);
+call    0 returned 100%
+        1:  298:    break;
+        -:  299:    
+        5:  300:  case MQTT_EVENT_DATA:
+        5:  301:    ESP_LOGI(TAG, "MQTT_EVENT_DATA");
+call    0 returned 100%
+        5:  302:    ESP_LOGI(TAG,"TOPIC=%.*s\r\n", event->topic_len, event->topic);
+call    0 returned 100%
+        5:  303:    ESP_LOGI(TAG,"DATA= %.*s\r\n", event->data_len, event->data);
+call    0 returned 100%
+        -:  304:    // esp_event_post(AC_CNTRL_EVENT_BASE, EVENT_ID_MQTT_DATA_RX, event->data,
+        -:  305:    //                event->data_len + 1, 0);
+        -:  306:// 1. If this is the start of a new (or split) message
+        5:  307:            if (event->current_data_offset == 0) {
+branch  0 taken 80% (fallthrough)
+branch  1 taken 20%
+        -:  308:                // Free previous buffer if it exists
+        4:  309:                if (mqtt_rebuild_buf) free(mqtt_rebuild_buf);
+branch  0 taken 25% (fallthrough)
+branch  1 taken 75%
+        -:  310:                
+        -:  311:                // Allocate exactly what we need for the WHOLE message
+        4:  312:                mqtt_rebuild_buf = malloc(event->total_data_len + 1);
+        4:  313:                mqtt_rebuild_pos = 0;
+        -:  314:            }
+        -:  315:
+        -:  316:            // 2. Copy the current fragment into our buffer
+        5:  317:            if (mqtt_rebuild_buf) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        5:  318:                memcpy_j(mqtt_rebuild_buf + mqtt_rebuild_pos, event->total_data_len - mqtt_rebuild_pos, event->data, event->data_len);
+call    0 returned 100%
+        5:  319:                mqtt_rebuild_pos += event->data_len;
+        -:  320:
+        -:  321:                // 3. Check if we have received everything
+        5:  322:                if (mqtt_rebuild_pos >= event->total_data_len) {
+branch  0 taken 40% (fallthrough)
+branch  1 taken 60%
+        2:  323:                    mqtt_rebuild_buf[event->total_data_len] = '\0'; // Null terminate
+        -:  324:                    
+        -:  325:                    // --- FULL MESSAGE READY ---
+        2:  326:                    ESP_LOGI("MQTT", "Full packet received (%d bytes)", mqtt_rebuild_pos);
+call    0 returned 100%
+        -:  327:                    
+        2:  328:                    parseMQTT_revCmd(mqtt_rebuild_buf);
+call    0 returned 100%
+        -:  329:                    // Cleanup
+        2:  330:                    free(mqtt_rebuild_buf);
+        2:  331:                    mqtt_rebuild_buf = NULL;
+        -:  332:                }
+        -:  333:            }
+        5:  334:    break;
+        -:  335:    
+        3:  336:  case MQTT_EVENT_ERROR:
+        3:  337:    Custom1_printf("\n MQTT_EVENT_ERROR");
+call    0 returned 100%
+        3:  338:    if (event->error_handle->error_type == MQTT_ERROR_TYPE_TCP_TRANSPORT) {
+branch  0 taken 67% (fallthrough)
+branch  1 taken 33%
+        2:  339:      log_error_if_nonzero("reported from esp-tls",
+        2:  340:                           event->error_handle->esp_tls_last_esp_err);
+call    0 returned 100%
+        2:  341:      log_error_if_nonzero("reported from tls stack",
+        2:  342:                           event->error_handle->esp_tls_stack_err);
+call    0 returned 100%
+        2:  343:      log_error_if_nonzero("captured as transport's socket errno",
+        2:  344:                           event->error_handle->esp_transport_sock_errno);
+call    0 returned 100%
+        2:  345:      ESP_LOGI(TAG, "Last errno string (%s)",
+call    0 returned 100%
+call    1 returned 100%
+        -:  346:               strerror(event->error_handle->esp_transport_sock_errno));
+        -:  347:    }
+        3:  348:    break;
+        -:  349:    
+        1:  350:  default:
+        1:  351:    ESP_LOGI(TAG, "Other event id:%d", event->event_id);
+call    0 returned 100%
+        1:  352:    break;
+        -:  353:  }
+       14:  354:}
+function mqtt_app_start called 0 returned 0% blocks executed 0%
+    #####:  355:void mqtt_app_start(void) {
+        -:  356:
+        -:  357:  //printf("certificate:\n%s", server_cert_pem_start);
+    #####:  358:  if (ReadWriteNVS_MqttConfig(0, &Mqtt_Config) == ESP_OK) {
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+    #####:  359:    strcpy_j((char *)url, sizeof(url), (const char *)EXAMPLE_BROKER_URL, strlen((const char *)EXAMPLE_BROKER_URL));
+call    0 never executed
+    #####:  360:    strcpy_j((char *)pwd, sizeof(pwd), (const char *)Mqtt_Config.Device_Psw,strlen((const char *)Mqtt_Config.Device_Psw));
+call    0 never executed
+    #####:  361:    ESP_LOGE(TAG, "url:%s, pwd:%s", url, pwd);
+call    0 never executed
+        -:  362:  }
+        -:  363:
+    #####:  364: ESP_LOGE(TAG, "connecting with url:%s, pwd:%s url:%s", url, pwd,EXAMPLE_BROKER_URL);
+call    0 never executed
+        -:  365: 
+    #####:  366:  build_mqtt_topic();
+call    0 never executed
+        -:  367: 
+    #####:  368:  esp_mqtt_client_config_t mqtt_cfg = {
+        -:  369:      .broker.address.uri =
+        -:  370:          EXAMPLE_BROKER_URL, // Broker URL (change it to your PC's IP address)
+        -:  371:      #if (MQTT_DETAILS == JIO_MQTT)
+        -:  372:      .credentials.username = (const char *)Device_MAC_ADD,
+        -:  373:      #elif(MQTT_DETAILS == TRUEPOWER_MQTT)
+        -:  374:      .credentials.username = (const char *)"invendis",
+        -:  375:      #elif(MQTT_DETAILS == THINGSBOARD_MQTT)
+        -:  376:      .credentials.username = (const char *)"RTU_BRIDGE", 
+        -:  377:      #endif
+        -:  378:      .credentials.client_id = (const char *)Device_MAC_ADD,
+        -:  379:      .credentials.authentication.password = pwd,
+        -:  380:	  #if (MQTT_DETAILS == JIO_MQTT)
+        -:  381:      .broker.verification.certificate = (const char *)server_cert_pem_start,
+        -:  382:	  #endif
+        -:  383:      //.broker.verification.certificate_len = server_cert_pem_end -
+        -:  384:      // server_cert_pem_start,
+        -:  385:  };
+    #####:  386:   ESP_LOGI(TAG, "MQTT credentials -> USERNAME: %s : PASSWORD: %s", mqtt_cfg.credentials.username, mqtt_cfg.credentials.authentication.password);
+call    0 never executed
+        -:  387:
+    #####:  388:  client = esp_mqtt_client_init(&mqtt_cfg);
+call    0 never executed
+    #####:  389:  esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler,
+call    0 never executed
+        -:  390:                                 NULL);
+    #####:  391:  esp_mqtt_client_start(client);
+call    0 never executed
+        -:  392:  struct tm temp_timeinfo;
+        -:  393:  //uint16_t hr_min;
+        -:  394:  uint32_t hr_min_sec;
+        -:  395:
+        -:  396:  while (1) {
+        -:  397:
+    #####:  398:    time(&now);
+call    0 never executed
+    #####:  399:    localtime_r(&now, &temp_timeinfo);
+call    0 never executed
+        -:  400:    //hr_min = temp_timeinfo.tm_hour * 60 + temp_timeinfo.tm_min;
+    #####:  401:    hr_min_sec = temp_timeinfo.tm_hour * 3600 + temp_timeinfo.tm_min*60 + temp_timeinfo.tm_sec;
+    #####:  402:    if(g_u8_acceptFileRx == 0 && g_u8_SendFileXMDMTx == 0 && g_u8_acceptfwRx==0)
+branch  0 never executed (fallthrough)
+branch  1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed
+        -:  403:    {
+    #####:  404:      if (response_s.rev_cmd == 1) {
+branch  0 never executed (fallthrough)
+branch  1 never executed
+    #####:  405:      seqid++;
+    #####:  406:      char *payload = generate_response_json();
+call    0 never executed
+    #####:  407:      Push_MQTT_Paket(payload);
+call    0 never executed
+    #####:  408:      free(payload);
+    #####:  409:      response_s.cmd=0;
+    #####:  410:      response_s.res=0;
+    #####:  411:      response_s.rev_cmd=0;
+    #####:  412:      response_s.tid=0;
+    #####:  413:      if(reboot==1)
+branch  0 never executed (fallthrough)
+branch  1 never executed
+        -:  414:      {
+    #####:  415:		  ESP_LOGI(TAG, "Reboot command received!");
+call    0 never executed
+    #####:  416:          esp_restart();
+call    0 never executed
+        -:  417:	  }
+        -:  418:    }
+    #####:  419:    if(total_rdn_profiles>0 && profile_rdn_parms!=NULL && rdn_data_ready==1)
+branch  0 never executed (fallthrough)
+branch  1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed
+        -:  420:    {
+    #####:  421:      ESP_LOGI(TAG, "Pushing rdn Data\n");
+call    0 never executed
+    #####:  422:    	seqid++;
+    #####:  423:      char *payload = create_rdn_packet();
+call    0 never executed
+    #####:  424:      Push_MQTT_Paket(payload);
+call    0 never executed
+    #####:  425:      free(payload);
+    #####:  426:      free(profile_rdn_parms); 
+    #####:  427:      total_rdn_profiles = 0;
+    #####:  428:      rdn_data_ready=0;
+        -:  429:    }
+    #####:  430:    if ((hr_min_sec % hlt_configs[0].push_frq == 0 &&
+branch  0 never executed (fallthrough)
+branch  1 never executed
+    #####:  431:         temp_timeinfo.tm_sec == 0) ||
+branch  0 never executed (fallthrough)
+branch  1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed
+        -:  432:        (force_PUB_ON)) {
+    #####:  433:      force_PUB_ON = 0;
+    #####:  434:      seqid++;
+    #####:  435:      char *payload = generate_health_json();
+call    0 never executed
+    #####:  436:      Push_MQTT_Paket(payload);
+call    0 never executed
+    #####:  437:      free(payload);
+        -:  438:    }
+    #####:  439:    if(temp_timeinfo.tm_sec == 0)
+branch  0 never executed (fallthrough)
+branch  1 never executed
+        -:  440:    {
+    #####:  441:    	run_telemetry_cycle(hr_min_sec);
+call    0 never executed
+        -:  442:    }
+        -:  443:    }
+        -:  444:    
+    #####:  445:   vTaskDelay(500 / portTICK_PERIOD_MS);
+call    0 never executed
+        -:  446:  }
+        -:  447:
+        -:  448:}
+        -:  449:
+function Push_MQTT_Paket called 3 returned 100% blocks executed 100%
+        3:  450:void Push_MQTT_Paket(char *payload)
+        -:  451:{
+        -:  452:   // int msg_id1 = 0;
+        3:  453:    if (payload) {
+branch  0 taken 67% (fallthrough)
+branch  1 taken 33%
+        2:  454:    size_t len = strlen(payload);
+        2:  455:      int msg_id = esp_mqtt_client_publish(client, MQTT_PUB_EVNT_TOPIC, payload,len, 0, 0);
+call    0 returned 100%
+        2:  456:      ESP_LOGI(TAG, "%s", payload);
+call    0 returned 100%
+        2:  457:      if(msg_id >= 0)
+branch  0 taken 50% (fallthrough)
+branch  1 taken 50%
+        -:  458:      {
+        1:  459:        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+call    0 returned 100%
+        -:  460:      }
+        -:  461:      else
+        -:  462:      {
+        1:  463:        ESP_LOGE(TAG, "Failed to publish message");
+call    0 returned 100%
+        -:  464:      }
+        2:  465:      vTaskDelay(1000 / portTICK_PERIOD_MS);
+call    0 returned 100%
+        -:  466:  }
+        3:  467:}
+function get_timestamp called 20 returned 100% blocks executed 100%
+       20:  468:void get_timestamp(char *dest,size_t dest_size) {
+        -:  469:    struct tm timeinfo;
+        -:  470:    time_t now;
+       20:  471:    time(&now);
+call    0 returned 100%
+       20:  472:    localtime_r(&now, &timeinfo);
+call    0 returned 100%
+       20:  473:	 sprintf_j(dest,dest_size, "20%02d-%02d-%02dT%02d:%02d:%02d+0530",(timeinfo.tm_year - 100), (timeinfo.tm_mon + 1), timeinfo.tm_mday,
+call    0 returned 100%
+        -:  474:        timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
+       20:  475:	}
+        -:  476:
+function get_MAC_string called 26 returned 100% blocks executed 100%
+       26:  477:void get_MAC_string(char *dest,size_t dest_size)
+        -:  478:{
+       26:  479:	sprintf_j(dest, dest_size, "%02X:%02X:%02X:%02X:%02X:%02X",mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+call    0 returned 100%
+        -:  480:
+       26:  481:}
+        -:  482:
+function create_rdn_packet called 4 returned 100% blocks executed 100%
+        4:  483:char* create_rdn_packet(void) {
+        -:  484:    // 1. Create the Root Object
+        -:  485:    char tms_buf[32] ;
+        -:  486:	  char MAC_buf[20];
+        4:  487:	  get_timestamp(tms_buf,sizeof(tms_buf));
+call    0 returned 100%
+        4:  488:	  get_MAC_string(MAC_buf,sizeof(MAC_buf));
+call    0 returned 100%
+        4:  489:    cJSON *root = cJSON_CreateObject();
+call    0 returned 100%
+        -:  490:    // cJSON_AddStringToObject(root, "ver", "3.0");
+        -:  491:    // cJSON_AddStringToObject(root, "pld", MAC_buf); // Device MAC
+        -:  492:    // cJSON_AddStringToObject(root, "svc", SVC_CODE);
+        -:  493:    // cJSON_AddStringToObject(root, "aid", AID_CODE);
+        -:  494:    // cJSON_AddStringToObject(root, "eid", EID_CODE);
+        -:  495:    // cJSON_AddStringToObject(root, "dvt", DEVICE_NAME);
+        -:  496:    // cJSON_AddStringToObject(root, "dvm", DEVICE_NAME);
+        -:  497:    // cJSON_AddStringToObject(root, "tms", tms_buf); // Time string
+        -:  498:    // cJSON_AddNumberToObject(root, "evc", 300);
+        -:  499:    // cJSON_AddNumberToObject(root, "seqid", seqid);
+        -:  500:
+        -:  501:    // // External (ext) Array
+        -:  502:    // cJSON *ext_arr = cJSON_CreateArray();
+        -:  503:    // cJSON_AddItemToObject(root, "ext", ext_arr);
+        -:  504:
+        -:  505:    // cJSON *ext_obj = cJSON_CreateObject();
+        -:  506:    // cJSON_AddItemToArray(ext_arr, ext_obj);
+        -:  507:
+        -:  508:    // cJSON_AddNumberToObject(ext_obj, "sid", 1);
+        -:  509:    // cJSON_AddNumberToObject(ext_obj, "evc", 300);
+        -:  510:    // cJSON_AddStringToObject(ext_obj, "eafwv", FW_VER);
+        -:  511:    // cJSON_AddStringToObject(ext_obj, "reldt", REL_DATE);
+        -:  512:    // cJSON_AddNumberToObject(ext_obj, "pintv", 300);
+        -:  513:    // // 4. Create "hvc" Object inside "ext"
+        -:  514:    // cJSON *hvc_obj = cJSON_AddObjectToObject(ext_obj, "hvc");
+        4:  515:    cJSON *hvc_obj = cJSON_AddObjectToObject(root, "rdn");
+call    0 returned 100%
+        -:  516:    // 5. Convert int data[] to a String for the "1" key
+        -:  517:    // We create a buffer to hold the converted string data
+        4:  518:    char data_str[512] = {0}; 
+        4:  519:    int offset = 0;
+        7:  520:    for (int p_idx = 0; p_idx < total_rdn_profiles; p_idx++) {
+branch  0 taken 43%
+branch  1 taken 57% (fallthrough)
+        -:  521:        
+        3:  522:		 profile_rdn_t *p = &profile_rdn_parms[p_idx];
+        3:  523:    char *data_array = p->data;
+        3:  524:    int data_len = p->bytes;
+        3:  525:    cJSON_AddStringToObject(hvc_obj,"name",p->key_name);
+call    0 returned 100%
+        3:  526:    if(p->Isrdndata_available == 1){
+branch  0 taken 67% (fallthrough)
+branch  1 taken 33%
+      257:  527:    for (int i = 0; i < data_len && offset < sizeof(data_str) - 10; i++) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 1%
+branch  2 taken 100%
+branch  3 taken 1% (fallthrough)
+        -:  528:        // Format: "val1,val2,val3"
+      255:  529:        offset += sprintf_j(data_str + offset, sizeof(data_str) - offset, "%02X%s", 
+      255:  530:                           data_array[i], (i == data_len - 1) ? "" : "");
+call    0 returned 100%
+        -:  531:    }
+        2:  532:    cJSON_AddStringToObject(hvc_obj, "data", data_str);
+call    0 returned 100%
+        -:  533:  }
+        3:  534:    cJSON_AddNumberToObject(hvc_obj, "err", p->Isrdndata_available);
+call    0 returned 100%
+        -:  535:  }
+        -:  536:    // 6. Render to String
+        4:  537:    char *out = cJSON_PrintUnformatted(root); // Use Unformatted to save bandwidth
+call    0 returned 100%
+        -:  538:    
+        -:  539:    // 7. Clean up memory
+        4:  540:    cJSON_Delete(root); 
+call    0 returned 100%
+        -:  541:
+        4:  542:    return out; // Note: Caller MUST free() this string!
+        -:  543:}
+function generate_health_json called 4 returned 100% blocks executed 100%
+        4:  544:char* generate_health_json(void) {
+        -:  545:	char tms_buf[32] ;
+        -:  546:	char MAC_buf[20];
+        4:  547:	get_timestamp(tms_buf,sizeof(tms_buf));
+call    0 returned 100%
+        4:  548:	get_MAC_string(MAC_buf,sizeof(MAC_buf));
+call    0 returned 100%
+        4:  549:    cJSON *root = cJSON_CreateObject();
+call    0 returned 100%
+        -:  550:
+        -:  551:    // Header section
+        4:  552:    cJSON_AddStringToObject(root, "ver", "3.0");
+call    0 returned 100%
+        4:  553:    cJSON_AddStringToObject(root, "pld", MAC_buf);
+call    0 returned 100%
+        4:  554:    cJSON_AddStringToObject(root, "svc", SVC_CODE);
+call    0 returned 100%
+        4:  555:    cJSON_AddStringToObject(root, "aid", AID_CODE);
+call    0 returned 100%
+        4:  556:    cJSON_AddStringToObject(root, "eid", EID_CODE);
+call    0 returned 100%
+        4:  557:    cJSON_AddStringToObject(root, "dvt", DEVICE_NAME);
+call    0 returned 100%
+        4:  558:    cJSON_AddStringToObject(root, "dvm", DEVICE_NAME);
+call    0 returned 100%
+        -:  559:
+        4:  560:    cJSON_AddStringToObject(root, "tms", tms_buf);
+call    0 returned 100%
+        -:  561:
+        4:  562:    cJSON_AddStringToObject(root, "evc", "700");
+call    0 returned 100%
+        4:  563:    cJSON_AddNumberToObject(root, "seqid", seqid);
+call    0 returned 100%
+        -:  564:  
+        4:  565:    cJSON *ext_array = cJSON_CreateArray();
+call    0 returned 100%
+        4:  566:    cJSON_AddItemToObject(root, "ext", ext_array);
+call    0 returned 100%
+        -:  567:
+        -:  568:    // We assume all configurations are grouped into one 'ext' item for this device
+        4:  569:    cJSON *ext_item = cJSON_CreateObject(); 
+call    0 returned 100%
+        4:  570:    cJSON_AddItemToArray(ext_array, ext_item);
+call    0 returned 100%
+        -:  571:
+        4:  572:    cJSON_AddNumberToObject(ext_item, "sid", 1);
+call    0 returned 100%
+        4:  573:    cJSON_AddNumberToObject(ext_item, "evc", 700);
+call    0 returned 100%
+        4:  574:    cJSON_AddStringToObject(ext_item, "eafwv", version);
+call    0 returned 100%
+        4:  575:    cJSON_AddStringToObject(ext_item, "reldt", release_date);
+call    0 returned 100%
+        4:  576:    cJSON_AddNumberToObject(ext_item, "pintv", hlt_configs[0].push_frq);
+call    0 returned 100%
+        -:  577:
+        -:  578:    // 1. HVC (Health/System Status)
+        4:  579:    cJSON *hvc = cJSON_CreateObject();
+call    0 returned 100%
+        4:  580:    cJSON_AddItemToObject(ext_item, "hvc", hvc);
+call    0 returned 100%
+        -:  581:    char ip_str[16], gw_str[16], netmask_str[16];
+        4:  582:    sprintf_j(ip_str, sizeof(ip_str), IPSTR, IP2STR(&ip_info.ip));
+call    0 returned 100%
+        4:  583:    sprintf_j(gw_str, sizeof(gw_str), IPSTR, IP2STR(&ip_info.gw));
+call    0 returned 100%
+        4:  584:    sprintf_j(netmask_str, sizeof(netmask_str), IPSTR, IP2STR(&ip_info.netmask));
+call    0 returned 100%
+        -:  585:    
+        4:  586:    cJSON_AddStringToObject(hvc, "ssid", (char *)ap_info.ssid);
+call    0 returned 100%
+        4:  587:    cJSON_AddNumberToObject(hvc, "rssi", ap_info.rssi);
+call    0 returned 100%
+        4:  588:    cJSON_AddNumberToObject(hvc, "blest", ble_is_connected); 
+call    0 returned 100%
+        4:  589:    cJSON_AddNumberToObject(hvc, "tmsyn", time_is_synced); 
+call    0 returned 100%
+        4:  590:    cJSON_AddStringToObject(hvc, "ip", ip_str);
+call    0 returned 100%
+        4:  591:    cJSON_AddStringToObject(hvc, "gw", gw_str);
+call    0 returned 100%
+        4:  592:    cJSON_AddStringToObject(hvc, "netmsk", netmask_str);
+call    0 returned 100%
+        4:  593:    static_ip_enabled? cJSON_AddStringToObject(hvc, "ip_conf", "static") : cJSON_AddStringToObject(hvc, "ip_conf", "dhcp");
+branch  0 taken 75% (fallthrough)
+branch  1 taken 25%
+call    2 returned 100%
+call    3 returned 100%
+        -:  594:    // 2. HLT (Health logic strings)
+        4:  595:    cJSON *hlt = cJSON_CreateObject();
+call    0 returned 100%
+        -:  596:    char health[16];
+        4:  597:    sprintf_j(health, sizeof(health), "%d:%d",hlt_configs[0].poll_frq,hlt_configs[0].push_frq);
+call    0 returned 100%
+        4:  598:    cJSON_AddItemToObject(ext_item, "hlt", hlt);
+call    0 returned 100%
+        4:  599:    cJSON_AddStringToObject(hlt, "dhlt1", health);
+call    0 returned 100%
+        -:  600:
+        -:  601:    
+        -:  602:
+        -:  603:    // 3. URT (UART Settings)
+        -:  604:    char urtsetting[100];
+        4:  605:    cJSON *urt = cJSON_CreateObject();
+call    0 returned 100%
+        4:  606:    sprintf_j(urtsetting, sizeof(urtsetting), "%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d",
+        4:  607:                            system_urts[0].urt_id, system_urts[0].baud,
+        4:  608:                            system_urts[0].parity, system_urts[0].data_bits,
+        4:  609:                            system_urts[0].stop_bits, system_urts[0].retry_cnt,
+        4:  610:                            system_urts[0].retry_period,system_urts[0].DisconnectonNoA,
+        4:  611:						    system_urts[0].DefConnStatus,system_urts[0].InterwriteDelay,
+        4:  612:						    system_urts[0].InterReadDelay,system_urts[0].AutoConnect);
+call    0 returned 100%
+        4:  613:    cJSON_AddItemToObject(ext_item, "urt", urt);
+call    0 returned 100%
+        4:  614:    cJSON_AddStringToObject(urt, "curt0", urtsetting);
+call    0 returned 100%
+        -:  615:
+        -:  616:    // 4. MBR (Directory of Modbus Remotes)
+        4:  617:    cJSON *mbr = cJSON_CreateObject();
+call    0 returned 100%
+        4:  618:    cJSON_AddItemToObject(ext_item, "mbr", mbr);
+call    0 returned 100%
+        -:  619:
+        8:  620:    for (int i = 0; i < total_configs; i++) {
+branch  0 taken 50%
+branch  1 taken 50% (fallthrough)
+        -:  621:        char key[16];
+        4:  622:        sprintf_j(key, sizeof(key), "dmbr%d", i + 1);
+call    0 returned 100%
+        -:  623:
+        -:  624:        char val[64];
+        4:  625:        sprintf_j(val, sizeof(val), "%d:%d:%d:%d",
+        4:  626:                 system_configs[i].slave_id, system_configs[i].poll_frq,
+        4:  627:                 system_configs[i].push_frq_m, system_configs[i].push_frq_b);
+call    0 returned 100%
+        4:  628:	    vTaskDelay(pdMS_TO_TICKS(10));
+call    0 returned 100%
+        4:  629:        cJSON_AddStringToObject(mbr, key, val);
+call    0 returned 100%
+        -:  630:    }
+        -:  631:
+        -:  632:    // 5. Parameter Lists (Arrays of keys)
+        8:  633:    for (int i = 0; i < total_configs; i++) {
+branch  0 taken 50%
+branch  1 taken 50% (fallthrough)
+        -:  634:        char key[16];
+        4:  635:        sprintf_j(key, sizeof(key), "dmbr%d", i + 1);
+call    0 returned 100%
+        -:  636:
+        4:  637:        cJSON *param_list = cJSON_CreateArray();
+call    0 returned 100%
+        4:  638:        cJSON_AddItemToObject(ext_item, key, param_list);
+call    0 returned 100%
+        -:  639:
+        4:  640:        int start = system_configs[i].profile_start_idx;
+        4:  641:        int count = system_configs[i].profile_count;
+        4:  642:        vTaskDelay(pdMS_TO_TICKS(10));
+call    0 returned 100%
+        -:  643:        
+       11:  644:        for (int p = start; p < (start + count); p++) {
+branch  0 taken 64%
+branch  1 taken 36% (fallthrough)
+        7:  645:            if (p < total_profiles) {
+branch  0 taken 43% (fallthrough)
+branch  1 taken 57%
+        -:  646:                // We only add the name of the parameter here (e.g., "vrp")
+        3:  647:                cJSON_AddItemToArray(param_list, cJSON_CreateString(profile_parms[p].key_name));
+call    0 returned 100%
+call    1 returned 100%
+        -:  648:            }
+        7:  649:              vTaskDelay(pdMS_TO_TICKS(10));
+call    0 returned 100%
+        -:  650:        }
+        -:  651:    }
+        -:  652:
+        4:  653:    char *json_out = cJSON_PrintUnformatted(root);
+call    0 returned 100%
+        4:  654:    cJSON_Delete(root);
+call    0 returned 100%
+        4:  655:    return json_out;
+        -:  656:}
+        -:  657:
+function generate_response_json called 1 returned 100% blocks executed 100%
+        1:  658:char* generate_response_json(void) {
+        -:  659:   	char tms_buf[32] ;
+        -:  660:	char MAC_buf[20];
+        1:  661:	get_timestamp(tms_buf,sizeof(tms_buf));
+call    0 returned 100%
+        1:  662:	get_MAC_string(MAC_buf,sizeof(MAC_buf));
+call    0 returned 100%
+        1:  663:	cJSON *root = cJSON_CreateObject();
+call    0 returned 100%
+        -:  664:
+        -:  665:    // 2. Add header fields
+        1:  666:    cJSON_AddStringToObject(root, "ver", "3.0");
+call    0 returned 100%
+        1:  667:    cJSON_AddStringToObject(root, "pld", MAC_buf);
+call    0 returned 100%
+        1:  668:    cJSON_AddStringToObject(root, "svc", SVC_CODE);
+call    0 returned 100%
+        1:  669:    cJSON_AddStringToObject(root, "aid", AID_CODE);
+call    0 returned 100%
+        1:  670:    cJSON_AddStringToObject(root, "eid", EID_CODE);
+call    0 returned 100%
+        1:  671:    cJSON_AddStringToObject(root, "dvt", DEVICE_NAME);
+call    0 returned 100%
+        1:  672:    cJSON_AddStringToObject(root, "dvm", DEVICE_NAME);
+call    0 returned 100%
+        -:  673:
+        1:  674:    cJSON_AddStringToObject(root, "tms", tms_buf);
+call    0 returned 100%
+        -:  675:
+        1:  676:    cJSON_AddStringToObject(root, "evc", "330");
+call    0 returned 100%
+        1:  677:    cJSON_AddNumberToObject(root, "seqid", seqid);
+call    0 returned 100%
+        -:  678:
+        -:  679:    // 4. Create the "ext" array
+        1:  680:    cJSON *ext_array = cJSON_CreateArray();
+call    0 returned 100%
+        1:  681:    cJSON_AddItemToObject(root, "ext", ext_array);
+call    0 returned 100%
+        -:  682:
+        -:  683:    // 5. Create the object inside the "ext" array
+        1:  684:    cJSON *ext_item = cJSON_CreateObject();
+call    0 returned 100%
+        1:  685:    cJSON_AddItemToArray(ext_array, ext_item);
+call    0 returned 100%
+        -:  686:
+        1:  687:    cJSON_AddNumberToObject(ext_item, "sid", 1);
+call    0 returned 100%
+        1:  688:    cJSON_AddNumberToObject(ext_item, "evc", 330);
+call    0 returned 100%
+        1:  689:    cJSON_AddNumberToObject(ext_item, "tid", response_s.tid);
+call    0 returned 100%
+        1:  690:    cJSON_AddNumberToObject(ext_item, "cmd", response_s.cmd);
+call    0 returned 100%
+        1:  691:    cJSON_AddNumberToObject(ext_item, "res", response_s.res);
+call    0 returned 100%
+        -:  692:
+        -:  693:    // 6. Render to string
+        1:  694:    char *json_string = cJSON_PrintUnformatted(root);
+call    0 returned 100%
+        -:  695:
+        -:  696:    // 7. Cleanup memory
+        1:  697:    cJSON_Delete(root);
+call    0 returned 100%
+        -:  698:
+        1:  699:    return json_string; // Remember to free() this string after sending it!
+        -:  700:}
+        -:  701:
+        -:  702:
+function truncate_4_decimals called 1 returned 100% blocks executed 100%
+        1:  703:float truncate_4_decimals(float value) {
+        1:  704:    long intermediate = (long)(value * 10000.0f);
+        1:  705:    return (float)intermediate / 10000.0f;
+        -:  706:}
+        -:  707:
+        -:  708:
+function build_combined_telemetry called 10 returned 100% blocks executed 100%
+       10:  709:char* build_combined_telemetry(const char* target_dev_id) {
+        -:  710:	char tms_buf[32] ; 
+        -:  711:	char MAC_buf[20];
+       10:  712:	get_timestamp(tms_buf,sizeof(tms_buf));
+call    0 returned 100%
+       10:  713:	get_MAC_string(MAC_buf,sizeof(MAC_buf));
+call    0 returned 100%
+       10:  714:    cJSON *root = cJSON_CreateObject();
+call    0 returned 100%
+        -:  715:#if (MQTT_DETAILS != THINGSBOARD_MQTT)   
+       10:  716:    cJSON_AddStringToObject(root, "ver", "3.0");
+call    0 returned 100%
+       10:  717:    cJSON_AddStringToObject(root, "pld", MAC_buf); // Device MAC
+call    0 returned 100%
+       10:  718:    cJSON_AddStringToObject(root, "svc", SVC_CODE);
+call    0 returned 100%
+       10:  719:    cJSON_AddStringToObject(root, "aid", AID_CODE);
+call    0 returned 100%
+       10:  720:    cJSON_AddStringToObject(root, "eid", EID_CODE);
+call    0 returned 100%
+       10:  721:    cJSON_AddStringToObject(root, "dvt", DEVICE_NAME);
+call    0 returned 100%
+       10:  722:    cJSON_AddStringToObject(root, "dvm", DEVICE_NAME);
+call    0 returned 100%
+       10:  723:    cJSON_AddStringToObject(root, "tms", tms_buf); // Time string
+call    0 returned 100%
+       10:  724:    cJSON_AddNumberToObject(root, "evc", 300);
+call    0 returned 100%
+       10:  725:    cJSON_AddNumberToObject(root, "seqid", seqid);
+call    0 returned 100%
+        -:  726:
+        -:  727:    // External (ext) Array
+       10:  728:    cJSON *ext_arr = cJSON_CreateArray();
+call    0 returned 100%
+       10:  729:    cJSON_AddItemToObject(root, "ext", ext_arr);
+call    0 returned 100%
+        -:  730:
+       10:  731:    cJSON *ext_obj = cJSON_CreateObject();
+call    0 returned 100%
+       10:  732:    cJSON_AddItemToArray(ext_arr, ext_obj);
+call    0 returned 100%
+        -:  733:
+       10:  734:    cJSON_AddNumberToObject(ext_obj, "sid", 1);
+call    0 returned 100%
+       10:  735:    cJSON_AddNumberToObject(ext_obj, "evc", 300);
+call    0 returned 100%
+       10:  736:    cJSON_AddStringToObject(ext_obj, "eafwv", version);
+call    0 returned 100%
+       10:  737:    cJSON_AddStringToObject(ext_obj, "reldt", release_date);
+call    0 returned 100%
+       10:  738:    cJSON_AddNumberToObject(ext_obj, "pintv", 300);
+call    0 returned 100%
+        -:  739:
+        -:  740:    // HVC Object (Where the voltages go)
+       10:  741:    cJSON *hvc_obj = cJSON_CreateObject();
+call    0 returned 100%
+       10:  742:    cJSON_AddItemToObject(ext_obj, "hvc", hvc_obj);
+call    0 returned 100%
+        -:  743:#endif
+        -:  744:
+        -:  745:	
+        -:  746:    // Loop through all MBRs (dmbr1, dmbr2, etc.)
+       10:  747:    int add_make=0;
+       10:  748:    int32_t diff =-1;
+       29:  749:    for (int i = 0; i < total_configs; i++) {
+branch  0 taken 66%
+branch  1 taken 34% (fallthrough)
+       19:  750:		diff =-1;
+        -:  751:        // Only add parameters if this MBR is due for a push right now
+        -:  752:      //if (memcmp_j(system_configs[i].device_id,strlen(target_dev_id), target_dev_id,strlen(target_dev_id),&diff)== 0) {
+       19:  753:      if (strcmp(system_configs[i].device_id, target_dev_id) == 0) {  
+branch  0 taken 68% (fallthrough)
+branch  1 taken 32%
+       13:  754:        if (mbr_due_flags[i]) {
+branch  0 taken 92% (fallthrough)
+branch  1 taken 8%
+       12:  755:          int start = system_configs[i].profile_start_idx;
+       12:  756:          int count = system_configs[i].profile_count;
+       12:  757:          printf("Building telemetry for device %s with start index %d and count %d\n", target_dev_id, start, count);
+call    0 returned 100%
+        -:  758:#if (MQTT_DETAILS != THINGSBOARD_MQTT) 
+       12:  759:          if (add_make==0){
+branch  0 taken 58% (fallthrough)
+branch  1 taken 42%
+        7:  760:            cJSON_AddStringToObject(ext_obj, "make", system_configs[i].Model_no);
+call    0 returned 100%
+        7:  761:            add_make=1;
+        -:  762:          }
+        -:  763:#endif
+       15:  764:          for (int j = 0; j < count; j++) {
+branch  0 taken 20%
+branch  1 taken 80% (fallthrough)
+        3:  765:            profile_config_t *p = &profile_parms[start + j];
+        3:  766:            if (p->Isdata_available ==1){
+branch  0 taken 33% (fallthrough)
+branch  1 taken 67%
+        -:  767:              char buf[32];
+        1:  768:              sprintf_j(buf, sizeof(buf), "%.4f", p->data); // This TRUNCATES/ROUNDS at the string level
+call    0 returned 100%
+        1:  769:              double clean_value = atof(buf);
+        -:  770:#if (MQTT_DETAILS == THINGSBOARD_MQTT)     
+        -:  771:              cJSON_AddNumberToObject(root, p->key_name, clean_value);
+        -:  772:#else
+        1:  773:              cJSON_AddNumberToObject(hvc_obj, p->key_name, clean_value);
+call    0 returned 100%
+        -:  774:#endif
+        -:  775:              }
+        -:  776:          }
+        -:  777:        }
+        -:  778:      }
+        -:  779:    }
+        -:  780:
+       10:  781:    char *json_out = cJSON_PrintUnformatted(root);
+call    0 returned 100%
+       10:  782:    cJSON_Delete(root); // Free memory
+call    0 returned 100%
+       10:  783:    return json_out;
+        -:  784:}
+function run_telemetry_cycle called 7 returned 100% blocks executed 94%
+        7:  785:void run_telemetry_cycle(uint32_t hr_min_sec) {
+        -:  786:    time_t now;
+        7:  787:    int32_t diff = -1;
+        -:  788:    struct tm timeinfo;
+        7:  789:    time(&now);
+call    0 returned 100%
+        7:  790:    localtime_r(&now, &timeinfo);
+call    0 returned 100%
+        -:  791:
+        -:  792:    // 1. Mark which INDIVIDUAL jobs (dmbrs) are due based on their intervals
+       22:  793:    for (int i = 0; i < total_configs; i++) {
+branch  0 taken 68%
+branch  1 taken 32% (fallthrough)
+       15:  794:        int interval = system_configs[i].push_frq_m;
+       15:  795:        if (interval <= 0) continue;
+branch  0 taken 13% (fallthrough)
+branch  1 taken 87%
+        -:  796:
+       13:  797:        if (hr_min_sec % interval == 0) {
+branch  0 taken 92% (fallthrough)
+branch  1 taken 8%
+       12:  798:            if (last_push_min[i] != timeinfo.tm_min) {
+branch  0 taken 83% (fallthrough)
+branch  1 taken 17%
+       10:  799:                mbr_due_flags[i] = true;
+        -:  800:            }
+        -:  801:        }
+        -:  802:    }
+        -:  803:
+        -:  804:    // 2. Group by Unique Device ID and Send
+        -:  805:    // We iterate through all configs, but we only process each unique device_id once per cycle
+       22:  806:    for (int i = 0; i < total_configs; i++) {
+branch  0 taken 68%
+branch  1 taken 32% (fallthrough)
+       15:  807:        if (mbr_due_flags[i]) {
+branch  0 taken 40% (fallthrough)
+branch  1 taken 60%
+        6:  808:            const char* current_dev = system_configs[i].device_id;
+        6:  809:            ESP_LOGI(TAG, "Processing device: %s", current_dev);
+call    0 returned 100%
+        -:  810:
+        -:  811:
+        -:  812:            // Check if we already handled this device earlier in this specific loop
+        -:  813:            // (Prevents sending 2 packets if dmbr1 and dmbr4 are both due)
+        6:  814:            bool already_processed = false;
+        7:  815:            for (int prev = 0; prev < i; prev++) {
+branch  0 taken 14%
+branch  1 taken 86% (fallthrough)
+        -:  816:               // if (memcmp_j(system_configs[prev].device_id,strlen(system_configs[prev].device_id), current_dev,strlen(current_dev),&diff)== 0 
+        -:  817:                 //   && mbr_due_flags[prev] == false) {
+       1*:  818:                if (strcmp(system_configs[prev].device_id, current_dev) == 0 && mbr_due_flags[prev] == false) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+branch  2 never executed (fallthrough)
+branch  3 never executed
+        -:  819:                   // This is a bit tricky: we clear the flag after processing,
+        -:  820:                    // so if the flag is ALREADY false for a previous entry with same ID,
+        -:  821:                    // it means we already sent the packet for this device.
+    #####:  822:                    already_processed = true;
+    #####:  823:                    break;
+        -:  824:                }
+        -:  825:            }
+        -:  826:
+        6:  827:            if (!already_processed) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        6:  828:                seqid++;
+        -:  829:                // 3. Modify your build function to accept a Device ID filter
+        6:  830:                char *payload = build_combined_telemetry(current_dev);
+call    0 returned 100%
+        -:  831:
+        6:  832:                if (payload) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        6:  833:            	size_t len = strlen(payload);
+        6:  834:                int msg_id = esp_mqtt_client_publish(client, MQTT_PUB_EVNT_TOPIC, payload,len, 0, 0);
+call    0 returned 100%
+        6:  835:                    ESP_LOGI(TAG, "Sent Packet for Device %s: %s", current_dev, payload);
+call    0 returned 100%
+        6:  836:                ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+call    0 returned 100%
+        6:  837:                vTaskDelay(1000 / portTICK_PERIOD_MS);
+call    0 returned 100%
+        6:  838:                    free(payload);
+        -:  839:                }
+        6:  840:                diff = -1;
+        -:  841:                // 4. Mark ALL dmbrs for THIS device as "done" for this minute
+       21:  842:                for (int j = 0; j < total_configs; j++) {
+branch  0 taken 71%
+branch  1 taken 29% (fallthrough)
+        -:  843:                    //if (memcmp_j(system_configs[j].device_id,strlen(system_configs[j].device_id), current_dev,strlen(current_dev),&diff)== 0){
+       15:  844:                    if (strcmp(system_configs[j].device_id, current_dev) == 0) {
+branch  0 taken 73% (fallthrough)
+branch  1 taken 27%
+       11:  845:                     last_push_min[j] = timeinfo.tm_min;
+       11:  846:                        mbr_due_flags[j] = false;
+        -:  847:                    }
+        -:  848:                }
+        -:  849:            }
+        -:  850:        }
+        -:  851:    }
+        7:  852:}
+function mqtt_task called 0 returned 0% blocks executed 0%
+    #####:  853:static void mqtt_task(void *arg) {
+    #####:  854:  ESP_ERROR_CHECK(nvs_flash_init());
+call    0 never executed
+    #####:  855:  ESP_ERROR_CHECK(esp_netif_init());
+call    0 never executed
+        -:  856:
+    #####:  857:  wifi_init_sta();
+call    0 never executed
+    #####:  858:  if(ip_config[0].St_ip_En_dis==0){
+branch  0 never executed (fallthrough)
+branch  1 never executed
+    #####:  859:    mqtt_app_start();
+call    0 never executed
+        -:  860:  }
+        -:  861:  while (1) {
+        -:  862:    //ACM_LOG("mqtt task running");
+    #####:  863:    vTaskDelay(1000 / portTICK_PERIOD_MS);
+        -:  864:  }
+        -:  865:  vTaskDelete(NULL);
+        -:  866:}
+function mqtt_init called 1 returned 100% blocks executed 100%
+        1:  867:void mqtt_init(void) {
+        1:  868:  xTaskCreate(mqtt_task, "mqtt_task", 1024 * 8, NULL, 5, NULL);
+call    0 returned 100%
+        1:  869:}

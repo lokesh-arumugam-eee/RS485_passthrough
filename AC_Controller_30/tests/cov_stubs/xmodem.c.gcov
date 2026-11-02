@@ -1,0 +1,1508 @@
+        -:    0:Source:../../main/xmodem/xmodem.c
+        -:    0:Graph:build/main/xmodem/xmodem.gcno
+        -:    0:Data:build/main/xmodem/xmodem.gcda
+        -:    0:Runs:2
+        -:    1:#include "main.h"
+        -:    2:#include "esp_rom_sys.h"
+        -:    3:#include <stdio.h>   // For vsnprintf
+        -:    4:#include <stdarg.h>
+        -:    5:#include <stdint.h>
+        -:    6:#include <errno.h>
+        -:    7:#include "esp_spiffs.h"
+        -:    8:#include "esp_timer.h"
+        -:    9:#include "xmodem.h"
+        -:   10:#include "controller.h"
+        -:   11:#include "wifiConnect.h"
+        -:   12:#include "ble_spp_server_demo.h"
+        -:   13:#include "ota.h"
+        -:   14:#include "configuration/configuration.h"
+        -:   15:const char *XMODEM = "MODEM";
+        -:   16:const char *TAG = "LIR_MAN";
+        -:   17:const char *tmp_file_path = "/spiffs/tmpfile.txt";
+        -:   18:const char *configpath = "/spiffs/config.txt";
+        -:   19:uint16_t g_u16_expctd_blknm;
+        -:   20:uint16_t g_u16_Recieved_blknm;
+        -:   21:uint16_t g_u16_nxt_blknm;
+        -:   22:uint8_t g_u8_Xmdm_Rx_FSM_STATE;
+        -:   23:uint8_t g_u8_Xmdm_Tx_FSM_STATE;
+        -:   24:uint8_t g_u8_FileSystemErr=0;
+        -:   25:FILE *g_file = NULL;
+        -:   26:FILE *g_file1 = NULL;
+        -:   27:uint8_t g_u8_file_buffer[FILE_BUFFER_SIZE];
+        -:   28:uint32_t g_u32_file_buffIndx;
+        -:   29:uint8_t reboot_after_10Sec;
+        -:   30: 
+function change_log_tag called 14 returned 100% blocks executed 100%
+       14:   31:void change_log_tag(const char *new_tag) {
+       14:   32:    XMODEM = new_tag;
+       14:   33:}
+        -:   34:#ifndef Custom_printf
+        -:   35:
+        -:   36:// Typical BLE buffer limit (Check your specific BLE stack/MTU)
+        -:   37:#define BLE_MAX_CHUNK 250 
+function Custom_printf called 36 returned 100% blocks executed 71%
+       36:   38:void Custom_printf(const char *format, ...) {
+        -:   39:  va_list args;
+        -:   40:
+       36:   41:  va_start(args, format);
+       36:   42:  int len = vsnprintf(NULL, 0, format, args);
+       36:   43:  va_end(args);
+        -:   44:
+      36*:   45:  if (len <= 0) return;
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+      36*:   46:  if (len > MAX_LOG_LENGTH) len = MAX_LOG_LENGTH;
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:   47:
+       36:   48:  vsnprintf((char *)printf_buffer, sizeof(printf_buffer), format, args); // Format the string
+       36:   49:  va_end(args);
+       36:   50:  printf("%s", printf_buffer);
+call    0 returned 100%
+        -:   51:    // We loop to ensure large Modbus packets don't crash the BLE stack
+       36:   52:    int bytes_sent = 0;
+       72:   53:    while (bytes_sent < len) {
+branch  0 taken 50%
+branch  1 taken 50% (fallthrough)
+       36:   54:        int chunk_size = len - bytes_sent;
+       36:   55:        if (chunk_size > BLE_MAX_CHUNK) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   56:            chunk_size = BLE_MAX_CHUNK;
+        -:   57:        }
+        -:   58:
+       36:   59:        ble_spp_SendData(chunk_size, (uint8_t *)(printf_buffer + bytes_sent));
+call    0 returned 100%
+       36:   60:        bytes_sent += chunk_size;
+        -:   61:
+        -:   62:        // Give the BLE stack a tiny bit of time to process the buffer
+       36:   63:        vTaskDelay(pdMS_TO_TICKS(5)); 
+call    0 returned 100%
+        -:   64:    }
+        -:   65:}
+function Custom1_printf called 78 returned 100% blocks executed 80%
+       78:   66:void Custom1_printf(const char *format, ...) {
+        -:   67:  va_list args;
+        -:   68:
+       78:   69:  va_start(args, format);
+       78:   70:  int len = vsnprintf(NULL, 0, format, args);
+       78:   71:  va_end(args);
+        -:   72:  
+      78*:   73:  if (len <= 0) return;
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+      78*:   74:  if (len > MAX_LOG_LENGTH) len = MAX_LOG_LENGTH;
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:   75:
+       78:   76:  va_start(args, format);
+       78:   77:  sprintf_j((char *)printf_buffer, sizeof(printf_buffer), format,args); // Format the string
+call    0 returned 100%
+       78:   78:  va_end(args);
+       78:   79:  if(log_endis==1)
+branch  0 taken 13% (fallthrough)
+branch  1 taken 87%
+       10:   80:  printf("%s", printf_buffer);
+call    0 returned 100%
+       78:   81:	if((g_u8_acceptFileRx == 0) && (g_u8_SendFileXMDMTx == 0 &&g_u8_acceptfwRx==0 && g_u8_addtlDisblFlgfrlg==0))
+branch  0 taken 97% (fallthrough)
+branch  1 taken 3%
+branch  2 taken 97% (fallthrough)
+branch  3 taken 3%
+branch  4 taken 97% (fallthrough)
+branch  5 taken 3%
+branch  6 taken 92% (fallthrough)
+branch  7 taken 8%
+        -:   82:  {
+       66:   83:	int bytes_sent = 0;
+      132:   84:    while (bytes_sent < len) {
+branch  0 taken 50%
+branch  1 taken 50% (fallthrough)
+       66:   85:        int chunk_size = len - bytes_sent;
+       66:   86:        if (chunk_size > BLE_MAX_CHUNK) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   87:            chunk_size = BLE_MAX_CHUNK;
+        -:   88:        }
+        -:   89:
+       66:   90:        ble_spp_SendData(chunk_size, (uint8_t *)(printf_buffer + bytes_sent));
+call    0 returned 100%
+       66:   91:        bytes_sent += chunk_size;
+        -:   92:
+        -:   93:        // Give the BLE stack a tiny bit of time to process the buffer
+       66:   94:        vTaskDelay(pdMS_TO_TICKS(5)); 
+call    0 returned 100%
+        -:   95:    }
+        -:   96:  }
+        -:   97:
+        -:   98:  // uart_write_bytes(UART_NUM, buffer, strlen(buffer));  // Write formatted
+        -:   99:  // string to UART
+        -:  100:}
+        -:  101:#endif
+function delete_file_example called 8 returned 100% blocks executed 100%
+        8:  102:esp_err_t delete_file_example(void) {
+        -:  103:
+        -:  104:  esp_err_t errno;
+        8:  105:  errno = unlink(config_path);
+call    0 returned 100%
+        8:  106:  if (errno == 0) {
+branch  0 taken 75% (fallthrough)
+branch  1 taken 25%
+        6:  107:    ESP_LOGI(TAG, "Deleted file: %s", config_path);
+call    0 returned 100%
+        -:  108:  } else {
+        2:  109:    ESP_LOGE(TAG, "Failed to delete file: %s (errno=%d)", config_path, errno);
+call    0 returned 100%
+        -:  110:  }
+        8:  111:  return errno;
+        -:  112:}
+        -:  113:
+        -:  114:
+        -:  115:
+function Jio_ESP_010101_Chk4Xmdm_pkt called 10 returned 100% blocks executed 100%
+       10:  116:int8_t Jio_ESP_010101_Chk4Xmdm_pkt(uint8_t* p_u8_rx_data)
+        -:  117:{
+        -:  118:
+       10:  119:	const xmodem_packet_t *pkt = (const xmodem_packet_t *)p_u8_rx_data;
+        -:  120:
+        -:  121:	// validate header
+       10:  122:    if (pkt->header != JIO_ESP_X_SOH) 
+branch  0 taken 20% (fallthrough)
+branch  1 taken 80%
+        -:  123:	{
+        2:  124:		ACM_LOG("Received packet header first byte is not equal to SOH, hence received packet is not xmodem compliance\n");
+call    0 returned 100%
+        2:  125:		return JIO_ESP_FAILURE;
+        -:  126:	}
+        -:  127:    /*
+        -:  128:    if (pkt->block_num != (uint8_t)~pkt->block_num_neg)
+        -:  129:	{
+        -:  130:		ACM_LOG("Received block number is not matching with its complemented block number,, hence received packet is not xmodem compliance");
+        -:  131:		return JIO_ESP_FAILURE;
+        -:  132:	}*/
+        -:  133:
+        -:  134:   /* g_u16_Recieved_blknm = pkt->block_num_neg;
+        -:  135:    g_u16_Recieved_blknm <<=8;
+        -:  136:    g_u16_Recieved_blknm|= pkt->block_num;*/
+        -:  137:
+        8:  138:	if(pkt->block_num == 1)
+branch  0 taken 75% (fallthrough)
+branch  1 taken 25%
+        -:  139:	{
+        6:  140:		g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_FSM_INIT;
+        -:  141:	}
+        -:  142:    // checksum
+        8:  143:    uint8_t sum = 0;
+     4008:  144:    for (int i = 0; i < JIO_ESP_X_BLOCK_SIZE; i++)
+branch  0 taken 100%
+branch  1 taken 1% (fallthrough)
+        -:  145:	{
+     4000:  146:		sum += pkt->data[i];
+        -:  147:	}
+        8:  148:    if (sum != pkt->checksum) 
+branch  0 taken 25% (fallthrough)
+branch  1 taken 75%
+        -:  149:	{
+        2:  150:		ACM_LOG("Received checksum is not matching with its calculated checksum, hence received packet is not xmodem compliance");
+call    0 returned 100%
+        2:  151:		return JIO_ESP_FAILURE;
+        -:  152:	}
+        6:  153:	return JIO_ESP_SUCCESS;
+        -:  154:}
+function get_file_size_1 called 6 returned 100% blocks executed 100%
+        6:  155:long get_file_size_1(const char *path) {
+        -:  156:    struct stat st;
+        6:  157:    if (stat(path, &st) == 0) {
+call    0 returned 100%
+branch  1 taken 33% (fallthrough)
+branch  2 taken 67%
+        2:  158:        return st.st_size;   // size in bytes
+        -:  159:    } else {
+        4:  160:        perror("stat failed");
+call    0 returned 100%
+        4:  161:        return -1;
+        -:  162:    }
+        -:  163:}
+function spiffs_repair_if_needed called 12 returned 100% blocks executed 100%
+       12:  164:esp_err_t spiffs_repair_if_needed(void) {
+       12:  165:    size_t total = 0, used = 0;
+       12:  166:    esp_err_t ret = esp_spiffs_info(NULL, &total, &used);
+call    0 returned 100%
+       12:  167:    if (ret != ESP_OK) {
+branch  0 taken 17% (fallthrough)
+branch  1 taken 83%
+        2:  168:        ESP_LOGE("XMODEM", "esp_spiffs_info failed: %s", esp_err_to_name(ret));
+call    0 returned 100%
+call    1 returned 100%
+        2:  169:        return ret;
+        -:  170:    }
+        -:  171:
+       10:  172:    size_t free_bytes = total - used;
+        -:  173:
+        -:  174:    // Example condition: if free > 10 KB but writes are still failing
+       10:  175:    if (free_bytes > FILE_COMMIT_SIZE) {
+branch  0 taken 80% (fallthrough)
+branch  1 taken 20%
+        8:  176:        ESP_LOGI("XMODEM", "Possible fragmentation detected, running check...");
+call    0 returned 100%
+        8:  177:        ret = esp_spiffs_check(NULL);
+call    0 returned 100%
+        8:  178:        if (ret != ESP_OK) {
+branch  0 taken 25% (fallthrough)
+branch  1 taken 75%
+        2:  179:            ESP_LOGE("XMODEM", "SPIFFS check failed (%s), reformatting...", esp_err_to_name(ret));
+call    0 returned 100%
+call    1 returned 100%
+        -:  180:			//()Set a flag to put in a health packet to indicate reformatting is required
+        -:  181:            #if 0
+        -:  182:			ret = esp_spiffs_format(NULL);
+        -:  183:            if (ret == ESP_OK) {
+        -:  184:                ESP_LOGI("XMODEM", "SPIFFS formatted successfully.");
+        -:  185:            } else {
+        -:  186:                ESP_LOGE("XMODEM", "SPIFFS format failed: %s", esp_err_to_name(ret));
+        -:  187:            }
+        -:  188:			
+        -:  189:            
+        -:  190:			#endif
+        2:  191:			return ret;
+        -:  192:			
+        -:  193:        } else {
+        6:  194:            ESP_LOGI("XMODEM", "SPIFFS check OK, filesystem is consistent.");
+call    0 returned 100%
+        6:  195:            ESP_LOGI("XMODEM", "free_bytes - %u > FILE_COMMIT_SIZE - %u",free_bytes,FILE_COMMIT_SIZE);
+call    0 returned 100%
+        -:  196:        }
+        -:  197:    }
+        -:  198:    else
+        -:  199:	{
+        2:  200:		ESP_LOGE("XMODEM", "free_bytes - %u < FILE_COMMIT_SIZE - %u",free_bytes,FILE_COMMIT_SIZE);
+call    0 returned 100%
+        -:  201:	}
+        -:  202:
+        8:  203:    return ESP_OK;
+        -:  204:}
+        -:  205:const xmodem_packet_t *pkt = NULL;//(const xmodem_packet_t *)p_u8_rx_data;
+function Jio_ESP_010102_LIRFile_Rx_FSM called 38 returned 100% blocks executed 49%
+       38:  206:int8_t Jio_ESP_010102_LIRFile_Rx_FSM(uint8_t* p_u8_rx_data)
+        -:  207:{
+        -:  208:	//()const xmodem_packet_t 
+        -:  209:
+       38:  210:	pkt = (const xmodem_packet_t *)p_u8_rx_data;
+       38:  211:	ESP_LOGI(XMODEM, "g_u8_Xmdm_Rx_FSM_STATE  = %02d\n", g_u8_Xmdm_Rx_FSM_STATE);
+call    0 returned 100%
+       38:  212:	if(g_u8_Xmdm_Rx_FSM_STATE == JIO_ESP_XMDM_RX_FILE_COMPLETE)
+branch  0 taken 5% (fallthrough)
+branch  1 taken 95%
+        -:  213:	{
+        2:  214:		if(pkt->header == JIO_ESP_X_EOT)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:  215:		{
+    #####:  216:			ESP_ERROR_CHECK(esp_timer_stop(one_shot_timer1));
+call    0 never executed
+    #####:  217:			g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_RX_FILE_COMPLETE;
+    #####:  218:			ESP_LOGI(XMODEM, "pkt->header  = %02X\n", pkt->header);
+call    0 never executed
+    #####:  219:			ESP_LOGI(XMODEM, "EOT is Received\n");
+call    0 never executed
+        -:  220:		}
+        -:  221:		else
+        -:  222:		{
+        2:  223:			ESP_LOGI(XMODEM, "pkt->header  = %02X\n", pkt->header);
+call    0 returned 100%
+        2:  224:			ESP_LOGI(XMODEM, "EOT is not received\n");
+call    0 returned 100%
+        2:  225:			g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_RX_FILE_COMPLETE;
+        2:  226:			return JIO_ESP_FAILURE;
+        -:  227:		}
+        -:  228:		
+        -:  229:	}
+        -:  230:	else
+        -:  231:	{
+       36:  232:		if(pkt->header == JIO_ESP_X_CAN)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:  233:		{
+    #####:  234:			g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_STATE_MAX;
+    #####:  235:			ESP_LOGI(XMODEM, "pkt->header  = %02X\n", pkt->header);
+call    0 never executed
+    #####:  236:			ESP_LOGI(XMODEM, "Received Cancel Packet\n");
+call    0 never executed
+    #####:  237:			ESP_ERROR_CHECK(esp_timer_stop(one_shot_timer1));
+call    0 never executed
+        -:  238:		}
+        -:  239:		else
+        -:  240:		{
+        -:  241:			#if 0
+        -:  242:			// validate header
+        -:  243:			if(g_u8_Xmdm_Rx_FSM_STATE == JIO_ESP_XMDM_FSM_INIT)
+        -:  244:			{
+        -:  245:				if (pkt->header == JIO_ESP_X_NAK) 
+        -:  246:				{
+        -:  247:					l_u8_ack_nak = JIO_ESP_X_NAK;
+        -:  248:					//()Send NAK packet to BLE App
+        -:  249:					//()ble_spp_SendData(strlen(printf_buffer), (uint8_t *)printf_buffer);
+        -:  250:					ble_spp_SendData(1, &l_u8_ack_nak);
+        -:  251:				}
+        -:  252:				else
+        -:  253:				{
+        -:  254:				}
+        -:  255:			}
+        -:  256:			else
+        -:  257:			#endif
+        -:  258:			{
+        -:  259:
+        -:  260:
+       36:  261:				ESP_LOGI(XMODEM, "pkt->header  = %02X\n", pkt->header);
+call    0 returned 100%
+       36:  262:				if (pkt->header != JIO_ESP_X_SOH)
+branch  0 taken 6% (fallthrough)
+branch  1 taken 94%
+        -:  263:				{
+        2:  264:					ACM_LOG("Received packet header first byte is not equal to SOH, hence received packet is not xmodem compliance\n");
+call    0 returned 100%
+        2:  265:					return JIO_ESP_FAILURE;
+        -:  266:				}
+       34:  267:				ESP_LOGI("XMODEM", "Received block_num  = %02X\n", pkt->block_num);
+call    0 returned 100%
+       34:  268:				ESP_LOGI("XMODEM", "Expected block num  = %02X\n", g_u16_expctd_blknm);
+call    0 returned 100%
+        -:  269:               
+       34:  270:				if(pkt->block_num == 1 && g_u16_expctd_blknm==2)
+branch  0 taken 47% (fallthrough)
+branch  1 taken 53%
+branch  2 taken 12% (fallthrough)
+branch  3 taken 88%
+        -:  271:				{
+        2:  272:					g_u16_expctd_blknm =1;
+        2:  273:					g_u32_file_buffIndx = 0;
+        2:  274:					memset_j(&g_u8_file_buffer[0], FILE_BUFFER_SIZE, 0, FILE_BUFFER_SIZE);
+call    0 returned 100%
+        2:  275:					ACM_LOG("Adjusting the Expected Block No 2 to Expected Block No 1\n");
+call    0 returned 100%
+        -:  276:				}
+       34:  277:				if(pkt->block_num != g_u16_expctd_blknm)
+branch  0 taken 6% (fallthrough)
+branch  1 taken 94%
+        -:  278:				{
+        2:  279:					ACM_LOG("Expected Block number %d is not same as received block number %d\n",g_u16_expctd_blknm,pkt->block_num);
+call    0 returned 100%
+        2:  280:					return JIO_ESP_FAILURE;
+        -:  281:				}
+        -:  282:				//ESP_LOGI("XMODEM", "complemented block num  = %02X\n", pkt->block_num_neg);
+        -:  283:			/*
+        -:  284:					if (pkt->block_num != (uint8_t)~pkt->block_num_neg)
+        -:  285:				{
+        -:  286:					ACM_LOG("Expected Block number %d is not same as received block number %d\n",g_u16_expctd_blknm,g_u16_Recieved_blknm);
+        -:  287:					//g_u16_expctd_blknm=0;
+        -:  288:					return JIO_ESP_FAILURE;
+        -:  289:				}
+        -:  290:*/
+        -:  291:				// checksum
+       32:  292:				uint8_t sum = 0;
+       32:  293:				ESP_LOGI(XMODEM, "Received File chunk: \n");
+call    0 returned 100%
+    16032:  294:				for (int i = 0; i < JIO_ESP_X_BLOCK_SIZE; i++)
+branch  0 taken 100%
+branch  1 taken 1% (fallthrough)
+        -:  295:				{
+    16000:  296:					sum += pkt->data[i];
+        -:  297:					//printf("%02X ",pkt->data[i]);
+        -:  298:				}
+        -:  299:
+        -:  300:
+        -:  301:
+       32:  302:				ESP_LOGI(XMODEM, "\ncalculated checksum = %02X\n", sum);
+call    0 returned 100%
+       32:  303:				ESP_LOGI(XMODEM, "Received checksum = %02X\n", pkt->checksum);
+call    0 returned 100%
+       32:  304:				if (sum != pkt->checksum) 
+branch  0 taken 6% (fallthrough)
+branch  1 taken 94%
+        -:  305:
+        -:  306:				{
+        2:  307:					ESP_LOGI(XMODEM,"Received checksum is not matching with its calculated checksum, hence received packet is not compliance");
+call    0 returned 100%
+        2:  308:					return JIO_ESP_FAILURE;
+        -:  309:				}
+        -:  310:			}
+        -:  311:		}
+        -:  312:	}
+        -:  313:	
+       30:  314:	switch(g_u8_Xmdm_Rx_FSM_STATE)
+branch  0 taken 33%
+branch  1 taken 53%
+branch  2 taken 0%
+branch  3 taken 13%
+branch  4 taken 0%
+        -:  315:	{
+       10:  316:		case JIO_ESP_XMDM_FSM_INIT:
+        -:  317:			//()Create a file LIR_CMD.txt
+        -:  318:			//(()get file handler ready to use
+        -:  319:
+       10:  320:			if(g_u8_acceptfwRx==1)
+branch  0 taken 60% (fallthrough)
+branch  1 taken 40%
+        -:  321:			{
+        6:  322:				print_ota_status();
+call    0 returned 100%
+        6:  323:				g_u32_file_buffIndx = 0;
+        6:  324:            	memset_j(&g_u8_file_buffer[0], FILE_BUFFER_SIZE, 0, FILE_BUFFER_SIZE);
+call    0 returned 100%
+        6:  325:				memcpy_j(&g_u8_file_buffer[g_u32_file_buffIndx], FILE_BUFFER_SIZE - g_u32_file_buffIndx, &pkt->data[0], JIO_ESP_X_BLOCK_SIZE);
+call    0 returned 100%
+        6:  326:				g_u32_file_buffIndx += JIO_ESP_X_BLOCK_SIZE;
+        -:  327:				
+        6:  328:				g_u16_expctd_blknm += 1;
+        6:  329:				ESP_LOGI("FWUP", "Total number of bytes buffered so far is %ld\n",g_u32_file_buffIndx);
+call    0 returned 100%
+        6:  330:				g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_FSM_COMMIT_FILE;
+        6:  331:			    ESP_LOGI("FWUP", "g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_FSM_COMMIT_FILE\n");
+call    0 returned 100%
+        -:  332:			}
+        -:  333:			else
+        -:  334:			{
+        4:  335:				if(remove(tmp_file_path) == JIO_ESP_SUCCESS)
+call    0 returned 100%
+branch  1 taken 50% (fallthrough)
+branch  2 taken 50%
+        -:  336:				{
+        -:  337:					//ACM_LOG("File %s is successfully removed\n",tmp_file_path);
+        2:  338:					ESP_LOGI("XMODEM", "Temporary file  = %s is successfully removed\n", tmp_file_path);
+call    0 returned 100%
+        -:  339:				}
+        -:  340:				else
+        -:  341:				{
+        -:  342:					//ACM_LOG("File %s is Failed to be removed\n",tmp_file_path);
+        2:  343:					ESP_LOGE("XMODEM", "Temporary file  = %s is Failed to be removed\n", tmp_file_path);
+call    0 returned 100%
+        -:  344:				}
+        -:  345:				
+        4:  346:				g_file = fopen(tmp_file_path, "w");  // Adjust path for actual file system
+call    0 returned 100%
+        4:  347:				if (g_file == NULL) 
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:  348:				{
+    #####:  349:						ESP_LOGE("XMODEM", "Failed to open file for writing");
+call    0 never executed
+    #####:  350:						ESP_LOGE("XMODEM", "Failed to open temp_file.txt for writing: %s\n", strerror(errno));
+call    0 never executed
+call    1 never executed
+    #####:  351:						if(spiffs_repair_if_needed() != ESP_OK)
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+        -:  352:						{
+    #####:  353:							ESP_LOGE("XMODEM", "spiffs_repair_if_needed() returned failure");
+call    0 never executed
+        -:  354:						}
+        -:  355:						else
+        -:  356:						{
+    #####:  357:							ESP_LOGE("XMODEM", "spiffs_repair_if_needed() returned Success");
+call    0 never executed
+    #####:  358:							return JIO_ESP_FAILURE;
+        -:  359:						}
+        -:  360:						// Retry once
+    #####:  361:						g_file = fopen("/spiffs/temp_file.txt", "w");
+call    0 never executed
+    #####:  362:						if (!g_file) {
+branch  0 never executed (fallthrough)
+branch  1 never executed
+    #####:  363:							ESP_LOGE("XMODEM", "STILL cannot open temp file: %s\n", strerror(errno));
+call    0 never executed
+call    1 never executed
+    #####:  364:							g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_STATE_MAX;
+        -:  365:							//Set Flag for health packet
+    #####:  366:							g_u8_FileSystemErr=1;
+    #####:  367:							break;
+        -:  368:						}
+        -:  369:						else
+        -:  370:						{
+        -:  371:							//Clear Flag
+    #####:  372:							g_u8_FileSystemErr=0;
+    #####:  373:							ESP_LOGI("XMODEM", "temp File is created successfully: %s\n", strerror(errno));
+call    0 never executed
+call    1 never executed
+        -:  374:						}
+        -:  375:						
+        -:  376:				}
+        -:  377:				else
+        -:  378:				{
+        4:  379:					g_u8_FileSystemErr=0;
+        4:  380:					ESP_LOGI("XMODEM", "File %s is successfully created\n",tmp_file_path);
+call    0 returned 100%
+        4:  381:					fsync(fileno(g_file));
+call    0 returned 100%
+call    1 returned 100%
+        4:  382:					fclose(g_file);
+call    0 returned 100%
+        -:  383:				}
+        4:  384:				g_u32_file_buffIndx = 0;
+        4:  385:				memset_j(&g_u8_file_buffer[0], FILE_BUFFER_SIZE, 0, FILE_BUFFER_SIZE);
+call    0 returned 100%
+        4:  386:				memcpy_j(&g_u8_file_buffer[g_u32_file_buffIndx], FILE_BUFFER_SIZE - g_u32_file_buffIndx, &pkt->data[0], JIO_ESP_X_BLOCK_SIZE);
+call    0 returned 100%
+        4:  387:				g_u32_file_buffIndx += JIO_ESP_X_BLOCK_SIZE;
+        -:  388:				
+        4:  389:				g_u16_expctd_blknm += 1;
+        4:  390:				ESP_LOGI("XMODEM", "Total number of bytes buffered so far is %ld\n",g_u32_file_buffIndx);
+call    0 returned 100%
+        4:  391:				g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_FSM_COMMIT_FILE;
+        4:  392:				ESP_LOGI("XMODEM", "g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_FSM_COMMIT_FILE\n");
+call    0 returned 100%
+        -:  393:			}
+       10:  394:			break;
+        -:  395:			
+       16:  396:		case JIO_ESP_XMDM_FSM_COMMIT_FILE:
+        -:  397:
+       16:  398:			uint16_t l_u16_bytcnt = 0;
+       16:  399:			uint16_t l_u16_1A_cnt = 0;
+     8016:  400:			while(l_u16_bytcnt < JIO_ESP_X_BLOCK_SIZE)
+branch  0 taken 100%
+branch  1 taken 1% (fallthrough)
+        -:  401:			{
+     8000:  402:				if(pkt->data[l_u16_bytcnt] == 0x1A)
+branch  0 taken 38% (fallthrough)
+branch  1 taken 62%
+        -:  403:				{
+     3002:  404:					l_u16_1A_cnt += 1;
+        -:  405:				}
+        -:  406:				else
+        -:  407:				{
+     4998:  408:					l_u16_1A_cnt = 0;
+        -:  409:				}
+     8000:  410:				l_u16_bytcnt += 1;
+        -:  411:			}
+       16:  412:			if(l_u16_1A_cnt==1)
+branch  0 taken 12% (fallthrough)
+branch  1 taken 88%
+        2:  413:			   l_u16_1A_cnt=0;
+       16:  414:			if(l_u16_1A_cnt == 0)
+branch  0 taken 62% (fallthrough)
+branch  1 taken 38%
+        -:  415:			{
+       10:  416:				memcpy_j(&g_u8_file_buffer[g_u32_file_buffIndx], FILE_BUFFER_SIZE - g_u32_file_buffIndx, &pkt->data[0], JIO_ESP_X_BLOCK_SIZE);
+call    0 returned 100%
+       10:  417:				g_u32_file_buffIndx += JIO_ESP_X_BLOCK_SIZE;
+       10:  418:				if(g_u32_file_buffIndx >= FILE_COMMIT_SIZE)
+branch  0 taken 40% (fallthrough)
+branch  1 taken 60%
+        -:  419:					{
+        4:  420:						if(g_u8_acceptfwRx==1)
+branch  0 taken 50% (fallthrough)
+branch  1 taken 50%
+        -:  421:						{
+        2:  422:							if(ota_write_chunk(&g_u8_file_buffer[0], g_u32_file_buffIndx)==ESP_OK)
+call    0 returned 100%
+branch  1 taken 0% (fallthrough)
+branch  2 taken 100%
+        -:  423:							{
+    #####:  424:								ESP_LOGE("FWUP", "Succesfully Written %ld",g_u32_file_buffIndx);
+call    0 never executed
+        -:  425:							}
+        -:  426:							else
+        -:  427:							{
+        2:  428:								ESP_LOGE("FWUP", "Failed to Write %ld",g_u32_file_buffIndx);
+call    0 returned 100%
+        2:  429:								g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_STATE_MAX;
+        -:  430:							}
+        -:  431:						}
+        -:  432:						else
+        -:  433:						{
+        2:  434:							g_file = fopen(tmp_file_path, "a+");  // Adjust path for actual file system
+call    0 returned 100%
+        2:  435:							if (g_file == NULL) 
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:  436:							{
+    #####:  437:								ESP_LOGE("XMODEM", "Failed to open file for writing");
+call    0 never executed
+    #####:  438:								ESP_LOGE("XMODEM", "Failed to open temp_file.txt for writing: %s\n", strerror(errno));
+call    0 never executed
+call    1 never executed
+    #####:  439:								if(spiffs_repair_if_needed() != ESP_OK)
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+        -:  440:								{
+    #####:  441:									ESP_LOGE("XMODEM", "spiffs_repair_if_needed() returned failure");
+call    0 never executed
+        -:  442:								}
+        -:  443:								else
+        -:  444:								{
+    #####:  445:									ESP_LOGE("XMODEM", "spiffs_repair_if_needed() returned Success");
+call    0 never executed
+        -:  446:								}
+    #####:  447:								fflush(g_file);
+call    0 never executed
+    #####:  448:								fsync(fileno(g_file));
+call    0 never executed
+call    1 never executed
+    #####:  449:								fclose(g_file);
+call    0 never executed
+    #####:  450:								g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_STATE_MAX;
+    #####:  451:								break;				
+        -:  452:							}
+        2:  453:							ESP_LOGI("XMODEM", "Buff index %ld has filled up to >= FILE_COMMIT_SIZE %d \n",g_u32_file_buffIndx,FILE_COMMIT_SIZE);
+call    0 returned 100%
+        -:  454:							
+        -:  455:							//--------------------------------------------------------------------------
+        2:  456:							size_t written = fwrite(&g_u8_file_buffer[0], 1, g_u32_file_buffIndx, g_file);
+call    0 returned 100%
+        2:  457:							if (written == g_u32_file_buffIndx) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        2:  458:								g_u8_FileSystemErr=0;
+        2:  459:							ESP_LOGI("XMODEM", "File chunk with size %d written successfully\n",written);
+call    0 returned 100%
+        -:  460:							//g_u16_expctd_blknm += 1;
+        -:  461:							//Write Success
+        -:  462:							//g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_RX_FILE_COMPLETE;
+        -:  463:							} else {
+    #####:  464:								g_u8_FileSystemErr=2;
+    #####:  465:								ESP_LOGE("XMODEM", "File chunk with size %d Failed in writing\n",written);
+call    0 never executed
+    #####:  466:								size_t err_info = errno;
+    #####:  467:								ESP_LOGE("XMODEM", "File chunk with block number Failed in writing : %s\n", strerror(errno));
+call    0 never executed
+call    1 never executed
+        -:  468:								//g_u16_expctd_blknm -= 1;
+    #####:  469:								if((written == 0) && (ENOSPC == err_info))
+branch  0 never executed (fallthrough)
+branch  1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed
+        -:  470:								{
+    #####:  471:									if(spiffs_repair_if_needed() != ESP_OK)
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+        -:  472:									{
+    #####:  473:										ESP_LOGE("XMODEM", "spiffs_repair_if_needed() returned failure");
+call    0 never executed
+        -:  474:									}
+        -:  475:									else
+        -:  476:									{
+    #####:  477:										ESP_LOGE("XMODEM", "spiffs_repair_if_needed() returned Success");
+call    0 never executed
+        -:  478:									}
+    #####:  479:									fflush(g_file);
+call    0 never executed
+    #####:  480:									fsync(fileno(g_file));
+call    0 never executed
+call    1 never executed
+    #####:  481:									fclose(g_file);
+call    0 never executed
+    #####:  482:									g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_STATE_MAX;
+    #####:  483:									break;
+        -:  484:								}
+        -:  485:								
+        -:  486:							}
+        2:  487:							fflush(g_file);
+call    0 returned 100%
+        2:  488:							fsync(fileno(g_file));
+call    0 returned 100%
+call    1 returned 100%
+        2:  489:							esp_rom_delay_us(2000000);
+call    0 returned 100%
+        2:  490:							fclose(g_file);
+call    0 returned 100%
+        2:  491:							ESP_LOGI("XMODEM", "Total number of bytes buffered so far is %ld\n",g_u32_file_buffIndx);
+call    0 returned 100%
+        -:  492:						}
+        4:  493:						g_u32_file_buffIndx = 0;
+        4:  494:						memset_j(&g_u8_file_buffer[0], FILE_BUFFER_SIZE, 0, FILE_BUFFER_SIZE);
+call    0 returned 100%
+        -:  495:					}
+       10:  496:					g_u16_expctd_blknm += 1;
+        -:  497:			}
+        -:  498:			else
+        -:  499:			{
+        6:  500:				memcpy_j(&g_u8_file_buffer[g_u32_file_buffIndx], FILE_BUFFER_SIZE - g_u32_file_buffIndx, &pkt->data[0], (JIO_ESP_X_BLOCK_SIZE - l_u16_1A_cnt));
+call    0 returned 100%
+        6:  501:				g_u32_file_buffIndx += JIO_ESP_X_BLOCK_SIZE - l_u16_1A_cnt;
+        6:  502:				if(g_u8_acceptfwRx==1)
+branch  0 taken 67% (fallthrough)
+branch  1 taken 33%
+        -:  503:				{
+        4:  504:					if(ota_write_chunk(&g_u8_file_buffer[0], g_u32_file_buffIndx)==ESP_OK)
+call    0 returned 100%
+branch  1 taken 50% (fallthrough)
+branch  2 taken 50%
+        -:  505:					{
+        2:  506:						ESP_LOGE("FWUP", "Succesfully Written %ld",g_u32_file_buffIndx);
+call    0 returned 100%
+        2:  507:						g_u16_expctd_blknm += 1;
+        -:  508:						
+        2:  509:						g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_RX_FILE_COMPLETE;
+        -:  510:						//Clear Flag
+        -:  511:					}
+        -:  512:					else
+        -:  513:					{
+        2:  514:						ESP_LOGE("FWUP", "Failed to Write %ld",g_u32_file_buffIndx);
+call    0 returned 100%
+        2:  515:						g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_STATE_MAX;
+        -:  516:					}
+        -:  517:				}
+        -:  518:				else
+        -:  519:				{
+        2:  520:					spiffs_repair_if_needed();
+call    0 returned 100%
+        2:  521:					g_file = fopen(tmp_file_path, "a+");  // Adjust path for actual file system
+call    0 returned 100%
+        2:  522:					if (g_file == NULL) 
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:  523:					{
+    #####:  524:						ESP_LOGE("XMODEM", "Failed to open file for writing");
+call    0 never executed
+    #####:  525:						ESP_LOGE("XMODEM", "Failed to open temp_file.txt for writing: %s\n", strerror(errno));
+call    0 never executed
+call    1 never executed
+    #####:  526:						if(spiffs_repair_if_needed() != ESP_OK)
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+        -:  527:						{
+    #####:  528:							ESP_LOGE("XMODEM", "spiffs_repair_if_needed() returned failure");
+call    0 never executed
+        -:  529:						}
+        -:  530:						else
+        -:  531:						{
+    #####:  532:							ESP_LOGE("XMODEM", "spiffs_repair_if_needed() returned Success");
+call    0 never executed
+        -:  533:						}
+    #####:  534:						fflush(g_file);
+call    0 never executed
+    #####:  535:						fsync(fileno(g_file));
+call    0 never executed
+call    1 never executed
+    #####:  536:						fclose(g_file);
+call    0 never executed
+    #####:  537:						g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_STATE_MAX;
+    #####:  538:						break;
+        -:  539:					}
+        -:  540:				
+        2:  541:					ESP_LOGI("XMODEM", "Total number of bytes buffered so far is %ld\n",g_u32_file_buffIndx);
+call    0 returned 100%
+        2:  542:					size_t written = fwrite(&g_u8_file_buffer[0], 1, g_u32_file_buffIndx, g_file);
+call    0 returned 100%
+        2:  543:					if (written == g_u32_file_buffIndx) 
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        -:  544:					{	
+        2:  545:						ESP_LOGI("XMODEM", "File chunk with size %d written successfully\n",written);
+call    0 returned 100%
+        2:  546:						g_u16_expctd_blknm += 1;
+        -:  547:						
+        2:  548:						g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_RX_FILE_COMPLETE;
+        -:  549:						//Clear Flag
+        2:  550:						g_u8_FileSystemErr=0;
+        -:  551:					} else 
+        -:  552:					{
+        -:  553:						//Set the Flag for not
+    #####:  554:						g_u8_FileSystemErr=2; 
+    #####:  555:						ESP_LOGE("XMODEM", "File chunk with size %d Failed in writing\n",written);
+call    0 never executed
+    #####:  556:						size_t err_info = errno;
+    #####:  557:						ESP_LOGE("XMODEM", "File chunk with block number Failed in writing : %s\n", strerror(errno));
+call    0 never executed
+call    1 never executed
+        -:  558:						//g_u16_expctd_blknm -= 1;
+    #####:  559:						fflush(g_file);
+call    0 never executed
+    #####:  560:						fsync(fileno(g_file));
+call    0 never executed
+call    1 never executed
+    #####:  561:						esp_rom_delay_us(2000000);
+call    0 never executed
+    #####:  562:						if((written == 0) && (ENOSPC == err_info))
+branch  0 never executed (fallthrough)
+branch  1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed
+        -:  563:						{
+    #####:  564:							if(spiffs_repair_if_needed() != ESP_OK)
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+        -:  565:							{
+    #####:  566:								ESP_LOGE("XMODEM", "spiffs_repair_if_needed() returned failure");
+call    0 never executed
+        -:  567:							}
+        -:  568:							else
+        -:  569:							{
+    #####:  570:								ESP_LOGE("XMODEM", "spiffs_repair_if_needed() returned Success");
+call    0 never executed
+        -:  571:							}
+    #####:  572:							fflush(g_file);
+call    0 never executed
+    #####:  573:							fsync(fileno(g_file));
+call    0 never executed
+call    1 never executed
+    #####:  574:							fclose(g_file);
+call    0 never executed
+    #####:  575:							g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_STATE_MAX;
+    #####:  576:							break;
+        -:  577:						}
+        -:  578:					}			
+        -:  579:				}
+        -:  580:			}
+       16:  581:			break;
+        -:  582:			
+    #####:  583:		case JIO_ESP_XMDM_RX_FILE_COMPLETE:
+        -:  584:			//()delete the file "LIR_CMD.txt" .
+        -:  585:			//()Rename current file name from "tmpfile.txt" to "LIR_CMD.txt"
+    #####:  586:			if(g_u8_acceptfwRx==1)
+branch  0 never executed (fallthrough)
+branch  1 never executed
+        -:  587:			{
+    #####:  588:				if(ota_end_and_set_boot()==ESP_OK)
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+        -:  589:				{
+    #####:  590:					ESP_LOGI("FWUP", "OTAEND Sucsessful");
+call    0 never executed
+        -:  591:				}
+        -:  592:				else
+        -:  593:				{
+    #####:  594:					ESP_LOGI("FWUP", "OTAEND Failed");
+call    0 never executed
+        -:  595:				}
+    #####:  596:				g_u8_acceptfwRx=0;
+    #####:  597:				 ESP_LOGI("FWUP", "Rebooting.......");
+call    0 never executed
+    #####:  598:				 esp_rom_delay_us(2000000);
+call    0 never executed
+    #####:  599:                 esp_restart(); 
+call    0 never executed
+        -:  600:			}
+        -:  601:			else
+        -:  602:			{
+    #####:  603:				fflush(g_file);
+call    0 never executed
+    #####:  604:				if (fclose(g_file) == 0) 
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+        -:  605:				{
+    #####:  606:					ESP_LOGI("FILE", "File closed successfully");
+call    0 never executed
+        -:  607:				} else 
+        -:  608:				{
+    #####:  609:					ESP_LOGE("FILE", "fclose failed: %s", strerror(errno));
+call    0 never executed
+call    1 never executed
+        -:  610:				}
+    #####:  611:				fsync(fileno(g_file));
+call    0 never executed
+call    1 never executed
+    #####:  612:				esp_rom_delay_us(2000000);
+call    0 never executed
+    #####:  613:				long int l_sz_file_size = get_file_size_1(tmp_file_path);
+call    0 never executed
+        -:  614:				
+    #####:  615:				ESP_LOGI("XMODEM", "File size: %ld bytes\n", l_sz_file_size);
+call    0 never executed
+    #####:  616:				if(remove(configpath) == JIO_ESP_SUCCESS)
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+        -:  617:				{
+    #####:  618:					ESP_LOGI("XMODEM", "File %s is successfully removed\n",configpath);
+call    0 never executed
+        -:  619:				}
+        -:  620:				else
+        -:  621:				{
+    #####:  622:					ESP_LOGE("XMODEM", "File %s is Failed to be removed\n",configpath);
+call    0 never executed
+        -:  623:				}
+        -:  624:				//fsync(fileno(g_file));
+    #####:  625:				if(rename(tmp_file_path,configpath) == JIO_ESP_SUCCESS)
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+        -:  626:				{
+    #####:  627:					ESP_LOGI("XMODEM", "File %s is successfully renamed to file name %s\n",tmp_file_path, configpath);
+call    0 never executed
+    #####:  628:					ESP_LOGI("XMODEM", "Rebooting....");
+call    0 never executed
+    #####:  629:					esp_rom_delay_us(2000000);
+call    0 never executed
+        -:  630:					//esp_restart();
+        -:  631:					//reboot_after_10Sec =60;
+    #####:  632:					g_file1 = fopen(tmp_file_path, "r");
+call    0 never executed
+    #####:  633:					if(g_file1==NULL)
+branch  0 never executed (fallthrough)
+branch  1 never executed
+        -:  634:					{
+    #####:  635:						ESP_LOGE("XMODEM", "Temp File got renamed");
+call    0 never executed
+        -:  636:						
+        -:  637:					}
+        -:  638:					else {
+    #####:  639:						ESP_LOGI("XMODEM", "Temp File did not renamed");
+call    0 never executed
+    #####:  640:						fclose(g_file1);
+call    0 never executed
+        -:  641:					}
+        -:  642:				}
+        -:  643:				else
+        -:  644:				{
+    #####:  645:					ESP_LOGI("XMODEM", "File %s is failed to be renamed to file name %s\n",tmp_file_path, configpath);
+call    0 never executed
+        -:  646:				}
+    #####:  647:				l_sz_file_size = get_file_size_1(configpath);
+call    0 never executed
+        -:  648:				
+    #####:  649:				ESP_LOGI("XMODEM", "Size of File %s : %ld bytes\n", configpath,l_sz_file_size);
+call    0 never executed
+    #####:  650:				g_u8_acceptFileRx = 0;
+        -:  651:			}
+    #####:  652:			g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_FSM_INIT;
+    #####:  653:			break;
+        -:  654:			
+        4:  655:		case JIO_ESP_XMDM_STATE_MAX:
+        -:  656:			//()delete the file "tmpfile.txt"
+        4:  657:			if(g_u8_acceptfwRx==1)
+branch  0 taken 50% (fallthrough)
+branch  1 taken 50%
+        -:  658:			{
+        2:  659:				esp_ota_abort(ota_handle);   // Discard failed OTA
+call    0 returned 100%
+        2:  660:				ota_handle = 0;
+        2:  661:				ota_write_offset = 0;
+        2:  662:				g_u8_acceptfwRx=0;
+        2:  663:				ESP_LOGI("FWUP", "Firmware flag cleared and abhorted");
+call    0 returned 100%
+        -:  664:			}
+        -:  665:			else
+        -:  666:			{
+        2:  667:				fflush(g_file);
+call    0 returned 100%
+        2:  668:				fsync(fileno(g_file));
+call    0 returned 100%
+call    1 returned 100%
+        2:  669:				fclose(g_file);
+call    0 returned 100%
+        2:  670:				if(remove(tmp_file_path) == JIO_ESP_SUCCESS)
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0%
+        -:  671:				{
+        -:  672:					//ACM_LOG("File %s is successfully removed\n",tmp_file_path);
+        2:  673:					ESP_LOGI("XMODEM", "Temporary file  = %s is successfully removed\n", tmp_file_path);
+call    0 returned 100%
+        -:  674:					
+        -:  675:				}
+        -:  676:				else
+        -:  677:				{
+        -:  678:					//ACM_LOG("File %s is Failed to be removed\n",tmp_file_path);
+    #####:  679:					ESP_LOGI("XMODEM", "Temporary file  = %s is Failed to be removed\n", tmp_file_path);
+call    0 never executed
+        -:  680:				}
+        2:  681:				g_u8_acceptFileRx = 0;
+        -:  682:			}
+        4:  683:			g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_FSM_INIT;
+        4:  684:			break;
+        -:  685:			
+    #####:  686:		default:
+    #####:  687:			g_u8_Xmdm_Rx_FSM_STATE = JIO_ESP_XMDM_STATE_MAX;
+    #####:  688:			break;
+        -:  689:	}
+       30:  690:	if(g_u8_Xmdm_Rx_FSM_STATE < JIO_ESP_XMDM_STATE_MAX)
+branch  0 taken 87% (fallthrough)
+branch  1 taken 13%
+        -:  691:	{
+       26:  692:		ESP_LOGI("XMODEM", "Return success from Rx FSM\n");
+call    0 returned 100%
+       26:  693:		return JIO_ESP_SUCCESS;
+        -:  694:	}
+        -:  695:	else
+        -:  696:	{
+        -:  697:		#ifdef UNIT_CHUNK_COMMIT
+        -:  698:		forcible_err:
+        -:  699:		#endif
+        4:  700:		return JIO_ESP_FAILURE;
+        -:  701:	}
+        -:  702:}
+        -:  703:
+function Jio_ESP_010105_xmodem_build_packet called 22 returned 100% blocks executed 100%
+       22:  704:uint16_t Jio_ESP_010105_xmodem_build_packet(uint8_t *data, xmodem_packet_t *packet) {
+       22:  705:    uint8_t checksum = 0;
+        -:  706:
+       22:  707:	packet->header = JIO_ESP_X_SOH;
+       22:  708:    packet->block_num = g_u16_nxt_blknm;
+        -:  709:   // packet->block_num_neg = 255 - g_u8_nxt_blknm;
+       22:  710:    memcpy_j(packet->data, sizeof(packet->data), data, JIO_ESP_X_BLOCK_SIZE);
+call    0 returned 100%
+        -:  711:
+        -:  712:    // checksum
+       22:  713:    checksum = 0;
+    11022:  714:    for (int i = 0; i < JIO_ESP_X_BLOCK_SIZE; i++) 
+branch  0 taken 100%
+branch  1 taken 1% (fallthrough)
+        -:  715:	{
+    11000:  716:		checksum += packet->data[i];
+        -:  717:	}
+       22:  718:    packet->checksum = checksum;
+        -:  719:
+       22:  720:    return (JIO_ESP_X_BLOCK_SIZE + 4); // total packet length
+        -:  721:}
+        -:  722:uint8_t l_u8_buffer[JIO_ESP_X_BLOCK_SIZE];
+        -:  723:uint8_t l_u8_packet[JIO_ESP_X_BLOCK_SIZE + 5];
+function Jio_ESP_010104_LIRFile_Tx_FSM called 46 returned 100% blocks executed 79%
+       46:  724:void Jio_ESP_010104_LIRFile_Tx_FSM(uint8_t *p_u8_rx_data)
+        -:  725:{
+        -:  726:	
+        -:  727:    int16_t l_i16_bytes_read;
+        -:  728:
+        -:  729:	uint8_t l_u8_Cancel;
+       46:  730:	xmodem_packet_t *g_tx_fsm_pkt = (xmodem_packet_t *)p_u8_rx_data;
+        -:  731:	
+       46:  732:	if(g_tx_fsm_pkt->header == JIO_ESP_X_CAN)
+branch  0 taken 4% (fallthrough)
+branch  1 taken 96%
+        -:  733:	{
+        2:  734:		g_u8_Xmdm_Tx_FSM_STATE = JIO_ESP_XMDM_STATE_MAX;
+        2:  735:		ESP_LOGI("XMODEMTx", "JIO_ESP_X_CAN is Received, going for graceful bail out\n");
+call    0 returned 100%
+        -:  736:	}
+       46:  737:	switch(g_u8_Xmdm_Tx_FSM_STATE)
+branch  0 taken 48%
+branch  1 taken 30%
+branch  2 taken 9%
+branch  3 taken 9%
+branch  4 taken 4%
+        -:  738:	{
+       22:  739:		case JIO_ESP_XMDM_FSM_INIT:
+       22:  740:			ESP_LOGI("XMODEMTx", "Current state is JIO_ESP_XMDM_FSM_READ_SEND_FILE\n");
+call    0 returned 100%
+       22:  741:			if(g_tx_fsm_pkt->header != JIO_ESP_X_NAK)
+branch  0 taken 64% (fallthrough)
+branch  1 taken 36%
+        -:  742:			{
+       14:  743:				ESP_LOGE("XMODEMTx", "Initial NAK is not received, hence bailing out with out any File Transfer\n");
+call    0 returned 100%
+       14:  744:				l_u8_Cancel = JIO_ESP_X_CAN;
+        -:  745:				uint8_t l_u8_ble_sndreslt;
+       14:  746:				l_u8_ble_sndreslt = ble_spp_SendData(1, &l_u8_Cancel);
+call    0 returned 100%
+       14:  747:				if(l_u8_ble_sndreslt == 0)
+branch  0 taken 86% (fallthrough)
+branch  1 taken 14%
+        -:  748:				{
+       12:  749:				  ESP_LOGE("XMODEMTx", "Failure in sending Packet with CANCEL to BLE App");
+call    0 returned 100%
+        -:  750:				}
+        -:  751:				else
+        -:  752:				{
+        2:  753:				  ESP_LOGI("XMODEMTx", "Succeeded in sending Packet with CANCEL to BLE App");
+call    0 returned 100%
+        2:  754:				  g_u8_Xmdm_Tx_FSM_STATE = JIO_ESP_XMDM_FSM_INIT;
+        2:  755:					ESP_LOGI("XMODEMTx", "Next state is JIO_ESP_XMDM_FSM_INIT\n");
+call    0 returned 100%
+        2:  756:					g_u8_SendFileXMDMTx = 0;
+        2:  757:					g_u16_nxt_blknm = 1;
+        2:  758:					ESP_ERROR_CHECK(esp_timer_stop(one_shot_timer1));
+call    0 returned 100%
+        -:  759:				}
+        -:  760:			}
+        -:  761:			else
+        -:  762:			{
+        8:  763:				ESP_LOGI("XMODEMTx", "Initial NAK is received, hence initiating File Transfer\n");
+call    0 returned 100%
+        8:  764:				g_file = fopen(configpath, "r+");
+call    0 returned 100%
+        8:  765:				if (g_file == NULL)
+branch  0 taken 25% (fallthrough)
+branch  1 taken 75%
+        -:  766:				{
+        2:  767:					ESP_LOGI("XMODEMTx", "File %s doesnt exist to send to BLE App\n",configpath);
+call    0 returned 100%
+        2:  768:					l_u8_Cancel = JIO_ESP_X_CAN;
+        -:  769:					uint8_t l_u8_ble_sndreslt;
+        2:  770:					l_u8_ble_sndreslt = ble_spp_SendData(1, &l_u8_Cancel);
+call    0 returned 100%
+        2:  771:					if(l_u8_ble_sndreslt == 0)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        -:  772:					{
+        2:  773:					  ESP_LOGE("XMODEMTx", "Failure in sending Packet with CANCEL to BLE App");
+call    0 returned 100%
+        -:  774:					}
+        -:  775:					else
+        -:  776:					{
+    #####:  777:					  ESP_LOGI("XMODEMTx", "Succeeded in sending Packet with CANCEL to BLE App");
+call    0 never executed
+        -:  778:					}
+        2:  779:					g_u8_Xmdm_Tx_FSM_STATE = JIO_ESP_XMDM_FSM_INIT;
+        2:  780:					ESP_LOGI("XMODEMTx", "Next state is JIO_ESP_XMDM_FSM_INIT\n");
+call    0 returned 100%
+        2:  781:					g_u8_SendFileXMDMTx = 0;
+        2:  782:					g_u16_nxt_blknm = 1;
+        2:  783:					ESP_ERROR_CHECK(esp_timer_stop(one_shot_timer1));
+call    0 returned 100%
+        -:  784:				}
+        -:  785:				else
+        -:  786:				{
+        6:  787:					memset_j(&l_u8_buffer[0], sizeof(l_u8_buffer), 0, sizeof(l_u8_buffer));
+call    0 returned 100%
+        -:  788:					
+        -:  789:					#if 1
+        6:  790:					l_i16_bytes_read = fread(l_u8_buffer, 1, JIO_ESP_X_BLOCK_SIZE, g_file);
+call    0 returned 100%
+        6:  791:					if(l_i16_bytes_read < JIO_ESP_X_BLOCK_SIZE)
+branch  0 taken 33% (fallthrough)
+branch  1 taken 67%
+        -:  792:					{
+        -:  793:						//()What to do now????
+        2:  794:						memset_j(l_u8_buffer + l_i16_bytes_read, (JIO_ESP_X_BLOCK_SIZE - l_i16_bytes_read), 0x1A, (JIO_ESP_X_BLOCK_SIZE - l_i16_bytes_read)); // pad with SUB
+call    0 returned 100%
+        -:  795:					}
+        -:  796:					#endif
+        -:  797:					
+        6:  798:					ESP_LOGI("XMODEMTx", "Number of bytes read from File is %d\n",l_i16_bytes_read);
+call    0 returned 100%
+        6:  799:					ESP_LOGI("XMODEMTx", "Buffer contents to be sent to BLE\n");
+call    0 returned 100%
+     2206:  800:					for(int i = 0; i < l_i16_bytes_read; i++)
+branch  0 taken 100%
+branch  1 taken 1% (fallthrough)
+        -:  801:					{
+     2200:  802:						printf("%02X  ", l_u8_buffer[i]);
+call    0 returned 100%
+        -:  803:					}
+        6:  804:					memset_j(&l_u8_packet[0], sizeof(l_u8_packet), 0, sizeof(l_u8_packet));
+call    0 returned 100%
+        6:  805:					xmodem_packet_t *g_tx_fsm_pkt1 = (xmodem_packet_t *)l_u8_packet;
+        6:  806:					uint16_t pkt_len = Jio_ESP_010105_xmodem_build_packet(l_u8_buffer, g_tx_fsm_pkt1);
+call    0 returned 100%
+        6:  807:					ESP_LOGI("XMODEMTx", "\nLength of packet to be sent to BLE is %d\n",pkt_len);
+call    0 returned 100%
+        -:  808:					
+        6:  809:					memcpy_j(&l_u8_packet[0], sizeof(l_u8_packet), (uint8_t *)g_tx_fsm_pkt1, pkt_len);
+call    0 returned 100%
+        6:  810:					ESP_LOGI("XMODEMTx", "Packet contents to be sent to BLE\n");
+call    0 returned 100%
+     3030:  811:					for(uint16_t i = 0; i < pkt_len; i++)
+branch  0 taken 100%
+branch  1 taken 1% (fallthrough)
+        -:  812:					{
+     3024:  813:						printf("%02X  ", l_u8_packet[i]);
+call    0 returned 100%
+        -:  814:					}
+        6:  815:					printf("\n");
+call    0 returned 100%
+        -:  816:
+        -:  817:					
+        -:  818:					uint8_t l_u8_ble_sndreslt;
+        -:  819:					
+        6:  820:					l_u8_ble_sndreslt = ble_spp_SendData(pkt_len, l_u8_packet);
+call    0 returned 100%
+        6:  821:					if(l_u8_ble_sndreslt == 0)
+branch  0 taken 67% (fallthrough)
+branch  1 taken 33%
+        -:  822:					{
+        4:  823:					  ESP_LOGE("XMODEMTx", "Failure in sending Packet with Block number %d to BLE App",g_u16_nxt_blknm);
+call    0 returned 100%
+        -:  824:					  
+        -:  825:					}
+        -:  826:					else
+        -:  827:					{
+        2:  828:					  ESP_LOGI("XMODEMTx", "Succeeded in sending Packet with Block number %d to BLE App",g_u16_nxt_blknm);
+call    0 returned 100%
+        2:  829:					  g_u8_commtimeout = 0;
+        2:  830:					  ESP_LOGI("XMODEMTx", "Starting single-shot timer for 20 seconds.");
+call    0 returned 100%
+        2:  831:					  ESP_ERROR_CHECK(esp_timer_start_once(cmtimeout_timer1, 20000000)); // Timer period in microseconds
+call    0 returned 100%
+        -:  832:					}
+        -:  833:				}
+        8:  834:				g_u8_Xmdm_Tx_FSM_STATE = JIO_ESP_XMDM_FSM_READ_SEND_FILE;
+        8:  835:				ESP_LOGI("XMODEMTx", "Next state is JIO_ESP_XMDM_FSM_READ_SEND_FILE\n");
+call    0 returned 100%
+        -:  836:			}
+       22:  837:			break;
+        -:  838:			
+       14:  839:		case JIO_ESP_XMDM_FSM_READ_SEND_FILE:
+       14:  840:			ESP_LOGI("XMODEMTx", "Current state is JIO_ESP_XMDM_FSM_READ_SEND_FILE\n");
+call    0 returned 100%
+       14:  841:			if(g_tx_fsm_pkt->header == JIO_ESP_X_NAK)
+branch  0 taken 29% (fallthrough)
+branch  1 taken 71%
+        -:  842:			{
+        4:  843:				ESP_LOGI("XMODEMTx", "g_tx_fsm_pkt->header = JIO_ESP_X_NAK\n");
+call    0 returned 100%
+        -:  844:			}
+       10:  845:			else if(g_tx_fsm_pkt->header == JIO_ESP_X_ACK)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        -:  846:			{
+       10:  847:				ESP_LOGI("XMODEMTx", "g_tx_fsm_pkt->header = JIO_ESP_X_ACK\n");
+call    0 returned 100%
+       10:  848:				ESP_ERROR_CHECK(esp_timer_stop(cmtimeout_timer1));
+call    0 returned 100%
+       10:  849:				g_u16_nxt_blknm += 1;
+       10:  850:				g_u8_commtimeout = 0;
+        -:  851:			}
+        -:  852:
+        -:  853:			{
+       14:  854:				memset_j(&l_u8_buffer[0], sizeof(l_u8_buffer), 0, sizeof(l_u8_buffer));
+call    0 returned 100%
+       14:  855:				fseek(g_file,(g_u16_nxt_blknm - 1) * JIO_ESP_X_BLOCK_SIZE,SEEK_SET);
+call    0 returned 100%
+       14:  856:				l_i16_bytes_read = fread(l_u8_buffer, 1, JIO_ESP_X_BLOCK_SIZE, g_file);
+call    0 returned 100%
+       14:  857:				if(l_i16_bytes_read < JIO_ESP_X_BLOCK_SIZE)
+branch  0 taken 43% (fallthrough)
+branch  1 taken 57%
+        -:  858:				{
+        -:  859:					//()What to do now????
+        6:  860:					memset_j(l_u8_buffer + l_i16_bytes_read, (JIO_ESP_X_BLOCK_SIZE - l_i16_bytes_read), 0x1A, (JIO_ESP_X_BLOCK_SIZE - l_i16_bytes_read)); // pad with SUB
+call    0 returned 100%
+        6:  861:					g_u8_Xmdm_Tx_FSM_STATE = JIO_ESP_XMDM_TX_FILE_COMPLETE;
+        6:  862:					ESP_LOGI("XMODEMTx", "Next state is JIO_ESP_XMDM_TX_FILE_COMPLETE\n");
+call    0 returned 100%
+        -:  863:				}
+        -:  864:				else
+        -:  865:				{
+        8:  866:					ESP_LOGI("XMODEMTx", "Next state is JIO_ESP_XMDM_FSM_READ_SEND_FILE\n");
+call    0 returned 100%
+        -:  867:				}
+       14:  868:				ESP_LOGI("XMODEMTx", "Number of bytes read from File is %d\n",l_i16_bytes_read);
+call    0 returned 100%
+       14:  869:				ESP_LOGI("XMODEMTx", "Buffer contents to be sent to BLE\n");
+call    0 returned 100%
+     4614:  870:				for(int i = 0; i < l_i16_bytes_read; i++)
+branch  0 taken 100%
+branch  1 taken 1% (fallthrough)
+        -:  871:				{
+     4600:  872:					printf("%02X  ", l_u8_buffer[i]);
+call    0 returned 100%
+        -:  873:				}
+       14:  874:				memset_j(&l_u8_packet[0], sizeof(l_u8_packet), 0, sizeof(l_u8_packet));
+call    0 returned 100%
+       14:  875:				xmodem_packet_t *g_tx_fsm_pkt1 = (xmodem_packet_t *)l_u8_packet;
+       14:  876:				uint16_t pkt_len = Jio_ESP_010105_xmodem_build_packet(l_u8_buffer, g_tx_fsm_pkt1);
+call    0 returned 100%
+       14:  877:				ESP_LOGI("XMODEMTx", "\nLength of packet to be sent to BLE is %d\n",pkt_len);
+call    0 returned 100%
+        -:  878:				
+       14:  879:				memcpy_j(&l_u8_packet[0], sizeof(l_u8_packet), (uint8_t *)g_tx_fsm_pkt1, pkt_len);
+call    0 returned 100%
+       14:  880:				ESP_LOGI("XMODEMTx", "Packet contents to be sent to BLE\n");
+call    0 returned 100%
+     7070:  881:				for(uint16_t i = 0; i < pkt_len; i++)
+branch  0 taken 100%
+branch  1 taken 1% (fallthrough)
+        -:  882:				{
+     7056:  883:					printf("%02X  ", l_u8_packet[i]);
+call    0 returned 100%
+        -:  884:				}
+       14:  885:				printf("\n");
+call    0 returned 100%
+        -:  886:				
+        -:  887:
+        -:  888:				uint8_t l_u8_ble_sndreslt;
+       14:  889:				l_u8_ble_sndreslt = ble_spp_SendData(pkt_len, l_u8_packet);
+call    0 returned 100%
+       14:  890:				if(l_u8_ble_sndreslt == 0)
+branch  0 taken 57% (fallthrough)
+branch  1 taken 43%
+        -:  891:				{
+        8:  892:				  ESP_LOGE("XMODEMTx", "Failure in sending Packet with Block number %d to BLE App",g_u16_nxt_blknm);
+call    0 returned 100%
+        -:  893:				}
+        -:  894:				else
+        -:  895:				{
+        6:  896:				  ESP_LOGI("XMODEMTx", "Succeeded in sending Packet with Block number %d to BLE App",g_u16_nxt_blknm);
+call    0 returned 100%
+        6:  897:				  ESP_LOGI("XMODEMTx", "Starting single-shot timer for 20 seconds.");
+call    0 returned 100%
+        6:  898:				  ESP_ERROR_CHECK(esp_timer_start_once(cmtimeout_timer1, 20000000)); // Timer period in microseconds
+call    0 returned 100%
+        -:  899:				}
+        -:  900:				
+        -:  901:			}
+       14:  902:			break;
+        -:  903:		
+        4:  904:		case JIO_ESP_XMDM_TX_FILE_COMPLETE:
+        4:  905:			ESP_LOGI("XMODEMTx", "Current state is JIO_ESP_XMDM_TX_FILE_COMPLETE\n");
+call    0 returned 100%
+        4:  906:			if(g_tx_fsm_pkt->header == JIO_ESP_X_NAK)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:  907:			{
+    #####:  908:				ESP_ERROR_CHECK(esp_timer_stop(cmtimeout_timer1));
+call    0 never executed
+    #####:  909:				ESP_LOGI("XMODEMTx", "g_tx_fsm_pkt->header = JIO_ESP_X_NAK\n");
+call    0 never executed
+        -:  910:
+        -:  911:				{
+    #####:  912:					memset_j(&l_u8_buffer[0], sizeof(l_u8_buffer), 0, sizeof(l_u8_buffer));
+call    0 never executed
+    #####:  913:					fseek(g_file,(g_u16_nxt_blknm - 1) * JIO_ESP_X_BLOCK_SIZE,SEEK_SET);
+call    0 never executed
+    #####:  914:					l_i16_bytes_read = fread(l_u8_buffer, 1, JIO_ESP_X_BLOCK_SIZE, g_file);
+call    0 never executed
+    #####:  915:					if(l_i16_bytes_read < JIO_ESP_X_BLOCK_SIZE)
+branch  0 never executed (fallthrough)
+branch  1 never executed
+        -:  916:					{
+        -:  917:						//()What to do now????
+    #####:  918:						memset_j(l_u8_buffer + l_i16_bytes_read, (JIO_ESP_X_BLOCK_SIZE - l_i16_bytes_read), 0x1A, (JIO_ESP_X_BLOCK_SIZE - l_i16_bytes_read)); // pad with SUB
+call    0 never executed
+    #####:  919:						g_u8_Xmdm_Tx_FSM_STATE = JIO_ESP_XMDM_TX_FILE_COMPLETE;
+        -:  920:					}
+    #####:  921:					ESP_LOGI("XMODEMTx", "Number of bytes read from File is %d\n",l_i16_bytes_read);
+call    0 never executed
+    #####:  922:					ESP_LOGI("XMODEMTx", "Buffer contents to be sent to BLE\n");
+call    0 never executed
+    #####:  923:					for(int i = 0; i < l_i16_bytes_read; i++)
+branch  0 never executed
+branch  1 never executed (fallthrough)
+        -:  924:					{
+    #####:  925:						printf("%02X  ", l_u8_buffer[i]);
+call    0 never executed
+        -:  926:					}
+    #####:  927:					memset_j(&l_u8_packet[0], sizeof(l_u8_packet), 0, sizeof(l_u8_packet));
+call    0 never executed
+    #####:  928:					xmodem_packet_t *g_tx_fsm_pkt1 = (xmodem_packet_t *)l_u8_packet;
+    #####:  929:					uint16_t pkt_len = Jio_ESP_010105_xmodem_build_packet(l_u8_buffer, g_tx_fsm_pkt1);
+call    0 never executed
+    #####:  930:					ESP_LOGI("XMODEMTx", "\nLength of packet to be sent to BLE is %d\n",pkt_len);
+call    0 never executed
+        -:  931:					
+    #####:  932:					memcpy_j(&l_u8_packet[0], sizeof(l_u8_packet), (uint8_t *)g_tx_fsm_pkt1, pkt_len);
+call    0 never executed
+    #####:  933:					ESP_LOGI("XMODEMTx", "Packet contents to be sent to BLE\n");
+call    0 never executed
+    #####:  934:					for(uint16_t i = 0; i < pkt_len; i++)
+branch  0 never executed
+branch  1 never executed (fallthrough)
+        -:  935:					{
+    #####:  936:						printf("%02X  ", l_u8_packet[i]);
+call    0 never executed
+        -:  937:					}
+    #####:  938:					printf("\n");
+call    0 never executed
+        -:  939:
+        -:  940:					uint8_t l_u8_ble_sndreslt;
+    #####:  941:					l_u8_ble_sndreslt = ble_spp_SendData(pkt_len, l_u8_packet);
+call    0 never executed
+    #####:  942:					if(l_u8_ble_sndreslt == 0)
+branch  0 never executed (fallthrough)
+branch  1 never executed
+        -:  943:					{
+    #####:  944:					  ESP_LOGE("XMODEMTx", "Failure in sending Packet with Block number %d to BLE App",g_u16_nxt_blknm);
+call    0 never executed
+        -:  945:					}
+        -:  946:					else
+        -:  947:					{
+    #####:  948:					  ESP_LOGI("XMODEMTx", "Succeeded in sending Packet with Block number %d to BLE App",g_u16_nxt_blknm);
+call    0 never executed
+    #####:  949:					  ESP_LOGI("XMODEMTx", "Starting single-shot timer for 20 seconds.");
+call    0 never executed
+    #####:  950:					  ESP_ERROR_CHECK(esp_timer_start_once(cmtimeout_timer1, 20000000)); // Timer period in microseconds
+call    0 never executed
+        -:  951:					}
+        -:  952:				}
+        -:  953:			}
+        4:  954:			else if(g_tx_fsm_pkt->header == JIO_ESP_X_ACK)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        -:  955:			{
+        4:  956:				g_u8_commtimeout = 0;
+        4:  957:				ESP_ERROR_CHECK(esp_timer_stop(cmtimeout_timer1));
+call    0 returned 100%
+        4:  958:				ESP_LOGI("XMODEMTx", "g_tx_fsm_pkt->header = JIO_ESP_X_ACK\n");
+call    0 returned 100%
+        -:  959:
+        -:  960:				uint8_t l_u8_ble_sndreslt;
+        -:  961:				uint8_t l_u8_eot_arr[10];
+        4:  962:				memset_j(&l_u8_eot_arr[0], sizeof(l_u8_eot_arr), 0, sizeof(l_u8_eot_arr));
+call    0 returned 100%
+        -:  963:				//l_u8_ble_sndreslt = ble_spp_SendData(1, &l_u8_eot);
+       24:  964:				for(int i=0;i<5;i++)
+branch  0 taken 83%
+branch  1 taken 17% (fallthrough)
+        -:  965:				{
+       20:  966:					l_u8_ble_sndreslt = ble_spp_SendData(sizeof(l_u8_eot_arr), l_u8_eot_arr);
+call    0 returned 100%
+       20:  967:					if(l_u8_ble_sndreslt == 0)
+branch  0 taken 50% (fallthrough)
+branch  1 taken 50%
+        -:  968:					{
+       10:  969:					ESP_LOGE("XMODEMTx", "Failure in sending Packet with EOT to BLE App");
+call    0 returned 100%
+        -:  970:					}
+        -:  971:					else
+        -:  972:					{
+       10:  973:					ESP_LOGI("XMODEMTx", "Succeeded in sending Packet with EOT to BLE App");
+call    0 returned 100%
+        -:  974:					}
+        -:  975:				}
+        4:  976:				fclose(g_file);
+call    0 returned 100%
+        4:  977:				g_file = NULL;
+        4:  978:				g_u8_Xmdm_Tx_FSM_STATE = JIO_ESP_XMDM_FSM_INIT;
+        4:  979:				ESP_LOGI("XMODEMTx", "Next state is JIO_ESP_XMDM_FSM_INIT\n");
+call    0 returned 100%
+        4:  980:				g_u8_SendFileXMDMTx = 0;
+        4:  981:				g_u16_nxt_blknm = 1;
+        4:  982:				ESP_ERROR_CHECK(esp_timer_stop(one_shot_timer1));
+call    0 returned 100%
+        -:  983:			}
+        4:  984:			break;
+        -:  985:			
+        -:  986:		
+        4:  987:		case JIO_ESP_XMDM_STATE_MAX:
+        4:  988:			ESP_LOGI("XMODEMTx", "Current state is JIO_ESP_XMDM_STATE_MAX\n");
+call    0 returned 100%
+        4:  989:			l_u8_ack_nak = JIO_ESP_X_ACK;
+        -:  990:			uint8_t l_u8_ble_sndreslt;
+        -:  991:			uint8_t l_u8_ack_nak_arr[10];
+        4:  992:			memset_j(&l_u8_ack_nak_arr[0], sizeof(l_u8_ack_nak_arr), 0, sizeof(l_u8_ack_nak_arr));
+call    0 returned 100%
+        -:  993:			//()l_u8_ble_sndreslt = ble_spp_SendData(1, &l_u8_ack_nak);
+        4:  994:			l_u8_ble_sndreslt = ble_spp_SendData(sizeof(l_u8_ack_nak_arr),l_u8_ack_nak_arr);
+call    0 returned 100%
+        4:  995:			if(l_u8_ble_sndreslt == 0)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        -:  996:			{
+        4:  997:			  ESP_LOGE("XMODEMTx", "Failure in sending Packet with ACK to BLE App");
+call    0 returned 100%
+        -:  998:			}
+        -:  999:			else
+        -: 1000:			{
+    #####: 1001:			  ESP_LOGI("XMODEMTx", "Succeeded in sending Packet with ACK to BLE App");
+call    0 never executed
+        -: 1002:			}
+        4: 1003:			if(g_file != NULL)
+branch  0 taken 50% (fallthrough)
+branch  1 taken 50%
+        -: 1004:			{
+        2: 1005:				fclose(g_file);
+call    0 returned 100%
+        2: 1006:				g_file = NULL;
+        -: 1007:			}
+        4: 1008:			g_u8_Xmdm_Tx_FSM_STATE = JIO_ESP_XMDM_FSM_INIT;
+        4: 1009:			ESP_LOGI("XMODEMTx", "Next state is JIO_ESP_XMDM_FSM_INIT\n");
+call    0 returned 100%
+        4: 1010:			g_u8_SendFileXMDMTx = 0;
+        4: 1011:			g_u16_nxt_blknm = 1;
+        4: 1012:			ESP_ERROR_CHECK(esp_timer_stop(one_shot_timer1));
+call    0 returned 100%
+        4: 1013:			break;
+        -: 1014:			
+        2: 1015:		default:
+        2: 1016:			break;
+        -: 1017:	}
+        -: 1018:	
+       46: 1019:}
+        -: 1020:

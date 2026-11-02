@@ -1,0 +1,507 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AC_Controller_30 Coverage - main/ota/http.c</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">main/ota</a> - http.c<span style="font-size: 80%;"> (source / <a href="http.c.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AC_Controller_30 Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">90.9&nbsp;%</td>
+            <td class="headerCovTableEntry">208</td>
+            <td class="headerCovTableEntry">189</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-05-08 12:18:40</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">8</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">72.9&nbsp;%</td>
+            <td class="headerCovTableEntry">96</td>
+            <td class="headerCovTableEntry">70</td>
+          </tr>
+                  <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : #include &lt;stdio.h&gt;</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : #include &lt;string.h&gt;</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : #include &lt;sys/stat.h&gt;</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : #include &quot;esp_log.h&quot;</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : #include &quot;esp_http_client.h&quot;</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : #include &quot;esp_ota_ops.h&quot;</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : #include &quot;esp_spiffs.h&quot;</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : #include &quot;http.h&quot;</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : #include &quot;configuration.h&quot;</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : #include &quot;SafeFunctions/Jio_EA_Safe_Functions.h&quot;</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : #include &quot;main.h&quot;</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : #include &quot;mqtt_manager.h&quot;</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : #include &quot;esp_crt_bundle.h&quot;</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : #include &quot;mbedtls/sha256.h&quot;</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : #include &quot;esp_crt_bundle.h&quot;</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : #include &quot;cJSON.h&quot;</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             : </span>
+<span id="L18"><span class="lineNum">      18</span>                 :             : static const char *TAG = &quot;SMART_DOWNLOADER&quot;;</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : #define DOWNLOAD_BUF_SIZE 2048</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             : </span>
+<span id="L21"><span class="lineNum">      21</span>                 :             : void Generate_Server_URL(char*server_url,size_t max_len,char* url, uint16_t port, char* filepath);</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             : void update_ota_failure_status(void);</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             : </span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : int otataskstarted=0;</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             : char server_url[400];</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             : int g_download_progress = 0;</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : manifest_t manifest;</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             : ota_params_t httpserver_params;</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             : int failure_count = 0;</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             : const char* netlify_root_cert = </span>
+<span id="L31"><span class="lineNum">      31</span>                 :             : &quot;-----BEGIN CERTIFICATE-----\n&quot;</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             : &quot;MIIFazCCA1OgAwIBAgIRAIIQz7DSQONZRGPgu2OCiwAwDQYJKoZIhvcNAQELBQAw\n&quot;</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : &quot;TzELMAkGA1UEBhMCVVMxKTAnBgNVBAoTIEludGVybmV0IFNlY3VyaXR5IFJlc2Vh\n&quot;</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : &quot;cmNoIEdyb3VwMRUwEwYDVQQDEwxJU1JHIFJvb3QgWDEwHhcNMTUwNjA0MTEwNDM4\n&quot;</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             : &quot;WhcNMzUwNjA0MTEwNDM4WjBPMQswCQYDVQQGEwJVUzEpMCcGA1UEChMgSW50ZXJu\n&quot;</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : &quot;ZXQgU2VjdXJpdHkgUmVzZWFyY2ggR3JvdXAxFTATBgNVBAMTDElTUkcgUm9vdCBY\n&quot;</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : &quot;MTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAK3oJHP0FDfzm54rVygc\n&quot;</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : &quot;h77ct984kIxuPOZXoHj3dcKi/vVqbvYATyjb3miGbESTtrFj/RQSa78f0uoxmyF+\n&quot;</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : &quot;0TM8ukj13Xnfs7j/EvEhmkvBioZxaUpmZmyPfjxwv60pIgbz5MDmgK7iS4+3mX6U\n&quot;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : &quot;A5/TR5d8mUgjU+g4rk8Kb4Mu0UlXjIB0ttov0DiNewNwIRt18jA8+o+u3dpjq+sW\n&quot;</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : &quot;T8KOEUt+zwvo/7V3LvSye0rgTBIlDHCNAymg4VMk7BPZ7hm/ELNKjD+Jo2FR3qyH\n&quot;</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : &quot;B5T0Y3HsLuJvW5iB4YlcNHlsdu87kGJ55tukmi8mxdAQ4Q7e2RCOFvu396j3x+UC\n&quot;</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : &quot;B5iPNgiV5+I3lg02dZ77DnKxHZu8A/lJBdiB3QW0KtZB6awBdpUKD9jf1b0SHzUv\n&quot;</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : &quot;KBds0pjBqAlkd25HN7rOrFleaJ1/ctaJxQZBKT5ZPt0m9STJEadao0xAH0ahmbWn\n&quot;</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : &quot;OlFuhjuefXKnEgV4We0+UXgVCwOPjdAvBbI+e0ocS3MFEvzG6uBQE3xDk3SzynTn\n&quot;</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : &quot;jh8BCNAw1FtxNrQHusEwMFxIt4I7mKZ9YIqioymCzLq9gwQbooMDQaHWBfEbwrbw\n&quot;</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : &quot;qHyGO0aoSCqI3Haadr8faqU9GY/rOPNk3sgrDQoo//fb4hVC1CLQJ13hef4Y53CI\n&quot;</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : &quot;rU7m2Ys6xt0nUW7/vGT1M0NPAgMBAAGjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNV\n&quot;</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             : &quot;HRMBAf8EBTADAQH/MB0GA1UdDgQWBBR5tFnme7bl5AFzgAiIyBpY9umbbjANBgkq\n&quot;</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : &quot;hkiG9w0BAQsFAAOCAgEAVR9YqbyyqFDQDLHYGmkgJykIrGF1XIpu+ILlaS/V9lZL\n&quot;</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : &quot;ubhzEFnTIZd+50xx+7LSYK05qAvqFyFWhfFQDlnrzuBZ6brJFe+GnY+EgPbk6ZGQ\n&quot;</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : &quot;3BebYhtF8GaV0nxvwuo77x/Py9auJ/GpsMiu/X1+mvoiBOv/2X/qkSsisRcOj/KK\n&quot;</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : &quot;NFtY2PwByVS5uCbMiogziUwthDyC3+6WVwW6LLv3xLfHTjuCvjHIInNzktHCgKQ5\n&quot;</span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : &quot;ORAzI4JMPJ+GslWYHb4phowim57iaztXOoJwTdwJx4nLCgdNbOhdjsnvzqvHu7Ur\n&quot;</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             : &quot;TkXWStAmzOVyyghqpZXjFaH3pO3JLF+l+/+sKAIuvtd7u+Nxe5AW0wdeRlN8NwdC\n&quot;</span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : &quot;jNPElpzVmbUq4JUagEiuTDkHzsxHpFKVK7q4+63SM1N95R1NbdWhscdCb+ZAJzVc\n&quot;</span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : &quot;oyi3B43njTOQ5yOf+1CceWxG1bQVs5ZufpsMljq4Ui0/1lvh+wjChP4kqKOJ2qxq\n&quot;</span>
+<span id="L58"><span class="lineNum">      58</span>                 :             : &quot;4RgqsahDYVvTH9w7jXbyLeiNdd8XM2w9U/t7y0Ff/9yi0GE44Za4rF2LN9d11TPA\n&quot;</span>
+<span id="L59"><span class="lineNum">      59</span>                 :             : &quot;mRGunUHBcnWEvgJBQl9nJEiU0Zsnvgc/ubhPgXRR4Xq37Z0j4r7g1SgEEzwxA57d\n&quot;</span>
+<span id="L60"><span class="lineNum">      60</span>                 :             : &quot;emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=\n&quot;</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             : &quot;-----END CERTIFICATE-----&quot;;</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : </span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : // --- HELPER: Local File Check ---</span>
+<span id="L64"><span class="lineNum">      64</span>                 :<span class="tlaGNC tlaBgGNC">           7 : bool local_file_exists(const char *path) {</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :             :     struct stat st;</span>
+<span id="L66"><span class="lineNum">      66</span>                 :<span class="tlaGNC">           7 :     return stat(path, &amp;st) == 0;</span></span>
+<span id="L67"><span class="lineNum">      67</span>                 :             : }</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : </span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : // --- HELPER: Remote File Check (HTTP HEAD) ---</span>
+<span id="L70"><span class="lineNum">      70</span>                 :<span class="tlaGNC">           8 : bool remote_file_exists(const char *url) {</span></span>
+<span id="L71"><span class="lineNum">      71</span>                 :<span class="tlaGNC">           8 :     esp_http_client_config_t config = {</span></span>
+<span id="L72"><span class="lineNum">      72</span>                 :             :         .url = url,</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             :         .method = HTTP_METHOD_HEAD,</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             :         .timeout_ms = 5000,</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             :         .keep_alive_idle = 5,                 // Seconds before sending a keep-alive probe</span>
+<span id="L76"><span class="lineNum">      76</span>                 :             :         .keep_alive_interval = 30,             // Seconds between probes</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             :         .keep_alive_count = 3,</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             :     };</span>
+<span id="L79"><span class="lineNum">      79</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 7 times"> + </span>]:<span class="tlaGNC">           8 :     if(httpserver_params.is_ota==2){</span></span>
+<span id="L80"><span class="lineNum">      80</span>                 :<span class="tlaGNC">           1 :         config.cert_pem = (const char *)server_cert_pem_start;</span></span>
+<span id="L81"><span class="lineNum">      81</span>                 :<span class="tlaGNC">           1 :         config.transport_type = HTTP_TRANSPORT_OVER_SSL;</span></span>
+<span id="L82"><span class="lineNum">      82</span>                 :<span class="tlaGNC">           1 :         config.skip_cert_common_name_check = true;</span></span>
+<span id="L83"><span class="lineNum">      83</span>                 :             :     }</span>
+<span id="L84"><span class="lineNum">      84</span>                 :<span class="tlaGNC">           8 :     esp_http_client_handle_t client = esp_http_client_init(&amp;config);</span></span>
+<span id="L85"><span class="lineNum">      85</span>                 :<span class="tlaGNC">           8 :     esp_err_t err = esp_http_client_perform(client);</span></span>
+<span id="L86"><span class="lineNum">      86</span>                 :             :     </span>
+<span id="L87"><span class="lineNum">      87</span>                 :<span class="tlaGNC">           8 :     int status_code = 0;</span></span>
+<span id="L88"><span class="lineNum">      88</span>         [<span class="tlaGBC" title="Branch 0 was taken 7 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           8 :     if (err == ESP_OK) {</span></span>
+<span id="L89"><span class="lineNum">      89</span>                 :<span class="tlaGNC">           7 :         status_code = esp_http_client_get_status_code(client);</span></span>
+<span id="L90"><span class="lineNum">      90</span>                 :             :     }</span>
+<span id="L91"><span class="lineNum">      91</span>                 :             :     </span>
+<span id="L92"><span class="lineNum">      92</span>                 :<span class="tlaGNC">           8 :     esp_http_client_cleanup(client);</span></span>
+<span id="L93"><span class="lineNum">      93</span>                 :<span class="tlaGNC">           8 :     return (status_code == 200);</span></span>
+<span id="L94"><span class="lineNum">      94</span>                 :             : }</span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : </span>
+<span id="L96"><span class="lineNum">      96</span>                 :             : </span>
+<span id="L97"><span class="lineNum">      97</span>                 :             : </span>
+<span id="L98"><span class="lineNum">      98</span>                 :             : </span>
+<span id="L99"><span class="lineNum">      99</span>                 :             : </span>
+<span id="L100"><span class="lineNum">     100</span>                 :             : // --- MAIN DOWNLOAD WORKER TASK ---</span>
+<span id="L101"><span class="lineNum">     101</span>                 :<span class="tlaGNC">           9 : void download_task(void *pvParameters) {</span></span>
+<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaGNC">           9 :     download_params_t *params = (download_params_t *)pvParameters;</span></span>
+<span id="L103"><span class="lineNum">     103</span>                 :<span class="tlaGNC">           9 :     esp_http_client_handle_t client = NULL;</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :<span class="tlaGNC">           9 :     esp_ota_handle_t update_handle = 0;</span></span>
+<span id="L105"><span class="lineNum">     105</span>                 :<span class="tlaGNC">           9 :     const esp_partition_t *update_partition = NULL;</span></span>
+<span id="L106"><span class="lineNum">     106</span>                 :<span class="tlaGNC">           9 :     FILE *f = NULL;</span></span>
+<span id="L107"><span class="lineNum">     107</span>                 :<span class="tlaGNC">           9 :     char *buffer = malloc(DOWNLOAD_BUF_SIZE);</span></span>
+<span id="L108"><span class="lineNum">     108</span>                 :             : </span>
+<span id="L109"><span class="lineNum">     109</span>                 :             :     // SHA-256 Context initialization</span>
+<span id="L110"><span class="lineNum">     110</span>                 :             :     mbedtls_sha256_context sha_ctx;</span>
+<span id="L111"><span class="lineNum">     111</span>                 :<span class="tlaGNC">           9 :     mbedtls_sha256_init(&amp;sha_ctx);</span></span>
+<span id="L112"><span class="lineNum">     112</span>                 :<span class="tlaGNC">           9 :     mbedtls_sha256_starts(&amp;sha_ctx, 0); // 0 for SHA-256</span></span>
+<span id="L113"><span class="lineNum">     113</span>   [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           9 :     if (!params-&gt;is_download &amp;&amp; local_file_exists(params-&gt;filepath)) {</span></span>
+<span id="L114"><span class="lineNum">     114</span>                 :<span class="tlaGNC">           5 :         ESP_LOGW(TAG, &quot;File %s already exists locally. Aborting.&quot;, params-&gt;filepath);</span></span>
+<span id="L115"><span class="lineNum">     115</span>                 :<span class="tlaGNC">           5 :         goto cleanup;</span></span>
+<span id="L116"><span class="lineNum">     116</span>                 :             :     }</span>
+<span id="L117"><span class="lineNum">     117</span>                 :             : </span>
+<span id="L118"><span class="lineNum">     118</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 4 times"> + </span>]:<span class="tlaGNC">           4 :     if (!remote_file_exists(params-&gt;url)) {</span></span>
+<span id="L119"><span class="lineNum">     119</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         ESP_LOGE(TAG, &quot;Remote file not found or server error (HEAD request failed).&quot;);</span></span>
+<span id="L120"><span class="lineNum">     120</span>                 :<span class="tlaUNC">           0 :         goto cleanup;</span></span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :     }</span>
+<span id="L122"><span class="lineNum">     122</span>                 :             : </span>
+<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaGNC tlaBgGNC">           4 :     esp_http_client_config_t config = {</span></span>
+<span id="L124"><span class="lineNum">     124</span>                 :<span class="tlaGNC">           4 :         .url = params-&gt;url,</span></span>
+<span id="L125"><span class="lineNum">     125</span>                 :             :         .timeout_ms = 10000,</span>
+<span id="L126"><span class="lineNum">     126</span>                 :             :         .buffer_size = DOWNLOAD_BUF_SIZE,</span>
+<span id="L127"><span class="lineNum">     127</span>                 :             :         .keep_alive_idle = 5,                 // Seconds before sending a keep-alive probe</span>
+<span id="L128"><span class="lineNum">     128</span>                 :             :         .keep_alive_interval = 30,             // Seconds between probes</span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :         .keep_alive_count = 3,</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             :     };</span>
+<span id="L131"><span class="lineNum">     131</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 4 times"> + </span>]:<span class="tlaGNC">           4 :         if(httpserver_params.is_ota==2){</span></span>
+<span id="L132"><span class="lineNum">     132</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             config.cert_pem = (const char *)server_cert_pem_start;</span></span>
+<span id="L133"><span class="lineNum">     133</span>                 :<span class="tlaUNC">           0 :             config.transport_type = HTTP_TRANSPORT_OVER_SSL;</span></span>
+<span id="L134"><span class="lineNum">     134</span>                 :<span class="tlaUNC">           0 :             config.skip_cert_common_name_check = true;</span></span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :         }</span>
+<span id="L136"><span class="lineNum">     136</span>                 :<span class="tlaGNC tlaBgGNC">           4 :     client = esp_http_client_init(&amp;config);</span></span>
+<span id="L137"><span class="lineNum">     137</span>                 :             : </span>
+<span id="L138"><span class="lineNum">     138</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">           4 :     if (esp_http_client_open(client, 0) != ESP_OK) {</span></span>
+<span id="L139"><span class="lineNum">     139</span>                 :<span class="tlaGNC">           1 :         ESP_LOGE(TAG, &quot;Failed to open HTTP connection&quot;);</span></span>
+<span id="L140"><span class="lineNum">     140</span>                 :<span class="tlaGNC">           1 :         goto cleanup;</span></span>
+<span id="L141"><span class="lineNum">     141</span>                 :             :     }</span>
+<span id="L142"><span class="lineNum">     142</span>                 :             : </span>
+<span id="L143"><span class="lineNum">     143</span>                 :<span class="tlaGNC">           3 :     int content_length = esp_http_client_fetch_headers(client);</span></span>
+<span id="L144"><span class="lineNum">     144</span>                 :             :     </span>
+<span id="L145"><span class="lineNum">     145</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           3 :     if (content_length &lt;= 0) {</span></span>
+<span id="L146"><span class="lineNum">     146</span>                 :<span class="tlaGNC">           1 :         ESP_LOGW(TAG, &quot;Server did not provide Content-Length. Progress unknown.&quot;);</span></span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :     }</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             : </span>
+<span id="L149"><span class="lineNum">     149</span>                 :             :     // 4. Prepare Destination</span>
+<span id="L150"><span class="lineNum">     150</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           3 :     if (params-&gt;is_download) {</span></span>
+<span id="L151"><span class="lineNum">     151</span>                 :<span class="tlaGNC">           3 :         update_partition = esp_ota_get_next_update_partition(NULL);</span></span>
+<span id="L152"><span class="lineNum">     152</span>                 :<span class="tlaGNC">           3 :         esp_ota_begin(update_partition, OTA_SIZE_UNKNOWN, &amp;update_handle);</span></span>
+<span id="L153"><span class="lineNum">     153</span>                 :<span class="tlaGNC">           3 :         ESP_LOGI(TAG, &quot;OTA: Writing to partition %s&quot;, update_partition-&gt;label);</span></span>
+<span id="L154"><span class="lineNum">     154</span>                 :             :     } else {</span>
+<span id="L155"><span class="lineNum">     155</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         f = fopen(params-&gt;filepath, &quot;w&quot;);</span></span>
+<span id="L156"><span class="lineNum">     156</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if (!f) { ESP_LOGE(TAG, &quot;Failed to open SPIFFS file&quot;); goto cleanup; }</span></span>
+<span id="L157"><span class="lineNum">     157</span>                 :             :     }</span>
+<span id="L158"><span class="lineNum">     158</span>                 :             : </span>
+<span id="L159"><span class="lineNum">     159</span>                 :             :     // 5. Data Processing Loop</span>
+<span id="L160"><span class="lineNum">     160</span>                 :             : </span>
+<span id="L161"><span class="lineNum">     161</span>                 :             : </span>
+<span id="L162"><span class="lineNum">     162</span>                 :<span class="tlaGNC tlaBgGNC">           3 :     int read_len, total_read = 0;</span></span>
+<span id="L163"><span class="lineNum">     163</span>                 :             :     while (1) {</span>
+<span id="L164"><span class="lineNum">     164</span>                 :<span class="tlaGNC">           6 :         read_len = esp_http_client_read(client, buffer, DOWNLOAD_BUF_SIZE);</span></span>
+<span id="L165"><span class="lineNum">     165</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">           6 :         if (read_len &lt;= 0) {</span></span>
+<span id="L166"><span class="lineNum">     166</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           3 :             if (esp_http_client_is_complete_data_received(client)) break;</span></span>
+<span id="L167"><span class="lineNum">     167</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             ESP_LOGE(TAG, &quot;Error during read or connection lost&quot;);</span></span>
+<span id="L168"><span class="lineNum">     168</span>                 :<span class="tlaUNC">           0 :             goto cleanup;</span></span>
+<span id="L169"><span class="lineNum">     169</span>                 :             :         }</span>
+<span id="L170"><span class="lineNum">     170</span>                 :             : </span>
+<span id="L171"><span class="lineNum">     171</span>                 :<span class="tlaGNC tlaBgGNC">           3 :         mbedtls_sha256_update(&amp;sha_ctx, (unsigned char *)buffer, read_len);</span></span>
+<span id="L172"><span class="lineNum">     172</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           3 :         if (params-&gt;is_download) {</span></span>
+<span id="L173"><span class="lineNum">     173</span>                 :<span class="tlaGNC">           3 :             esp_ota_write(update_handle, buffer, read_len);</span></span>
+<span id="L174"><span class="lineNum">     174</span>                 :             :         } else {</span>
+<span id="L175"><span class="lineNum">     175</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             fwrite(buffer, 1, read_len, f);</span></span>
+<span id="L176"><span class="lineNum">     176</span>                 :             :         }</span>
+<span id="L177"><span class="lineNum">     177</span>                 :<span class="tlaGNC tlaBgGNC">           3 :         total_read += read_len;</span></span>
+<span id="L178"><span class="lineNum">     178</span>                 :<span class="tlaGNC">           3 :         ESP_LOGI(TAG, &quot;Progress: %d bytes received content_length: %d&quot;, total_read, content_length);</span></span>
+<span id="L179"><span class="lineNum">     179</span>                 :             : </span>
+<span id="L180"><span class="lineNum">     180</span>                 :             : </span>
+<span id="L181"><span class="lineNum">     181</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           3 :         if (content_length &gt; 0) {</span></span>
+<span id="L182"><span class="lineNum">     182</span>                 :<span class="tlaGNC">           3 :             g_download_progress = (total_read * 100) / content_length;</span></span>
+<span id="L183"><span class="lineNum">     183</span>                 :             :             </span>
+<span id="L184"><span class="lineNum">     184</span>                 :             :             // Log progress every few seconds to avoid spamming the console</span>
+<span id="L185"><span class="lineNum">     185</span>                 :             :             static int last_log_percent = -1;</span>
+<span id="L186"><span class="lineNum">     186</span>                 :<span class="tlaGNC">           3 :             httpserver_params.ota_status=0;</span></span>
+<span id="L187"><span class="lineNum">     187</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span>]:<span class="tlaGNC">           3 :             if (g_download_progress % 5 == 0 &amp;&amp; g_download_progress != last_log_percent) {</span></span>
+<span id="L188"><span class="lineNum">     188</span>                 :<span class="tlaGNC">           1 :                 ESP_LOGI(TAG, &quot;Download Progress: %d%%&quot;, g_download_progress);</span></span>
+<span id="L189"><span class="lineNum">     189</span>                 :<span class="tlaGNC">           1 :                 last_log_percent = g_download_progress;</span></span>
+<span id="L190"><span class="lineNum">     190</span>                 :<span class="tlaGNC">           1 :                 httpserver_params.ota_status = g_download_progress; // Update global status for UI or other tasks</span></span>
+<span id="L191"><span class="lineNum">     191</span>                 :             :             }</span>
+<span id="L192"><span class="lineNum">     192</span>                 :             :         }</span>
+<span id="L193"><span class="lineNum">     193</span>                 :             :     }</span>
+<span id="L194"><span class="lineNum">     194</span>                 :             : </span>
+<span id="L195"><span class="lineNum">     195</span>                 :             :     // --- FINAL VERIFICATION ---</span>
+<span id="L196"><span class="lineNum">     196</span>                 :             :     unsigned char calculated_sha[32];</span>
+<span id="L197"><span class="lineNum">     197</span>                 :<span class="tlaGNC">           3 :     mbedtls_sha256_finish(&amp;sha_ctx, calculated_sha);</span></span>
+<span id="L198"><span class="lineNum">     198</span>                 :<span class="tlaGNC">           3 :     printf(&quot;calculated_sha - SHA256: &quot;);</span></span>
+<span id="L199"><span class="lineNum">     199</span>         [<span class="tlaGBC" title="Branch 0 was taken 96 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">          99 :     for (int i = 0; i &lt; 32; i++) {          </span></span>
+<span id="L200"><span class="lineNum">     200</span>                 :<span class="tlaGNC">          96 :         printf(&quot;%02x&quot;, calculated_sha[i]);</span></span>
+<span id="L201"><span class="lineNum">     201</span>                 :             :     }</span>
+<span id="L202"><span class="lineNum">     202</span>                 :<span class="tlaGNC">           3 :     printf(&quot;\n&quot;);</span></span>
+<span id="L203"><span class="lineNum">     203</span>                 :<span class="tlaGNC">           3 :     printf(&quot;Expected - SHA256: &quot;);</span></span>
+<span id="L204"><span class="lineNum">     204</span>         [<span class="tlaGBC" title="Branch 0 was taken 96 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">          99 :     for (int i = 0; i &lt; 32; i++) {          </span></span>
+<span id="L205"><span class="lineNum">     205</span>                 :<span class="tlaGNC">          96 :         printf(&quot;%02x&quot;, params-&gt;expected_sha256[i]);</span></span>
+<span id="L206"><span class="lineNum">     206</span>                 :             :     }</span>
+<span id="L207"><span class="lineNum">     207</span>                 :<span class="tlaGNC">           3 :     printf(&quot;\n&quot;);</span></span>
+<span id="L208"><span class="lineNum">     208</span>                 :             :     // If you have params-&gt;expected_sha (binary 32 bytes), compare it here:</span>
+<span id="L209"><span class="lineNum">     209</span>                 :             :     </span>
+<span id="L210"><span class="lineNum">     210</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">           3 :     if (memcmp(calculated_sha, params-&gt;expected_sha256, 32) != 0) {</span></span>
+<span id="L211"><span class="lineNum">     211</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         ESP_LOGE(TAG, &quot;SHA-256 VERIFICATION FAILED!&quot;);</span></span>
+<span id="L212"><span class="lineNum">     212</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if (params-&gt;is_download) esp_ota_abort(update_handle);</span></span>
+<span id="L213"><span class="lineNum">     213</span>                 :<span class="tlaUNC">           0 :         goto cleanup;</span></span>
+<span id="L214"><span class="lineNum">     214</span>                 :             :     }</span>
+<span id="L215"><span class="lineNum">     215</span>                 :             : </span>
+<span id="L216"><span class="lineNum">     216</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">           3 :     if (params-&gt;is_download) {</span></span>
+<span id="L217"><span class="lineNum">     217</span>                 :             :         char buffer[100];</span>
+<span id="L218"><span class="lineNum">     218</span>                 :<span class="tlaGNC">           3 :         g_download_progress = 100;</span></span>
+<span id="L219"><span class="lineNum">     219</span>                 :<span class="tlaGNC">           3 :         httpserver_params.ota_status = g_download_progress;</span></span>
+<span id="L220"><span class="lineNum">     220</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">           3 :         if (esp_ota_end(update_handle) != ESP_OK) {</span></span>
+<span id="L221"><span class="lineNum">     221</span>                 :<span class="tlaUNC tlaBgUNC">           0 :              ESP_LOGE(TAG, &quot;esp_ota_end failed!&quot;);</span></span>
+<span id="L222"><span class="lineNum">     222</span>                 :<span class="tlaUNC">           0 :              goto cleanup;</span></span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :         }</span>
+<span id="L224"><span class="lineNum">     224</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC tlaBgGNC">           3 :        if (esp_ota_set_boot_partition(update_partition) != ESP_OK) {</span></span>
+<span id="L225"><span class="lineNum">     225</span>                 :<span class="tlaUNC tlaBgUNC">           0 :              ESP_LOGE(TAG, &quot;esp_ota_set_boot_partition failed!&quot;);</span></span>
+<span id="L226"><span class="lineNum">     226</span>                 :<span class="tlaUNC">           0 :              goto cleanup;</span></span>
+<span id="L227"><span class="lineNum">     227</span>                 :             :         }</span>
+<span id="L228"><span class="lineNum">     228</span>                 :<span class="tlaGNC tlaBgGNC">           3 :          ESP_LOGI(TAG, &quot;Saving in Firmware complete status in config file...&quot;);</span></span>
+<span id="L229"><span class="lineNum">     229</span>                 :             :         //&quot;{\&quot;0\&quot;:{\&quot;ota0\&quot;:\&quot;0.0.0.0:8000:dummy.bin:0\&quot;}}&quot;</span>
+<span id="L230"><span class="lineNum">     230</span>                 :<span class="tlaGNC">           3 :         sprintf_j(buffer, sizeof(buffer), &quot;{\&quot;0\&quot;:{\&quot;ota0\&quot;:\&quot;%s:%d:%s:0\&quot;}}&quot;, httpserver_params.url,httpserver_params.port,httpserver_params.filepath);</span></span>
+<span id="L231"><span class="lineNum">     231</span>                 :<span class="tlaGNC">           3 :         printf(buffer);</span></span>
+<span id="L232"><span class="lineNum">     232</span>                 :<span class="tlaGNC">           3 :         update_config_tag(config_path, &quot;ota&quot;, buffer);</span></span>
+<span id="L233"><span class="lineNum">     233</span>                 :<span class="tlaGNC">           3 :         ESP_LOGI(TAG, &quot;OTA Success! Restarting in 3 seconds...&quot;);</span></span>
+<span id="L234"><span class="lineNum">     234</span>                 :<span class="tlaGNC">           3 :         vTaskDelay(pdMS_TO_TICKS(3000));</span></span>
+<span id="L235"><span class="lineNum">     235</span>                 :<span class="tlaGNC">           3 :         esp_restart();</span></span>
+<span id="L236"><span class="lineNum">     236</span>                 :             :     } else {</span>
+<span id="L237"><span class="lineNum">     237</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         fclose(f);</span></span>
+<span id="L238"><span class="lineNum">     238</span>                 :<span class="tlaUNC">           0 :         ESP_LOGI(TAG, &quot;File download successful: %s&quot;, params-&gt;filepath);</span></span>
+<span id="L239"><span class="lineNum">     239</span>                 :             :     }</span>
+<span id="L240"><span class="lineNum">     240</span>                 :             : </span>
+<span id="L241"><span class="lineNum">     241</span>                 :<span class="tlaGNC tlaBgGNC">           9 : cleanup:</span></span>
+<span id="L242"><span class="lineNum">     242</span>                 :<span class="tlaGNC">           9 :     mbedtls_sha256_free(&amp;sha_ctx); // Always free the context</span></span>
+<span id="L243"><span class="lineNum">     243</span>                 :<span class="tlaGNC">           9 :     update_ota_failure_status();</span></span>
+<span id="L244"><span class="lineNum">     244</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 5 times"> + </span>]:<span class="tlaGNC">           9 :     if (client) esp_http_client_cleanup(client);</span></span>
+<span id="L245"><span class="lineNum">     245</span>         [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           9 :     if (buffer) free(buffer);</span></span>
+<span id="L246"><span class="lineNum">     246</span>         [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           9 :     if (params) free(params);</span></span>
+<span id="L247"><span class="lineNum">     247</span>                 :<span class="tlaGNC">           9 :     vTaskDelete(NULL);</span></span>
+<span id="L248"><span class="lineNum">     248</span>                 :<span class="tlaGNC">           9 : }</span></span>
+<span id="L249"><span class="lineNum">     249</span>                 :             : </span>
+<span id="L250"><span class="lineNum">     250</span>                 :<span class="tlaGNC">           1 : void hex_to_bytes(const char* hex_str, uint8_t* byte_array) {</span></span>
+<span id="L251"><span class="lineNum">     251</span>         [<span class="tlaGBC" title="Branch 0 was taken 32 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">          33 :     for (int i = 0; i &lt; 32; i++) {</span></span>
+<span id="L252"><span class="lineNum">     252</span>                 :<span class="tlaGNC">          32 :         sscanf(hex_str + 2 * i, &quot;%02hhx&quot;, &amp;byte_array[i]);</span></span>
+<span id="L253"><span class="lineNum">     253</span>                 :             :     }</span>
+<span id="L254"><span class="lineNum">     254</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L255"><span class="lineNum">     255</span>                 :             : </span>
+<span id="L256"><span class="lineNum">     256</span>                 :             : // Struct to hold the parsed data</span>
+<span id="L257"><span class="lineNum">     257</span>                 :             : </span>
+<span id="L258"><span class="lineNum">     258</span>                 :<span class="tlaGNC">           8 : esp_err_t get_ota_manifest(const char* manifest_url, manifest_t* out_manifest) {</span></span>
+<span id="L259"><span class="lineNum">     259</span>                 :<span class="tlaGNC">           8 :     char *buffer = malloc(2048);</span></span>
+<span id="L260"><span class="lineNum">     260</span>                 :<span class="tlaGNC">           8 :     esp_http_client_config_t config = {</span></span>
+<span id="L261"><span class="lineNum">     261</span>                 :             :         .url = manifest_url,</span>
+<span id="L262"><span class="lineNum">     262</span>                 :             :         .timeout_ms = 10000,</span>
+<span id="L263"><span class="lineNum">     263</span>                 :             :         .buffer_size = 2048,</span>
+<span id="L264"><span class="lineNum">     264</span>                 :             :         .keep_alive_idle = 5,                 // Seconds before sending a keep-alive probe</span>
+<span id="L265"><span class="lineNum">     265</span>                 :             :         .keep_alive_interval = 30,             // Seconds between probes</span>
+<span id="L266"><span class="lineNum">     266</span>                 :             :         .keep_alive_count = 3,</span>
+<span id="L267"><span class="lineNum">     267</span>                 :             :     };</span>
+<span id="L268"><span class="lineNum">     268</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 7 times"> + </span>]:<span class="tlaGNC">           8 :     if(httpserver_params.is_ota==2){</span></span>
+<span id="L269"><span class="lineNum">     269</span>                 :<span class="tlaGNC">           1 :             config.cert_pem = (const char *)server_cert_pem_start;</span></span>
+<span id="L270"><span class="lineNum">     270</span>                 :<span class="tlaGNC">           1 :             config.transport_type = HTTP_TRANSPORT_OVER_SSL;</span></span>
+<span id="L271"><span class="lineNum">     271</span>                 :<span class="tlaGNC">           1 :             config.skip_cert_common_name_check = true;</span></span>
+<span id="L272"><span class="lineNum">     272</span>                 :             :         }</span>
+<span id="L273"><span class="lineNum">     273</span>                 :<span class="tlaGNC">           8 :     esp_http_client_handle_t client = esp_http_client_init(&amp;config);</span></span>
+<span id="L274"><span class="lineNum">     274</span>                 :             : </span>
+<span id="L275"><span class="lineNum">     275</span>                 :<span class="tlaGNC">           8 :     esp_err_t err = esp_http_client_open(client, 0);</span></span>
+<span id="L276"><span class="lineNum">     276</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 7 times"> + </span>]:<span class="tlaGNC">           8 :     if (err != ESP_OK) {</span></span>
+<span id="L277"><span class="lineNum">     277</span>                 :<span class="tlaGNC">           1 :         free(buffer);</span></span>
+<span id="L278"><span class="lineNum">     278</span>                 :<span class="tlaGNC">           1 :         esp_http_client_cleanup(client);</span></span>
+<span id="L279"><span class="lineNum">     279</span>                 :<span class="tlaGNC">           1 :         return err;</span></span>
+<span id="L280"><span class="lineNum">     280</span>                 :             :     }</span>
+<span id="L281"><span class="lineNum">     281</span>                 :             : </span>
+<span id="L282"><span class="lineNum">     282</span>                 :<span class="tlaGNC">           7 :     esp_http_client_fetch_headers(client);</span></span>
+<span id="L283"><span class="lineNum">     283</span>                 :<span class="tlaGNC">           7 :     int read = esp_http_client_read(client, buffer, 2048);</span></span>
+<span id="L284"><span class="lineNum">     284</span>                 :<span class="tlaGNC">           7 :     buffer[read] = '\0'; // Null terminate the JSON string</span></span>
+<span id="L285"><span class="lineNum">     285</span>                 :             : </span>
+<span id="L286"><span class="lineNum">     286</span>                 :             :     // Parse JSON</span>
+<span id="L287"><span class="lineNum">     287</span>                 :<span class="tlaGNC">           7 :     cJSON *json = cJSON_Parse(buffer);</span></span>
+<span id="L288"><span class="lineNum">     288</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">           7 :     if (json == NULL) {</span></span>
+<span id="L289"><span class="lineNum">     289</span>                 :<span class="tlaGNC">           4 :         ESP_LOGE(&quot;JSON&quot;, &quot;Failed to parse manifest&quot;);</span></span>
+<span id="L290"><span class="lineNum">     290</span>                 :<span class="tlaGNC">           4 :         free(buffer);</span></span>
+<span id="L291"><span class="lineNum">     291</span>                 :<span class="tlaGNC">           4 :         return ESP_FAIL;</span></span>
+<span id="L292"><span class="lineNum">     292</span>                 :             :     }</span>
+<span id="L293"><span class="lineNum">     293</span>                 :<span class="tlaGNC">           3 :     printf(&quot;Received Manifest JSON: %s\n&quot;, buffer);</span></span>
+<span id="L294"><span class="lineNum">     294</span>                 :             :     </span>
+<span id="L295"><span class="lineNum">     295</span>                 :             :     // Extract values</span>
+<span id="L296"><span class="lineNum">     296</span>                 :<span class="tlaGNC">           3 :     cJSON *version = cJSON_GetObjectItemCaseSensitive(json, &quot;version&quot;);</span></span>
+<span id="L297"><span class="lineNum">     297</span>                 :<span class="tlaGNC">           3 :     cJSON *firmwarefile = cJSON_GetObjectItemCaseSensitive(json, &quot;firmwarefile&quot;);</span></span>
+<span id="L298"><span class="lineNum">     298</span>                 :<span class="tlaGNC">           3 :     cJSON *sha256_hex = cJSON_GetObjectItemCaseSensitive(json, &quot;sha256&quot;);</span></span>
+<span id="L299"><span class="lineNum">     299</span>                 :             : </span>
+<span id="L300"><span class="lineNum">     300</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 2 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           3 :     if (cJSON_IsString(sha256_hex) &amp;&amp; cJSON_IsString(firmwarefile)&amp;&amp; cJSON_IsString(version)) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L301"><span class="lineNum">     301</span>                 :             :         // Parse version numbers</span>
+<span id="L302"><span class="lineNum">     302</span>                 :<span class="tlaGNC">           2 :         sscanf(version-&gt;valuestring, &quot;%hu.%hu.%hu&quot;, &amp;out_manifest-&gt;version_high, &amp;out_manifest-&gt;version_Low, &amp;out_manifest-&gt;version_patch);</span></span>
+<span id="L303"><span class="lineNum">     303</span>                 :<span class="tlaGNC">           2 :         printf(&quot;Parsed Manifest - Version: %hu.%hu.%hu, Firmware: %s\n&quot;, out_manifest-&gt;version_high, out_manifest-&gt;version_Low, out_manifest-&gt;version_patch, out_manifest-&gt;firmwarefile);</span></span>
+<span id="L304"><span class="lineNum">     304</span>                 :             : </span>
+<span id="L305"><span class="lineNum">     305</span>                 :<span class="tlaGNC">           2 :         strncpy(out_manifest-&gt;firmwarefile, firmwarefile-&gt;valuestring, sizeof(out_manifest-&gt;firmwarefile));</span></span>
+<span id="L306"><span class="lineNum">     306</span>                 :<span class="tlaGNC">           2 :         printf(&quot;Parsed Manifest - Firmware file: %s\n&quot;, out_manifest-&gt;firmwarefile);</span></span>
+<span id="L307"><span class="lineNum">     307</span>                 :             : </span>
+<span id="L308"><span class="lineNum">     308</span>         [<span class="tlaGBC" title="Branch 0 was taken 64 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">          66 :         for (int i = 0; i &lt; 32; i++) {</span></span>
+<span id="L309"><span class="lineNum">     309</span>                 :<span class="tlaGNC">          64 :             sscanf(sha256_hex-&gt;valuestring + 2 * i, &quot;%02hhx&quot;, &amp;out_manifest-&gt;sha256[i]);</span></span>
+<span id="L310"><span class="lineNum">     310</span>                 :             :         }</span>
+<span id="L311"><span class="lineNum">     311</span>                 :             :         </span>
+<span id="L312"><span class="lineNum">     312</span>                 :<span class="tlaGNC">           2 :         printf(&quot;Parsed Manifest - SHA256: &quot;);</span></span>
+<span id="L313"><span class="lineNum">     313</span>         [<span class="tlaGBC" title="Branch 0 was taken 64 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">          66 :         for (int i = 0; i &lt; 32; i++) {          </span></span>
+<span id="L314"><span class="lineNum">     314</span>                 :<span class="tlaGNC">          64 :             printf(&quot;%02x&quot;, out_manifest-&gt;sha256[i]);</span></span>
+<span id="L315"><span class="lineNum">     315</span>                 :             :         }</span>
+<span id="L316"><span class="lineNum">     316</span>                 :             : </span>
+<span id="L317"><span class="lineNum">     317</span>                 :<span class="tlaGNC">           2 :         printf(&quot;\n&quot;);</span></span>
+<span id="L318"><span class="lineNum">     318</span>                 :             : </span>
+<span id="L319"><span class="lineNum">     319</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           2 :         if(strlen(out_manifest-&gt;firmwarefile) == 0||out_manifest-&gt;sha256[0] == 0|| (out_manifest-&gt;version_high==0 &amp;&amp; out_manifest-&gt;version_Low==0 &amp;&amp; out_manifest-&gt;version_patch==0)) {</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 5 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 6 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 1 time"> + </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L320"><span class="lineNum">     320</span>                 :<span class="tlaGNC">           1 :             ESP_LOGW(&quot;OTA&quot;, &quot;Manifest version is 0.0.0, treating as invalid.&quot;);</span></span>
+<span id="L321"><span class="lineNum">     321</span>                 :<span class="tlaGNC">           1 :             cJSON_Delete(json);</span></span>
+<span id="L322"><span class="lineNum">     322</span>                 :<span class="tlaGNC">           1 :             free(buffer);</span></span>
+<span id="L323"><span class="lineNum">     323</span>                 :<span class="tlaGNC">           1 :             esp_http_client_cleanup(client);</span></span>
+<span id="L324"><span class="lineNum">     324</span>                 :<span class="tlaGNC">           1 :             otataskstarted=0;</span></span>
+<span id="L325"><span class="lineNum">     325</span>                 :<span class="tlaGNC">           1 :             return ESP_FAIL;</span></span>
+<span id="L326"><span class="lineNum">     326</span>                 :             :         }</span>
+<span id="L327"><span class="lineNum">     327</span>                 :<span class="tlaGNC">           1 :         out_manifest-&gt;is_detail_present=1;</span></span>
+<span id="L328"><span class="lineNum">     328</span>                 :             :     }</span>
+<span id="L329"><span class="lineNum">     329</span>                 :             :     else{</span>
+<span id="L330"><span class="lineNum">     330</span>                 :<span class="tlaGNC">           1 :         ESP_LOGE(&quot;JSON&quot;, &quot;Manifest missing required fields or wrong types&quot;);</span></span>
+<span id="L331"><span class="lineNum">     331</span>                 :<span class="tlaGNC">           1 :         cJSON_Delete(json);</span></span>
+<span id="L332"><span class="lineNum">     332</span>                 :<span class="tlaGNC">           1 :         free(buffer);</span></span>
+<span id="L333"><span class="lineNum">     333</span>                 :<span class="tlaGNC">           1 :         otataskstarted=0;</span></span>
+<span id="L334"><span class="lineNum">     334</span>                 :<span class="tlaGNC">           1 :         return ESP_FAIL;</span></span>
+<span id="L335"><span class="lineNum">     335</span>                 :             :     }</span>
+<span id="L336"><span class="lineNum">     336</span>                 :             : </span>
+<span id="L337"><span class="lineNum">     337</span>                 :<span class="tlaGNC">           1 :     cJSON_Delete(json);</span></span>
+<span id="L338"><span class="lineNum">     338</span>                 :<span class="tlaGNC">           1 :     free(buffer);</span></span>
+<span id="L339"><span class="lineNum">     339</span>                 :<span class="tlaGNC">           1 :     esp_http_client_cleanup(client);</span></span>
+<span id="L340"><span class="lineNum">     340</span>                 :<span class="tlaGNC">           1 :     return ESP_OK;</span></span>
+<span id="L341"><span class="lineNum">     341</span>                 :             : }</span>
+<span id="L342"><span class="lineNum">     342</span>                 :             : </span>
+<span id="L343"><span class="lineNum">     343</span>                 :             : </span>
+<span id="L344"><span class="lineNum">     344</span>                 :             : // --- TRIGGER FUNCTION ---</span>
+<span id="L345"><span class="lineNum">     345</span>                 :<span class="tlaGNC">           2 : void check_for_updates() {</span></span>
+<span id="L346"><span class="lineNum">     346</span>                 :<span class="tlaGNC">           2 :         otataskstarted=1;</span></span>
+<span id="L347"><span class="lineNum">     347</span>                 :<span class="tlaGNC">           2 :     memset_j(server_url, sizeof(server_url), 0, sizeof(server_url));</span></span>
+<span id="L348"><span class="lineNum">     348</span>                 :<span class="tlaGNC">           2 :     Generate_Server_URL(server_url, sizeof(server_url), httpserver_params.url, httpserver_params.port, httpserver_params.filepath);</span></span>
+<span id="L349"><span class="lineNum">     349</span>                 :             : </span>
+<span id="L350"><span class="lineNum">     350</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           2 :     if(manifest.is_detail_present==0)</span></span>
+<span id="L351"><span class="lineNum">     351</span>                 :             :     {</span>
+<span id="L352"><span class="lineNum">     352</span>                 :<span class="tlaGNC">           1 :         memset_j(&amp;manifest, sizeof(manifest), 0, sizeof(manifest));</span></span>
+<span id="L353"><span class="lineNum">     353</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         if (get_ota_manifest(server_url, &amp;manifest) != ESP_OK)</span></span>
+<span id="L354"><span class="lineNum">     354</span>                 :             :         {</span>
+<span id="L355"><span class="lineNum">     355</span>                 :<span class="tlaGNC">           1 :             update_ota_failure_status();</span></span>
+<span id="L356"><span class="lineNum">     356</span>                 :<span class="tlaGNC">           1 :             return ;</span></span>
+<span id="L357"><span class="lineNum">     357</span>                 :             :         }</span>
+<span id="L358"><span class="lineNum">     358</span>                 :             :     }</span>
+<span id="L359"><span class="lineNum">     359</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :     if (manifest.is_detail_present) {</span></span>
+<span id="L360"><span class="lineNum">     360</span>                 :             :         </span>
+<span id="L361"><span class="lineNum">     361</span>                 :<span class="tlaGNC">           1 :         ESP_LOGI(&quot;OTA&quot;, &quot;New version %hu.%hu.%hu found! Starting download...&quot;, manifest.version_high, manifest.version_Low, manifest.version_patch);</span></span>
+<span id="L362"><span class="lineNum">     362</span>                 :<span class="tlaGNC">           1 :         download_params_t *params = malloc(sizeof(download_params_t));</span></span>
+<span id="L363"><span class="lineNum">     363</span>                 :             :             </span>
+<span id="L364"><span class="lineNum">     364</span>                 :<span class="tlaGNC">           1 :         Generate_Server_URL(params-&gt;url, sizeof(params-&gt;url), httpserver_params.url, httpserver_params.port, manifest.firmwarefile);</span></span>
+<span id="L365"><span class="lineNum">     365</span>                 :<span class="tlaGNC">           1 :         memcpy(params-&gt;expected_sha256, manifest.sha256, 32);</span></span>
+<span id="L366"><span class="lineNum">     366</span>                 :<span class="tlaGNC">           1 :         params-&gt;is_download = true;</span></span>
+<span id="L367"><span class="lineNum">     367</span>                 :<span class="tlaGNC">           1 :         params-&gt;use_verification = true;</span></span>
+<span id="L368"><span class="lineNum">     368</span>                 :<span class="tlaGNC">           1 :         ESP_LOGI(TAG, &quot;Checking for updates at %s&quot;, params-&gt;url);</span></span>
+<span id="L369"><span class="lineNum">     369</span>                 :<span class="tlaGNC">           1 :         xTaskCreate(download_task, &quot;ota_task&quot;, 10240, params, 5, NULL);</span></span>
+<span id="L370"><span class="lineNum">     370</span>                 :             :     }</span>
+<span id="L371"><span class="lineNum">     371</span>                 :             : }</span>
+<span id="L372"><span class="lineNum">     372</span>                 :             : </span>
+<span id="L373"><span class="lineNum">     373</span>                 :<span class="tlaGNC">          20 : void update_ota_failure_status(void) {</span></span>
+<span id="L374"><span class="lineNum">     374</span>                 :             :     char buffer[256];</span>
+<span id="L375"><span class="lineNum">     375</span>                 :<span class="tlaGNC">          20 :     otataskstarted=0;</span></span>
+<span id="L376"><span class="lineNum">     376</span>                 :<span class="tlaGNC">          20 :     failure_count++;</span></span>
+<span id="L377"><span class="lineNum">     377</span>                 :<span class="tlaGNC">          20 :     ESP_LOGI(&quot;OTA&quot;,&quot;OTA Failure count %d\n&quot;, failure_count);</span></span>
+<span id="L378"><span class="lineNum">     378</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 19 times"> + </span>]:<span class="tlaGNC">          20 :     if(failure_count &gt;= 10) {</span></span>
+<span id="L379"><span class="lineNum">     379</span>                 :<span class="tlaGNC">           1 :         ESP_LOGE(TAG, &quot;Max failure count reached. Stopping OTA updates.&quot;);</span></span>
+<span id="L380"><span class="lineNum">     380</span>                 :<span class="tlaGNC">           1 :         failure_count = 0; // Reset failure count</span></span>
+<span id="L381"><span class="lineNum">     381</span>                 :             :         //&quot;{\&quot;0\&quot;:{\&quot;ota0\&quot;:\&quot;0.0.0.0:8000:dummy.bin:0\&quot;}}&quot;</span>
+<span id="L382"><span class="lineNum">     382</span>                 :<span class="tlaGNC">           1 :         snprintf(buffer, sizeof(buffer), &quot;{\&quot;0\&quot;:{\&quot;ota0\&quot;:\&quot;%s:%d:%s:0\&quot;}}&quot;,httpserver_params.url,httpserver_params.port,httpserver_params.filepath);</span></span>
+<span id="L383"><span class="lineNum">     383</span>                 :<span class="tlaGNC">           1 :         printf(buffer);</span></span>
+<span id="L384"><span class="lineNum">     384</span>                 :<span class="tlaGNC">           1 :         update_config_tag(config_path, &quot;ota&quot;, buffer);</span></span>
+<span id="L385"><span class="lineNum">     385</span>                 :<span class="tlaGNC">           1 :         httpserver_params.ota_status = -1; // Indicate permanent failure in global status</span></span>
+<span id="L386"><span class="lineNum">     386</span>                 :<span class="tlaGNC">           1 :         httpserver_params.is_ota=0;</span></span>
+<span id="L387"><span class="lineNum">     387</span>                 :<span class="tlaGNC">           1 :         manifest.is_detail_present=0;</span></span>
+<span id="L388"><span class="lineNum">     388</span>                 :             :     }</span>
+<span id="L389"><span class="lineNum">     389</span>                 :<span class="tlaGNC">          20 : }</span></span>
+<span id="L390"><span class="lineNum">     390</span>                 :             : </span>
+<span id="L391"><span class="lineNum">     391</span>                 :<span class="tlaGNC">           7 : void Generate_Server_URL(char*server_url,size_t max_len,char* url, uint16_t port, char* filepath)</span></span>
+<span id="L392"><span class="lineNum">     392</span>                 :             : {</span>
+<span id="L393"><span class="lineNum">     393</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           7 :     if(httpserver_params.is_ota==1){        </span></span>
+<span id="L394"><span class="lineNum">     394</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 4 times"> + </span>]:<span class="tlaGNC">           5 :         if(port==0){</span></span>
+<span id="L395"><span class="lineNum">     395</span>                 :<span class="tlaGNC">           1 :             snprintf(server_url, max_len, &quot;http://%s//%s&quot;, url,filepath);</span></span>
+<span id="L396"><span class="lineNum">     396</span>                 :             :         }</span>
+<span id="L397"><span class="lineNum">     397</span>                 :             :         else {</span>
+<span id="L398"><span class="lineNum">     398</span>                 :<span class="tlaGNC">           4 :             snprintf(server_url, max_len, &quot;http://%s:%d//%s&quot;, url,port,filepath);</span></span>
+<span id="L399"><span class="lineNum">     399</span>                 :             :         }</span>
+<span id="L400"><span class="lineNum">     400</span>                 :<span class="tlaGNC">           5 :         ESP_LOGI(TAG, &quot;Generated Server URL: %s&quot;, server_url);</span></span>
+<span id="L401"><span class="lineNum">     401</span>                 :             :     }</span>
+<span id="L402"><span class="lineNum">     402</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           2 :     else if(httpserver_params.is_ota==2)</span></span>
+<span id="L403"><span class="lineNum">     403</span>                 :             :     {</span>
+<span id="L404"><span class="lineNum">     404</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           2 :         if(port==0){</span></span>
+<span id="L405"><span class="lineNum">     405</span>                 :<span class="tlaGNC">           1 :             snprintf(server_url, max_len, &quot;https://%s//%s&quot;, url,filepath);</span></span>
+<span id="L406"><span class="lineNum">     406</span>                 :             :         }</span>
+<span id="L407"><span class="lineNum">     407</span>                 :             :         else {</span>
+<span id="L408"><span class="lineNum">     408</span>                 :<span class="tlaGNC">           1 :             snprintf(server_url, max_len, &quot;https://%s:%d//%s&quot;, url,port,filepath);</span></span>
+<span id="L409"><span class="lineNum">     409</span>                 :             :         }</span>
+<span id="L410"><span class="lineNum">     410</span>                 :<span class="tlaGNC">           2 :         ESP_LOGI(TAG, &quot;Generated Server URL: %s&quot;, server_url);</span></span>
+<span id="L411"><span class="lineNum">     411</span>                 :             :     }</span>
+<span id="L412"><span class="lineNum">     412</span>                 :<span class="tlaGNC">           7 : }</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

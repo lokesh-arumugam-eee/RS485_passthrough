@@ -1,0 +1,44 @@
+        -:    0:Source:/mnt/d/Projects/Modbus_project/Modbus_cpplib_S3/AC_Controller_30/tests/cov_stubs/stubs/freertos/FreeRTOS.h
+        -:    0:Graph:build/main/xmodem/xmodem.gcno
+        -:    0:Data:build/main/xmodem/xmodem.gcda
+        -:    0:Runs:2
+        -:    1:#pragma once
+        -:    2:#include "portmacro.h"
+        -:    3:#include <stdint.h>
+        -:    4:#include <stdbool.h>
+        -:    5:#include <stdlib.h>
+        -:    6:
+        -:    7:#define configTICK_RATE_HZ   1000
+        -:    8:#define configMAX_PRIORITIES 25
+        -:    9:#define tskIDLE_PRIORITY     0
+        -:   10:#define configMINIMAL_STACK_SIZE 128
+        -:   11:
+        -:   12:typedef void* QueueHandle_t;
+        -:   13:typedef void* SemaphoreHandle_t;
+        -:   14:typedef void* TaskHandle_t;
+        -:   15:typedef void* EventGroupHandle_t;
+        -:   16:typedef void* TimerHandle_t;
+        -:   17:typedef void (*TaskFunction_t)(void*);
+        -:   18:typedef TickType_t portTickType;
+        -:   19:
+        -:   20:#define pdMS_TO_TICKS(ms) ((TickType_t)(ms))
+        -:   21:/* Increment each call so retry/timeout loops in firmware code (e.g.
+        -:   22:   uart_read_cb) eventually exit instead of spinning forever. */
+        -:   23:static inline TickType_t xTaskGetTickCount(void){ static TickType_t _t = 0; return _t++; }
+function vTaskDelay called 102 returned 100% blocks executed 100%
+      102:   24:static inline void vTaskDelay(TickType_t xTicksToDelay){(void)xTicksToDelay;}
+        -:   25:static inline void vTaskDelayUntil(TickType_t *pxPreviousWakeTime, TickType_t xTimeIncrement){(void)pxPreviousWakeTime;(void)xTimeIncrement;}
+        -:   26:static inline void vTaskSuspend(TaskHandle_t xTaskToSuspend){(void)xTaskToSuspend;}
+        -:   27:static inline void vTaskResume(TaskHandle_t xTaskToResume){(void)xTaskToResume;}
+        -:   28:static inline void vTaskDelete(TaskHandle_t xTaskToDelete){(void)xTaskToDelete;}
+        -:   29:static inline TaskHandle_t xTaskGetCurrentTaskHandle(void){return NULL;}
+        -:   30:
+        -:   31:static inline BaseType_t xTaskCreate(TaskFunction_t pvTaskCode, const char * const pcName, uint32_t usStackDepth, void *pvParameters, UBaseType_t uxPriority, TaskHandle_t *pvCreatedTask){
+        -:   32:    (void)pvTaskCode;(void)pcName;(void)usStackDepth;(void)pvParameters;(void)uxPriority;
+        -:   33:    if(pvCreatedTask)*pvCreatedTask=NULL;
+        -:   34:    return pdPASS;
+        -:   35:}
+        -:   36:static inline BaseType_t xTaskCreatePinnedToCore(TaskFunction_t pvTaskCode, const char * const pcName, uint32_t usStackDepth, void *pvParameters, UBaseType_t uxPriority, TaskHandle_t *pvCreatedTask, int xCoreID){
+        -:   37:    (void)xCoreID;
+        -:   38:    return xTaskCreate(pvTaskCode,pcName,usStackDepth,pvParameters,uxPriority,pvCreatedTask);
+        -:   39:}

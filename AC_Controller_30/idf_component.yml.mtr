@@ -1,0 +1,4 @@
+# Matter PoC: no extra managed dependencies (esp-matter components are
+# provided via EXTRA_COMPONENT_DIRS in the top-level CMakeLists.txt).
+# Original preserved as idf_component.yml.premtr.
+dependencies: {}
