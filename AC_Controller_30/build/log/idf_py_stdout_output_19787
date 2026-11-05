@@ -1,0 +1,602 @@
+Command: ninja all
+[0/1] Re-running CMake...
+-- Minimal build - OFF
+-- esp-idf-configdep will be used for faster recompilation
+-- Compiler launcher chain: esp-idf-configdep
+-- Building ESP-IDF components for target esp32s3
+NOTE: Processing 2 dependencies:
+NOTE: [1/2] espressif/cjson (1.7.19~2)
+NOTE: [2/2] idf (6.2.0)
+-- KCONFIG_REPORT_VERBOSITY not set, using default
+-- Project sdkconfig file /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig
+-- Compiler supported targets: xtensa-esp-elf
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_hal_regi2c/esp32s3/rom.regi2c.ld
+-- App "mqtt5" version: f2c5ea7-dirty
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_hal_wdt/esp32s3/rom.wdt.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_system/ld/esp32s3/memory.ld.in
+--   -> Preprocessing .in script: /home/lokesh/Documents/esp-idf/components/esp_system/ld/esp32s3/memory.ld.in
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_system/ld/esp32s3/sections.ld.in
+--   -> Preprocessing .in script: /home/lokesh/Documents/esp-idf/components/esp_system/ld/esp32s3/sections.ld.in
+--   -> Applying ldgen processing: /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/esp-idf/esp_system/ld/sections.ld.in
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.api.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.bt_funcs.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.libgcc.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.version.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ble_50.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ble_cca.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ble_test.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.libc.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/soc/esp32s3/ld/esp32s3.peripherals.ld
+-- Setting up mbedtls configuration
+-- Linkage type is PUBLIC
+-- Component idf::esp_trace will be linked with -Wl,--whole-archive
+-- Linker: /home/lokesh/.espressif/tools/xtensa-esp-elf/esp-16.1.0_20260609/xtensa-esp-elf/bin/xtensa-esp32s3-elf-ld (GNU ld (crosstool-NG esp-16.1.0_20260609) 2.46)
+-- Components: app_trace app_update bootloader bootloader_support bt cmock console cxx driver efuse esp-tls esp_adc esp_app_format esp_asrc_adapter esp_blockdev esp_blockdev_util esp_bootloader_format esp_coex esp_common esp_driver_ana_cmpr esp_driver_bitscrambler esp_driver_cam esp_driver_cordic esp_driver_dac esp_driver_dma esp_driver_gpio esp_driver_gptimer esp_driver_i2c esp_driver_i2s esp_driver_i3c esp_driver_isp esp_driver_jpeg esp_driver_ledc esp_driver_mcpwm esp_driver_parlio esp_driver_pcnt esp_driver_ppa esp_driver_rmt esp_driver_sd_intf esp_driver_sdio esp_driver_sdm esp_driver_sdmmc esp_driver_sdspi esp_driver_spi esp_driver_touch_sens esp_driver_tsens esp_driver_twai esp_driver_uart esp_driver_usb_serial_jtag esp_eth esp_event esp_gdbstub esp_hal_ana_cmpr esp_hal_ana_conv esp_hal_asrc esp_hal_cache esp_hal_cam esp_hal_clock esp_hal_cordic esp_hal_debug_assist esp_hal_dma esp_hal_emac esp_hal_gpio esp_hal_gpspi esp_hal_i2c esp_hal_i2s esp_hal_i3c esp_hal_ieee802154 esp_hal_jpeg esp_hal_lcd esp_hal_ledc esp_hal_mcpwm esp_hal_mspi esp_hal_parlio esp_hal_pcnt esp_hal_pmu esp_hal_ppa esp_hal_regi2c esp_hal_rmt esp_hal_rtc_timer esp_hal_sd esp_hal_security esp_hal_systimer esp_hal_timg esp_hal_touch_sens esp_hal_twai esp_hal_uart esp_hal_usb esp_hal_wdt esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_image_verify esp_lcd esp_libc esp_local_ctrl esp_mm esp_mspi esp_netif esp_netif_stack esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_riscv_trace esp_rom esp_security esp_sleep esp_stdio esp_system esp_timer esp_trace esp_usb_cdc_rom_console esp_wifi espcoredump espressif__cjson esptool_py fatfs freertos hal heap http_parser ieee802154 log lwip main mbedtls nvs_flash nvs_sec_provider openthread partition_table perfmon protobuf-c protocomm pthread rt sdmmc soc spi_flash spiffs tcp_transport ulp unity vfs wear_levelling wpa_supplicant xtensa
+-- Component paths: /home/lokesh/Documents/esp-idf/components/app_trace /home/lokesh/Documents/esp-idf/components/app_update /home/lokesh/Documents/esp-idf/components/bootloader /home/lokesh/Documents/esp-idf/components/bootloader_support /home/lokesh/Documents/esp-idf/components/bt /home/lokesh/Documents/esp-idf/components/cmock /home/lokesh/Documents/esp-idf/components/console /home/lokesh/Documents/esp-idf/components/cxx /home/lokesh/Documents/esp-idf/components/driver /home/lokesh/Documents/esp-idf/components/efuse /home/lokesh/Documents/esp-idf/components/esp-tls /home/lokesh/Documents/esp-idf/components/esp_adc /home/lokesh/Documents/esp-idf/components/esp_app_format /home/lokesh/Documents/esp-idf/components/esp_asrc_adapter /home/lokesh/Documents/esp-idf/components/esp_blockdev /home/lokesh/Documents/esp-idf/components/esp_blockdev_util /home/lokesh/Documents/esp-idf/components/esp_bootloader_format /home/lokesh/Documents/esp-idf/components/esp_coex /home/lokesh/Documents/esp-idf/components/esp_common /home/lokesh/Documents/esp-idf/components/esp_driver_ana_cmpr /home/lokesh/Documents/esp-idf/components/esp_driver_bitscrambler /home/lokesh/Documents/esp-idf/components/esp_driver_cam /home/lokesh/Documents/esp-idf/components/esp_driver_cordic /home/lokesh/Documents/esp-idf/components/esp_driver_dac /home/lokesh/Documents/esp-idf/components/esp_driver_dma /home/lokesh/Documents/esp-idf/components/esp_driver_gpio /home/lokesh/Documents/esp-idf/components/esp_driver_gptimer /home/lokesh/Documents/esp-idf/components/esp_driver_i2c /home/lokesh/Documents/esp-idf/components/esp_driver_i2s /home/lokesh/Documents/esp-idf/components/esp_driver_i3c /home/lokesh/Documents/esp-idf/components/esp_driver_isp /home/lokesh/Documents/esp-idf/components/esp_driver_jpeg /home/lokesh/Documents/esp-idf/components/esp_driver_ledc /home/lokesh/Documents/esp-idf/components/esp_driver_mcpwm /home/lokesh/Documents/esp-idf/components/esp_driver_parlio /home/lokesh/Documents/esp-idf/components/esp_driver_pcnt /home/lokesh/Documents/esp-idf/components/esp_driver_ppa /home/lokesh/Documents/esp-idf/components/esp_driver_rmt /home/lokesh/Documents/esp-idf/components/esp_driver_sd_intf /home/lokesh/Documents/esp-idf/components/esp_driver_sdio /home/lokesh/Documents/esp-idf/components/esp_driver_sdm /home/lokesh/Documents/esp-idf/components/esp_driver_sdmmc /home/lokesh/Documents/esp-idf/components/esp_driver_sdspi /home/lokesh/Documents/esp-idf/components/esp_driver_spi /home/lokesh/Documents/esp-idf/components/esp_driver_touch_sens /home/lokesh/Documents/esp-idf/components/esp_driver_tsens /home/lokesh/Documents/esp-idf/components/esp_driver_twai /home/lokesh/Documents/esp-idf/components/esp_driver_uart /home/lokesh/Documents/esp-idf/components/esp_driver_usb_serial_jtag /home/lokesh/Documents/esp-idf/components/esp_eth /home/lokesh/Documents/esp-idf/components/esp_event /home/lokesh/Documents/esp-idf/components/esp_gdbstub /home/lokesh/Documents/esp-idf/components/esp_hal_ana_cmpr /home/lokesh/Documents/esp-idf/components/esp_hal_ana_conv /home/lokesh/Documents/esp-idf/components/esp_hal_asrc /home/lokesh/Documents/esp-idf/components/esp_hal_cache /home/lokesh/Documents/esp-idf/components/esp_hal_cam /home/lokesh/Documents/esp-idf/components/esp_hal_clock /home/lokesh/Documents/esp-idf/components/esp_hal_cordic /home/lokesh/Documents/esp-idf/components/esp_hal_debug_assist /home/lokesh/Documents/esp-idf/components/esp_hal_dma /home/lokesh/Documents/esp-idf/components/esp_hal_emac /home/lokesh/Documents/esp-idf/components/esp_hal_gpio /home/lokesh/Documents/esp-idf/components/esp_hal_gpspi /home/lokesh/Documents/esp-idf/components/esp_hal_i2c /home/lokesh/Documents/esp-idf/components/esp_hal_i2s /home/lokesh/Documents/esp-idf/components/esp_hal_i3c /home/lokesh/Documents/esp-idf/components/esp_hal_ieee802154 /home/lokesh/Documents/esp-idf/components/esp_hal_jpeg /home/lokesh/Documents/esp-idf/components/esp_hal_lcd /home/lokesh/Documents/esp-idf/components/esp_hal_ledc /home/lokesh/Documents/esp-idf/components/esp_hal_mcpwm /home/lokesh/Documents/esp-idf/components/esp_hal_mspi /home/lokesh/Documents/esp-idf/components/esp_hal_parlio /home/lokesh/Documents/esp-idf/components/esp_hal_pcnt /home/lokesh/Documents/esp-idf/components/esp_hal_pmu /home/lokesh/Documents/esp-idf/components/esp_hal_ppa /home/lokesh/Documents/esp-idf/components/esp_hal_regi2c /home/lokesh/Documents/esp-idf/components/esp_hal_rmt /home/lokesh/Documents/esp-idf/components/esp_hal_rtc_timer /home/lokesh/Documents/esp-idf/components/esp_hal_sd /home/lokesh/Documents/esp-idf/components/esp_hal_security /home/lokesh/Documents/esp-idf/components/esp_hal_systimer /home/lokesh/Documents/esp-idf/components/esp_hal_timg /home/lokesh/Documents/esp-idf/components/esp_hal_touch_sens /home/lokesh/Documents/esp-idf/components/esp_hal_twai /home/lokesh/Documents/esp-idf/components/esp_hal_uart /home/lokesh/Documents/esp-idf/components/esp_hal_usb /home/lokesh/Documents/esp-idf/components/esp_hal_wdt /home/lokesh/Documents/esp-idf/components/esp_hid /home/lokesh/Documents/esp-idf/components/esp_http_client /home/lokesh/Documents/esp-idf/components/esp_http_server /home/lokesh/Documents/esp-idf/components/esp_https_ota /home/lokesh/Documents/esp-idf/components/esp_https_server /home/lokesh/Documents/esp-idf/components/esp_hw_support /home/lokesh/Documents/esp-idf/components/esp_image_verify /home/lokesh/Documents/esp-idf/components/esp_lcd /home/lokesh/Documents/esp-idf/components/esp_libc /home/lokesh/Documents/esp-idf/components/esp_local_ctrl /home/lokesh/Documents/esp-idf/components/esp_mm /home/lokesh/Documents/esp-idf/components/esp_mspi /home/lokesh/Documents/esp-idf/components/esp_netif /home/lokesh/Documents/esp-idf/components/esp_netif_stack /home/lokesh/Documents/esp-idf/components/esp_partition /home/lokesh/Documents/esp-idf/components/esp_phy /home/lokesh/Documents/esp-idf/components/esp_pm /home/lokesh/Documents/esp-idf/components/esp_psram /home/lokesh/Documents/esp-idf/components/esp_ringbuf /home/lokesh/Documents/esp-idf/components/esp_riscv_trace /home/lokesh/Documents/esp-idf/components/esp_rom /home/lokesh/Documents/esp-idf/components/esp_security /home/lokesh/Documents/esp-idf/components/esp_sleep /home/lokesh/Documents/esp-idf/components/esp_stdio /home/lokesh/Documents/esp-idf/components/esp_system /home/lokesh/Documents/esp-idf/components/esp_timer /home/lokesh/Documents/esp-idf/components/esp_trace /home/lokesh/Documents/esp-idf/components/esp_usb_cdc_rom_console /home/lokesh/Documents/esp-idf/components/esp_wifi /home/lokesh/Documents/esp-idf/components/espcoredump /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/managed_components/espressif__cjson /home/lokesh/Documents/esp-idf/components/esptool_py /home/lokesh/Documents/esp-idf/components/fatfs /home/lokesh/Documents/esp-idf/components/freertos /home/lokesh/Documents/esp-idf/components/hal /home/lokesh/Documents/esp-idf/components/heap /home/lokesh/Documents/esp-idf/components/http_parser /home/lokesh/Documents/esp-idf/components/ieee802154 /home/lokesh/Documents/esp-idf/components/log /home/lokesh/Documents/esp-idf/components/lwip /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main /home/lokesh/Documents/esp-idf/components/mbedtls /home/lokesh/Documents/esp-idf/components/nvs_flash /home/lokesh/Documents/esp-idf/components/nvs_sec_provider /home/lokesh/Documents/esp-idf/components/openthread /home/lokesh/Documents/esp-idf/components/partition_table /home/lokesh/Documents/esp-idf/components/perfmon /home/lokesh/Documents/esp-idf/components/protobuf-c /home/lokesh/Documents/esp-idf/components/protocomm /home/lokesh/Documents/esp-idf/components/pthread /home/lokesh/Documents/esp-idf/components/rt /home/lokesh/Documents/esp-idf/components/sdmmc /home/lokesh/Documents/esp-idf/components/soc /home/lokesh/Documents/esp-idf/components/spi_flash /home/lokesh/Documents/esp-idf/components/spiffs /home/lokesh/Documents/esp-idf/components/tcp_transport /home/lokesh/Documents/esp-idf/components/ulp /home/lokesh/Documents/esp-idf/components/unity /home/lokesh/Documents/esp-idf/components/vfs /home/lokesh/Documents/esp-idf/components/wear_levelling /home/lokesh/Documents/esp-idf/components/wpa_supplicant /home/lokesh/Documents/esp-idf/components/xtensa
+-- Configuring done (27.1s)
+-- Generating done (2.2s)
+-- Build files have been written to: /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build
+[1/418] Preprocessing linker script /home/lokesh/Documents/esp-idf/components/esp_system/ld/esp32s3/memory.ld.in -> /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/esp-idf/esp_system/ld/memory.ld
+[2/418] Preprocessing linker script /home/lokesh/Documents/esp-idf/components/esp_system/ld/esp32s3/sections.ld.in -> /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/esp-idf/esp_system/ld/sections.ld.in
+[3/418] Building ASM object esp-idf/freertos/CMakeFiles/__idf_freertos.dir/FreeRTOS-Kernel/portable/xtensa/portasm.S.obj
+[4/418] Linking C static library esp-idf/freertos/libfreertos.a
+[5/418] Building ASM object esp-idf/esp_rom/CMakeFiles/__idf_esp_rom.dir/patches/esp_rom_longjmp.S.obj
+[6/418] Building ASM object esp-idf/esp_rom/CMakeFiles/__idf_esp_rom.dir/patches/esp_rom_cache_writeback_esp32s3.S.obj
+[7/418] Linking C static library esp-idf/esp_rom/libesp_rom.a
+[8/418] Building ASM object esp-idf/esp_system/CMakeFiles/__idf_esp_system.dir/port/arch/xtensa/panic_handler_asm.S.obj
+[9/418] Building ASM object esp-idf/esp_system/CMakeFiles/__idf_esp_system.dir/port/soc/esp32s3/highint_hdl.S.obj
+[10/418] Linking C static library esp-idf/esp_system/libesp_system.a
+[11/418] Building C object esp-idf/esp_pm/CMakeFiles/__idf_esp_pm.dir/pm_impl.c.obj
+[12/418] Linking C static library esp-idf/esp_pm/libesp_pm.a
+[13/418] Building ASM object esp-idf/esp_gdbstub/CMakeFiles/__idf_esp_gdbstub.dir/src/port/xtensa/gdbstub-entry.S.obj
+[14/418] Building ASM object esp-idf/xtensa/CMakeFiles/__idf_xtensa.dir/xtensa_intr_asm.S.obj
+[15/418] Building ASM object esp-idf/xtensa/CMakeFiles/__idf_xtensa.dir/xtensa_context.S.obj
+[16/418] Building ASM object esp-idf/xtensa/CMakeFiles/__idf_xtensa.dir/xtensa_vectors.S.obj
+[17/418] Linking C static library esp-idf/xtensa/libxtensa.a
+[18/418] Building C object esp-idf/esp_coex/CMakeFiles/__idf_esp_coex.dir/src/coexist_debug_diagram.c.obj
+[19/418] Linking C static library esp-idf/espressif__cjson/libespressif__cjson.a
+[20/418] Linking C static library esp-idf/esp_gdbstub/libesp_gdbstub.a
+[21/418] Building C object esp-idf/esp_coex/CMakeFiles/__idf_esp_coex.dir/src/lib_printf.c.obj
+[22/418] Building C object esp-idf/esp_coex/CMakeFiles/__idf_esp_coex.dir/src/coexist_debug.c.obj
+[23/418] Linking C static library esp-idf/spiffs/libspiffs.a
+[24/418] Linking C static library esp-idf/fatfs/libfatfs.a
+[25/418] Linking C static library esp-idf/esp_lcd/libesp_lcd.a
+[26/418] Building C object esp-idf/esp_coex/CMakeFiles/__idf_esp_coex.dir/src/coexist.c.obj
+[27/418] Building C object esp-idf/esp_coex/CMakeFiles/__idf_esp_coex.dir/esp32s3/esp_coex_adapter.c.obj
+[28/418] Building C object esp-idf/esp_wifi/CMakeFiles/__idf_esp_wifi.dir/src/wifi_init.c.obj
+[29/418] Building C object esp-idf/esp_wifi/CMakeFiles/__idf_esp_wifi.dir/esp32s3/esp_adapter.c.obj
+[30/418] Linking C static library esp-idf/esp_wifi/libesp_wifi.a
+[31/418] Linking C static library esp-idf/esp_coex/libesp_coex.a
+[32/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/allocator.c.obj
+[33/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/hci_log/bt_hci_log_insights.c.obj
+[34/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/hci_log/bt_hci_log.c.obj
+[35/418] Building C object esp-idf/esp_phy/CMakeFiles/__idf_esp_phy.dir/src/phy_common.c.obj
+[36/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/btc/core/btc_alarm.c.obj
+[37/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/btc/core/btc_manage.c.obj
+[38/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/buffer.c.obj
+[39/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/fixed_queue.c.obj
+[40/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/pkt_queue.c.obj
+[41/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/fixed_pkt_queue.c.obj
+[42/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/future.c.obj
+[43/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/hash_functions.c.obj
+[44/418] Linking C static library esp-idf/esp_phy/libesp_phy.a
+[45/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/api/esp_blufi_api.c.obj
+[46/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/btc/profile/esp/blufi/blufi_prf.c.obj
+[47/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/btc/profile/esp/blufi/blufi_protocol.c.obj
+[48/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/alarm.c.obj
+[49/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/utils.c.obj
+[50/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/osi.c.obj
+[51/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/ctr_prng.c.obj
+[52/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/semaphore.c.obj
+[53/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/sha256.c.obj
+[54/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/ble_log/deprecated/ble_log_spi_out.c.obj
+[55/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/hash_map.c.obj
+[56/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/config.c.obj
+[57/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/ctr_mode.c.obj
+[58/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/ecc_platform_specific.c.obj
+[59/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/list.c.obj
+[60/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/mutex.c.obj
+[61/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/port/esp_tinycrypt_port.c.obj
+[62/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/btc/core/btc_task.c.obj
+[63/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/aes_decrypt.c.obj
+[64/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/aes_encrypt.c.obj
+[65/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/ccm_mode.c.obj
+[66/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/ecc_dsa.c.obj
+[67/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/cmac_mode.c.obj
+[68/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/ecc_dh.c.obj
+[69/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/hmac_prng.c.obj
+[70/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/hmac.c.obj
+[71/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/cbc_mode.c.obj
+[72/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/controller/esp32c3/hci_uart_h4.c.obj
+[73/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/osi/thread.c.obj
+[74/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_hidd_api.c.obj
+[75/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/tinycrypt/src/ecc.c.obj
+[76/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_avrc_api.c.obj
+[77/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_bluedroid_hci.c.obj
+[78/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_gap_bt_api.c.obj
+[79/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_hf_client_api.c.obj
+[80/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_hf_ag_api.c.obj
+[81/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_a2dp_api.c.obj
+[82/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_hidh_api.c.obj
+[83/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_gatt_common_api.c.obj
+[84/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_bt_device.c.obj
+[85/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_gattc_api.c.obj
+[86/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_bt_main.c.obj
+[87/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/controller/esp32c3/bt.c.obj
+[88/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_pbac_api.c.obj
+[89/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_spp_api.c.obj
+[90/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_sdp_api.c.obj
+[91/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/av/bta_av_act.c.obj
+[92/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/av/bta_av_aact.c.obj
+[93/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_gatts_api.c.obj
+[94/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_l2cap_bt_api.c.obj
+[95/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/ar/bta_ar.c.obj
+[96/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/av/bta_av_ca_act.c.obj
+[97/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_opp_api.c.obj
+[98/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_pan_api.c.obj
+[99/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/av/bta_av_main.c.obj
+[100/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/av/bta_av_ca_sm.c.obj
+[101/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/av/bta_av_cfg.c.obj
+[102/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/av/bta_av_ssm.c.obj
+[103/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/av/bta_av_api.c.obj
+[104/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/av/bta_av_sbc.c.obj
+[105/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/api/esp_gap_ble_api.c.obj
+[106/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/av/bta_av_m24.c.obj
+[107/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/av/bta_av_ci.c.obj
+[108/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gattc_cache.c.obj
+[109/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gattc_api.c.obj
+[110/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/dm/bta_dm_co.c.obj
+[111/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gattc_ci.c.obj
+[112/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/dm/bta_dm_ci.c.obj
+[113/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/dm/bta_dm_cfg.c.obj
+[114/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/dm/bta_dm_main.c.obj
+[115/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/dm/bta_dm_sco.c.obj
+[116/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gatt_common.c.obj
+[117/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gattc_utils.c.obj
+[118/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gattc_main.c.obj
+[119/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gattc_act.c.obj
+[120/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/dm/bta_dm_pm.c.obj
+[121/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/dm/bta_dm_qos.c.obj
+[122/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gattc_co.c.obj
+[123/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hd/bta_hd_api.c.obj
+[124/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hh/bta_hh_act.c.obj
+[125/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hd/bta_hd_main.c.obj
+[126/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hh/bta_hh_api.c.obj
+[127/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hh/bta_hh_cfg.c.obj
+[128/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/dm/bta_dm_api.c.obj
+[129/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hh/bta_hh_main.c.obj
+[130/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gatts_co.c.obj
+[131/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gatts_utils.c.obj
+[132/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hh/bta_hh_utils.c.obj
+[133/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hd/bta_hd_act.c.obj
+[134/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gatts_api.c.obj
+[135/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hh/bta_hh_le.c.obj
+[136/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gatts_main.c.obj
+[137/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/jv/bta_jv_api.c.obj
+[138/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_ag/bta_ag_at.c.obj
+[139/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/jv/bta_jv_cfg.c.obj
+[140/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/jv/bta_jv_main.c.obj
+[141/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/gatt/bta_gatts_act.c.obj
+[142/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/jv/bta_jv_act.c.obj
+[143/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_ag/bta_ag_act.c.obj
+[144/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_ag/bta_ag_api.c.obj
+[145/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_ag/bta_ag_cmd.c.obj
+[146/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_ag/bta_ag_rfc.c.obj
+[147/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_ag/bta_ag_cfg.c.obj
+[148/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_ag/bta_ag_main.c.obj
+[149/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_ag/bta_ag_sdp.c.obj
+[150/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_ag/bta_ag_sco.c.obj
+[151/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_client/bta_hf_client_at.c.obj
+[152/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_client/bta_hf_client_main.c.obj
+[153/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_client/bta_hf_client_act.c.obj
+[154/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_client/bta_hf_client_cmd.c.obj
+[155/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/dm/bta_dm_act.c.obj
+[156/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_client/bta_hf_client_api.c.obj
+[157/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/pba/bta_pba_client_act.c.obj
+[158/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/pan/bta_pan_act.c.obj
+[159/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/pba/bta_pba_client_api.c.obj
+[160/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_client/bta_hf_client_rfc.c.obj
+[161/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/pba/bta_pba_client_main.c.obj
+[162/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_client/bta_hf_client_sco.c.obj
+[163/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/pan/bta_pan_main.c.obj
+[164/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/hf_client/bta_hf_client_sdp.c.obj
+[165/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/pba/bta_pba_client_sdp.c.obj
+[166/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/pan/bta_pan_api.c.obj
+[167/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/pan/bta_pan_ci.c.obj
+[168/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/opp/bta_opp_client_api.c.obj
+[169/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/opp/bta_opp_common.c.obj
+[170/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/opp/bta_opp_client_main.c.obj
+[171/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/opp/bta_opp_server_api.c.obj
+[172/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/opp/bta_opp_client_sdp.c.obj
+[173/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/opp/bta_opp_server_sdp.c.obj
+[174/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/sdp/bta_sdp_api.c.obj
+[175/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/core/btc_sec.c.obj
+[176/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/sdp/bta_sdp_cfg.c.obj
+[177/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/opp/bta_opp_server_main.c.obj
+[178/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/sdp/bta_sdp_act.c.obj
+[179/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/sdp/bta_sdp.c.obj
+[180/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/sys/utl.c.obj
+[181/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/sys/bta_sys_conn.c.obj
+[182/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/core/btc_profile_queue.c.obj
+[183/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/core/btc_sm.c.obj
+[184/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/a2dp/bta_av_co.c.obj
+[185/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/bta/sys/bta_sys_main.c.obj
+[186/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/core/btc_config.c.obj
+[187/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/core/btc_dev.c.obj
+[188/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/a2dp/btc_a2dp_sink.c.obj
+[189/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/a2dp/btc_a2dp.c.obj
+[190/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/core/btc_util.c.obj
+[191/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/core/btc_main.c.obj
+[192/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/a2dp/btc_a2dp_control.c.obj
+[193/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/a2dp/btc_a2dp_latm_raw.c.obj
+[194/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/core/btc_dm.c.obj
+[195/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/a2dp/btc_a2dp_sink_ext_codec.c.obj
+[196/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/a2dp/btc_a2dp_source.c.obj
+[197/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/a2dp/btc_a2dp_source_ext_codec.c.obj
+[198/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/core/btc_ble_storage.c.obj
+[199/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/core/btc_storage.c.obj
+[200/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/a2dp/btc_av.c.obj
+[201/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/avrc/btc_avrc.c.obj
+[202/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/avrc/bta_avrc_co.c.obj
+[203/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/hf_ag/bta_ag_co.c.obj
+[204/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/hid/bta_hh_co.c.obj
+[205/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/hf_ag/btc_hf_ag.c.obj
+[206/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/hf_client/btc_hf_client.c.obj
+[207/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/gap/btc_gap_bt.c.obj
+[208/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/hf_client/bta_hf_client_co.c.obj
+[209/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/gap/bta_gap_bt_co.c.obj
+[210/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/hid/btc_hh.c.obj
+[211/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/gatt/btc_gatt_common.c.obj
+[212/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/pan/bta_pan_co.c.obj
+[213/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/gatt/btc_gattc.c.obj
+[214/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/pba/btc_pba_client.c.obj
+[215/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/hid/btc_hd.c.obj
+[216/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/spp/btc_spp.c.obj
+[217/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/hci/hci_audio.c.obj
+[218/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/pan/btc_pan.c.obj
+[219/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/gatt/btc_gatt_util.c.obj
+[220/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/opp/btc_opp_server.c.obj
+[221/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/sdp/btc_sdp.c.obj
+[222/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/opp/btc_opp_vfs.c.obj
+[223/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/opp/btc_opp.c.obj
+[224/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/opp/btc_opp_client.c.obj
+[225/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/l2cap/btc_l2cap.c.obj
+[226/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/device/interop.c.obj
+[227/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/gatt/btc_gatts.c.obj
+[228/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/device/bdaddr.c.obj
+[229/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/hci/hci_packet_factory.c.obj
+[230/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/hci/hci_packet_parser.c.obj
+[231/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/a2dp/a2d_sbc.c.obj
+[232/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/hci/hci_hal_h4.c.obj
+[233/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/a2dp/a2d_m24.c.obj
+[234/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avct/avct_ccb.c.obj
+[235/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avct/avct_api.c.obj
+[236/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/hci/packet_fragmenter.c.obj
+[237/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/main/bte_main.c.obj
+[238/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/main/bte_init.c.obj
+[239/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/btc/profile/std/gap/btc_gap_ble.c.obj
+[240/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/a2dp/a2d_api.c.obj
+[241/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avct/avct_l2c.c.obj
+[242/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/device/controller.c.obj
+[243/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avct/avct_lcb.c.obj
+[244/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avdt/avdt_ad.c.obj
+[245/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avct/avct_lcb_act.c.obj
+[246/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avdt/avdt_api.c.obj
+[247/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avdt/avdt_ccb_act.c.obj
+[248/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/hci/hci_layer.c.obj
+[249/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avdt/avdt_ccb.c.obj
+[250/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avrc/avrc_api.c.obj
+[251/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avdt/avdt_l2c.c.obj
+[252/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avdt/avdt_msg.c.obj
+[253/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avdt/avdt_scb_act.c.obj
+[254/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avrc/avrc_bld_ct.c.obj
+[255/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avrc/avrc_pars_ct.c.obj
+[256/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avrc/avrc_bld_tg.c.obj
+[257/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/bnep/bnep_api.c.obj
+[258/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avdt/avdt_scb.c.obj
+[259/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avrc/avrc_opt.c.obj
+[260/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avrc/avrc_utils.c.obj
+[261/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/bnep/bnep_main.c.obj
+[262/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avrc/avrc_sdp.c.obj
+[263/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/bnep/bnep_utils.c.obj
+[264/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/avrc/avrc_pars_tg.c.obj
+[265/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_ble_adv_filter.c.obj
+[266/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/hid/hidh_conn.c.obj
+[267/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_ble_cont_energy.c.obj
+[268/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/hid/hidd_api.c.obj
+[269/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/hid/hidd_conn.c.obj
+[270/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/hid/hidh_api.c.obj
+[271/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_ble_batchscan.c.obj
+[272/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_ble_multi_adv.c.obj
+[273/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_ble_5_gap.c.obj
+[274/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_ble_bgconn.c.obj
+[275/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_ble_addr.c.obj
+[276/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_pm.c.obj
+[277/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_bredr_pwr_ctrl.c.obj
+[278/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_devctl.c.obj
+[279/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_ble_privacy.c.obj
+[280/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_main.c.obj
+[281/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_dev.c.obj
+[282/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_acl.c.obj
+[283/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_sco.c.obj
+[284/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gap/gap_api.c.obj
+[285/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btu/btu_init.c.obj
+[286/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gap/gap_conn.c.obj
+[287/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gap/gap_utils.c.obj
+[288/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gatt/gatt_cl.c.obj
+[289/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gatt/gatt_auth.c.obj
+[290/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btu/c2h_credit.c.obj
+[291/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_inq.c.obj
+[292/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btu/btu_task.c.obj
+[293/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gap/gap_ble.c.obj
+[294/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_ble.c.obj
+[295/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gatt/att_protocol.c.obj
+[296/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_ble_gap.c.obj
+[297/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/goep/goepc_api.c.obj
+[298/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gatt/gatt_attr.c.obj
+[299/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btu/btu_hcif.c.obj
+[300/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/goep/goeps_api.c.obj
+[301/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/goep/goepc_main.c.obj
+[302/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gatt/gatt_api.c.obj
+[303/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/goep/goeps_main.c.obj
+[304/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gatt/gatt_main.c.obj
+[305/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gatt/gatt_sr_hash.c.obj
+[306/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/l2cap/l2cap_client.c.obj
+[307/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gatt/gatt_db.c.obj
+[308/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/l2cap/l2c_fcr.c.obj
+[309/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/l2cap/l2c_csm.c.obj
+[310/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/l2cap/l2c_ucd.c.obj
+[311/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/obex/obex_api.c.obj
+[312/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/obex/obex_main.c.obj
+[313/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/btm/btm_sec.c.obj
+[314/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/pan/pan_api.c.obj
+[315/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/obex/obex_tl_l2cap.c.obj
+[316/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/pan/pan_main.c.obj
+[317/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gatt/gatt_sr.c.obj
+[318/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/hcic/hciblecmds.c.obj
+[319/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/gatt/gatt_utils.c.obj
+[320/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/l2cap/l2c_main.c.obj
+[321/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/obex/obex_tl_rfcomm.c.obj
+[322/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/l2cap/l2c_link.c.obj
+[323/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/l2cap/l2c_api.c.obj
+[324/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/pan/pan_utils.c.obj
+[325/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/l2cap/l2c_ble.c.obj
+[326/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/rfcomm/rfc_l2cap_if.c.obj
+[327/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/hcic/hcicmds.c.obj
+[328/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/rfcomm/port_api.c.obj
+[329/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/rfcomm/port_rfc.c.obj
+[330/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/rfcomm/port_utils.c.obj
+[331/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/rfcomm/rfc_mx_fsm.c.obj
+[332/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/rfcomm/rfc_port_fsm.c.obj
+[333/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/rfcomm/rfc_port_if.c.obj
+[334/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/rfcomm/rfc_ts_frames.c.obj
+[335/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/sdp/sdp_db.c.obj
+[336/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/rfcomm/rfc_utils.c.obj
+[337/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/aes.c.obj
+[338/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/p_256_curvepara.c.obj
+[339/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/sdp/sdp_main.c.obj
+[340/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/sdp/sdp_utils.c.obj
+[341/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/sdp/sdp_api.c.obj
+[342/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/p_256_ecc_pp.c.obj
+[343/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/p_256_multprecision.c.obj
+[344/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/proto-c/constants.pb-c.c.obj
+[345/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/sdp/sdp_discovery.c.obj
+[346/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/sdp/sdp_server.c.obj
+[347/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/config/stack_config.c.obj
+[348/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/l2cap/l2c_utils.c.obj
+[349/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/smp_br_main.c.obj
+[350/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/proto-c/session.pb-c.c.obj
+[351/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/proto-c/sec0.pb-c.c.obj
+[352/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/proto-c/sec2.pb-c.c.obj
+[353/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/proto-c/sec1.pb-c.c.obj
+[354/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/smp_main.c.obj
+[355/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/smp_cmac.c.obj
+[356/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/src/common/protocomm.c.obj
+[357/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/smp_l2c.c.obj
+[358/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/src/crypto/srp6a/esp_srp_mpi.c.obj
+[359/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/src/security/security0.c.obj
+[360/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/common/btc/profile/esp/blufi/bluedroid_host/esp_blufi.c.obj
+[361/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/smp_api.c.obj
+[362/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/src/transports/protocomm_console.c.obj
+[363/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/src/transports/protocomm_httpd.c.obj
+[364/418] Building C object esp-idf/esp_hid/CMakeFiles/__idf_esp_hid.dir/src/ble_hidh.c.obj
+[365/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/smp_utils.c.obj
+[366/418] Building C object esp-idf/esp_hid/CMakeFiles/__idf_esp_hid.dir/src/bt_hidh.c.obj
+[367/418] Building C object esp-idf/esp_hid/CMakeFiles/__idf_esp_hid.dir/src/esp_hidd.c.obj
+[368/418] Building C object esp-idf/esp_hid/CMakeFiles/__idf_esp_hid.dir/src/bt_hidd.c.obj
+[369/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/src/security/security2.c.obj
+[370/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/src/security/security1.c.obj
+[371/418] Building C object esp-idf/esp_hid/CMakeFiles/__idf_esp_hid.dir/src/esp_hidh.c.obj
+[372/418] Building C object esp-idf/esp_hid/CMakeFiles/__idf_esp_hid.dir/src/esp_hid_common.c.obj
+[373/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/src/crypto/srp6a/esp_srp.c.obj
+[374/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/smp_keys.c.obj
+[375/418] Building C object esp-idf/esp_local_ctrl/CMakeFiles/__idf_esp_local_ctrl.dir/src/esp_local_ctrl_handler.c.obj
+[376/418] Building C object esp-idf/esp_local_ctrl/CMakeFiles/__idf_esp_local_ctrl.dir/proto-c/esp_local_ctrl.pb-c.c.obj
+[377/418] Building C object esp-idf/esp_local_ctrl/CMakeFiles/__idf_esp_local_ctrl.dir/src/esp_local_ctrl.c.obj
+[378/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/src/transports/protocomm_ble.c.obj
+[379/418] Building C object esp-idf/protocomm/CMakeFiles/__idf_protocomm.dir/src/simple_ble/simple_ble.c.obj
+[380/418] Building C object esp-idf/bt/CMakeFiles/__idf_bt.dir/host/bluedroid/stack/smp/smp_act.c.obj
+[381/418] Building C object esp-idf/esp_hid/CMakeFiles/__idf_esp_hid.dir/src/ble_hidd.c.obj
+[382/418] Building C object esp-idf/esp_local_ctrl/CMakeFiles/__idf_esp_local_ctrl.dir/src/esp_local_ctrl_transport_httpd.c.obj
+[383/418] Building C object esp-idf/esp_local_ctrl/CMakeFiles/__idf_esp_local_ctrl.dir/src/esp_local_ctrl_transport_ble.c.obj
+[384/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/mqtt/mqtt_manager.c.obj
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/mqtt/mqtt_manager.c:22:20: warning: 'TAG' defined but not used [-Wunused-variable]
+   22 | static const char *TAG = "mqtt_manager";
+      |                    ^~~
+[385/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/uart/uart_app.c.obj
+[386/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/ota/ota.c.obj
+[387/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/main.c: In function 'app_main':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/main.c:259:7: warning: unused variable 'count' [-Wunused-variable]
+  259 |   int count =0;
+      |       ^~~~~
+[388/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/TimeManagement/TimeManagement.c.obj
+[389/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/ble_spp/ble_spp_server_demo.c.obj
+[390/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/wifi/wifiConnect.c.obj
+[391/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/status_led/status_led.c.obj
+[392/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/ota/log_capture.c.obj
+[393/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/sensors/sensirion_gas_index_algorithm.c.obj
+[394/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/controller/controller.c.obj
+FAILED: esp-idf/main/CMakeFiles/__idf_main.dir/controller/controller.c.obj 
+esp-idf-configdep /home/lokesh/.espressif/tools/xtensa-esp-elf/esp-16.1.0_20260609/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc -DCJSON_CIRCULAR_LIMIT=10000 -DCJSON_NESTING_LIMIT=1000 -DESP_PLATFORM -DESP_PSA_ITS_AVAILABLE -DIDF_VER=\"v6.1-dev-8894-gd445e947156\" -DMBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\" -DMBEDTLS_MAJOR_VERSION=4 -DSOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE -DSOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ -DTF_PSA_CRYPTO_USER_CONFIG_FILE=\"mbedtls/esp_config.h\" -DUNITY_INCLUDE_CONFIG_H -D_GLIBCXX_HAVE_POSIX_SEMAPHORE -D_GLIBCXX_USE_POSIX_SEMAPHORE -D_GNU_SOURCE -D_POSIX_READER_WRITER_LOCKS -D__STDC_WANT_LIB_EXT1__=0 -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/config -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/ble_spp -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/xmodem -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/controller -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/TimeManagement -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/mqtt -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/wifi -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/uart -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/ota -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/configuration -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/SafeFunctions -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/sensors -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/status_led -I/home/lokesh/Documents/esp-idf/components/esp_libc/platform_include -I/home/lokesh/Documents/esp-idf/components/freertos/config/include -I/home/lokesh/Documents/esp-idf/components/freertos/config/include/freertos -I/home/lokesh/Documents/esp-idf/components/freertos/config/xtensa/include -I/home/lokesh/Documents/esp-idf/components/freertos/FreeRTOS-Kernel/include -I/home/lokesh/Documents/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -I/home/lokesh/Documents/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I/home/lokesh/Documents/esp-idf/components/freertos/esp_additions/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/include/soc -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/ldo/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/debug_probe/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/etm/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/power_supply/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/modem/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/include/soc/esp32s3 -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/port/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/port/esp32s3/. -I/home/lokesh/Documents/esp-idf/components/heap/include -I/home/lokesh/Documents/esp-idf/components/heap/tlsf -I/home/lokesh/Documents/esp-idf/components/log/include -I/home/lokesh/Documents/esp-idf/components/soc/include -I/home/lokesh/Documents/esp-idf/components/soc/esp32s3 -I/home/lokesh/Documents/esp-idf/components/soc/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/soc/esp32s3/register -I/home/lokesh/Documents/esp-idf/components/hal/platform_port/include -I/home/lokesh/Documents/esp-idf/components/hal/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/hal/include -I/home/lokesh/Documents/esp-idf/components/esp_rom/include -I/home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/include/esp32s3 -I/home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3 -I/home/lokesh/Documents/esp-idf/components/esp_common/include -I/home/lokesh/Documents/esp-idf/components/esp_system/include -I/home/lokesh/Documents/esp-idf/components/esp_system/port/soc -I/home/lokesh/Documents/esp-idf/components/esp_system/port/include/private -I/home/lokesh/Documents/esp-idf/components/esp_stdio/include -I/home/lokesh/Documents/esp-idf/components/xtensa/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/xtensa/include -I/home/lokesh/Documents/esp-idf/components/xtensa/deprecated_include -I/home/lokesh/Documents/esp-idf/components/vfs/include -I/home/lokesh/Documents/esp-idf/components/esp_sleep/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_gpio/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_gpio/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_usb/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_usb/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_pmu/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_pmu/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_regi2c/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_regi2c/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_uart/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_uart/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_debug_assist/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_debug_assist/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_cache/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_cache/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ana_conv/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ana_conv/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_dma/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_dma/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/lwip/include -I/home/lokesh/Documents/esp-idf/components/lwip/include/apps -I/home/lokesh/Documents/esp-idf/components/lwip/lwip/src/include -I/home/lokesh/Documents/esp-idf/components/lwip/port/include -I/home/lokesh/Documents/esp-idf/components/lwip/port/freertos/include -I/home/lokesh/Documents/esp-idf/components/lwip/port/esp32xx/include -I/home/lokesh/Documents/esp-idf/components/lwip/port/esp32xx/include/arch -I/home/lokesh/Documents/esp-idf/components/lwip/port/esp32xx/include/sys -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/managed_components/espressif__cjson/cJSON -I/home/lokesh/Documents/esp-idf/components/esp_hal_gpspi/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_gpspi/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_clock/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_clock/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_mspi/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_mspi/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_blockdev/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_gpio/include -I/home/lokesh/Documents/esp-idf/components/esp_mm/include -I/home/lokesh/Documents/esp-idf/components/spi_flash/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_timing_tuning/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_timing_tuning/tuning_scheme_impl/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_intr/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/esp_mspi_align/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_mem_barrier/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_timing_tuning/port/esp32s3/. -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_timing_tuning/port/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_security/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_security/include -I/home/lokesh/Documents/esp-idf/components/esp_app_format/include -I/home/lokesh/Documents/esp-idf/components/esp_partition/include -I/home/lokesh/Documents/esp-idf/components/efuse/include -I/home/lokesh/Documents/esp-idf/components/efuse/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_bootloader_format/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_timg/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_timg/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_wdt/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_wdt/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_rtc_timer/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_rtc_timer/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_security/include -I/home/lokesh/Documents/esp-idf/components/bootloader_support/include -I/home/lokesh/Documents/esp-idf/components/bootloader_support/bootloader_flash/include -I/home/lokesh/Documents/esp-idf/components/esp_usb_cdc_rom_console/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_systimer/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_systimer/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_pm/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_touch_sens/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_touch_sens/include -I/home/lokesh/Documents/esp-idf/components/pthread/include -I/home/lokesh/Documents/esp-idf/components/esp_timer/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_dma/include -I/home/lokesh/Documents/esp-idf/components/esp_ringbuf/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_uart/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_gptimer/include -I/home/lokesh/Documents/esp-idf/components/app_trace/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/port/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/library -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/core -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/src -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/extras -I/home/lokesh/Documents/esp-idf/components/mbedtls/port/psa_driver/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/port/psa_crypto_storage/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/include -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/esp-idf/mbedtls/mbedtls/tf-psa-crypto/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/drivers/everest/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/drivers/p256-m/p256-m -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/drivers/pqcp/include -I/home/lokesh/Documents/esp-idf/components/app_update/include -I/home/lokesh/Documents/esp-idf/components/esp_event/include -I/home/lokesh/Documents/esp-idf/components/nvs_sec_provider/include -I/home/lokesh/Documents/esp-idf/components/nvs_flash/include -I/home/lokesh/Documents/esp-idf/components/esp_phy/include -I/home/lokesh/Documents/esp-idf/components/esp_phy/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_usb_serial_jtag/include -I/home/lokesh/Documents/esp-idf/components/esp_netif/include -I/home/lokesh/Documents/esp-idf/components/wpa_supplicant/include -I/home/lokesh/Documents/esp-idf/components/wpa_supplicant/port/include -I/home/lokesh/Documents/esp-idf/components/wpa_supplicant/esp_supplicant/include -I/home/lokesh/Documents/esp-idf/components/esp_coex/include -I/home/lokesh/Documents/esp-idf/components/esp_wifi/include -I/home/lokesh/Documents/esp-idf/components/esp_wifi/include/local -I/home/lokesh/Documents/esp-idf/components/esp_wifi/wifi_apps/include -I/home/lokesh/Documents/esp-idf/components/esp_wifi/wifi_apps/nan_app/include -I/home/lokesh/Documents/esp-idf/components/esp_wifi/remote/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_spi/include -I/home/lokesh/Documents/esp-idf/components/esp_gdbstub/include -I/home/lokesh/Documents/esp-idf/components/bt/common/osi/include -I/home/lokesh/Documents/esp-idf/components/bt/common/api/include/api -I/home/lokesh/Documents/esp-idf/components/bt/common/btc/profile/esp/blufi/include -I/home/lokesh/Documents/esp-idf/components/bt/common/btc/profile/esp/include -I/home/lokesh/Documents/esp-idf/components/bt/common/hci_log/include -I/home/lokesh/Documents/esp-idf/components/bt/common/ble_log/include -I/home/lokesh/Documents/esp-idf/components/bt/common/ble_log/deprecated/include -I/home/lokesh/Documents/esp-idf/components/bt/common/osal/include -I/home/lokesh/Documents/esp-idf/components/bt/common/tinycrypt/include -I/home/lokesh/Documents/esp-idf/components/bt/common/tinycrypt/port -I/home/lokesh/Documents/esp-idf/components/bt/include/esp32c3/include -I/home/lokesh/Documents/esp-idf/components/bt/host/bluedroid/api/include/api -I/home/lokesh/Documents/esp-idf/components/bt/ble_profiles/common/include -I/home/lokesh/Documents/esp-idf/components/unity/include -I/home/lokesh/Documents/esp-idf/components/unity/unity/src -I/home/lokesh/Documents/esp-idf/components/cmock/CMock/src -I/home/lokesh/Documents/esp-idf/components/console -I/home/lokesh/Documents/esp-idf/components/esp_hal_i2c/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_i2c/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_twai/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_twai/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/driver/i2c/include -I/home/lokesh/Documents/esp-idf/components/driver/touch_sensor/include -I/home/lokesh/Documents/esp-idf/components/driver/twai/include -I/home/lokesh/Documents/esp-idf/components/driver/touch_sensor/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/http_parser -I/home/lokesh/Documents/esp-idf/components/esp-tls -I/home/lokesh/Documents/esp-idf/components/esp-tls/esp-tls-crypto -I/home/lokesh/Documents/esp-idf/components/esp_adc/include -I/home/lokesh/Documents/esp-idf/components/esp_adc/interface -I/home/lokesh/Documents/esp-idf/components/esp_adc/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_asrc/include -I/home/lokesh/Documents/esp-idf/components/esp_asrc_adapter/include -I/home/lokesh/Documents/esp-idf/components/esp_blockdev_util/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ana_cmpr/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_ana_cmpr/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_bitscrambler/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_cam/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_cam/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_isp/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_cam/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_cam/interface -I/home/lokesh/Documents/esp-idf/components/esp_driver_cam/dvp/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_cordic/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_cordic/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_dac/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_i2c/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_i2s/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_i2s/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_i2s/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_i3c/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_i3c/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_jpeg/include -I/home/lokesh/Documents/esp-idf/components/esp_psram/include -I/home/lokesh/Documents/esp-idf/components/esp_psram/device/include -I/home/lokesh/Documents/esp-idf/components/esp_psram/xip_impl/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_jpeg/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ledc/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ledc/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_ledc/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_mcpwm/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_mcpwm/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_mcpwm/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_parlio/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_parlio/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_pcnt/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_pcnt/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_pcnt/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ppa/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_ppa/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_rmt/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_rmt/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_rmt/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_sd/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_sd/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/sdmmc/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sd_intf/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sdio/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sdm/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sdmmc/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sdmmc/legacy/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sdspi/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_touch_sens/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_touch_sens/hw_ver2/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_tsens/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_twai/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_emac/include -I/home/lokesh/Documents/esp-idf/components/esp_eth/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ieee802154/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_lcd/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_lcd/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hid/include -I/home/lokesh/Documents/esp-idf/components/tcp_transport/include -I/home/lokesh/Documents/esp-idf/components/esp_http_client/include -I/home/lokesh/Documents/esp-idf/components/esp_http_server/include -I/home/lokesh/Documents/esp-idf/components/esp_https_ota/include -I/home/lokesh/Documents/esp-idf/components/esp_https_server/include -I/home/lokesh/Documents/esp-idf/components/esp_lcd/include -I/home/lokesh/Documents/esp-idf/components/esp_lcd/interface -I/home/lokesh/Documents/esp-idf/components/esp_lcd/rgb/include -I/home/lokesh/Documents/esp-idf/components/protobuf-c/protobuf-c -I/home/lokesh/Documents/esp-idf/components/protocomm/include/common -I/home/lokesh/Documents/esp-idf/components/protocomm/include/security -I/home/lokesh/Documents/esp-idf/components/protocomm/include/transports -I/home/lokesh/Documents/esp-idf/components/protocomm/include/crypto/srp6a -I/home/lokesh/Documents/esp-idf/components/protocomm/proto-c -I/home/lokesh/Documents/esp-idf/components/esp_local_ctrl/include -I/home/lokesh/Documents/esp-idf/components/esp_riscv_trace/include -I/home/lokesh/Documents/esp-idf/components/esp_trace/include -I/home/lokesh/Documents/esp-idf/components/wear_levelling/include -I/home/lokesh/Documents/esp-idf/components/fatfs/diskio -I/home/lokesh/Documents/esp-idf/components/fatfs/src -I/home/lokesh/Documents/esp-idf/components/fatfs/vfs -I/home/lokesh/Documents/esp-idf/components/ieee802154/include -I/home/lokesh/Documents/esp-idf/components/perfmon/include -I/home/lokesh/Documents/esp-idf/components/rt/include -I/home/lokesh/Documents/esp-idf/components/spiffs/include @"/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/toolchain/cflags" -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wextra -Wno-error=extra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fno-shrink-wrap -Wunused-but-set-variable=1 -fmacro-prefix-map=/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30=. -fmacro-prefix-map=/home/lokesh/Documents/esp-idf=/IDF -fstrict-volatile-bitfields -fno-lto -fno-jump-tables -fno-tree-switch-conversion -std=gnu23 -Wno-old-style-declaration -fzero-init-padding-bits=all -fno-malloc-dce -MD -MT esp-idf/main/CMakeFiles/__idf_main.dir/controller/controller.c.obj -MF esp-idf/main/CMakeFiles/__idf_main.dir/controller/controller.c.obj.d -o esp-idf/main/CMakeFiles/__idf_main.dir/controller/controller.c.obj -c /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/controller/controller.c
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/controller/controller.c: In function 'parse_WifiConfigCmd':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/controller/controller.c:315:10: warning: unused variable 'port' [-Wunused-variable]
+  315 |     char port[6];
+      |          ^~~~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/controller/controller.c: In function 'generate_config_json':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/controller/controller.c:493:14: warning: unused variable 'tms_buf' [-Wunused-variable]
+  493 |         char tms_buf[32] ;
+      |              ^~~~~~~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/controller/controller.c: In function 'AC_Cntrl_event_handler':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/controller/controller.c:883:89: error: dereferencing 'void *' pointer [-Werror]
+  883 |                   memcpy_j(&g_u8_rx_data[0], sizeof(g_u8_rx_data), (uint8_t*)&event_data[0], 132);
+      |                                                                                         ^
+cc1: all warnings being treated as errors
+configdep.c:684: in main: exec_process exited with error code: 1
+[395/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/ota/http_server.c.obj
+[396/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/sensors/sensors.c.obj
+In file included from /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/sensors/sensors.c:2:
+/home/lokesh/Documents/esp-idf/components/driver/i2c/include/driver/i2c.h:13:9: note: '#pragma message: 
+================================ CRITICAL WARNING ================================
+This legacy I2C driver (driver/i2c.h) is officially END-OF-LIFE (EOL) as of ESP-IDF v6.0.
+
+1. NO SUPPORT: ESP-IDF will not provide updates, bug fixes, or security patches timely.
+2. PLANNED REMOVAL: This driver WILL BE REMOVED in ESP-IDF v7.0 (next major release).
+3. ACTION REQUIRED: Migrate to 'driver/i2c_master.h' or 'driver/i2c_slave.h' immediately.
+   - If you are a library maintainer, please update your code.
+   - If you are using 3rd-party libraries, contact the authors for updates.
+
+4. SUPPRESS WARNING: Set Kconfig 'CONFIG_I2C_SUPPRESS_DEPRECATE_WARN=y' to silent
+   this warning. However, by doing so, YOU ASSUME ALL RISKS including potential
+   security vulnerabilities, system instability, and future incompatibility.
+
+For API reference of the new I2C driver, see: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/i2c.html
+For other items about migration, see: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/migration-guides/index.html
+==================================================================================
+   '
+   13 | #pragma message("\n" \
+      |         ^~~~~~~
+[397/418] Linking C static library esp-idf/bt/libbt.a
+[398/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/modbus/data.c.obj
+[399/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/xmodem/xmodem.c.obj
+[400/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/modbus/modbus_tcp.c.obj
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c: In function 'modbus_gateway_task':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c:193:13: warning: unused variable 'timeout_in_ms' [-Wunused-variable]
+  193 |         int timeout_in_ms = 1000 * ip_config[0].server_timeout;
+      |             ^~~~~~~~~~~~~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c: At top level:
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c:19:20: warning: 'TAG' defined but not used [-Wunused-variable]
+   19 | static const char *TAG = "modbustcp";
+      |                    ^~~
+[401/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/ota/chunked_ota.c.obj
+[402/418] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/SafeFunctions/Jio_EA_Safe_Functions.cpp.obj
+[403/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/configuration/configuration.c.obj
+[404/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/modbus/modbus_rtu.c.obj
+FAILED: esp-idf/main/CMakeFiles/__idf_main.dir/modbus/modbus_rtu.c.obj 
+esp-idf-configdep /home/lokesh/.espressif/tools/xtensa-esp-elf/esp-16.1.0_20260609/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc -DCJSON_CIRCULAR_LIMIT=10000 -DCJSON_NESTING_LIMIT=1000 -DESP_PLATFORM -DESP_PSA_ITS_AVAILABLE -DIDF_VER=\"v6.1-dev-8894-gd445e947156\" -DMBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\" -DMBEDTLS_MAJOR_VERSION=4 -DSOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE -DSOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ -DTF_PSA_CRYPTO_USER_CONFIG_FILE=\"mbedtls/esp_config.h\" -DUNITY_INCLUDE_CONFIG_H -D_GLIBCXX_HAVE_POSIX_SEMAPHORE -D_GLIBCXX_USE_POSIX_SEMAPHORE -D_GNU_SOURCE -D_POSIX_READER_WRITER_LOCKS -D__STDC_WANT_LIB_EXT1__=0 -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/config -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/ble_spp -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/xmodem -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/controller -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/TimeManagement -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/mqtt -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/wifi -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/uart -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/ota -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/configuration -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/SafeFunctions -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/sensors -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/status_led -I/home/lokesh/Documents/esp-idf/components/esp_libc/platform_include -I/home/lokesh/Documents/esp-idf/components/freertos/config/include -I/home/lokesh/Documents/esp-idf/components/freertos/config/include/freertos -I/home/lokesh/Documents/esp-idf/components/freertos/config/xtensa/include -I/home/lokesh/Documents/esp-idf/components/freertos/FreeRTOS-Kernel/include -I/home/lokesh/Documents/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -I/home/lokesh/Documents/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I/home/lokesh/Documents/esp-idf/components/freertos/esp_additions/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/include/soc -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/ldo/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/debug_probe/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/etm/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/power_supply/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/modem/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/include/soc/esp32s3 -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/port/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hw_support/port/esp32s3/. -I/home/lokesh/Documents/esp-idf/components/heap/include -I/home/lokesh/Documents/esp-idf/components/heap/tlsf -I/home/lokesh/Documents/esp-idf/components/log/include -I/home/lokesh/Documents/esp-idf/components/soc/include -I/home/lokesh/Documents/esp-idf/components/soc/esp32s3 -I/home/lokesh/Documents/esp-idf/components/soc/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/soc/esp32s3/register -I/home/lokesh/Documents/esp-idf/components/hal/platform_port/include -I/home/lokesh/Documents/esp-idf/components/hal/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/hal/include -I/home/lokesh/Documents/esp-idf/components/esp_rom/include -I/home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/include/esp32s3 -I/home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3 -I/home/lokesh/Documents/esp-idf/components/esp_common/include -I/home/lokesh/Documents/esp-idf/components/esp_system/include -I/home/lokesh/Documents/esp-idf/components/esp_system/port/soc -I/home/lokesh/Documents/esp-idf/components/esp_system/port/include/private -I/home/lokesh/Documents/esp-idf/components/esp_stdio/include -I/home/lokesh/Documents/esp-idf/components/xtensa/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/xtensa/include -I/home/lokesh/Documents/esp-idf/components/xtensa/deprecated_include -I/home/lokesh/Documents/esp-idf/components/vfs/include -I/home/lokesh/Documents/esp-idf/components/esp_sleep/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_gpio/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_gpio/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_usb/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_usb/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_pmu/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_pmu/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_regi2c/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_regi2c/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_uart/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_uart/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_debug_assist/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_debug_assist/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_cache/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_cache/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ana_conv/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ana_conv/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_dma/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_dma/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/lwip/include -I/home/lokesh/Documents/esp-idf/components/lwip/include/apps -I/home/lokesh/Documents/esp-idf/components/lwip/lwip/src/include -I/home/lokesh/Documents/esp-idf/components/lwip/port/include -I/home/lokesh/Documents/esp-idf/components/lwip/port/freertos/include -I/home/lokesh/Documents/esp-idf/components/lwip/port/esp32xx/include -I/home/lokesh/Documents/esp-idf/components/lwip/port/esp32xx/include/arch -I/home/lokesh/Documents/esp-idf/components/lwip/port/esp32xx/include/sys -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/managed_components/espressif__cjson/cJSON -I/home/lokesh/Documents/esp-idf/components/esp_hal_gpspi/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_gpspi/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_clock/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_clock/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_mspi/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_mspi/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_blockdev/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_gpio/include -I/home/lokesh/Documents/esp-idf/components/esp_mm/include -I/home/lokesh/Documents/esp-idf/components/spi_flash/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_timing_tuning/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_timing_tuning/tuning_scheme_impl/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_intr/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/esp_mspi_align/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_mem_barrier/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_timing_tuning/port/esp32s3/. -I/home/lokesh/Documents/esp-idf/components/esp_mspi/mspi_timing_tuning/port/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_security/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_security/include -I/home/lokesh/Documents/esp-idf/components/esp_app_format/include -I/home/lokesh/Documents/esp-idf/components/esp_partition/include -I/home/lokesh/Documents/esp-idf/components/efuse/include -I/home/lokesh/Documents/esp-idf/components/efuse/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_bootloader_format/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_timg/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_timg/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_wdt/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_wdt/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_rtc_timer/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_rtc_timer/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_security/include -I/home/lokesh/Documents/esp-idf/components/bootloader_support/include -I/home/lokesh/Documents/esp-idf/components/bootloader_support/bootloader_flash/include -I/home/lokesh/Documents/esp-idf/components/esp_usb_cdc_rom_console/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_systimer/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_systimer/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_pm/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_touch_sens/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_touch_sens/include -I/home/lokesh/Documents/esp-idf/components/pthread/include -I/home/lokesh/Documents/esp-idf/components/esp_timer/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_dma/include -I/home/lokesh/Documents/esp-idf/components/esp_ringbuf/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_uart/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_gptimer/include -I/home/lokesh/Documents/esp-idf/components/app_trace/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/port/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/library -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/core -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/src -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/extras -I/home/lokesh/Documents/esp-idf/components/mbedtls/port/psa_driver/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/port/psa_crypto_storage/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/include -I/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/esp-idf/mbedtls/mbedtls/tf-psa-crypto/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/drivers/everest/include -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/drivers/p256-m/p256-m -I/home/lokesh/Documents/esp-idf/components/mbedtls/mbedtls/tf-psa-crypto/drivers/pqcp/include -I/home/lokesh/Documents/esp-idf/components/app_update/include -I/home/lokesh/Documents/esp-idf/components/esp_event/include -I/home/lokesh/Documents/esp-idf/components/nvs_sec_provider/include -I/home/lokesh/Documents/esp-idf/components/nvs_flash/include -I/home/lokesh/Documents/esp-idf/components/esp_phy/include -I/home/lokesh/Documents/esp-idf/components/esp_phy/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_usb_serial_jtag/include -I/home/lokesh/Documents/esp-idf/components/esp_netif/include -I/home/lokesh/Documents/esp-idf/components/wpa_supplicant/include -I/home/lokesh/Documents/esp-idf/components/wpa_supplicant/port/include -I/home/lokesh/Documents/esp-idf/components/wpa_supplicant/esp_supplicant/include -I/home/lokesh/Documents/esp-idf/components/esp_coex/include -I/home/lokesh/Documents/esp-idf/components/esp_wifi/include -I/home/lokesh/Documents/esp-idf/components/esp_wifi/include/local -I/home/lokesh/Documents/esp-idf/components/esp_wifi/wifi_apps/include -I/home/lokesh/Documents/esp-idf/components/esp_wifi/wifi_apps/nan_app/include -I/home/lokesh/Documents/esp-idf/components/esp_wifi/remote/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_spi/include -I/home/lokesh/Documents/esp-idf/components/esp_gdbstub/include -I/home/lokesh/Documents/esp-idf/components/bt/common/osi/include -I/home/lokesh/Documents/esp-idf/components/bt/common/api/include/api -I/home/lokesh/Documents/esp-idf/components/bt/common/btc/profile/esp/blufi/include -I/home/lokesh/Documents/esp-idf/components/bt/common/btc/profile/esp/include -I/home/lokesh/Documents/esp-idf/components/bt/common/hci_log/include -I/home/lokesh/Documents/esp-idf/components/bt/common/ble_log/include -I/home/lokesh/Documents/esp-idf/components/bt/common/ble_log/deprecated/include -I/home/lokesh/Documents/esp-idf/components/bt/common/osal/include -I/home/lokesh/Documents/esp-idf/components/bt/common/tinycrypt/include -I/home/lokesh/Documents/esp-idf/components/bt/common/tinycrypt/port -I/home/lokesh/Documents/esp-idf/components/bt/include/esp32c3/include -I/home/lokesh/Documents/esp-idf/components/bt/host/bluedroid/api/include/api -I/home/lokesh/Documents/esp-idf/components/bt/ble_profiles/common/include -I/home/lokesh/Documents/esp-idf/components/unity/include -I/home/lokesh/Documents/esp-idf/components/unity/unity/src -I/home/lokesh/Documents/esp-idf/components/cmock/CMock/src -I/home/lokesh/Documents/esp-idf/components/console -I/home/lokesh/Documents/esp-idf/components/esp_hal_i2c/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_i2c/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_twai/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_twai/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/driver/i2c/include -I/home/lokesh/Documents/esp-idf/components/driver/touch_sensor/include -I/home/lokesh/Documents/esp-idf/components/driver/twai/include -I/home/lokesh/Documents/esp-idf/components/driver/touch_sensor/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/http_parser -I/home/lokesh/Documents/esp-idf/components/esp-tls -I/home/lokesh/Documents/esp-idf/components/esp-tls/esp-tls-crypto -I/home/lokesh/Documents/esp-idf/components/esp_adc/include -I/home/lokesh/Documents/esp-idf/components/esp_adc/interface -I/home/lokesh/Documents/esp-idf/components/esp_adc/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_asrc/include -I/home/lokesh/Documents/esp-idf/components/esp_asrc_adapter/include -I/home/lokesh/Documents/esp-idf/components/esp_blockdev_util/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ana_cmpr/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_ana_cmpr/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_bitscrambler/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_cam/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_cam/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_isp/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_cam/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_cam/interface -I/home/lokesh/Documents/esp-idf/components/esp_driver_cam/dvp/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_cordic/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_cordic/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_dac/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_i2c/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_i2s/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_i2s/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_i2s/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_i3c/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_i3c/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_jpeg/include -I/home/lokesh/Documents/esp-idf/components/esp_psram/include -I/home/lokesh/Documents/esp-idf/components/esp_psram/device/include -I/home/lokesh/Documents/esp-idf/components/esp_psram/xip_impl/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_jpeg/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ledc/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ledc/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_ledc/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_mcpwm/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_mcpwm/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_mcpwm/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_parlio/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_parlio/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_pcnt/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_pcnt/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_pcnt/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ppa/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_ppa/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_rmt/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_rmt/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_rmt/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_sd/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_sd/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/sdmmc/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sd_intf/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sdio/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sdm/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sdmmc/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sdmmc/legacy/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_sdspi/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_touch_sens/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_touch_sens/hw_ver2/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_tsens/include -I/home/lokesh/Documents/esp-idf/components/esp_driver_twai/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_emac/include -I/home/lokesh/Documents/esp-idf/components/esp_eth/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_ieee802154/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_lcd/include -I/home/lokesh/Documents/esp-idf/components/esp_hal_lcd/esp32s3/include -I/home/lokesh/Documents/esp-idf/components/esp_hid/include -I/home/lokesh/Documents/esp-idf/components/tcp_transport/include -I/home/lokesh/Documents/esp-idf/components/esp_http_client/include -I/home/lokesh/Documents/esp-idf/components/esp_http_server/include -I/home/lokesh/Documents/esp-idf/components/esp_https_ota/include -I/home/lokesh/Documents/esp-idf/components/esp_https_server/include -I/home/lokesh/Documents/esp-idf/components/esp_lcd/include -I/home/lokesh/Documents/esp-idf/components/esp_lcd/interface -I/home/lokesh/Documents/esp-idf/components/esp_lcd/rgb/include -I/home/lokesh/Documents/esp-idf/components/protobuf-c/protobuf-c -I/home/lokesh/Documents/esp-idf/components/protocomm/include/common -I/home/lokesh/Documents/esp-idf/components/protocomm/include/security -I/home/lokesh/Documents/esp-idf/components/protocomm/include/transports -I/home/lokesh/Documents/esp-idf/components/protocomm/include/crypto/srp6a -I/home/lokesh/Documents/esp-idf/components/protocomm/proto-c -I/home/lokesh/Documents/esp-idf/components/esp_local_ctrl/include -I/home/lokesh/Documents/esp-idf/components/esp_riscv_trace/include -I/home/lokesh/Documents/esp-idf/components/esp_trace/include -I/home/lokesh/Documents/esp-idf/components/wear_levelling/include -I/home/lokesh/Documents/esp-idf/components/fatfs/diskio -I/home/lokesh/Documents/esp-idf/components/fatfs/src -I/home/lokesh/Documents/esp-idf/components/fatfs/vfs -I/home/lokesh/Documents/esp-idf/components/ieee802154/include -I/home/lokesh/Documents/esp-idf/components/perfmon/include -I/home/lokesh/Documents/esp-idf/components/rt/include -I/home/lokesh/Documents/esp-idf/components/spiffs/include @"/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/toolchain/cflags" -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wextra -Wno-error=extra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fno-shrink-wrap -Wunused-but-set-variable=1 -fmacro-prefix-map=/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30=. -fmacro-prefix-map=/home/lokesh/Documents/esp-idf=/IDF -fstrict-volatile-bitfields -fno-lto -fno-jump-tables -fno-tree-switch-conversion -std=gnu23 -Wno-old-style-declaration -fzero-init-padding-bits=all -fno-malloc-dce -MD -MT esp-idf/main/CMakeFiles/__idf_main.dir/modbus/modbus_rtu.c.obj -MF esp-idf/main/CMakeFiles/__idf_main.dir/modbus/modbus_rtu.c.obj.d -o esp-idf/main/CMakeFiles/__idf_main.dir/modbus/modbus_rtu.c.obj -c /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c: In function 'populate_modbus_read_input':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:646:9: warning: unused variable 'len' [-Wunused-variable]
+  646 |     int len=0;
+      |         ^~~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:645:14: warning: unused variable 'Temp' [-Wunused-variable]
+  645 |     uint16_t Temp;
+      |              ^~~~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:644:14: warning: unused variable 'ip' [-Wunused-variable]
+  644 |     uint32_t ip;
+      |              ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c: In function 'populate_modbus_write':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:827:31: error: comparison is always true due to limited range of data type [-Werror=type-limits]
+  827 |                 if (in_buf[i] >= 0 && in_buf[i] <= 255) {
+      |                               ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:841:31: error: comparison is always true due to limited range of data type [-Werror=type-limits]
+  841 |                 if (in_buf[i] >= 0 && in_buf[i] <= 65535) {
+      |                               ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:841:49: error: comparison is always true due to limited range of data type [-Werror=type-limits]
+  841 |                 if (in_buf[i] >= 0 && in_buf[i] <= 65535) {
+      |                                                 ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:902:44: error: comparison is always true due to limited range of data type [-Werror=type-limits]
+  902 |                 if(in_buf[i]>0 && in_buf[i]<=65535){
+      |                                            ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:916:44: error: comparison is always true due to limited range of data type [-Werror=type-limits]
+  916 |                 if(in_buf[i]>0 && in_buf[i]<=65535){
+      |                                            ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:930:44: error: comparison is always true due to limited range of data type [-Werror=type-limits]
+  930 |                 if(in_buf[i]>0 && in_buf[i]<=65535){
+      |                                            ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:956:43: error: comparison is always true due to limited range of data type [-Werror=type-limits]
+  956 |             if(in_buf[i] > 0 && in_buf[i] <= 65535) {
+      |                                           ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:999:30: error: comparison is always true due to limited range of data type [-Werror=type-limits]
+  999 |                 if(in_buf[i] <= 65535) {
+      |                              ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:703:14: warning: unused variable 'ip' [-Wunused-variable]
+  703 |     uint32_t ip;
+      |              ^~
+cc1: all warnings being treated as errors
+configdep.c:684: in main: exec_process exited with error code: 1
+[405/418] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/modbus/nanomodbus.c.obj
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/nanomodbus.c:94:13: warning: 'put_2_inv' defined but not used [-Wunused-function]
+   94 | static void put_2_inv(nmbs_t* nmbs, uint16_t data) {
+      |             ^~~~~~~~~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/nanomodbus.c:81:17: warning: 'get_2_inv' defined but not used [-Wunused-function]
+   81 | static uint16_t get_2_inv(nmbs_t* nmbs) {
+      |                 ^~~~~~~~~
+[406/418] Performing build step for 'bootloader'
+[0/1] Re-running CMake...
+-- Minimal build - OFF
+-- No compiler launcher chain will be used.
+-- Building ESP-IDF components for target esp32s3
+-- KCONFIG_REPORT_VERBOSITY not set, using default
+-- Project sdkconfig file /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig
+NOTE: /home/lokesh/Documents/esp-idf/components/bootloader/Kconfig.projbuild:383: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bootloader/Kconfig.projbuild:423: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_sleep/./port/esp32p4/Kconfig.p4_rev3_mspi_workaround:6: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_system/./port/soc/esp32s3/Kconfig.memory:21: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bootloader/Kconfig.app_rollback:17: Trying to set symbol BOOTLOADER_APP_ROLLBACK_CONFIRM_ON_STARTUP to n, but it is currently selected by choice BOOTLOADER_APP_ROLLBACK_CONFIRM_MODE. For setting it to n, set another choice symbol to y instead.
+NOTE: Kconfig parser version: 1
+NOTE: Kconfig defaults policy: use sdkconfig
+NOTE: Status: Finished with notifications
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_stdio/Kconfig:150: ESP_CONSOLE_UART_BAUDRATE has user-set value 115200 from /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_libc/Kconfig:73: LIBC_STDOUT_LINE_ENDING has user-set value LIBC_STDOUT_LINE_ENDING_CRLF from /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig but is not visible
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_libc/Kconfig:98: LIBC_STDIN_LINE_ENDING has user-set value LIBC_STDIN_LINE_ENDING_CR from /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig but is not visible
+-- Compiler supported targets: xtensa-esp-elf
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/soc/esp32s3/ld/esp32s3.peripherals.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_hal_regi2c/esp32s3/rom.regi2c.ld
+-- Bootloader project name: "bootloader" version: 1
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_hal_wdt/esp32s3/rom.wdt.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.api.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.bt_funcs.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.libgcc.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.version.ld
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.libc.ld
+-- Linker: /home/lokesh/.espressif/tools/xtensa-esp-elf/esp-16.1.0_20260609/xtensa-esp-elf/bin/xtensa-esp32s3-elf-ld (GNU ld (crosstool-NG esp-16.1.0_20260609) 2.46)
+-- Components: bootloader bootloader_support efuse esp_app_format esp_blockdev esp_bootloader_format esp_common esp_hal_ana_conv esp_hal_cache esp_hal_clock esp_hal_debug_assist esp_hal_dma esp_hal_gpio esp_hal_gpspi esp_hal_mspi esp_hal_pmu esp_hal_regi2c esp_hal_rtc_timer esp_hal_security esp_hal_systimer esp_hal_timg esp_hal_uart esp_hal_usb esp_hal_wdt esp_hw_support esp_image_verify esp_libc esp_mspi esp_rom esp_security esp_sleep esp_stdio esp_system esptool_py freertos hal log main micro-ecc partition_table soc spi_flash xtensa
+-- Component paths: /home/lokesh/Documents/esp-idf/components/bootloader /home/lokesh/Documents/esp-idf/components/bootloader_support /home/lokesh/Documents/esp-idf/components/efuse /home/lokesh/Documents/esp-idf/components/esp_app_format /home/lokesh/Documents/esp-idf/components/esp_blockdev /home/lokesh/Documents/esp-idf/components/esp_bootloader_format /home/lokesh/Documents/esp-idf/components/esp_common /home/lokesh/Documents/esp-idf/components/esp_hal_ana_conv /home/lokesh/Documents/esp-idf/components/esp_hal_cache /home/lokesh/Documents/esp-idf/components/esp_hal_clock /home/lokesh/Documents/esp-idf/components/esp_hal_debug_assist /home/lokesh/Documents/esp-idf/components/esp_hal_dma /home/lokesh/Documents/esp-idf/components/esp_hal_gpio /home/lokesh/Documents/esp-idf/components/esp_hal_gpspi /home/lokesh/Documents/esp-idf/components/esp_hal_mspi /home/lokesh/Documents/esp-idf/components/esp_hal_pmu /home/lokesh/Documents/esp-idf/components/esp_hal_regi2c /home/lokesh/Documents/esp-idf/components/esp_hal_rtc_timer /home/lokesh/Documents/esp-idf/components/esp_hal_security /home/lokesh/Documents/esp-idf/components/esp_hal_systimer /home/lokesh/Documents/esp-idf/components/esp_hal_timg /home/lokesh/Documents/esp-idf/components/esp_hal_uart /home/lokesh/Documents/esp-idf/components/esp_hal_usb /home/lokesh/Documents/esp-idf/components/esp_hal_wdt /home/lokesh/Documents/esp-idf/components/esp_hw_support /home/lokesh/Documents/esp-idf/components/esp_image_verify /home/lokesh/Documents/esp-idf/components/esp_libc /home/lokesh/Documents/esp-idf/components/esp_mspi /home/lokesh/Documents/esp-idf/components/esp_rom /home/lokesh/Documents/esp-idf/components/esp_security /home/lokesh/Documents/esp-idf/components/esp_sleep /home/lokesh/Documents/esp-idf/components/esp_stdio /home/lokesh/Documents/esp-idf/components/esp_system /home/lokesh/Documents/esp-idf/components/esptool_py /home/lokesh/Documents/esp-idf/components/freertos /home/lokesh/Documents/esp-idf/components/hal /home/lokesh/Documents/esp-idf/components/log /home/lokesh/Documents/esp-idf/components/bootloader/subproject/main /home/lokesh/Documents/esp-idf/components/bootloader/subproject/components/micro-ecc /home/lokesh/Documents/esp-idf/components/partition_table /home/lokesh/Documents/esp-idf/components/soc /home/lokesh/Documents/esp-idf/components/spi_flash /home/lokesh/Documents/esp-idf/components/xtensa
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/bootloader/subproject/main/ld/esp32s3/bootloader.memory.ld.in
+--   -> Preprocessing .in script: /home/lokesh/Documents/esp-idf/components/bootloader/subproject/main/ld/esp32s3/bootloader.memory.ld.in
+-- Adding linker script /home/lokesh/Documents/esp-idf/components/bootloader/subproject/main/ld/esp32s3/bootloader.sections.ld.in
+--   -> Preprocessing .in script: /home/lokesh/Documents/esp-idf/components/bootloader/subproject/main/ld/esp32s3/bootloader.sections.ld.in
+-- Configuring done (15.5s)
+-- Generating done (0.4s)
+-- Build files have been written to: /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/bootloader
+[1/2] cd /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/bootloader && /home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python /home/lokesh/Documents/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/bootloader/bootloader.bin
+Bootloader binary size 0x50c0 bytes. 0x2f40 bytes (37%) free.
+ninja: build stopped: subcommand failed.

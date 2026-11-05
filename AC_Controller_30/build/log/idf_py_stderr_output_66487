@@ -1,0 +1,314 @@
+Command: ninja all
+CMake Warning at /home/lokesh/Documents/esp-idf/tools/cmake/build.cmake:671 (message):
+  WARNING: 4 unexpected files and directories were found in the
+  "managed_components" directory: espressif__esp_delta_ota espressif__jsmn
+  espressif__esp_secure_cert_mgr espressif__cbor
+
+  Content of the managed components directory is managed automatically and
+  it's not recommended to place any files there manually.  To suppress this
+  warning set the environment variable:
+  IDF_COMPONENT_SUPPRESS_UNKNOWN_FILE_WARNINGS=1
+
+Call Stack (most recent call first):
+  /home/lokesh/Documents/esp-idf/tools/cmake/project.cmake:911 (idf_build_process)
+  CMakeLists.txt:7 (project)
+
+
+NOTE: /home/lokesh/Documents/esp-idf/components/bootloader/Kconfig.projbuild:383: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bootloader/Kconfig.projbuild:423: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/common/Kconfig.in:192: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/host/bluedroid/Kconfig.in:68: Choice symbol BT_ENC_KEY_SIZE_CTRL_STD (member of BT_ENC_KEY_SIZE_CTRL_ENABLED choice) is defined with a warning, which has no effect for choice symbols.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/host/bluedroid/Kconfig.in:74: Choice symbol BT_ENC_KEY_SIZE_CTRL_VSC (member of BT_ENC_KEY_SIZE_CTRL_ENABLED choice) is defined with a warning, which has no effect for choice symbols.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/host/bluedroid/Kconfig.in:81: Choice symbol BT_ENC_KEY_SIZE_CTRL_NONE (member of BT_ENC_KEY_SIZE_CTRL_ENABLED choice) is defined with a warning, which has no effect for choice symbols.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/host/nimble/Kconfig.in:1299: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/controller/esp32c3/Kconfig.in:709: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_mm/Kconfig:20: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_sleep/./port/esp32p4/Kconfig.p4_rev3_mspi_workaround:6: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_system/./port/soc/esp32s3/Kconfig.memory:21: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/openthread/Kconfig:116: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/sdkconfig.rename.esp32s3:4: duplicate rename mapping for CONFIG_BT_NIMBLE_COEX_PHY_CODED_TX_RX_TLIM_EN: previous target CONFIG_BT_LE_COEX_PHY_CODED_TX_RX_TLIM_EN, new target CONFIG_BT_CTRL_COEX_PHY_CODED_TX_RX_TLIM_EN - last mapping is used
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/sdkconfig.rename.esp32s3:5: duplicate rename mapping for CONFIG_BT_NIMBLE_COEX_PHY_CODED_TX_RX_TLIM_DIS: previous target CONFIG_BT_LE_COEX_PHY_CODED_TX_RX_TLIM_DIS, new target CONFIG_BT_CTRL_COEX_PHY_CODED_TX_RX_TLIM_DIS - last mapping is used
+Loading defaults file /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults...
+NOTE: /tmp/kconfgen_tmpgcs51s4_:317: CONFIG_BOOTLOADER_COMPILER_OPTIMIZATION_NONE was replaced with CONFIG_BOOTLOADER_COMPILER_OPTIMIZATION_DEBUG
+NOTE: /tmp/kconfgen_tmpgcs51s4_:339: CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE was replaced with CONFIG_BOOTLOADER_APP_ROLLBACK_CONFIRM_BY_APP
+NOTE: /tmp/kconfgen_tmpgcs51s4_:665: CONFIG_GPTIMER_ISR_IRAM_SAFE was replaced with CONFIG_GPTIMER_ISR_CACHE_SAFE
+NOTE: /tmp/kconfgen_tmpgcs51s4_:858: CONFIG_PERIPH_CTRL_FUNC_IN_IRAM was replaced with CONFIG_ESP_PERIPH_CTRL_FUNC_IN_IRAM
+NOTE: /tmp/kconfgen_tmpgcs51s4_:965: CONFIG_ESP_SYSTEM_MEMPROT_FEATURE was replaced with CONFIG_ESP_SYSTEM_MEMPROT
+NOTE: /tmp/kconfgen_tmpgcs51s4_:966: CONFIG_ESP_SYSTEM_MEMPROT_FEATURE_LOCK was replaced with CONFIG_ESP_SYSTEM_MEMPROT_PMS_LOCK
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1012: CONFIG_ESP_SYSTEM_BROWNOUT_INTR was replaced with CONFIG_ESP_BROWNOUT_USE_INTR
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1476: CONFIG_MBEDTLS_ATCA_HW_ECDSA_SIGN was replaced with CONFIG_MBEDTLS_SECURE_ELEMENT_DRIVER_ENABLED
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1477: CONFIG_MBEDTLS_ATCA_HW_ECDSA_VERIFY was replaced with CONFIG_MBEDTLS_SECURE_ELEMENT_DRIVER_ENABLED
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1580: CONFIG_NEWLIB_STDOUT_LINE_ENDING_CRLF was replaced with CONFIG_LIBC_STDOUT_LINE_ENDING_CRLF
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1581: CONFIG_NEWLIB_STDOUT_LINE_ENDING_LF was replaced with CONFIG_LIBC_STDOUT_LINE_ENDING_LF
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1582: CONFIG_NEWLIB_STDOUT_LINE_ENDING_CR was replaced with CONFIG_LIBC_STDOUT_LINE_ENDING_CR
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1583: CONFIG_NEWLIB_STDIN_LINE_ENDING_CRLF was replaced with CONFIG_LIBC_STDIN_LINE_ENDING_CRLF
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1584: CONFIG_NEWLIB_STDIN_LINE_ENDING_LF was replaced with CONFIG_LIBC_STDIN_LINE_ENDING_LF
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1585: CONFIG_NEWLIB_STDIN_LINE_ENDING_CR was replaced with CONFIG_LIBC_STDIN_LINE_ENDING_CR
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1586: CONFIG_NEWLIB_NANO_FORMAT was replaced with CONFIG_LIBC_NEWLIB_NANO_FORMAT
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1587: CONFIG_NEWLIB_TIME_SYSCALL_USE_RTC_HRT was replaced with CONFIG_LIBC_TIME_SYSCALL_USE_RTC_HRT
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1588: CONFIG_NEWLIB_TIME_SYSCALL_USE_RTC was replaced with CONFIG_LIBC_TIME_SYSCALL_USE_RTC
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1589: CONFIG_NEWLIB_TIME_SYSCALL_USE_HRT was replaced with CONFIG_LIBC_TIME_SYSCALL_USE_HRT
+NOTE: /tmp/kconfgen_tmpgcs51s4_:1590: CONFIG_NEWLIB_TIME_SYSCALL_USE_NONE was replaced with CONFIG_LIBC_TIME_SYSCALL_USE_NONE
+NOTE: /tmp/kconfgen_tmpgcs51s4_:2298: CONFIG_BT_NIMBLE_COEX_PHY_CODED_TX_RX_TLIM_EN was replaced with CONFIG_BT_CTRL_COEX_PHY_CODED_TX_RX_TLIM_EN
+NOTE: /tmp/kconfgen_tmpgcs51s4_:2299: CONFIG_BT_NIMBLE_COEX_PHY_CODED_TX_RX_TLIM_DIS was replaced with CONFIG_BT_CTRL_COEX_PHY_CODED_TX_RX_TLIM_DIS
+NOTE: /home/lokesh/Documents/esp-idf/components/bootloader/Kconfig.app_rollback:17: Trying to set symbol BOOTLOADER_APP_ROLLBACK_CONFIRM_ON_STARTUP to n, but it is currently selected by choice BOOTLOADER_APP_ROLLBACK_CONFIRM_MODE. For setting it to n, set another choice symbol to y instead.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/controller/esp32c3/Kconfig.in:421: Choice BT_CTRL_COEX_PHY_CODED_TX_RX_TLIM has multiple active selections. The last one will be used: BT_CTRL_COEX_PHY_CODED_TX_RX_TLIM_DIS.
+NOTE: unknown kconfig symbol 'SOC_EFUSE_HAS_EFUSE_RST_BUG' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_ASSIST_DEBUG_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_ADC_MAX_CHANNEL_NUM' assigned to '5' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_ADC_DIGI_CONTROLLER_NUM' assigned to '1' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_ADC_DIGI_IIR_FILTER_NUM' assigned to '2' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_ADC_SAMPLE_FREQ_THRES_HIGH' assigned to '83333' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_ADC_SAMPLE_FREQ_THRES_LOW' assigned to '611' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_ADC_RTC_MIN_BITWIDTH' assigned to '12' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_ADC_RTC_MAX_BITWIDTH' assigned to '12' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SHARED_IDCACHE_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_CACHE_MEMORY_IBANK_SIZE' assigned to '0x4000' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_CPU_HAS_FLEXIBLE_INTC' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_CPU_HAS_CSR_PC' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_GDMA_NUM_GROUPS_MAX' assigned to '1' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_GDMA_PAIRS_PER_GROUP_MAX' assigned to '3' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_GPIO_FILTER_CLK_SUPPORT_APB' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_GPIO_SUPPORT_DEEPSLEEP_WAKEUP' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_GPIO_DEEP_SLEEP_WAKE_VALID_GPIO_MASK' assigned to '0' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_GPIO_DEEP_SLEEP_WAKE_SUPPORTED_PIN_CNT' assigned to '6' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_GPIO_CLOCKOUT_BY_GPIO_MATRIX' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_DEDIC_GPIO_OUT_CHANNELS_NUM' assigned to '8' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_DEDIC_GPIO_IN_CHANNELS_NUM' assigned to '8' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_DEDIC_PERIPH_ALWAYS_ENABLE' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_I2C_FIFO_LEN' assigned to '32' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_I2C_CMD_REG_NUM' assigned to '8' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_I2C_SUPPORT_HW_CLR_BUS' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_I2C_SLAVE_SUPPORT_I2CRAM_ACCESS' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_I2S_NUM' assigned to '1' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_I2S_SUPPORTS_XTAL' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_I2S_SUPPORTS_PLL_F160M' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_RMT_GROUPS' assigned to '1' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_RMT_TX_CANDIDATES_PER_GROUP' assigned to '2' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_RMT_RX_CANDIDATES_PER_GROUP' assigned to '2' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_RMT_CHANNELS_PER_GROUP' assigned to '4' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_RMT_SUPPORT_RX_DEMODULATION' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_RMT_SUPPORT_TX_ASYNC_STOP' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_RMT_SUPPORT_TX_SYNCHRO' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_RMT_SUPPORT_TX_CARRIER_DATA_ONLY' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_RMT_SUPPORT_XTAL' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_RMT_SUPPORT_APB' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_RMT_SUPPORT_RC_FAST' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SLEEP_SYSTIMER_STALL_WORKAROUND' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SLEEP_TGWDT_STOP_WORKAROUND' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SDM_GROUPS' assigned to '1' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SDM_CHANNELS_PER_GROUP' assigned to '4' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SDM_CLK_SUPPORT_APB' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_MAX_CS_NUM' assigned to '6' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_SUPPORT_DDRCLK' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_SLAVE_SUPPORT_SEG_TRANS' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_SUPPORT_CD_SIG' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_SUPPORT_CONTINUOUS_TRANS' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_SUPPORT_CLK_APB' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_SUPPORT_CLK_XTAL' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_PERIPH_SUPPORT_CONTROL_DUMMY_OUT' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_SCT_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_SCT_REG_NUM' assigned to '14' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_SCT_BUFFER_NUM_MAX' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_SCT_CONF_BITLEN_MAX' assigned to '0x3FFFA' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_MAX_PRE_DIVIDER' assigned to '16' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_MEM_SUPPORT_IDLE_INTR' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SPI_MEM_SUPPORT_CHECK_SUS' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_MEMSPI_SRC_FREQ_80M_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_MEMSPI_SRC_FREQ_40M_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_MEMSPI_SRC_FREQ_26M_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_MEMSPI_SRC_FREQ_20M_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SYSTIMER_COUNTER_NUM' assigned to '2' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SYSTIMER_ALARM_NUM' assigned to '3' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SYSTIMER_BIT_WIDTH_LO' assigned to '32' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SYSTIMER_BIT_WIDTH_HI' assigned to '20' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SYSTIMER_FIXED_DIVIDER' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SYSTIMER_INT_LEVEL' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_SYSTIMER_ALARM_MISS_COMPENSATE' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_TIMER_GROUPS' assigned to '2' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_TIMER_GROUP_TIMERS_PER_GROUP' assigned to '1' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_TIMER_GROUP_COUNTER_BIT_WIDTH' assigned to '54' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_TIMER_GROUP_SUPPORT_XTAL' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_TIMER_GROUP_SUPPORT_APB' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_TIMER_GROUP_TOTAL_TIMERS' assigned to '2' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_MWDT_SUPPORT_XTAL' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_TWAI_CLK_SUPPORT_APB' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_TWAI_BRP_MIN' assigned to '2' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_TWAI_BRP_MAX' assigned to '16384' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_TWAI_SUPPORTS_RX_STATUS' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_EFUSE_DIS_PAD_JTAG' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_UART_SUPPORT_FSM_TX_WAIT_SEND' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_PM_SUPPORT_WIFI_PD' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_PM_SUPPORT_BT_PD' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SOC_TEMPERATURE_SENSOR_SUPPORT_XTAL' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESPTOOLPY_FLASHFREQ_26M' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESPTOOLPY_FLASHFREQ_80M_DEFAULT' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ENV_GPIO_RANGE_MIN' assigned to '0' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ENV_GPIO_RANGE_MAX' assigned to '19' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ENV_GPIO_IN_RANGE_MAX' assigned to '19' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ENV_GPIO_OUT_RANGE_MAX' assigned to '19' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_CONNECT_WIFI' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_SSID_PWD_FROM_STDIN' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_PROVIDE_WIFI_CONSOLE_CMD' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_SSID' assigned to '"myssid"' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_PASSWORD' assigned to '"mypassword"' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_CONN_MAX_RETRY' assigned to '6' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_SCAN_METHOD_FAST' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_SCAN_METHOD_ALL_CHANNEL' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_SCAN_RSSI_THRESHOLD' assigned to '-127' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_AUTH_OPEN' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_AUTH_WEP' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_AUTH_WPA_PSK' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_AUTH_WPA2_PSK' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_AUTH_WPA_WPA2_PSK' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_AUTH_WPA2_ENTERPRISE' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_AUTH_WPA3_PSK' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_AUTH_WPA2_WPA3_PSK' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_AUTH_WAPI_PSK' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_CONNECT_AP_BY_SIGNAL' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_WIFI_CONNECT_AP_BY_SECURITY' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_CONNECT_ETHERNET' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_CONNECT_PPP' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_CONNECT_IPV4' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_CONNECT_IPV6' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_CONNECT_IPV6_PREF_LOCAL_LINK' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_CONNECT_IPV6_PREF_GLOBAL' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_CONNECT_IPV6_PREF_SITE_LOCAL' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'EXAMPLE_CONNECT_IPV6_PREF_UNIQUE_LOCAL' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'APPTRACE_DEST_NONE' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'APPTRACE_DEST_UART1' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'APPTRACE_DEST_USB_CDC' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'APPTRACE_DEST_UART_NONE' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'APPTRACE_UART_TASK_PRIO' assigned to '1' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'TWAI_ERRATA_FIX_LISTEN_ONLY_DOM' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ADC_SUPPRESS_DEPRECATE_WARN' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ADC_CALI_SUPPRESS_DEPRECATE_WARN' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'GPTIMER_SUPPRESS_DEPRECATE_WARN' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'RMT_SUPPRESS_DEPRECATE_WARN' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'I2S_SUPPRESS_DEPRECATE_WARN' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SDM_SUPPRESS_DEPRECATE_WARN' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'TEMP_SENSOR_SUPPRESS_DEPRECATE_WARN' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ETH_SPI_ETHERNET_DM9051' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ETH_SPI_ETHERNET_W5500' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ETH_SPI_ETHERNET_KSZ8851SNL' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP32C3_REV_MIN_0' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP32C3_REV_MIN_1' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP32C3_REV_MIN_2' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP32C3_REV_MIN_3' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP32C3_REV_MIN_4' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP32C3_REV_MIN_101' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP32C3_REV_MIN_FULL' assigned to '3' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP32C3_REV_MAX_FULL' assigned to '199' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP32C3_UNIVERSAL_MAC_ADDRESSES_TWO' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP32C3_UNIVERSAL_MAC_ADDRESSES_FOUR' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP32C3_UNIVERSAL_MAC_ADDRESSES' assigned to '4' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'GDMA_ISR_IRAM_SAFE' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'RINGBUF_PLACE_FUNCTIONS_INTO_FLASH' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'ESP_WIFI_TESTING_OPTIONS' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'FREERTOS_ENABLE_STATIC_TASK_CLEAN_UP' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'FREERTOS_PLACE_FUNCTIONS_INTO_FLASH' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'FREERTOS_ENABLE_TASK_SNAPSHOT' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'FREERTOS_PLACE_SNAPSHOT_FUNS_INTO_FLASH' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'HAL_SPI_MASTER_FUNC_IN_IRAM' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'HAL_SPI_SLAVE_FUNC_IN_IRAM' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'LWIP_NETIF_API' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MBEDTLS_TLS_DISABLED' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MBEDTLS_KEY_EXCHANGE_ECDH_ECDSA' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MBEDTLS_KEY_EXCHANGE_ECDH_RSA' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MBEDTLS_BLOWFISH_C' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MBEDTLS_XTEA_C' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MBEDTLS_ECP_DP_SECP192R1_ENABLED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MBEDTLS_ECP_DP_SECP224R1_ENABLED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MBEDTLS_ECP_DP_SECP192K1_ENABLED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MBEDTLS_ECP_DP_SECP224K1_ENABLED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MBEDTLS_POLY1305_C' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MBEDTLS_HKDF_C' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MQTT_PROTOCOL_311' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MQTT_PROTOCOL_5' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MQTT_TRANSPORT_SSL' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MQTT_TRANSPORT_WEBSOCKET' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MQTT_TRANSPORT_WEBSOCKET_SECURE' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MQTT_MSG_ID_INCREMENTAL' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MQTT_SKIP_PUBLISH_IF_DISCONNECTED' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MQTT_REPORT_DELETED_MESSAGES' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MQTT_USE_CUSTOM_CONFIG' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MQTT_TASK_CORE_SELECTION_ENABLED' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'MQTT_CUSTOM_OUTBOX' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SPI_FLASH_SUSPEND_QVL_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SPI_FLASH_ROM_DRIVER_PATCH' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SPI_FLASH_VENDOR_XMC_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SPI_FLASH_VENDOR_GD_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SPI_FLASH_VENDOR_ISSI_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SPI_FLASH_VENDOR_MXIC_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SPI_FLASH_VENDOR_WINBOND_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SPI_FLASH_VENDOR_BOYA_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'SPI_FLASH_VENDOR_TH_SUPPORTED' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'WIFI_PROV_SCAN_MAX_ENTRIES' assigned to '16' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'WIFI_PROV_AUTOSTOP_TIMEOUT' assigned to '30' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'WIFI_PROV_BLE_FORCE_ENCRYPTION' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'WIFI_PROV_STA_ALL_CHANNEL_SCAN' assigned to 'y' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'WIFI_PROV_STA_FAST_SCAN' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'BT_SMP_CRYPTO_STACK_NATIVE' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: unknown kconfig symbol 'BT_BLE_LOG_UHCI_OUT_ENABLED' assigned to 'n' in /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig.defaults
+NOTE: /home/lokesh/Documents/esp-idf/components/bootloader/Kconfig.app_rollback:17: Trying to set symbol BOOTLOADER_APP_ROLLBACK_CONFIRM_ON_STARTUP to n, but it is currently selected by choice BOOTLOADER_APP_ROLLBACK_CONFIRM_MODE. For setting it to n, set another choice symbol to y instead.
+NOTE: Kconfig parser version: 1
+NOTE: Kconfig defaults policy: use sdkconfig
+NOTE: Status: Finished with notifications
+NOTE: /home/lokesh/Documents/esp-idf/components/mbedtls/Kconfig:1597: MBEDTLS_SECURE_ELEMENT_DRIVER_ENABLED assigned multiple times: n (user-set), n (user-set) -> using n
+NOTE: /home/lokesh/Documents/esp-idf/Kconfig:724: COMPILER_SAVE_RESTORE_LIBCALLS has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_adc/Kconfig:70: ADC_ONESHOT_FORCE_USE_ADC2_ON_C3 has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_coex/Kconfig:23: ESP_COEX_EXTERNAL_COEXIST_ENABLE has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_eth/Kconfig:191: ETH_TRANSMIT_MUTEX has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_stdio/Kconfig:150: ESP_CONSOLE_UART_BAUDRATE has user-set value 115200 from /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/sdkconfig but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_system/Kconfig:460: ESP_SYSTEM_HW_STACK_GUARD has user-set value y from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_system/Kconfig:477: ESP_SYSTEM_HW_PC_RECORD has user-set value y from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/app_trace/Kconfig.apptrace:109: APPTRACE_LOCK_ENABLE has user-set value y from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_wifi/Kconfig:181: ESP_WIFI_TX_BA_WIN has user-set value 6 from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_wifi/Kconfig:317: ESP_WIFI_ENABLE_SAE_PK has user-set value y from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_wifi/Kconfig:324: ESP_WIFI_SOFTAP_SAE_SUPPORT has user-set value y from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_wifi/Kconfig:656: ESP_WIFI_MBEDTLS_TLS_CLIENT has user-set value y from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_wifi/Kconfig:691: ESP_WIFI_SUITE_B_192 has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_wifi/Kconfig:791: ESP_WIFI_WPS_SOFTAP_REGISTRAR has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_wifi/Kconfig:914: ESP_WIFI_ENT_FREE_DYNAMIC_BUFFER has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/freertos/Kconfig:7: FREERTOS_SMP has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:111: LWIP_ND6 has user-set value y from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:128: LWIP_FORCE_ROUTER_FORWARDING has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:222: LWIP_IP6_FRAG has user-set value y from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:237: LWIP_IP6_REASSEMBLY has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:303: LWIP_ESP_MLDV6_REPORT has user-set value y from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:314: LWIP_MLDV6_TMR_INTERVAL has user-set value 40 from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:522: LWIP_IPV6_AUTOCONFIG has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:531: LWIP_IPV6_NUM_ADDRESSES has user-set value 3 from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:539: LWIP_IPV6_FORWARD has user-set value n from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:935: LWIP_IPV6_MEMP_NUM_ND6_QUEUE has user-set value 3 from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:943: LWIP_IPV6_ND6_NUM_NEIGHBORS has user-set value 5 from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/openthread/Kconfig:100: OPENTHREAD_NETWORK_NAME has user-set value OpenThread-ESP from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/openthread/Kconfig:104: OPENTHREAD_MESH_LOCAL_PREFIX has user-set value fd00:db8:a0:0::/64 from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/openthread/Kconfig:111: OPENTHREAD_NETWORK_CHANNEL has user-set value 15 from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/openthread/Kconfig:116: OPENTHREAD_NETWORK_PANID has user-set value 0x1234 from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/openthread/Kconfig:121: OPENTHREAD_NETWORK_EXTPANID has user-set value dead00beef00cafe from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/openthread/Kconfig:127: OPENTHREAD_NETWORK_MASTERKEY has user-set value 00112233445566778899aabbccddeeff from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/openthread/Kconfig:133: OPENTHREAD_NETWORK_PSKC has user-set value 104810e2315100afd6bc9215a6bfac53 from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/openthread/Kconfig:406: OPENTHREAD_RX_ON_WHEN_IDLE has user-set value y from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/openthread/Kconfig:496: OPENTHREAD_XTAL_ACCURACY has user-set value 130 from /tmp/kconfgen_tmpgcs51s4_ but is not visible (disabled dependency)
+NOTE: /home/lokesh/Documents/esp-idf/components/app_trace/Kconfig.apptrace:3: APPTRACE_DESTINATION has all choice symbols disabled in sdkconfig; the choice is not visible. Source: (unknown)
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_system/Kconfig:127: ESP_BACKTRACING_METHOD has all choice symbols disabled in sdkconfig; the choice is not visible. Source: (unknown)
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:1314: LWIP_HOOK_IP6_ROUTE has user-set value LWIP_HOOK_IP6_ROUTE_NONE from /tmp/kconfgen_tmpgcs51s4_ but is not visible
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:1334: LWIP_HOOK_ND6_GET_GW has user-set value LWIP_HOOK_ND6_GET_GW_NONE from /tmp/kconfgen_tmpgcs51s4_ but is not visible
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:1354: LWIP_HOOK_IP6_SELECT_SRC_ADDR has user-set value LWIP_HOOK_IP6_SELECT_SRC_ADDR_NONE from /tmp/kconfgen_tmpgcs51s4_ but is not visible
+NOTE: /home/lokesh/Documents/esp-idf/components/lwip/Kconfig:1436: LWIP_HOOK_IP6_INPUT has user-set value LWIP_HOOK_IP6_INPUT_NONE from /tmp/kconfgen_tmpgcs51s4_ but is not visible
+CMake Warning at /home/lokesh/Documents/esp-idf/tools/cmake/component_validation.cmake:106 (message):
+  Private include directory
+  '/home/lokesh/Documents/esp-idf/components/esp_hw_support/port/include'
+  belongs to component esp_hw_support but is being used by component
+  esp_sleep.  It is recommended to define the component dependency for
+  esp_sleep on the component esp_hw_support, i.e.
+  'idf_component_register(...  PRIV_REQUIRES esp_hw_support)' in the
+  CMakeLists.txt of esp_sleep, and specify the included directory as
+  idf_component_register(...  PRIV_INCLUDE_DIRS <dir relative to component>)
+  in the CMakeLists.txt of component esp_hw_support.
+Call Stack (most recent call first):
+  /home/lokesh/Documents/esp-idf/tools/cmake/component_validation.cmake:130 (__component_validation_check_include_dirs)
+  /home/lokesh/Documents/esp-idf/CMakeLists.txt:386 (__component_validation_run_checks)
+
+

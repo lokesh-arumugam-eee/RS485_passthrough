@@ -3,3 +3,4 @@
 -fno-builtin-memset
 -fno-builtin-bzero
 -fno-rtti
+-ftrivial-auto-var-init=uninitialized

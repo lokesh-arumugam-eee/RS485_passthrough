@@ -1,2 +1,2 @@
-source D:/Projects/Modbus_project/Modbus/Modbus_cpplib_S3/AC_Controller_30/build/gdbinit/symbols
-source D:/Projects/Modbus_project/Modbus/Modbus_cpplib_S3/AC_Controller_30/build/gdbinit/connect
+source /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/gdbinit/symbols
+source /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/gdbinit/connect

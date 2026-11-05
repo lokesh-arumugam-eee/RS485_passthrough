@@ -19,8 +19,9 @@ idf_component_register(
         "modbus/modbus_rtu.c"
         "modbus/nanomodbus.c"
         "modbus/data.c"
+        "status_led/status_led.c"
 	    "SafeFunctions/Jio_EA_Safe_Functions.cpp"
-    INCLUDE_DIRS      "." "ble_spp" "xmodem" "controller" "TimeManagement" "mqtt" "wifi" "uart" "ota" "modbus" "configuration" "SafeFunctions" "sensors" # optional, add here public include directories
+    INCLUDE_DIRS      "." "ble_spp" "xmodem" "controller" "TimeManagement" "mqtt" "wifi" "uart" "ota" "modbus" "configuration" "SafeFunctions" "sensors" "status_led" # optional, add here public include directories
     PRIV_INCLUDE_DIRS   # optional, add here private include directories
     REQUIRES            # optional, list the public requirements (component names)
     PRIV_REQUIRES       # optional, list the private requirements

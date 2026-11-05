@@ -58,6 +58,7 @@ uint8_t rebootcnter=0;
    that compared against a stored timestamp. */
 uint32_t SecCouter = 0, CompresserONTimer_sec = 0;
 static const char *TAG = "EVENT_EXAMPLE";
+#define CONFIG_REPLY_BLE_CHUNK 250   // same as Custom_printf's BLE_MAX_CHUNK
 ESP_EVENT_DEFINE_BASE(AC_CNTRL_EVENT_BASE);
 // void SetAC_Mode(AC_MODES_e Mode, uint8_t Temparature);
 // void SetAsset_Mode(AC_MODES_e Mode, uint8_t Temparature, uint8_t Assert_Mask);
@@ -519,6 +520,24 @@ char* generate_config_json(void) {
     cJSON_AddStringToObject(root, "gw", gw_str);
     cJSON_AddStringToObject(root, "netmsk", netmask_str);
     static_ip_enabled? cJSON_AddStringToObject(root, "ip_conf", "static") : cJSON_AddStringToObject(root, "ip_conf", "dhcp");
+
+    // 1. IPC settings in use (beyond the live ip/gw/netmsk/ip_conf above)
+    if (ip_config != NULL && total_ip_configs > 0) {
+        char st_ip_str[16];
+        sprintf_j(st_ip_str, sizeof(st_ip_str), IPSTR, IP2STR(&ip_config[0].st_ip_info.ip));
+        cJSON *ipc = cJSON_CreateObject();
+        cJSON_AddItemToObject(root, "ipc", ipc);
+        cJSON_AddStringToObject(ipc, "static_ip", st_ip_str);
+        cJSON_AddNumberToObject(ipc, "mb_port", ip_config[0].port);
+        cJSON_AddNumberToObject(ipc, "pt_port", ip_config[0].pass_through_port);
+        cJSON_AddNumberToObject(ipc, "http_port", ip_config[0].http_port);
+        cJSON_AddNumberToObject(ipc, "timeout", ip_config[0].server_timeout);
+        cJSON_AddNumberToObject(ipc, "pt_retry", ip_config[0].Passthr_retry_cnt);
+        cJSON_AddNumberToObject(ipc, "static_en", ip_config[0].St_ip_En_dis);
+    }
+    cJSON_AddNumberToObject(root, "rtryc", wifiConfig.RtryC);
+    cJSON_AddNumberToObject(root, "log", log_endis);
+    cJSON_AddNumberToObject(root, "preflag", g_u8_addtlDisblFlgfrlg);
     // 2. HLT (Health logic strings)
     cJSON *hlt = cJSON_CreateObject();
     char health[16];
@@ -531,15 +550,35 @@ char* generate_config_json(void) {
     // 3. URT (UART Settings)
     char urtsetting[100];
     cJSON *urt = cJSON_CreateObject();
-    sprintf_j(urtsetting, sizeof(urtsetting), "%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d",
+    sprintf_j(urtsetting, sizeof(urtsetting), "%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d",
                             system_urts[0].urt_id, system_urts[0].baud,
                             system_urts[0].parity, system_urts[0].data_bits,
                             system_urts[0].stop_bits, system_urts[0].retry_cnt,
                             system_urts[0].retry_period,system_urts[0].DisconnectonNoA,
 						    system_urts[0].DefConnStatus,system_urts[0].InterwriteDelay,
-						    system_urts[0].InterReadDelay,system_urts[0].AutoConnect);
+						    system_urts[0].InterReadDelay,system_urts[0].AutoConnect,
+						    system_urts[0].swapcrc);
     cJSON_AddItemToObject(root, "urt", urt);
     cJSON_AddStringToObject(urt, "curt0", urtsetting);
+
+    // 4. MBR devices, DMBR register maps and OTA, as saved in the config file
+    char *saved_raw = read_config_to_buffer(config_path);
+    cJSON *saved = saved_raw ? cJSON_Parse(saved_raw) : NULL;
+    free(saved_raw);
+    if (saved) {
+        cJSON *item = saved->child;
+        while (item) {
+            cJSON *next = item->next;
+            if (item->string &&
+                (strcmp(item->string, "mbr") == 0 || strcmp(item->string, "ota") == 0 ||
+                 strncmp(item->string, "dmbr", 4) == 0)) {
+                cJSON_AddItemToObject(root, item->string,
+                                      cJSON_DetachItemViaPointer(saved, item));
+            }
+            item = next;
+        }
+        cJSON_Delete(saved);
+    }
 
     char *json_out = cJSON_PrintUnformatted(root);
     cJSON_Delete(root);
@@ -601,8 +640,21 @@ void ParseRxData(char *Buff, uint16_t BuffLen) {
     if (strstr((const char *)(Buff), cmdstring)){
      acm_log("gen cfg\n");
       char *payload = generate_config_json();
-      Custom_printf("%s\n",payload);
-      free(payload);
+      if (payload) {
+        /* Sent in chunks directly: with mbr/dmbr/ota included the payload can
+           exceed Custom_printf's MAX_LOG_LENGTH buffer and get truncated. */
+        size_t total = strlen(payload);
+        printf("%s\n", payload);
+        for (size_t sent = 0; sent < total; ) {
+          size_t chunk = total - sent;
+          if (chunk > CONFIG_REPLY_BLE_CHUNK) chunk = CONFIG_REPLY_BLE_CHUNK;
+          ble_spp_SendData(chunk, (uint8_t *)(payload + sent));
+          sent += chunk;
+          vTaskDelay(pdMS_TO_TICKS(5));
+        }
+        ble_spp_SendData(1, (uint8_t *)"\n");
+        free(payload);
+      }
     }
 
   //      cmdstring = "PWR_ON_T";

@@ -1,0 +1,27 @@
+Command: ninja all
+[1/1165] Generating project_elf_src_esp32s3.c
+[2/1165] Generating ../../ota_data_initial.bin
+[3/1165] Preprocessing linker script /home/lokesh/Documents/esp-idf/components/esp_system/ld/esp32s3/sections.ld.in -> /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/esp-idf/esp_system/ld/sections.ld.in
+[4/1165] Preprocessing linker script /home/lokesh/Documents/esp-idf/components/esp_system/ld/esp32s3/memory.ld.in -> /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/esp-idf/esp_system/ld/memory.ld
+[5/1165] Generating ../../partition_table/partition-table.bin
+FAILED: partition_table/partition-table.bin /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/partition_table/partition-table.bin 
+cd /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/esp-idf/partition_table && /home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python /home/lokesh/Documents/esp-idf/components/partition_table/gen_esp32part.py -q --offset 0x8000 --primary-bootloader-offset 0x0 --flash-size 2MB -- /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/partitions.csv /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/partition_table/partition-table.bin && /usr/bin/cmake -E echo "Partition table binary generated. Contents:" && /usr/bin/cmake -E echo "*******************************************************************************" && /home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python /home/lokesh/Documents/esp-idf/components/partition_table/gen_esp32part.py -q --offset 0x8000 --primary-bootloader-offset 0x0 --flash-size 2MB -- /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/partition_table/partition-table.bin && /usr/bin/cmake -E echo "*******************************************************************************"
+Partitions tables occupies 4.0MB of flash (4190208 bytes) which does not fit in configured flash size 2MB. Change the flash size in menuconfig under the 'Serial Flasher Config' menu.
+[6/1165] Extracting error codes for ulp
+[7/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/api/err.c.obj
+[8/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/core/init.c.obj
+[9/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/api/if_api.c.obj
+[10/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/api/netbuf.c.obj
+[11/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/core/def.c.obj
+[12/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/api/netifapi.c.obj
+[13/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/apps/netbiosns/netbiosns.c.obj
+[14/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/apps/sntp/sntp.c.obj
+[15/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/core/inet_chksum.c.obj
+[16/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/api/tcpip.c.obj
+[17/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/api/api_lib.c.obj
+[18/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/api/netdb.c.obj
+[19/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/apps/sntp/sntp.c.obj
+[20/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/core/dns.c.obj
+[21/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/api/api_msg.c.obj
+[22/1165] Building C object esp-idf/lwip/CMakeFiles/__idf_lwip.dir/lwip/src/api/sockets.c.obj
+ninja: build stopped: subcommand failed.

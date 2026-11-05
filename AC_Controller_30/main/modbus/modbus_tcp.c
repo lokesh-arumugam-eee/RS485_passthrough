@@ -15,6 +15,7 @@
 #include "modbus_tcp.h"
 #include "xmodem.h"
 #include "http_server.h"
+#include "status_led.h"
 static const char *TAG = "modbustcp";
 
 #define PASSTHROUGH_PORT_DEFAULT  503
@@ -386,6 +387,7 @@ void modbus_passthrough_task(void *pvParameters)
         vTaskDelete(NULL);
         return;
     }
+    status_led_set_listening(true);
 
     uint8_t tx_buf[PASSTHROUGH_BUF_SIZE];
     uint8_t rx_buf[PASSTHROUGH_BUF_SIZE];
@@ -409,6 +411,7 @@ void modbus_passthrough_task(void *pvParameters)
                 printf("Pass-through: TCP idle/closed (n=%d), closing.\n", req_len);
                 break;
             }
+            status_led_tcp_activity();
             ESP_LOG_BUFFER_HEX("PT_TCP_IN", tx_buf, req_len);
 
             int rsp_len = 0;
@@ -446,6 +449,7 @@ void modbus_passthrough_task(void *pvParameters)
                     printf("Pass-through: send() failed, closing.\n");
                     break;
                 }
+                status_led_tcp_response();
             } else {
                 ESP_LOGW("PASSTHRU", "No RTU response after %d attempt(s)",
                          retries + 1);

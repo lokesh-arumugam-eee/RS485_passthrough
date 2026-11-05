@@ -8,9 +8,9 @@
 #include "esp_log.h"
 #include "esp_spiffs.h"
 #include "esp_system.h"
-#include "esp_vfs_usb_serial_jtag.h"
 #include "esp_mac.h"
 #include "mqtt_manager.h"
+#include "status_led.h"
 #include "multi_heap.h"
 #include "nvs_flash.h"
 #include "soc/gpio_num.h"
@@ -153,6 +153,7 @@ void app_main() {
 
 	ESP_LOGI(ACM_LOG_TAG, "FW VERSION: %s,REL_DATE:%s",version,release_date);
      // LED_init();
+    status_led_init();
     // Enable only errors
     esp_log_level_set("*", ESP_LOG_ERROR);
 

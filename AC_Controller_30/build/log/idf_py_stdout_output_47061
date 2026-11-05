@@ -1,0 +1,32 @@
+Command: ninja all
+[1/9] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/status_led/status_led.c.obj
+[2/9] Performing build step for 'bootloader'
+[1/1] cd /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/bootloader && /home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python /home/lokesh/Documents/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/bootloader/bootloader.bin
+Bootloader binary size 0x6120 bytes. 0x1ee0 bytes (24%) free.
+[3/9] No install step for 'bootloader'
+[4/9] Completed 'bootloader'
+[5/9] Linking C static library esp-idf/main/libmain.a
+[6/9] Generating esp-idf/esp_system/ld/sections.ld
+NOTE: /home/lokesh/Documents/esp-idf/components/bootloader/Kconfig.projbuild:383: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bootloader/Kconfig.projbuild:423: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/common/Kconfig.in:192: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/host/bluedroid/Kconfig.in:68: Choice symbol BT_ENC_KEY_SIZE_CTRL_STD (member of BT_ENC_KEY_SIZE_CTRL_ENABLED choice) is defined with a warning, which has no effect for choice symbols.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/host/bluedroid/Kconfig.in:74: Choice symbol BT_ENC_KEY_SIZE_CTRL_VSC (member of BT_ENC_KEY_SIZE_CTRL_ENABLED choice) is defined with a warning, which has no effect for choice symbols.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/host/bluedroid/Kconfig.in:81: Choice symbol BT_ENC_KEY_SIZE_CTRL_NONE (member of BT_ENC_KEY_SIZE_CTRL_ENABLED choice) is defined with a warning, which has no effect for choice symbols.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/host/nimble/Kconfig.in:1299: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bt/controller/esp32c3/Kconfig.in:709: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_mm/Kconfig:20: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_sleep/./port/esp32p4/Kconfig.p4_rev3_mspi_workaround:6: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/esp_system/./port/soc/esp32s3/Kconfig.memory:21: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/openthread/Kconfig:116: Deprecation notice: hex literal '0' without '0x' prefix detected. In the next major version, hex literals will be required to have a '0x' prefix.
+NOTE: /home/lokesh/Documents/esp-idf/components/bootloader/Kconfig.app_rollback:17: Trying to set symbol BOOTLOADER_APP_ROLLBACK_CONFIRM_ON_STARTUP to n, but it is currently selected by choice BOOTLOADER_APP_ROLLBACK_CONFIRM_MODE. For setting it to n, set another choice symbol to y instead.
+Skipping linker fragment parsing, fragment files unchanged
+[7/9] Linking CXX executable mqtt5.elf; Checking ioctl definition overlaps
+[8/9] Generating binary image from built executable
+esptool v5.6.0
+Creating ESP32-S3 image...
+Merged 2 ELF sections.
+Successfully created ESP32-S3 image.
+Generated /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/mqtt5.bin
+[9/9] cd /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build && /home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python /home/lokesh/Documents/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/partition_table/partition-table.bin /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/mqtt5.bin
+mqtt5.bin binary size 0x163990 bytes. Smallest app partition is 0x1e0000 bytes. 0x7c670 bytes (26%) free.

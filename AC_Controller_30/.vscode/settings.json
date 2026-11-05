@@ -1,7 +1,7 @@
 {
   "idf.pythonInstallPath": "C:\\Espressif\\tools\\idf-python\\3.11.2\\python.exe",
   "idf.pythonBinPath": "C:\\Espressif\\python_env\\idf5.5_py3.11_env\\Scripts\\python.exe",
-  "idf.currentSetup": "C:/Espressif/frameworks/esp-idf-v5.5.4/",
+  "idf.currentSetup": "/home/lokesh/.espressif/v5.5.6/esp-idf",
   "idf.customExtraPaths": "C:\\Espressif\\tools\\esp-clang\\16.0.1-fe88796847\\esp-clang\\bin;C:\\Espressif\\tools\\xtensa-esp-elf\\esp-14.2.0_20240906\\xtensa-esp-elf\\bin;C:\\Espressif\\tools\\cmake\\3.30.2\\bin;C:\\Espressif\\tools\\ninja\\1.12.1",
   "idf.portWin": "COM19",
   "idf.flashType": "UART",

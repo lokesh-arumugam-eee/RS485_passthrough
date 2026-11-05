@@ -17,7 +17,7 @@
 
 #include "lwip/err.h"
 #include "lwip/sys.h"
-#include "esp_ping.h"
+#include "ping/ping_sock.h"
 #include "lwip/inet.h"
 #include "configuration.h"   /* ip_config / total_ip_configs (was pulled transitively via mqtt_manager.h) */
 #include "modbus_tcp.h"      /* tcp_app_init() — Modbus TCP gateway + HTTP config server */
@@ -93,8 +93,8 @@ static void event_handler(void *arg, esp_event_base_t event_base,
     esp_wifi_connect();
   } else if (event_base == WIFI_EVENT &&
              event_id == WIFI_EVENT_STA_DISCONNECTED) {
+    wifi_is_connected = false;
     if (s_retry_num < wifiConfig.RtryC) {
-      wifi_is_connected = false;
       acm_log("wifi down\n");
       esp_wifi_connect();
       s_retry_num++;

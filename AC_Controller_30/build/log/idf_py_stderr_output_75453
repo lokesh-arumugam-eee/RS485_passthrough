@@ -1,0 +1,62 @@
+Command: ninja erase-otadata
+Running /home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python -m esptool --port /dev/ttyACM0 --baud 460800 read-flash 32768 3072 /tmp/tmpmn05vveu...
+An exception: ** Command '['/home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python', '-m', 'esptool', '--port', '/dev/ttyACM0', '--baud', '460800', 'read-flash', '32768', '3072', '/tmp/tmpmn05vveu']' returned non-zero exit status 2. ** occurred in _call_esptool.
+Traceback (most recent call last):
+  File [35m"/home/lokesh/Documents/esp-idf/components/app_update/otatool.py"[0m, line [35m496[0m, in [35m<module>[0m
+    [31mmain[0m[1;31m()[0m
+    [31m~~~~[0m[1;31m^^[0m
+  File [35m"/home/lokesh/Documents/esp-idf/components/app_update/otatool.py"[0m, line [35m489[0m, in [35mmain[0m
+    [31mcli[0m[1;31m()[0m
+    [31m~~~[0m[1;31m^^[0m
+  File [35m"/home/lokesh/.espressif/python_env/idf6.2_py3.14_env/lib/python3.14/site-packages/rich_click/rich_command.py"[0m, line [35m401[0m, in [35m__call__[0m
+    return [31msuper().__call__[0m[1;31m(*args, **kwargs)[0m
+           [31m~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^[0m
+  File [35m"/home/lokesh/.espressif/python_env/idf6.2_py3.14_env/lib/python3.14/site-packages/click/core.py"[0m, line [35m1631[0m, in [35m__call__[0m
+    return [31mself.main[0m[1;31m(*args, **kwargs)[0m
+           [31m~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^[0m
+  File [35m"/home/lokesh/.espressif/python_env/idf6.2_py3.14_env/lib/python3.14/site-packages/rich_click/rich_command.py"[0m, line [35m215[0m, in [35mmain[0m
+    rv = self.invoke(ctx)
+  File [35m"/home/lokesh/.espressif/python_env/idf6.2_py3.14_env/lib/python3.14/site-packages/click/core.py"[0m, line [35m2032[0m, in [35minvoke[0m
+    return _process_result([31msub_ctx.command.invoke[0m[1;31m(sub_ctx)[0m)
+                           [31m~~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^[0m
+  File [35m"/home/lokesh/.espressif/python_env/idf6.2_py3.14_env/lib/python3.14/site-packages/click/core.py"[0m, line [35m1415[0m, in [35minvoke[0m
+    return [31mctx.invoke[0m[1;31m(self.callback, **ctx.params)[0m
+           [31m~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"/home/lokesh/.espressif/python_env/idf6.2_py3.14_env/lib/python3.14/site-packages/click/core.py"[0m, line [35m910[0m, in [35minvoke[0m
+    return callback(*args, **kwargs)
+  File [35m"/home/lokesh/.espressif/python_env/idf6.2_py3.14_env/lib/python3.14/site-packages/click/decorators.py"[0m, line [35m34[0m, in [35mnew_func[0m
+    return f(get_current_context(), *args, **kwargs)
+  File [35m"/home/lokesh/Documents/esp-idf/components/app_update/otatool.py"[0m, line [35m428[0m, in [35merase_otadata_cmd[0m
+    target = OtatoolTarget(**_target_kwargs_from_ctx(ctx.obj))
+  File [35m"/home/lokesh/Documents/esp-idf/components/app_update/otatool.py"[0m, line [35m58[0m, in [35m__init__[0m
+    self.target = [31mParttoolTarget[0m[1;31m([0m
+                  [31m~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mport,[0m
+        [1;31m^^^^^[0m
+    ...<6 lines>...
+        [1;31mesptool_erase_args,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"/home/lokesh/Documents/esp-idf/components/partition_table/parttool.py"[0m, line [35m122[0m, in [35m__init__[0m
+    [31mself._call_esptool[0m[1;31m([0m
+    [31m~~~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31m['read-flash', str(partition_table_offset), str(gen.MAX_PARTITION_LENGTH), temp_file.name][0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"/home/lokesh/Documents/esp-idf/components/partition_table/parttool.py"[0m, line [35m151[0m, in [35m_call_esptool[0m
+    raise e
+  File [35m"/home/lokesh/Documents/esp-idf/components/partition_table/parttool.py"[0m, line [35m148[0m, in [35m_call_esptool[0m
+    [31msubprocess.check_call[0m[1;31m(esptool_args, stdout=out, stderr=subprocess.STDOUT)[0m
+    [31m~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"/usr/lib/python3.14/subprocess.py"[0m, line [35m420[0m, in [35mcheck_call[0m
+    raise CalledProcessError(retcode, cmd)
+[1;35msubprocess.CalledProcessError[0m: [35mCommand '['/home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python', '-m', 'esptool', '--port', '/dev/ttyACM0', '--baud', '460800', 'read-flash', '32768', '3072', '/tmp/tmpmn05vveu']' returned non-zero exit status 2.[0m
+[31mCMake Error at /home/lokesh/Documents/esp-idf/components/esptool_py/run_serial_tool.cmake:142 (message):
+  
+  /home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python;/home/lokesh/Documents/esp-idf/components/app_update/otatool.py
+  failed.
+
+
+[0m

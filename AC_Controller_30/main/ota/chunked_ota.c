@@ -10,7 +10,7 @@
 #include "esp_ota_ops.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "mbedtls/sha256.h"
+#include "psa/crypto.h"
 #include "cJSON.h"
 #include "SafeFunctions/Jio_EA_Safe_Functions.h"
 #include "http.h"
@@ -526,9 +526,8 @@ esp_err_t chunked_ota_run(const chunked_ota_config_t *cfg)
             break;
         }
 
-        mbedtls_sha256_context sha;
-        mbedtls_sha256_init(&sha);
-        mbedtls_sha256_starts(&sha, 0);
+        psa_hash_operation_t sha = PSA_HASH_OPERATION_INIT;
+        psa_hash_setup(&sha, PSA_ALG_SHA_256);
 
         ota_http_ctx_t ctx = { .json_buf = NULL };
         esp_http_client_config_t client_cfg = {
@@ -544,7 +543,7 @@ esp_err_t chunked_ota_run(const chunked_ota_config_t *cfg)
         esp_http_client_handle_t client = esp_http_client_init(&client_cfg);
         if (!client) {
             esp_ota_abort(handle);
-            mbedtls_sha256_free(&sha);
+            psa_hash_abort(&sha);
             ESP_LOGE(TAG, "http client init failed");
             httpserver_params.ota_status = OTA_FAILED;
             httpserver_params.ota_percentage = 0;
@@ -594,7 +593,7 @@ esp_err_t chunked_ota_run(const chunked_ota_config_t *cfg)
                 httpserver_params.ota_failure_reason = OTA_FAILED_T0_WRITE_PACKET;
                 break;
             }
-            mbedtls_sha256_update(&sha, buf, got);
+            psa_hash_update(&sha, buf, got);
             float per = (float)(idx+1);
             per*= 100;
             per/= total_packets;
@@ -615,13 +614,14 @@ esp_err_t chunked_ota_run(const chunked_ota_config_t *cfg)
 
         if (!session_ok) {
             esp_ota_abort(handle);
-            mbedtls_sha256_free(&sha);
+            psa_hash_abort(&sha);
             continue;
         }
 
-        uint8_t calc_sha[32];
-        mbedtls_sha256_finish(&sha, calc_sha);
-        mbedtls_sha256_free(&sha);
+        uint8_t calc_sha[32] = {0};
+        size_t calc_len = 0;
+        psa_hash_finish(&sha, calc_sha, sizeof(calc_sha), &calc_len);
+        psa_hash_abort(&sha);
 
         if (memcmp(calc_sha, expected_sha, 32) != 0) {
             ESP_LOGE(TAG, "whole-file SHA-256 mismatch; restarting from packet 0");

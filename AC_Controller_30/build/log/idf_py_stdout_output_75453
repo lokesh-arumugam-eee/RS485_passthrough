@@ -1,0 +1,13 @@
+Command: ninja erase-otadata
+[0/1] cd /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build && /usr/bin/cmake -D IDF_PATH=/home/lokesh/Documents/esp-idf -D "SERIAL_TOOL=/home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python;/home/lokesh/Documents/esp-idf/components/app_update/otatool.py" -D "SERIAL_TOOL_ARGS=--esptool-args;before=default-reset;after=hard-reset;--partition-table-file;/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/partitions.csv;--partition-table-offset;0x8000;erase_otadata" -D WORKING_DIRECTORY=/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build -P /home/lokesh/Documents/esp-idf/components/esptool_py/run_serial_tool.cmake
+esptool v5.6.0
+Serial port /dev/ttyACM0:
+
+[1;38;2;204;51;17mERROR:[0m A fatal error occurred: Could not open /dev/ttyACM0, the port is busy or doesn't exist.
+([Errno 13] could not open port /dev/ttyACM0: [Errno 13] Permission denied: '/dev/ttyACM0')
+
+Hint: Try to add user into dialout or uucp group.
+
+[31mFAILED: [0mesp-idf/app_update/CMakeFiles/erase-otadata /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/esp-idf/app_update/CMakeFiles/erase-otadata 
+cd /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build && /usr/bin/cmake -D IDF_PATH=/home/lokesh/Documents/esp-idf -D "SERIAL_TOOL=/home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python;/home/lokesh/Documents/esp-idf/components/app_update/otatool.py" -D "SERIAL_TOOL_ARGS=--esptool-args;before=default-reset;after=hard-reset;--partition-table-file;/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/partitions.csv;--partition-table-offset;0x8000;erase_otadata" -D WORKING_DIRECTORY=/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build -P /home/lokesh/Documents/esp-idf/components/esptool_py/run_serial_tool.cmake
+ninja: build stopped: subcommand failed.

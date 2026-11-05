@@ -1,0 +1,33 @@
+Command: ninja all
+[1/11] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/status_led/status_led.c.obj
+[2/11] Performing build step for 'bootloader'
+[1/1] cd /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/bootloader && /home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python /home/lokesh/Documents/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/bootloader/bootloader.bin
+Bootloader binary size 0x6120 bytes. 0x1ee0 bytes (24%) free.
+[3/11] No install step for 'bootloader'
+[4/11] Completed 'bootloader'
+[5/11] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/main.c: In function 'app_main':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/main.c:259:7: warning: unused variable 'count' [-Wunused-variable]
+  259 |   int count =0;
+      |       ^~~~~
+[6/11] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/modbus/modbus_tcp.c.obj
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c: In function 'modbus_gateway_task':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c:193:13: warning: unused variable 'timeout_in_ms' [-Wunused-variable]
+  193 |         int timeout_in_ms = 1000 * ip_config[0].server_timeout;
+      |             ^~~~~~~~~~~~~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c: At top level:
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c:19:20: warning: 'TAG' defined but not used [-Wunused-variable]
+   19 | static const char *TAG = "modbustcp";
+      |                    ^~~
+[7/11] Linking C static library esp-idf/main/libmain.a
+[8/11] Generating esp-idf/esp_system/ld/sections.ld
+Skipping linker script generation, section names unchanged
+[9/11] Linking CXX executable mqtt5.elf; Checking ioctl definition overlaps
+[10/11] Generating binary image from built executable
+esptool v5.6.0
+Creating ESP32-S3 image...
+Merged 2 ELF sections.
+Successfully created ESP32-S3 image.
+Generated /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/mqtt5.bin
+[11/11] cd /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build && /home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python /home/lokesh/Documents/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/partition_table/partition-table.bin /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/mqtt5.bin
+mqtt5.bin binary size 0x1639b0 bytes. Smallest app partition is 0x1e0000 bytes. 0x7c650 bytes (26%) free.
