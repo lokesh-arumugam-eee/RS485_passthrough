@@ -134,14 +134,13 @@ static void persist_urt(void)
 {
     char s[128];
     sprintf_j(s, sizeof(s),
-              "{\"0\":{\"curt0\":\"%d:%lu:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d\"}}",
+              "{\"0\":{\"curt0\":\"%d:%lu:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d\"}}",
               system_urts[0].urt_id,        (unsigned long)system_urts[0].baud,
               system_urts[0].parity,        system_urts[0].data_bits,
               system_urts[0].stop_bits,     system_urts[0].retry_cnt,
               system_urts[0].retry_period,  system_urts[0].DisconnectonNoA,
               system_urts[0].DefConnStatus, system_urts[0].InterwriteDelay,
-              system_urts[0].InterReadDelay,system_urts[0].AutoConnect,
-              system_urts[0].swapcrc);
+              system_urts[0].InterReadDelay,system_urts[0].AutoConnect);
     update_config_tag(config_path, "urt", s);
 }
 
@@ -205,11 +204,10 @@ static esp_err_t cfg_get_handler(httpd_req_t *req)
     /* uart (R/W) */
     n = snprintf(buf, sizeof(buf),
         "\"uart\":{\"baud\":%lu,\"parity\":%d,\"dbits\":%d,\"sbits\":%d,"
-        "\"rcnt\":%d,\"rprd\":%d,\"swap_crc\":%d},",
+        "\"rcnt\":%d,\"rprd\":%d},",
         (unsigned long)system_urts[0].baud, system_urts[0].parity,
         system_urts[0].data_bits, system_urts[0].stop_bits,
-        system_urts[0].retry_cnt, system_urts[0].retry_period,
-        system_urts[0].swapcrc);
+        system_urts[0].retry_cnt, system_urts[0].retry_period);
     httpd_resp_send_chunk(req, buf, n);
 
     /* ip (R/W) — three IPs fit in one chunk */
@@ -297,7 +295,6 @@ static esp_err_t cfg_post_handler(httpd_req_t *req)
         WRITE_INT(uart, "sbits",    1, 2,     system_urts[0].stop_bits,    dirty.urt);
         WRITE_INT(uart, "rcnt",     0, 255,   system_urts[0].retry_cnt,    dirty.urt);
         WRITE_INT(uart, "rprd",     0, 65535, system_urts[0].retry_period, dirty.urt);
-        WRITE_INT(uart, "swap_crc", 0, 1,     system_urts[0].swapcrc,      dirty.urt);
     }
 
     /* --- ip --- */

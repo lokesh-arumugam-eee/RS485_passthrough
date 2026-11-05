@@ -46,7 +46,6 @@ typedef struct {
     int InterwriteDelay;
     int InterReadDelay;
     int AutoConnect;
-    int swapcrc;
 } urt_config_t;
 
 typedef struct {

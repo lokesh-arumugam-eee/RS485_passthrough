@@ -93,18 +93,24 @@ static void event_handler(void *arg, esp_event_base_t event_base,
     esp_wifi_connect();
   } else if (event_base == WIFI_EVENT &&
              event_id == WIFI_EVENT_STA_DISCONNECTED) {
+    /* The reason code is the only way to tell an AP-side deauth from a beacon
+       timeout or an auth failure; without it Wi-Fi drops can't be diagnosed. */
+    wifi_event_sta_disconnected_t *disc =
+        (wifi_event_sta_disconnected_t *)event_data;
+    uint8_t disc_reason = disc ? disc->reason : 0;
+    int8_t disc_rssi = disc ? disc->rssi : 0;
     wifi_is_connected = false;
     if (s_retry_num < wifiConfig.RtryC) {
-      acm_log("wifi down\n");
+      acm_log("wifi down reason=%u rssi=%d\n", disc_reason, disc_rssi);
       esp_wifi_connect();
       s_retry_num++;
-      ESP_LOGI(TAG, "retry AP");
+      ESP_LOGI(TAG, "retry AP (reason=%u rssi=%d)", disc_reason, disc_rssi);
     } else {
       xEventGroupSetBits(s_wifi_event_group, WIFI_FAIL_BIT);
        s_retry_num = 0;
        wifi_init_sta();
      }
-    ESP_LOGI(TAG, "AP fail");
+    ESP_LOGI(TAG, "AP fail (reason=%u)", disc_reason);
   } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
     ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
     acm_log("wifi up ip=" IPSTR "\n", IP2STR(&event->ip_info.ip));
@@ -364,7 +370,13 @@ void wifi_init_sta(void)
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
     ESP_ERROR_CHECK(esp_wifi_start());
-    esp_wifi_set_max_tx_power(20);
+    /* Units are 0.25 dBm, so 80 = 20 dBm (the IDF default). The previous
+       value of 20 meant 5 dBm, too weak for the AP to reliably hear our
+       802.11 ACKs. */
+    esp_wifi_set_max_tx_power(80);
+    /* Mains-powered bridge: never sleep between DTIM beacons, or RX frames
+       get dropped while the modem is down. */
+    esp_wifi_set_ps(WIFI_PS_NONE);
 
     ESP_LOGI(TAG, "Wi-Fi started, waiting for connection...");
 

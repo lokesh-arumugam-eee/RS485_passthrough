@@ -550,14 +550,13 @@ char* generate_config_json(void) {
     // 3. URT (UART Settings)
     char urtsetting[100];
     cJSON *urt = cJSON_CreateObject();
-    sprintf_j(urtsetting, sizeof(urtsetting), "%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d",
+    sprintf_j(urtsetting, sizeof(urtsetting), "%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d",
                             system_urts[0].urt_id, system_urts[0].baud,
                             system_urts[0].parity, system_urts[0].data_bits,
                             system_urts[0].stop_bits, system_urts[0].retry_cnt,
                             system_urts[0].retry_period,system_urts[0].DisconnectonNoA,
 						    system_urts[0].DefConnStatus,system_urts[0].InterwriteDelay,
-						    system_urts[0].InterReadDelay,system_urts[0].AutoConnect,
-						    system_urts[0].swapcrc);
+						    system_urts[0].InterReadDelay,system_urts[0].AutoConnect);
     cJSON_AddItemToObject(root, "urt", urt);
     cJSON_AddStringToObject(urt, "curt0", urtsetting);
 

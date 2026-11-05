@@ -1,0 +1,79 @@
+Command: ninja all
+[1/13] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/modbus/data.c.obj
+[2/13] Performing build step for 'bootloader'
+[1/1] cd /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/bootloader && /home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python /home/lokesh/Documents/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/bootloader/bootloader.bin
+Bootloader binary size 0x6120 bytes. 0x1ee0 bytes (24%) free.
+[3/13] No install step for 'bootloader'
+[4/13] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/main.c: In function 'app_main':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/main.c:259:7: warning: unused variable 'count' [-Wunused-variable]
+  259 |   int count =0;
+      |       ^~~~~
+[5/13] Completed 'bootloader'
+[6/13] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/modbus/modbus_tcp.c.obj
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c: In function 'modbus_gateway_task':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c:212:13: warning: unused variable 'timeout_in_ms' [-Wunused-variable]
+  212 |         int timeout_in_ms = 1000 * ip_config[0].server_timeout;
+      |             ^~~~~~~~~~~~~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c: At top level:
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_tcp.c:20:20: warning: 'TAG' defined but not used [-Wunused-variable]
+   20 | static const char *TAG = "modbustcp";
+      |                    ^~~
+[7/13] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/modbus/modbus_rtu.c.obj
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c: In function 'populate_modbus_read_input':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:642:9: warning: unused variable 'len' [-Wunused-variable]
+  642 |     int len=0;
+      |         ^~~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:641:14: warning: unused variable 'Temp' [-Wunused-variable]
+  641 |     uint16_t Temp;
+      |              ^~~~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:640:14: warning: unused variable 'ip' [-Wunused-variable]
+  640 |     uint32_t ip;
+      |              ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c: In function 'populate_modbus_write':
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:832:31: warning: comparison is always true due to limited range of data type [-Wtype-limits]
+  832 |                 if (in_buf[i] >= 0 && in_buf[i] <= 255) {
+      |                               ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:846:31: warning: comparison is always true due to limited range of data type [-Wtype-limits]
+  846 |                 if (in_buf[i] >= 0 && in_buf[i] <= 65535) {
+      |                               ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:846:49: warning: comparison is always true due to limited range of data type [-Wtype-limits]
+  846 |                 if (in_buf[i] >= 0 && in_buf[i] <= 65535) {
+      |                                                 ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:896:44: warning: comparison is always true due to limited range of data type [-Wtype-limits]
+  896 |                 if(in_buf[i]>0 && in_buf[i]<=65535){
+      |                                            ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:910:44: warning: comparison is always true due to limited range of data type [-Wtype-limits]
+  910 |                 if(in_buf[i]>0 && in_buf[i]<=65535){
+      |                                            ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:924:44: warning: comparison is always true due to limited range of data type [-Wtype-limits]
+  924 |                 if(in_buf[i]>0 && in_buf[i]<=65535){
+      |                                            ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:950:43: warning: comparison is always true due to limited range of data type [-Wtype-limits]
+  950 |             if(in_buf[i] > 0 && in_buf[i] <= 65535) {
+      |                                           ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:993:30: warning: comparison is always true due to limited range of data type [-Wtype-limits]
+  993 |                 if(in_buf[i] <= 65535) {
+      |                              ^~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/modbus_rtu.c:708:14: warning: unused variable 'ip' [-Wunused-variable]
+  708 |     uint32_t ip;
+      |              ^~
+[8/13] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/modbus/nanomodbus.c.obj
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/nanomodbus.c:94:13: warning: 'put_2_inv' defined but not used [-Wunused-function]
+   94 | static void put_2_inv(nmbs_t* nmbs, uint16_t data) {
+      |             ^~~~~~~~~
+/home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/main/modbus/nanomodbus.c:81:17: warning: 'get_2_inv' defined but not used [-Wunused-function]
+   81 | static uint16_t get_2_inv(nmbs_t* nmbs) {
+      |                 ^~~~~~~~~
+[9/13] Linking C static library esp-idf/main/libmain.a
+[10/13] Generating esp-idf/esp_system/ld/sections.ld
+Skipping linker script generation, section names unchanged
+[11/13] Linking CXX executable mqtt5.elf; Checking ioctl definition overlaps
+[12/13] Generating binary image from built executable
+esptool v5.6.0
+Creating ESP32-S3 image...
+Merged 2 ELF sections.
+Successfully created ESP32-S3 image.
+Generated /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/mqtt5.bin
+[13/13] cd /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build && /home/lokesh/.espressif/python_env/idf6.2_py3.14_env/bin/python /home/lokesh/Documents/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/partition_table/partition-table.bin /home/lokesh/Documents/work/RS485_passthrough/AC_Controller_30/build/mqtt5.bin
+mqtt5.bin binary size 0x164100 bytes. Smallest app partition is 0x1e0000 bytes. 0x7bf00 bytes (26%) free.

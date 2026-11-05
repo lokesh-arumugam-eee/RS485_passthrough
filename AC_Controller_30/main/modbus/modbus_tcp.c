@@ -15,6 +15,7 @@
 #include "modbus_tcp.h"
 #include "xmodem.h"
 #include "http_server.h"
+#include "esp_task_wdt.h"
 #include "status_led.h"
 static const char *TAG = "modbustcp";
 
@@ -22,6 +23,24 @@ static const char *TAG = "modbustcp";
 #define PASSTHROUGH_BUF_SIZE      260      // RTU max ADU = 256, plus a small margin
 #define PASSTHROUGH_TCP_GAP_MS    50       // idle gap that marks end of TCP-side frame
 #define PASSTHROUGH_RTU_GAP_MS    50       // idle gap that marks end of RTU response
+/* Wait for the FIRST byte of the RTU reply. This used to reuse the TCP idle
+   timeout (server_timeout, in seconds) as a millisecond value, giving a 60 s
+   wait. It must stay well UNDER the eth91-daemon's frame_timeout (1000 ms):
+   if the bridge is more patient than its client, a late reply arrives after
+   the daemon has already given up and desyncs the request/response stream. */
+#define PASSTHROUGH_RTU_FIRST_BYTE_MS  300
+/* Longest single blocking wait before we come up for air to feed the task
+   watchdog. The TCP idle timeout is legitimately tens of seconds, so it is
+   served as a sequence of these slices rather than one long block. */
+#define PASSTHROUGH_WDT_SLICE_S   2
+/* Cap on the port-502 gateway's socket idle timeout, so its blocking poll
+   always returns well inside the task watchdog period. */
+#define GATEWAY_MAX_IDLE_S        20
+/* E-2: how many consecutive PASSTHROUGH_TCP_GAP_MS timeouts to tolerate while
+   waiting for the rest of a partially-arrived ADU before declaring it truncated
+   and discarding it. 10 x 50 ms = 500 ms, comfortably over the measured p95
+   inter-segment gap (~250 ms) yet well under the daemon's 2000 ms deadline. */
+#define PASSTHROUGH_ASSEMBLE_TRIES 10
 
 extern SemaphoreHandle_t xModbus_Mutex;
 static nmbs_t nmbs_tcp_server;
@@ -35,6 +54,7 @@ uint8_t tcp_slave_id = 0; // Initialize to a default slave ID
 void modbus_Tcp_server_init(void);
 int32_t my_tcp_read(uint8_t* buf, uint16_t count, int32_t byte_timeout_ms, void* arg);
 int32_t my_tcp_write(const uint8_t* buf, uint16_t count, int32_t byte_timeout_ms, void* arg);
+static int32_t my_tcp_server_write(const uint8_t* buf, uint16_t count, int32_t byte_timeout_ms, void* arg);
 
 
 nmbs_error on_tcp_read_Holding_request(uint16_t address, uint16_t quantity, uint16_t* registers_out, uint8_t unit_id, void* arg) {
@@ -158,11 +178,21 @@ int32_t my_tcp_write(const uint8_t* buf, uint16_t count, int32_t byte_timeout_ms
     return (int32_t)sent;
 }
 
+// Port 502 server replies count as TCP activity for the status LED.
+static int32_t my_tcp_server_write(const uint8_t* buf, uint16_t count, int32_t byte_timeout_ms, void* arg) {
+    int32_t sent = my_tcp_write(buf, count, byte_timeout_ms, arg);
+    if (sent > 0) {
+        status_led_tcp_activity();
+        status_led_tcp_response();
+    }
+    return sent;
+}
+
 void modbus_Tcp_server_init(void) {
     nmbs_platform_conf_create(&tcp_conf);
     tcp_conf.transport = NMBS_TRANSPORT_RTU; // Change to TCP
     tcp_conf.read = my_tcp_read;
-    tcp_conf.write = my_tcp_write;
+    tcp_conf.write = my_tcp_server_write;
     tcp_conf.arg = &connfd; 
 
     memset(&server_callbacks, 0, sizeof(nmbs_callbacks));
@@ -194,17 +224,27 @@ void modbus_gateway_task(void *pvParameters) {
     bind(listenfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
     listen(listenfd, 1);
 
+    /* Bound accept() so an idle listener still feeds the watchdog. */
+    struct timeval accept_to = { .tv_sec = PASSTHROUGH_WDT_SLICE_S, .tv_usec = 0 };
+    setsockopt(listenfd, SOL_SOCKET, SO_RCVTIMEO, &accept_to, sizeof(accept_to));
+    esp_task_wdt_add(NULL);
+
     while (1) {
         printf("Waiting for TCP Client on port %d...\n", mb_port);
+        esp_task_wdt_reset();
         connfd = accept(listenfd, NULL, NULL);
         
         if (connfd >= 0) {
             printf("TCP Client Connected!\n");
 
             // --- INACTIVITY TIMEOUT CONFIGURATION ---
-            // Set a 5-second timeout for receiving data
+            /* Idle timeout for receiving data, clamped to stay under the task
+               watchdog period — nmbs_server_poll() blocks for this long, and a
+               block longer than the WDT would look like a hang. */
             struct timeval timeout;
-            timeout.tv_sec = ip_config[0].server_timeout;  // 10 seconds
+            timeout.tv_sec = ip_config[0].server_timeout;
+            if (timeout.tv_sec > GATEWAY_MAX_IDLE_S) timeout.tv_sec = GATEWAY_MAX_IDLE_S;
+            if (timeout.tv_sec <= 0) timeout.tv_sec = GATEWAY_MAX_IDLE_S;
             timeout.tv_usec = 0;
 
             if (setsockopt(connfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
@@ -216,7 +256,8 @@ void modbus_gateway_task(void *pvParameters) {
             tcp_conf.arg = &connfd;
 
             while (1) {
-                // nmbs_server_poll will now return an error if 5 seconds pass with no data
+                esp_task_wdt_reset();
+                // nmbs_server_poll returns an error once the idle timeout passes with no data
                 nmbs_error err = nmbs_server_poll(&nmbs_tcp_server);
                 
                 if (err < 0) {
@@ -306,31 +347,117 @@ nmbs_error modbus_multi_server_read(uint8_t slave_id, esp_ip4_addr_t poll_ip,int
    any Modbus parsing. Shares xModbus_Mutex with the RTU
    master so the bus stays serialized.
 ------------------------------------------------------- */
+/* E-2: expected total length of a Modbus RTU *request* ADU (including the two
+   CRC bytes), derived from the function code. This is what lets us read exactly
+   one frame instead of "whatever arrived in the last 50 ms".
+     >0  definite total length
+      0  need more bytes before the length can be decided (variable-length FCs)
+     -1  function code not recognised - caller falls back to gap framing
+   Requests only: this is a master->slave passthrough, so buf[1] is always a
+   request function code. */
+static int rtu_request_expected_len(const uint8_t *b, size_t have)
+{
+    if (have < 2) return 0;
+    switch (b[1]) {
+        case 0x01: case 0x02: case 0x03: case 0x04:   /* read coils/inputs/regs */
+        case 0x05: case 0x06:                         /* write single          */
+            return 8;      /* id fc addr(2) val(2) crc(2)                      */
+        case 0x07: case 0x0B: case 0x0C: case 0x11:   /* no-payload diagnostics */
+            return 4;      /* id fc crc(2)                                     */
+        case 0x0F: case 0x10:                         /* write multiple        */
+            if (have < 7) return 0;                   /* need the byte count   */
+            return 9 + b[6];
+        case 0x16:                                    /* mask write register   */
+            return 10;
+        case 0x17:                                    /* read/write multiple   */
+            if (have < 11) return 0;
+            return 13 + b[10];
+        default:
+            return -1;
+    }
+}
+
 static int passthrough_read_tcp_frame(int fd, uint8_t *buf, size_t buf_size,
                                       int first_byte_timeout_s)
 {
-    // Wait for the first byte using the caller-supplied idle timeout.
-    struct timeval first_to = { .tv_sec = first_byte_timeout_s, .tv_usec = 0 };
+    /* Wait for the first byte using the caller-supplied idle timeout, but in
+       PASSTHROUGH_WDT_SLICE_S slices so the task watchdog keeps being fed
+       while the client is simply idle between sweeps. */
+    struct timeval first_to = { .tv_sec = PASSTHROUGH_WDT_SLICE_S, .tv_usec = 0 };
     setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &first_to, sizeof(first_to));
 
-    int n = recv(fd, buf, 1, 0);
-    if (n <= 0) return n;          // 0 = peer closed, <0 = timeout/error
+    int n = -1;
+    int waited_s = 0;
+    while (waited_s < first_byte_timeout_s) {
+        esp_task_wdt_reset();
+        n = recv(fd, buf, 1, 0);
+        if (n > 0) break;
+        if (n == 0) return 0;                                   // peer closed
+        if (errno != EAGAIN && errno != EWOULDBLOCK) return -1;  // real error
+        waited_s += PASSTHROUGH_WDT_SLICE_S;
+    }
+    if (n <= 0) return -1;         // idle timeout expired with no data
     size_t total = 1;
 
-    // After the first byte, switch to a short inter-byte gap to assemble
-    // the rest of the frame (most clients send the whole ADU in one write).
+    /* E-2: assemble EXACTLY one ADU, length-driven rather than gap-driven.
+       We never request more bytes than the current frame needs, so a queued
+       second request stays in the socket for the next call instead of being
+       glued on (merging), and a frame split across segments more than
+       PASSTHROUGH_TCP_GAP_MS apart is still completed rather than truncated. */
     struct timeval gap_to = { .tv_sec = 0,
                               .tv_usec = PASSTHROUGH_TCP_GAP_MS * 1000 };
     setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &gap_to, sizeof(gap_to));
 
+    int want  = 0;      /* 0 = length not yet known */
+    int idle  = 0;      /* consecutive gap timeouts while mid-frame */
+
+    for (;;) {
+        if (want == 0) {
+            want = rtu_request_expected_len(buf, total);
+            if (want < 0) {
+                /* Unrecognised function code: fall back to the old gap framing
+                   so unusual requests still pass through rather than stalling. */
+                ESP_LOGW("PASSTHRU", "unknown fc 0x%02x, gap-framing this one",
+                         total >= 2 ? buf[1] : 0);
+                break;
+            }
+            if (want > 0 && (size_t)want > buf_size) return -1;   /* absurd */
+        }
+
+        if (want > 0 && total >= (size_t)want) return want;       /* exactly one ADU */
+
+        /* Ask for only the bytes this frame still needs (1 while probing). */
+        size_t need = (want > 0) ? ((size_t)want - total) : 1;
+        if (total + need > buf_size) return -1;
+
+        esp_task_wdt_reset();
+        n = recv(fd, buf + total, need, 0);
+        if (n > 0) {
+            total += n;
+            idle = 0;
+        } else if (n == 0) {
+            return -1;                                   /* peer closed mid-frame */
+        } else if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            if (++idle >= PASSTHROUGH_ASSEMBLE_TRIES) {
+                ESP_LOGW("PASSTHRU", "incomplete ADU: got %u of %d bytes, discarding",
+                         (unsigned)total, want);
+                return -1;                               /* truncated - drop, don't forward */
+            }
+        } else {
+            return -1;
+        }
+    }
+
+    /* Fallback path (unknown function code only): original gap framing. */
     while (total < buf_size) {
+        esp_task_wdt_reset();
         n = recv(fd, buf + total, buf_size - total, 0);
         if (n > 0) {
             total += n;
         } else if (n == 0) {
-            return -1;             // peer closed mid-frame
+            return -1;
         } else {
-            if (errno == EAGAIN || errno == EWOULDBLOCK) break;  // gap => done
+            if (errno == EAGAIN || errno == EWOULDBLOCK) break;
             return -1;
         }
     }
@@ -389,11 +516,19 @@ void modbus_passthrough_task(void *pvParameters)
     }
     status_led_set_listening(true);
 
+    /* Bound accept() so an idle listener still comes back to feed the
+       watchdog. Subscribe only past the early-return paths above, so we
+       never leave a deleted task registered. */
+    struct timeval accept_to = { .tv_sec = PASSTHROUGH_WDT_SLICE_S, .tv_usec = 0 };
+    setsockopt(listenfd, SOL_SOCKET, SO_RCVTIMEO, &accept_to, sizeof(accept_to));
+    esp_task_wdt_add(NULL);
+
     uint8_t tx_buf[PASSTHROUGH_BUF_SIZE];
     uint8_t rx_buf[PASSTHROUGH_BUF_SIZE];
 
     while (1) {
         printf("Waiting for TCP client on port %d (pass-through)...\n", pt_port);
+        esp_task_wdt_reset();
         int cfd = accept(listenfd, NULL, NULL);
         if (cfd < 0) {
             vTaskDelay(pdMS_TO_TICKS(100));
@@ -427,7 +562,7 @@ void modbus_passthrough_task(void *pvParameters)
                     uart_wait_tx_done(UART_NUM_1, pdMS_TO_TICKS(1000));
 
                     rsp_len = passthrough_read_rtu_response(rx_buf, sizeof(rx_buf),
-                                                           idle_timeout_s * 1000);
+                                                           PASSTHROUGH_RTU_FIRST_BYTE_MS);
                     if (rsp_len > 0) break;
 
                     if (attempt < retries) {

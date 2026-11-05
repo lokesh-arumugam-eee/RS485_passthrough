@@ -13,8 +13,10 @@
 #include "xmodem.h"
 #include "nanomodbus.h"
 #include "modbus_rtu.h"
+#include "esp_task_wdt.h"
 #include "wifiConnect.h"
 #include "esp_netif.h"
+#include "esp_wifi.h"
 #include "http.h"
 #include "log_capture.h"
 #include "controller.h"
@@ -133,15 +135,7 @@ int32_t uart_write_cb(const uint8_t* buf, uint16_t count,int32_t timeout_ms, voi
          }
      }
      printf("crc argument: %p", arg);
-     if(arg!=NULL && arg == (void*)&uart_ctx)
-     {
-        if(system_urts[0].swapcrc==0)
-           crc = (crc << 8) | (crc >> 8);
-     }
-     else
-     {
-            crc = (crc << 8) | (crc >> 8);
-     }
+     crc = (crc << 8) | (crc >> 8);
      return crc;
  }
 
@@ -199,7 +193,10 @@ void modbus_read_task(void* arg)
 {
     static int ota_paused_logged = 0;
 
+    esp_task_wdt_add(NULL);
+
     while (1) {
+        esp_task_wdt_reset();
         //ESP_LOGI(TAG, "Stack free: %u",uxTaskGetStackHighWaterMark(NULL));
         if (otataskstarted) {
             if (!ota_paused_logged) {
@@ -514,9 +511,8 @@ nmbs_error populate_modbus_read_holding(uint8_t slave_id, uint16_t addr, uint16_
             case ADD_STOP_BITS: out_buf[i] = system_urts[0].stop_bits; i++;   break;
             case ADD_RETRY_CNT: out_buf[i] = system_urts[0].retry_cnt; i++;   break;
             case ADD_RETRY_PRD: out_buf[i] = system_urts[0].retry_period; i++; break;
-            case ADD_RTU_SWAP_CRC: 
-                out_buf[i] = system_urts[0].swapcrc; i++; 
-                printf("RTU Swap CRC: %d\n", system_urts[0].swapcrc);
+            case ADD_RESERVED_17:
+                out_buf[i] = 0; i++;
                 break;
 
             case ADD_STATIC_IP:   //IP ADDRESS
@@ -677,6 +673,15 @@ nmbs_error populate_modbus_read_input(uint8_t slave_id, uint16_t addr, uint16_t 
             out_buf[i] = (uint16_t)(mac_ble[2] << 8 | mac_ble[3]); i+=1;
             out_buf[i] = (uint16_t)(mac_ble[4] << 8 | mac_ble[5]); i+=1;
             break;
+            case ADD_WIFI_RSSI: {
+            wifi_ap_record_t ap_info;
+            int16_t rssi = 127;
+            if (wifi_is_connected && esp_wifi_sta_get_ap_info(&ap_info) == ESP_OK) {
+                rssi = ap_info.rssi;
+            }
+            out_buf[i] = (uint16_t)rssi; i++;
+            break;
+            }
             case ADD_FOTA_STS:out_buf[i] = httpserver_params.ota_status; i++;break;
             case ADD_FOTA_PROGRESS: out_buf[i] = httpserver_params.ota_percentage; i++;break;
             case ADD_FOTA_FAILURE_REASON: out_buf[i] = httpserver_params.ota_failure_reason; i++;break;
@@ -851,19 +856,8 @@ nmbs_error populate_modbus_write(uint8_t slave_id, uint16_t addr, uint16_t qty, 
                 }
                 i++; 
                 break;
-            case ADD_RTU_SWAP_CRC: 
-                if (in_buf[i] == 0 || in_buf[i] == 1) {
-                    temp_urts.swapcrc = in_buf[i];
-                    system_urts[0].swapcrc = temp_urts.swapcrc;
-                    uart_update_needed=1;
-                    ESP_LOGI("MODBUS","ADD_RTU_SWAP_CRC recived:%d\n",temp_urts.swapcrc);
-                }
-                else
-                {
-                    return NMBS_EXCEPTION_ILLEGAL_DATA_VALUE; 
-                    ESP_LOGW("MODBUS", "Invalid RTU Swap CRC value: %d. Must be 0 (No Swap) or 1 (Swap).", in_buf[i]);
-                }
-                i++; 
+            case ADD_RESERVED_17:
+                i++;
                 break;
             case ADD_STATIC_IP:   //IP ADDRESS
                 Temp = (uint32_t)((in_buf[i+1]<<8|in_buf[i+1]>>8) & 0xFFFF);
@@ -1077,23 +1071,21 @@ nmbs_error populate_modbus_write(uint8_t slave_id, uint16_t addr, uint16_t qty, 
     // 3. If we reach here, all data is valid. Now apply updates atomically.
     if (uart_update_needed) {
         //{"0":{"curt0":"0:9600:0:8:1:1:600:0:1:0:0:1"}}
-        printf("Updating UART settings: ID=%d, Baud=%ld, Parity=%d, DataBits=%d, StopBits=%d, RetryCnt=%d, RetryPrd=%d, DisconnectonNoA=%d, DefConnStatus=%d, InterwriteDelay=%d, InterReadDelay=%d, AutoConnect=%d swapcrc:%d\n",
+        printf("Updating UART settings: ID=%d, Baud=%ld, Parity=%d, DataBits=%d, StopBits=%d, RetryCnt=%d, RetryPrd=%d, DisconnectonNoA=%d, DefConnStatus=%d, InterwriteDelay=%d, InterReadDelay=%d, AutoConnect=%d\n",
                temp_urts.urt_id, temp_urts.baud,
                temp_urts.parity, temp_urts.data_bits,
                temp_urts.stop_bits, temp_urts.retry_cnt,
                temp_urts.retry_period,temp_urts.DisconnectonNoA,
                temp_urts.DefConnStatus,temp_urts.InterwriteDelay,
-               temp_urts.InterReadDelay,temp_urts.AutoConnect,
-                temp_urts.swapcrc);
+               temp_urts.InterReadDelay,temp_urts.AutoConnect);
            char urtsetting[100];
-            sprintf_j(urtsetting, sizeof(urtsetting), "{\"0\":{\"curt0\":\"%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d\"}}",
+            sprintf_j(urtsetting, sizeof(urtsetting), "{\"0\":{\"curt0\":\"%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d\"}}",
                                     temp_urts.urt_id, temp_urts.baud,
                                     temp_urts.parity, temp_urts.data_bits,
                                     temp_urts.stop_bits, temp_urts.retry_cnt,
                                     temp_urts.retry_period,temp_urts.DisconnectonNoA,
                                     temp_urts.DefConnStatus,temp_urts.InterwriteDelay,
-                                    temp_urts.InterReadDelay,temp_urts.AutoConnect,
-                                    temp_urts.swapcrc);
+                                    temp_urts.InterReadDelay,temp_urts.AutoConnect);
             printf("Found %s, saving content: %s\n", "urt", urtsetting);
             //Update the file using the dynamic key name (dmbr1, dmbr2, etc)
             update_config_tag(config_path, "urt", urtsetting);

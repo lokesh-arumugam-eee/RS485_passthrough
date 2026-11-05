@@ -1,0 +1,778 @@
+[0;32mI (32878) LOG_CAPTURE: log capture started: duration=300000 ms, cap=65536 bytes[0m
+[0;32mI (33778) MODBUS: OTA in progress, pausing Modbus polling[0m
+[0;32mI (50898) NANOMODBUS: recieved CRC = 49433,calc crc 49433[0m
+[0;32mI (50918) SYS_INIT: Tag 'ota' found and replaced.[0m
+[0;32mI (50928) SYS_INIT: File updated successfully.[0m
+[0;32mI (50928) MODBUS: Slave 249: Successful read from Addr 93[0m
+[0;32mI (50938) RTU_OVER_TCP_OUT: f9 10 00 5d 00 01 85 a3 [0m
+[0;32mI (51008) NANOMODBUS: recieved CRC = 57229,calc crc 57229[0m
+[0;32mI (51028) MODBUS: ADD_OTA_HTTP_URL recived:10.179.42.67
+[0m
+[0;32mI (51038) SYS_INIT: Tag 'ota' found and replaced.[0m
+[0;32mI (51098) SYS_INIT: File updated successfully.[0m
+[0;32mI (51098) MODBUS: Slave 249: Successful read from Addr 29[0m
+[0;32mI (51098) RTU_OVER_TCP_OUT: f9 10 00 1d 00 40 44 47 [0m
+[0;32mI (51518) NANOMODBUS: recieved CRC = 18982,calc crc 18982[0m
+[0;32mI (51528) MODBUS: ADD_OTA_HTTP_FILE_NAME recived:firmware9.bin
+[0m
+[0;32mI (51548) SYS_INIT: Tag 'ota' found and replaced.[0m
+[0;32mI (51558) SYS_INIT: File updated successfully.[0m
+[0;32mI (51558) MODBUS: Slave 249: Successful read from Addr 94[0m
+[0;32mI (51568) RTU_OVER_TCP_OUT: f9 10 00 5e 00 20 b5 bb [0m
+[0;32mI (51718) NANOMODBUS: recieved CRC = 40356,calc crc 40356[0m
+[0;32mI (51728) MODBUS: ADD_TRIGGER_FOTA recived:0
+[0m
+[0;32mI (51748) MODBUS: ADD_TRIGGER_FOTA recived:1
+[0m
+[0;32mI (51748) SYS_INIT: Tag 'ota' found and replaced.[0m
+[0;32mI (51788) SYS_INIT: File updated successfully.[0m
+[0;32mI (51788) MODBUS: Slave 249: Successful read from Addr 126[0m
+[0;32mI (51798) RTU_OVER_TCP_OUT: f9 10 00 7e 00 02 34 68 [0m
+[0;32mI (52018) NANOMODBUS: recieved CRC = 25715,calc crc 25715[0m
+[0;32mI (52028) MODBUS: Slave 249: Successful read from Addr 0[0m
+[0;32mI (52048) RTU_OVER_TCP_OUT: f9 04 04 00 0f 46 32 01 fd [0m
+[0;32mI (52318) NANOMODBUS: recieved CRC = 50611,calc crc 50611[0m
+[0;32mI (52338) MODBUS: Slave 249: Successful read from Addr 2[0m
+[0;32mI (52348) RTU_OVER_TCP_OUT: f9 04 04 01 50 7c ba 22 d5 [0m
+[0;32mI (52428) NANOMODBUS: recieved CRC = 58482,calc crc 58482[0m
+[0;32mI (52438) MODBUS: Slave 249: Successful read from Addr 4[0m
+[0;32mI (52458) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d a8 fc e1 [0m
+[0;32mI (52568) NANOMODBUS: recieved CRC = 5234,calc crc 5234[0m
+[0;32mI (52578) MODBUS: Slave 249: Successful read from Addr 7[0m
+[0;32mI (52598) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d aa 7d 20 [0m
+[0;32mI (52668) NANOMODBUS: recieved CRC = 61873,calc crc 61873[0m
+[0;32mI (52678) MODBUS: Slave 249: Successful read from Addr 10[0m
+[0;32mI (52698) RTU_OVER_TCP_OUT: f9 03 04 00 00 25 80 98 cc [0m
+[0;32mI (52738) NANOMODBUS: recieved CRC = 20913,calc crc 20913[0m
+[0;32mI (52758) MODBUS: Slave 249: Successful read from Addr 12[0m
+[0;32mI (52808) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (52838) NANOMODBUS: recieved CRC = 113,calc crc 113[0m
+[0;32mI (52848) MODBUS: Slave 249: Successful read from Addr 13[0m
+[0;32mI (52868) RTU_OVER_TCP_OUT: f9 03 02 00 08 18 56 [0m
+[0;32mI (52938) NANOMODBUS: recieved CRC = 61553,calc crc 61553[0m
+[0;32mI (52948) MODBUS: Slave 249: Successful read from Addr 14[0m
+[0;32mI (52968) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (53038) NANOMODBUS: recieved CRC = 41393,calc crc 41393[0m
+[0;32mI (53058) MODBUS: Slave 249: Successful read from Addr 15[0m
+[0;32mI (53068) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (53258) NANOMODBUS: recieved CRC = 36983,calc crc 36983[0m
+[0;32mI (53268) MODBUS: Slave 249: Successful read from Addr 16[0m
+[0;32mI (53288) RTU_OVER_TCP_OUT: f9 03 02 02 58 19 0a [0m
+[0;32mI (53358) NANOMODBUS: recieved CRC = 49591,calc crc 49591[0m
+[0;32mI (53368) MODBUS: Slave 249: Successful read from Addr 17[0m
+[0;32mI (53388) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (53448) NANOMODBUS: recieved CRC = 29110,calc crc 29110[0m
+[0;32mI (53468) MODBUS: Slave 249: Successful read from Addr 18[0m
+[0;32mI (53488) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a a8 6f 1d [0m
+[0;32mI (53548) NANOMODBUS: recieved CRC = 37303,calc crc 37303[0m
+[0;32mI (53568) MODBUS: Slave 249: Successful read from Addr 20[0m
+[0;32mI (53578) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a 69 ae 8d [0m
+[0;32mI (54198) NANOMODBUS: recieved CRC = 12407,calc crc 12407[0m
+[0;32mI (54208) MODBUS: Slave 249: Successful read from Addr 22[0m
+[0;32mI (54258) RTU_OVER_TCP_OUT: f9 03 04 ff ff ff 00 c2 28 [0m
+[0;32mI (54368) NANOMODBUS: recieved CRC = 4533,calc crc 4533[0m
+[0;32mI (54378) MODBUS: Slave 249: Successful read from Addr 24[0m
+[0;32mI (54398) RTU_OVER_TCP_OUT: f9 03 02 01 f6 98 46 [0m
+[0;32mI (54468) NANOMODBUS: recieved CRC = 16501,calc crc 16501[0m
+[0;32mI (54478) MODBUS: Slave 249: Successful read from Addr 25[0m
+[0;32mI (54498) RTU_OVER_TCP_OUT: f9 03 02 01 f7 59 86 [0m
+[0;32mI (54568) NANOMODBUS: recieved CRC = 45173,calc crc 45173[0m
+[0;32mI (54578) MODBUS: Slave 249: Successful read from Addr 26[0m
+[0;32mI (54598) RTU_OVER_TCP_OUT: f9 03 02 00 50 19 ac [0m
+[0;32mI (54668) NANOMODBUS: recieved CRC = 57781,calc crc 57781[0m
+[0;32mI (54678) MODBUS: Slave 249: Successful read from Addr 27[0m
+[0;32mI (54698) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (55188) NANOMODBUS: recieved CRC = 20596,calc crc 20596[0m
+[0;32mI (55198) MODBUS: Slave 249: Successful read from Addr 28[0m
+[0;32mI (55218) RTU_OVER_TCP_OUT: f9 03 02 00 3c 19 81 [0m
+[0;32mI (55308) NANOMODBUS: recieved CRC = 49540,calc crc 49540[0m
+[0;32mI (55318) MODBUS: Slave 249: Successful read from Addr 29[0m
+[0;32mI (55348) RTU_OVER_TCP_OUT: f9 03 80 31 30 2e 31 37 39 2e 34 32 2e 36 37 00 [0m
+[0;32mI (55358) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (55368) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (55388) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (55388) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (55428) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (55428) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (55438) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (55438) RTU_OVER_TCP_OUT: 00 00 00 3a 13 [0m
+[0;32mI (55708) NANOMODBUS: recieved CRC = 96,calc crc 96[0m
+[0;32mI (55728) MODBUS: Slave 249: Successful read from Addr 93[0m
+[0;32mI (55728) RTU_OVER_TCP_OUT: f9 03 02 1f 40 10 50 [0m
+[0;32mI (56148) NANOMODBUS: recieved CRC = 12408,calc crc 12408[0m
+[0;32mI (56168) MODBUS: Slave 249: Successful read from Addr 94[0m
+[0;32mI (56178) RTU_OVER_TCP_OUT: f9 03 40 66 69 72 6d 77 61 72 65 39 2e 62 69 6e [0m
+[0;32mI (56188) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (56208) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (56208) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (56218) RTU_OVER_TCP_OUT: 00 00 00 0b c0 [0m
+[0;32mI (56238) NANOMODBUS: recieved CRC = 61866,calc crc 61866[0m
+[0;32mI (56248) MODBUS: Slave 249: Successful read from Addr 126[0m
+[0;32mI (56268) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (56318) NANOMODBUS: recieved CRC = 5546,calc crc 5546[0m
+[0;32mI (56338) MODBUS: Slave 249: Successful read from Addr 127[0m
+[0;32mI (56348) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (56428) NANOMODBUS: recieved CRC = 9626,calc crc 9626[0m
+[0;32mI (56438) MODBUS: Slave 249: Successful read from Addr 128[0m
+[0;32mI (56458) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (56528) NANOMODBUS: recieved CRC = 29786,calc crc 29786[0m
+[0;32mI (56538) MODBUS: Slave 249: Successful read from Addr 129[0m
+[0;32mI (56588) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (91658) NANOMODBUS: recieved CRC = 49433,calc crc 49433[0m
+[0;32mI (91678) SYS_INIT: Tag 'ota' found and replaced.[0m
+[0;32mI (91688) SYS_INIT: File updated successfully.[0m
+[0;32mI (91688) MODBUS: Slave 249: Successful read from Addr 93[0m
+[0;32mI (91698) RTU_OVER_TCP_OUT: f9 10 00 5d 00 01 85 a3 [0m
+[0;32mI (91768) NANOMODBUS: recieved CRC = 57229,calc crc 57229[0m
+[0;32mI (91778) MODBUS: ADD_OTA_HTTP_URL recived:10.179.42.67
+[0m
+[0;32mI (91788) SYS_INIT: Tag 'ota' found and replaced.[0m
+[0;32mI (91848) SYS_INIT: File updated successfully.[0m
+[0;32mI (91848) MODBUS: Slave 249: Successful read from Addr 29[0m
+[0;32mI (91848) RTU_OVER_TCP_OUT: f9 10 00 1d 00 40 44 47 [0m
+[0;32mI (91968) NANOMODBUS: recieved CRC = 18982,calc crc 18982[0m
+[0;32mI (91978) MODBUS: ADD_OTA_HTTP_FILE_NAME recived:firmware9.bin
+[0m
+[0;32mI (91998) SYS_INIT: Tag 'ota' found and replaced.[0m
+[0;32mI (92008) SYS_INIT: File updated successfully.[0m
+[0;32mI (92008) MODBUS: Slave 249: Successful read from Addr 94[0m
+[0;32mI (92028) RTU_OVER_TCP_OUT: f9 10 00 5e 00 20 b5 bb [0m
+[0;32mI (92058) NANOMODBUS: recieved CRC = 40356,calc crc 40356[0m
+[0;32mI (92068) MODBUS: ADD_TRIGGER_FOTA recived:0
+[0m
+[0;32mI (92088) MODBUS: ADD_TRIGGER_FOTA recived:1
+[0m
+[0;32mI (92088) SYS_INIT: Tag 'ota' found and replaced.[0m
+[0;32mI (92138) SYS_INIT: File updated successfully.[0m
+[0;32mI (92138) MODBUS: Slave 249: Successful read from Addr 126[0m
+[0;32mI (92138) RTU_OVER_TCP_OUT: f9 10 00 7e 00 02 34 68 [0m
+[0;32mI (92368) NANOMODBUS: recieved CRC = 25715,calc crc 25715[0m
+[0;32mI (92378) MODBUS: Slave 249: Successful read from Addr 0[0m
+[0;32mI (92398) RTU_OVER_TCP_OUT: f9 04 04 00 0f 46 32 01 fd [0m
+[0;32mI (92558) NANOMODBUS: recieved CRC = 50611,calc crc 50611[0m
+[0;32mI (92568) MODBUS: Slave 249: Successful read from Addr 2[0m
+[0;32mI (92588) RTU_OVER_TCP_OUT: f9 04 04 01 50 7c ba 22 d5 [0m
+[0;32mI (92658) NANOMODBUS: recieved CRC = 58482,calc crc 58482[0m
+[0;32mI (92668) MODBUS: Slave 249: Successful read from Addr 4[0m
+[0;32mI (92688) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d a8 fc e1 [0m
+[0;32mI (92768) NANOMODBUS: recieved CRC = 5234,calc crc 5234[0m
+[0;32mI (92778) MODBUS: Slave 249: Successful read from Addr 7[0m
+[0;32mI (92788) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d aa 7d 20 [0m
+[0;32mI (92868) NANOMODBUS: recieved CRC = 61873,calc crc 61873[0m
+[0;32mI (92878) MODBUS: Slave 249: Successful read from Addr 10[0m
+[0;32mI (92898) RTU_OVER_TCP_OUT: f9 03 04 00 00 25 80 98 cc [0m
+[0;32mI (92968) NANOMODBUS: recieved CRC = 20913,calc crc 20913[0m
+[0;32mI (92978) MODBUS: Slave 249: Successful read from Addr 12[0m
+[0;32mI (93028) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (93088) NANOMODBUS: recieved CRC = 113,calc crc 113[0m
+[0;32mI (93098) MODBUS: Slave 249: Successful read from Addr 13[0m
+[0;32mI (93118) RTU_OVER_TCP_OUT: f9 03 02 00 08 18 56 [0m
+[0;32mI (93198) NANOMODBUS: recieved CRC = 61553,calc crc 61553[0m
+[0;32mI (93208) MODBUS: Slave 249: Successful read from Addr 14[0m
+[0;32mI (93218) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (93288) NANOMODBUS: recieved CRC = 41393,calc crc 41393[0m
+[0;32mI (93298) MODBUS: Slave 249: Successful read from Addr 15[0m
+[0;32mI (93318) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (93508) NANOMODBUS: recieved CRC = 36983,calc crc 36983[0m
+[0;32mI (93518) MODBUS: Slave 249: Successful read from Addr 16[0m
+[0;32mI (93528) RTU_OVER_TCP_OUT: f9 03 02 02 58 19 0a [0m
+[0;32mI (93598) NANOMODBUS: recieved CRC = 49591,calc crc 49591[0m
+[0;32mI (93608) MODBUS: Slave 249: Successful read from Addr 17[0m
+[0;32mI (93628) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (93898) NANOMODBUS: recieved CRC = 29110,calc crc 29110[0m
+[0;32mI (93918) MODBUS: Slave 249: Successful read from Addr 18[0m
+[0;32mI (93928) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a a8 6f 1d [0m
+[0;32mI (94118) NANOMODBUS: recieved CRC = 37303,calc crc 37303[0m
+[0;32mI (94128) MODBUS: Slave 249: Successful read from Addr 20[0m
+[0;32mI (94148) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a 69 ae 8d [0m
+[0;32mI (94208) NANOMODBUS: recieved CRC = 12407,calc crc 12407[0m
+[0;32mI (94218) MODBUS: Slave 249: Successful read from Addr 22[0m
+[0;32mI (94238) RTU_OVER_TCP_OUT: f9 03 04 ff ff ff 00 c2 28 [0m
+[0;32mI (94518) NANOMODBUS: recieved CRC = 4533,calc crc 4533[0m
+[0;32mI (94528) MODBUS: Slave 249: Successful read from Addr 24[0m
+[0;32mI (94578) RTU_OVER_TCP_OUT: f9 03 02 01 f6 98 46 [0m
+[0;32mI (94918) NANOMODBUS: recieved CRC = 16501,calc crc 16501[0m
+[0;32mI (94928) MODBUS: Slave 249: Successful read from Addr 25[0m
+[0;32mI (94948) RTU_OVER_TCP_OUT: f9 03 02 01 f7 59 86 [0m
+[0;32mI (95158) NANOMODBUS: recieved CRC = 45173,calc crc 45173[0m
+[0;32mI (95168) MODBUS: Slave 249: Successful read from Addr 26[0m
+[0;32mI (95188) RTU_OVER_TCP_OUT: f9 03 02 00 50 19 ac [0m
+[0;32mI (95428) NANOMODBUS: recieved CRC = 57781,calc crc 57781[0m
+[0;32mI (95448) MODBUS: Slave 249: Successful read from Addr 27[0m
+[0;32mI (95458) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (95548) NANOMODBUS: recieved CRC = 20596,calc crc 20596[0m
+[0;32mI (95558) MODBUS: Slave 249: Successful read from Addr 28[0m
+[0;32mI (95568) RTU_OVER_TCP_OUT: f9 03 02 00 3c 19 81 [0m
+[0;32mI (95638) NANOMODBUS: recieved CRC = 49540,calc crc 49540[0m
+[0;32mI (95648) MODBUS: Slave 249: Successful read from Addr 29[0m
+[0;32mI (95678) RTU_OVER_TCP_OUT: f9 03 80 31 30 2e 31 37 39 2e 34 32 2e 36 37 00 [0m
+[0;32mI (95688) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (95698) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (95718) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (95718) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (95718) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (95728) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (95778) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (95778) RTU_OVER_TCP_OUT: 00 00 00 3a 13 [0m
+[0;32mI (95848) NANOMODBUS: recieved CRC = 96,calc crc 96[0m
+[0;32mI (95858) MODBUS: Slave 249: Successful read from Addr 93[0m
+[0;32mI (95868) RTU_OVER_TCP_OUT: f9 03 02 1f 40 10 50 [0m
+[0;32mI (96058) NANOMODBUS: recieved CRC = 12408,calc crc 12408[0m
+[0;32mI (96078) MODBUS: Slave 249: Successful read from Addr 94[0m
+[0;32mI (96088) RTU_OVER_TCP_OUT: f9 03 40 66 69 72 6d 77 61 72 65 39 2e 62 69 6e [0m
+[0;32mI (96098) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (96118) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (96118) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (96128) RTU_OVER_TCP_OUT: 00 00 00 0b c0 [0m
+[0;32mI (96358) NANOMODBUS: recieved CRC = 61866,calc crc 61866[0m
+[0;32mI (96368) MODBUS: Slave 249: Successful read from Addr 126[0m
+[0;32mI (96388) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (96568) NANOMODBUS: recieved CRC = 5546,calc crc 5546[0m
+[0;32mI (96578) MODBUS: Slave 249: Successful read from Addr 127[0m
+[0;32mI (96598) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (96668) NANOMODBUS: recieved CRC = 9626,calc crc 9626[0m
+[0;32mI (96678) MODBUS: Slave 249: Successful read from Addr 128[0m
+[0;32mI (96698) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (96798) NANOMODBUS: recieved CRC = 29786,calc crc 29786[0m
+[0;32mI (96808) MODBUS: Slave 249: Successful read from Addr 129[0m
+[0;32mI (96858) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (128428) NANOMODBUS: recieved CRC = 25715,calc crc 25715[0m
+[0;32mI (128438) MODBUS: Slave 249: Successful read from Addr 0[0m
+[0;32mI (128458) RTU_OVER_TCP_OUT: f9 04 04 00 0f 46 32 01 fd [0m
+[0;32mI (128508) NANOMODBUS: recieved CRC = 50611,calc crc 50611[0m
+[0;32mI (128528) MODBUS: Slave 249: Successful read from Addr 2[0m
+[0;32mI (128538) RTU_OVER_TCP_OUT: f9 04 04 01 50 7c ba 22 d5 [0m
+[0;32mI (128618) NANOMODBUS: recieved CRC = 58482,calc crc 58482[0m
+[0;32mI (128628) MODBUS: Slave 249: Successful read from Addr 4[0m
+[0;32mI (128638) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d a8 fc e1 [0m
+[0;32mI (128718) NANOMODBUS: recieved CRC = 5234,calc crc 5234[0m
+[0;32mI (128728) MODBUS: Slave 249: Successful read from Addr 7[0m
+[0;32mI (128738) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d aa 7d 20 [0m
+[0;32mI (128948) NANOMODBUS: recieved CRC = 61873,calc crc 61873[0m
+[0;32mI (128958) MODBUS: Slave 249: Successful read from Addr 10[0m
+[0;32mI (128978) RTU_OVER_TCP_OUT: f9 03 04 00 00 25 80 98 cc [0m
+[0;32mI (129018) NANOMODBUS: recieved CRC = 20913,calc crc 20913[0m
+[0;32mI (129028) MODBUS: Slave 249: Successful read from Addr 12[0m
+[0;32mI (129048) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (129128) NANOMODBUS: recieved CRC = 113,calc crc 113[0m
+[0;32mI (129138) MODBUS: Slave 249: Successful read from Addr 13[0m
+[0;32mI (129158) RTU_OVER_TCP_OUT: f9 03 02 00 08 18 56 [0m
+[0;32mI (129248) NANOMODBUS: recieved CRC = 61553,calc crc 61553[0m
+[0;32mI (129258) MODBUS: Slave 249: Successful read from Addr 14[0m
+[0;32mI (129308) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (129348) NANOMODBUS: recieved CRC = 41393,calc crc 41393[0m
+[0;32mI (129358) MODBUS: Slave 249: Successful read from Addr 15[0m
+[0;32mI (129368) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (129468) NANOMODBUS: recieved CRC = 36983,calc crc 36983[0m
+[0;32mI (129478) MODBUS: Slave 249: Successful read from Addr 16[0m
+[0;32mI (129498) RTU_OVER_TCP_OUT: f9 03 02 02 58 19 0a [0m
+[0;32mI (129558) NANOMODBUS: recieved CRC = 49591,calc crc 49591[0m
+[0;32mI (129568) MODBUS: Slave 249: Successful read from Addr 17[0m
+[0;32mI (129588) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (129658) NANOMODBUS: recieved CRC = 29110,calc crc 29110[0m
+[0;32mI (129678) MODBUS: Slave 249: Successful read from Addr 18[0m
+[0;32mI (129688) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a a8 6f 1d [0m
+[0;32mI (129898) NANOMODBUS: recieved CRC = 37303,calc crc 37303[0m
+[0;32mI (129908) MODBUS: Slave 249: Successful read from Addr 20[0m
+[0;32mI (129928) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a 69 ae 8d [0m
+[0;32mI (129948) NANOMODBUS: recieved CRC = 12407,calc crc 12407[0m
+[0;32mI (129958) MODBUS: Slave 249: Successful read from Addr 22[0m
+[0;32mI (129978) RTU_OVER_TCP_OUT: f9 03 04 ff ff ff 00 c2 28 [0m
+[0;32mI (130048) NANOMODBUS: recieved CRC = 4533,calc crc 4533[0m
+[0;32mI (130058) MODBUS: Slave 249: Successful read from Addr 24[0m
+[0;32mI (130078) RTU_OVER_TCP_OUT: f9 03 02 01 f6 98 46 [0m
+[0;32mI (130148) NANOMODBUS: recieved CRC = 16501,calc crc 16501[0m
+[0;32mI (130168) MODBUS: Slave 249: Successful read from Addr 25[0m
+[0;32mI (130178) RTU_OVER_TCP_OUT: f9 03 02 01 f7 59 86 [0m
+[0;32mI (130368) NANOMODBUS: recieved CRC = 45173,calc crc 45173[0m
+[0;32mI (130378) MODBUS: Slave 249: Successful read from Addr 26[0m
+[0;32mI (130428) RTU_OVER_TCP_OUT: f9 03 02 00 50 19 ac [0m
+[0;32mI (130458) NANOMODBUS: recieved CRC = 57781,calc crc 57781[0m
+[0;32mI (130468) MODBUS: Slave 249: Successful read from Addr 27[0m
+[0;32mI (130488) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (130568) NANOMODBUS: recieved CRC = 20596,calc crc 20596[0m
+[0;32mI (130578) MODBUS: Slave 249: Successful read from Addr 28[0m
+[0;32mI (130588) RTU_OVER_TCP_OUT: f9 03 02 00 3c 19 81 [0m
+[0;32mI (130878) NANOMODBUS: recieved CRC = 49540,calc crc 49540[0m
+[0;32mI (130888) MODBUS: Slave 249: Successful read from Addr 29[0m
+[0;32mI (130918) RTU_OVER_TCP_OUT: f9 03 80 31 30 2e 31 37 39 2e 34 32 2e 36 37 00 [0m
+[0;32mI (130918) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (130928) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (130948) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (130948) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (130958) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (130968) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (130988) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (130988) RTU_OVER_TCP_OUT: 00 00 00 3a 13 [0m
+[0;32mI (131058) NANOMODBUS: recieved CRC = 96,calc crc 96[0m
+[0;32mI (131078) MODBUS: Slave 249: Successful read from Addr 93[0m
+[0;32mI (131088) RTU_OVER_TCP_OUT: f9 03 02 1f 40 10 50 [0m
+[0;32mI (131168) NANOMODBUS: recieved CRC = 12408,calc crc 12408[0m
+[0;32mI (131218) MODBUS: Slave 249: Successful read from Addr 94[0m
+[0;32mI (131228) RTU_OVER_TCP_OUT: f9 03 40 66 69 72 6d 77 61 72 65 39 2e 62 69 6e [0m
+[0;32mI (131238) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (131258) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (131258) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (131268) RTU_OVER_TCP_OUT: 00 00 00 0b c0 [0m
+[0;32mI (131378) NANOMODBUS: recieved CRC = 61866,calc crc 61866[0m
+[0;32mI (131388) MODBUS: Slave 249: Successful read from Addr 126[0m
+[0;32mI (131408) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (131498) NANOMODBUS: recieved CRC = 5546,calc crc 5546[0m
+[0;32mI (131508) MODBUS: Slave 249: Successful read from Addr 127[0m
+[0;32mI (131528) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (131598) NANOMODBUS: recieved CRC = 9626,calc crc 9626[0m
+[0;32mI (131608) MODBUS: Slave 249: Successful read from Addr 128[0m
+[0;32mI (131618) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (131818) NANOMODBUS: recieved CRC = 29786,calc crc 29786[0m
+[0;32mI (131828) MODBUS: Slave 249: Successful read from Addr 129[0m
+[0;32mI (131848) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (162118) NANOMODBUS: recieved CRC = 25715,calc crc 25715[0m
+[0;32mI (162128) MODBUS: Slave 249: Successful read from Addr 0[0m
+[0;32mI (162148) RTU_OVER_TCP_OUT: f9 04 04 00 0f 46 32 01 fd [0m
+[0;32mI (162468) NANOMODBUS: recieved CRC = 50611,calc crc 50611[0m
+[0;32mI (162488) MODBUS: Slave 249: Successful read from Addr 2[0m
+[0;32mI (162538) RTU_OVER_TCP_OUT: f9 04 04 01 50 7c ba 22 d5 [0m
+[0;32mI (162608) NANOMODBUS: recieved CRC = 58482,calc crc 58482[0m
+[0;32mI (162618) MODBUS: Slave 249: Successful read from Addr 4[0m
+[0;32mI (162638) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d a8 fc e1 [0m
+[0;32mI (162728) NANOMODBUS: recieved CRC = 5234,calc crc 5234[0m
+[0;32mI (162738) MODBUS: Slave 249: Successful read from Addr 7[0m
+[0;32mI (162748) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d aa 7d 20 [0m
+[0;32mI (162818) NANOMODBUS: recieved CRC = 61873,calc crc 61873[0m
+[0;32mI (162828) MODBUS: Slave 249: Successful read from Addr 10[0m
+[0;32mI (162848) RTU_OVER_TCP_OUT: f9 03 04 00 00 25 80 98 cc [0m
+[0;32mI (163028) NANOMODBUS: recieved CRC = 20913,calc crc 20913[0m
+[0;32mI (163048) MODBUS: Slave 249: Successful read from Addr 12[0m
+[0;32mI (163058) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (163128) NANOMODBUS: recieved CRC = 113,calc crc 113[0m
+[0;32mI (163138) MODBUS: Slave 249: Successful read from Addr 13[0m
+[0;32mI (163158) RTU_OVER_TCP_OUT: f9 03 02 00 08 18 56 [0m
+[0;32mI (163228) NANOMODBUS: recieved CRC = 61553,calc crc 61553[0m
+[0;32mI (163238) MODBUS: Slave 249: Successful read from Addr 14[0m
+[0;32mI (163258) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (163528) NANOMODBUS: recieved CRC = 41393,calc crc 41393[0m
+[0;32mI (163538) MODBUS: Slave 249: Successful read from Addr 15[0m
+[0;32mI (163548) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (163628) NANOMODBUS: recieved CRC = 36983,calc crc 36983[0m
+[0;32mI (163638) MODBUS: Slave 249: Successful read from Addr 16[0m
+[0;32mI (163658) RTU_OVER_TCP_OUT: f9 03 02 02 58 19 0a [0m
+[0;32mI (163728) NANOMODBUS: recieved CRC = 49591,calc crc 49591[0m
+[0;32mI (163738) MODBUS: Slave 249: Successful read from Addr 17[0m
+[0;32mI (163788) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (163838) NANOMODBUS: recieved CRC = 29110,calc crc 29110[0m
+[0;32mI (163858) MODBUS: Slave 249: Successful read from Addr 18[0m
+[0;32mI (163868) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a a8 6f 1d [0m
+[0;32mI (164048) NANOMODBUS: recieved CRC = 37303,calc crc 37303[0m
+[0;32mI (164058) MODBUS: Slave 249: Successful read from Addr 20[0m
+[0;32mI (164078) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a 69 ae 8d [0m
+[0;32mI (164168) NANOMODBUS: recieved CRC = 12407,calc crc 12407[0m
+[0;32mI (164178) MODBUS: Slave 249: Successful read from Addr 22[0m
+[0;32mI (164198) RTU_OVER_TCP_OUT: f9 03 04 ff ff ff 00 c2 28 [0m
+[0;32mI (164408) NANOMODBUS: recieved CRC = 4533,calc crc 4533[0m
+[0;32mI (164418) MODBUS: Slave 249: Successful read from Addr 24[0m
+[0;32mI (164438) RTU_OVER_TCP_OUT: f9 03 02 01 f6 98 46 [0m
+[0;32mI (164478) NANOMODBUS: recieved CRC = 16501,calc crc 16501[0m
+[0;32mI (164488) MODBUS: Slave 249: Successful read from Addr 25[0m
+[0;32mI (164508) RTU_OVER_TCP_OUT: f9 03 02 01 f7 59 86 [0m
+[0;32mI (164568) NANOMODBUS: recieved CRC = 45173,calc crc 45173[0m
+[0;32mI (164578) MODBUS: Slave 249: Successful read from Addr 26[0m
+[0;32mI (164598) RTU_OVER_TCP_OUT: f9 03 02 00 50 19 ac [0m
+[0;32mI (164668) NANOMODBUS: recieved CRC = 57781,calc crc 57781[0m
+[0;32mI (164678) MODBUS: Slave 249: Successful read from Addr 27[0m
+[0;32mI (164698) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (164768) NANOMODBUS: recieved CRC = 20596,calc crc 20596[0m
+[0;32mI (164778) MODBUS: Slave 249: Successful read from Addr 28[0m
+[0;32mI (164828) RTU_OVER_TCP_OUT: f9 03 02 00 3c 19 81 [0m
+[0;32mI (164878) NANOMODBUS: recieved CRC = 49540,calc crc 49540[0m
+[0;32mI (164888) MODBUS: Slave 249: Successful read from Addr 29[0m
+[0;32mI (164918) RTU_OVER_TCP_OUT: f9 03 80 31 30 2e 31 37 39 2e 34 32 2e 36 37 00 [0m
+[0;32mI (164918) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (164928) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (164938) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (164948) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (164958) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (164968) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (164988) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (164988) RTU_OVER_TCP_OUT: 00 00 00 3a 13 [0m
+[0;32mI (165068) NANOMODBUS: recieved CRC = 96,calc crc 96[0m
+[0;32mI (165088) MODBUS: Slave 249: Successful read from Addr 93[0m
+[0;32mI (165098) RTU_OVER_TCP_OUT: f9 03 02 1f 40 10 50 [0m
+[0;32mI (165368) NANOMODBUS: recieved CRC = 12408,calc crc 12408[0m
+[0;32mI (165388) MODBUS: Slave 249: Successful read from Addr 94[0m
+[0;32mI (165398) RTU_OVER_TCP_OUT: f9 03 40 66 69 72 6d 77 61 72 65 39 2e 62 69 6e [0m
+[0;32mI (165408) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (165458) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (165458) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (165468) RTU_OVER_TCP_OUT: 00 00 00 0b c0 [0m
+[0;32mI (165778) NANOMODBUS: recieved CRC = 61866,calc crc 61866[0m
+[0;32mI (165798) MODBUS: Slave 249: Successful read from Addr 126[0m
+[0;32mI (165808) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (165908) NANOMODBUS: recieved CRC = 5546,calc crc 5546[0m
+[0;32mI (165918) MODBUS: Slave 249: Successful read from Addr 127[0m
+[0;32mI (165938) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (166008) NANOMODBUS: recieved CRC = 9626,calc crc 9626[0m
+[0;32mI (166018) MODBUS: Slave 249: Successful read from Addr 128[0m
+[0;32mI (166038) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (166108) NANOMODBUS: recieved CRC = 29786,calc crc 29786[0m
+[0;32mI (166118) MODBUS: Slave 249: Successful read from Addr 129[0m
+[0;32mI (166128) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (196598) NANOMODBUS: recieved CRC = 25715,calc crc 25715[0m
+[0;32mI (196608) MODBUS: Slave 249: Successful read from Addr 0[0m
+[0;32mI (196618) RTU_OVER_TCP_OUT: f9 04 04 00 0f 46 32 01 fd [0m
+[0;32mI (196698) NANOMODBUS: recieved CRC = 50611,calc crc 50611[0m
+[0;32mI (196708) MODBUS: Slave 249: Successful read from Addr 2[0m
+[0;32mI (196728) RTU_OVER_TCP_OUT: f9 04 04 01 50 7c ba 22 d5 [0m
+[0;32mI (196968) NANOMODBUS: recieved CRC = 58482,calc crc 58482[0m
+[0;32mI (196978) MODBUS: Slave 249: Successful read from Addr 4[0m
+[0;32mI (197028) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d a8 fc e1 [0m
+[0;32mI (197048) NANOMODBUS: recieved CRC = 5234,calc crc 5234[0m
+[0;32mI (197058) MODBUS: Slave 249: Successful read from Addr 7[0m
+[0;32mI (197078) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d aa 7d 20 [0m
+[0;32mI (197118) NANOMODBUS: recieved CRC = 61873,calc crc 61873[0m
+[0;32mI (197128) MODBUS: Slave 249: Successful read from Addr 10[0m
+[0;32mI (197148) RTU_OVER_TCP_OUT: f9 03 04 00 00 25 80 98 cc [0m
+[0;32mI (197228) NANOMODBUS: recieved CRC = 20913,calc crc 20913[0m
+[0;32mI (197238) MODBUS: Slave 249: Successful read from Addr 12[0m
+[0;32mI (197248) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (197338) NANOMODBUS: recieved CRC = 113,calc crc 113[0m
+[0;32mI (197348) MODBUS: Slave 249: Successful read from Addr 13[0m
+[0;32mI (197358) RTU_OVER_TCP_OUT: f9 03 02 00 08 18 56 [0m
+[0;32mI (197428) NANOMODBUS: recieved CRC = 61553,calc crc 61553[0m
+[0;32mI (197438) MODBUS: Slave 249: Successful read from Addr 14[0m
+[0;32mI (197458) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (197528) NANOMODBUS: recieved CRC = 41393,calc crc 41393[0m
+[0;32mI (197538) MODBUS: Slave 249: Successful read from Addr 15[0m
+[0;32mI (197558) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (197658) NANOMODBUS: recieved CRC = 36983,calc crc 36983[0m
+[0;32mI (197668) MODBUS: Slave 249: Successful read from Addr 16[0m
+[0;32mI (197688) RTU_OVER_TCP_OUT: f9 03 02 02 58 19 0a [0m
+[0;32mI (198038) NANOMODBUS: recieved CRC = 49591,calc crc 49591[0m
+[0;32mI (198048) MODBUS: Slave 249: Successful read from Addr 17[0m
+[0;32mI (198098) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (198248) NANOMODBUS: recieved CRC = 29110,calc crc 29110[0m
+[0;32mI (198268) MODBUS: Slave 249: Successful read from Addr 18[0m
+[0;32mI (198278) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a a8 6f 1d [0m
+[0;32mI (198348) NANOMODBUS: recieved CRC = 37303,calc crc 37303[0m
+[0;32mI (198368) MODBUS: Slave 249: Successful read from Addr 20[0m
+[0;32mI (198378) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a 69 ae 8d [0m
+[0;32mI (198458) NANOMODBUS: recieved CRC = 12407,calc crc 12407[0m
+[0;32mI (198468) MODBUS: Slave 249: Successful read from Addr 22[0m
+[0;32mI (198488) RTU_OVER_TCP_OUT: f9 03 04 ff ff ff 00 c2 28 [0m
+[0;32mI (198558) NANOMODBUS: recieved CRC = 4533,calc crc 4533[0m
+[0;32mI (198568) MODBUS: Slave 249: Successful read from Addr 24[0m
+[0;32mI (198578) RTU_OVER_TCP_OUT: f9 03 02 01 f6 98 46 [0m
+[0;32mI (198658) NANOMODBUS: recieved CRC = 16501,calc crc 16501[0m
+[0;32mI (198668) MODBUS: Slave 249: Successful read from Addr 25[0m
+[0;32mI (198688) RTU_OVER_TCP_OUT: f9 03 02 01 f7 59 86 [0m
+[0;32mI (198958) NANOMODBUS: recieved CRC = 45173,calc crc 45173[0m
+[0;32mI (198968) MODBUS: Slave 249: Successful read from Addr 26[0m
+[0;32mI (198978) RTU_OVER_TCP_OUT: f9 03 02 00 50 19 ac [0m
+[0;32mI (199068) NANOMODBUS: recieved CRC = 57781,calc crc 57781[0m
+[0;32mI (199078) MODBUS: Slave 249: Successful read from Addr 27[0m
+[0;32mI (199098) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (199188) NANOMODBUS: recieved CRC = 20596,calc crc 20596[0m
+[0;32mI (199198) MODBUS: Slave 249: Successful read from Addr 28[0m
+[0;32mI (199208) RTU_OVER_TCP_OUT: f9 03 02 00 3c 19 81 [0m
+[0;32mI (199268) NANOMODBUS: recieved CRC = 49540,calc crc 49540[0m
+[0;32mI (199278) MODBUS: Slave 249: Successful read from Addr 29[0m
+[0;32mI (199338) RTU_OVER_TCP_OUT: f9 03 80 31 30 2e 31 37 39 2e 34 32 2e 36 37 00 [0m
+[0;32mI (199338) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (199348) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (199368) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (199368) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (199378) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (199388) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (199398) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (199408) RTU_OVER_TCP_OUT: 00 00 00 3a 13 [0m
+[0;32mI (199588) NANOMODBUS: recieved CRC = 96,calc crc 96[0m
+[0;32mI (199598) MODBUS: Slave 249: Successful read from Addr 93[0m
+[0;32mI (199608) RTU_OVER_TCP_OUT: f9 03 02 1f 40 10 50 [0m
+[0;32mI (199878) NANOMODBUS: recieved CRC = 12408,calc crc 12408[0m
+[0;32mI (199898) MODBUS: Slave 249: Successful read from Addr 94[0m
+[0;32mI (199918) RTU_OVER_TCP_OUT: f9 03 40 66 69 72 6d 77 61 72 65 39 2e 62 69 6e [0m
+[0;32mI (199918) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (199938) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (199938) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (199948) RTU_OVER_TCP_OUT: 00 00 00 0b c0 [0m
+[0;32mI (199988) NANOMODBUS: recieved CRC = 61866,calc crc 61866[0m
+[0;32mI (199998) MODBUS: Slave 249: Successful read from Addr 126[0m
+[0;32mI (200048) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (200088) NANOMODBUS: recieved CRC = 5546,calc crc 5546[0m
+[0;32mI (200098) MODBUS: Slave 249: Successful read from Addr 127[0m
+[0;32mI (200118) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (200198) NANOMODBUS: recieved CRC = 9626,calc crc 9626[0m
+[0;32mI (200208) MODBUS: Slave 249: Successful read from Addr 128[0m
+[0;32mI (200228) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (200298) NANOMODBUS: recieved CRC = 29786,calc crc 29786[0m
+[0;32mI (200308) MODBUS: Slave 249: Successful read from Addr 129[0m
+[0;32mI (200328) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (230628) NANOMODBUS: recieved CRC = 25715,calc crc 25715[0m
+[0;32mI (230638) MODBUS: Slave 249: Successful read from Addr 0[0m
+[0;32mI (230658) RTU_OVER_TCP_OUT: f9 04 04 00 0f 46 32 01 fd [0m
+[0;32mI (230718) NANOMODBUS: recieved CRC = 50611,calc crc 50611[0m
+[0;32mI (230728) MODBUS: Slave 249: Successful read from Addr 2[0m
+[0;32mI (230738) RTU_OVER_TCP_OUT: f9 04 04 01 50 7c ba 22 d5 [0m
+[0;32mI (230808) NANOMODBUS: recieved CRC = 58482,calc crc 58482[0m
+[0;32mI (230818) MODBUS: Slave 249: Successful read from Addr 4[0m
+[0;32mI (230838) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d a8 fc e1 [0m
+[0;32mI (230918) NANOMODBUS: recieved CRC = 5234,calc crc 5234[0m
+[0;32mI (230938) MODBUS: Slave 249: Successful read from Addr 7[0m
+[0;32mI (230948) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d aa 7d 20 [0m
+[0;32mI (231008) NANOMODBUS: recieved CRC = 61873,calc crc 61873[0m
+[0;32mI (231028) MODBUS: Slave 249: Successful read from Addr 10[0m
+[0;32mI (231078) RTU_OVER_TCP_OUT: f9 03 04 00 00 25 80 98 cc [0m
+[0;32mI (231218) NANOMODBUS: recieved CRC = 20913,calc crc 20913[0m
+[0;32mI (231238) MODBUS: Slave 249: Successful read from Addr 12[0m
+[0;32mI (231248) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (231518) NANOMODBUS: recieved CRC = 113,calc crc 113[0m
+[0;32mI (231538) MODBUS: Slave 249: Successful read from Addr 13[0m
+[0;32mI (231548) RTU_OVER_TCP_OUT: f9 03 02 00 08 18 56 [0m
+[0;32mI (231638) NANOMODBUS: recieved CRC = 61553,calc crc 61553[0m
+[0;32mI (231648) MODBUS: Slave 249: Successful read from Addr 14[0m
+[0;32mI (231668) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (231728) NANOMODBUS: recieved CRC = 41393,calc crc 41393[0m
+[0;32mI (231738) MODBUS: Slave 249: Successful read from Addr 15[0m
+[0;32mI (231758) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (231838) NANOMODBUS: recieved CRC = 36983,calc crc 36983[0m
+[0;32mI (231848) MODBUS: Slave 249: Successful read from Addr 16[0m
+[0;32mI (231868) RTU_OVER_TCP_OUT: f9 03 02 02 58 19 0a [0m
+[0;32mI (231938) NANOMODBUS: recieved CRC = 49591,calc crc 49591[0m
+[0;32mI (231948) MODBUS: Slave 249: Successful read from Addr 17[0m
+[0;32mI (231968) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (232038) NANOMODBUS: recieved CRC = 29110,calc crc 29110[0m
+[0;32mI (232058) MODBUS: Slave 249: Successful read from Addr 18[0m
+[0;32mI (232068) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a a8 6f 1d [0m
+[0;32mI (232448) NANOMODBUS: recieved CRC = 37303,calc crc 37303[0m
+[0;32mI (232458) MODBUS: Slave 249: Successful read from Addr 20[0m
+[0;32mI (232468) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a 69 ae 8d [0m
+[0;32mI (232558) NANOMODBUS: recieved CRC = 12407,calc crc 12407[0m
+[0;32mI (232568) MODBUS: Slave 249: Successful read from Addr 22[0m
+[0;32mI (232628) RTU_OVER_TCP_OUT: f9 03 04 ff ff ff 00 c2 28 [0m
+[0;32mI (232658) NANOMODBUS: recieved CRC = 4533,calc crc 4533[0m
+[0;32mI (232668) MODBUS: Slave 249: Successful read from Addr 24[0m
+[0;32mI (232688) RTU_OVER_TCP_OUT: f9 03 02 01 f6 98 46 [0m
+[0;32mI (232768) NANOMODBUS: recieved CRC = 16501,calc crc 16501[0m
+[0;32mI (232778) MODBUS: Slave 249: Successful read from Addr 25[0m
+[0;32mI (232798) RTU_OVER_TCP_OUT: f9 03 02 01 f7 59 86 [0m
+[0;32mI (232868) NANOMODBUS: recieved CRC = 45173,calc crc 45173[0m
+[0;32mI (232878) MODBUS: Slave 249: Successful read from Addr 26[0m
+[0;32mI (232898) RTU_OVER_TCP_OUT: f9 03 02 00 50 19 ac [0m
+[0;32mI (232958) NANOMODBUS: recieved CRC = 57781,calc crc 57781[0m
+[0;32mI (232968) MODBUS: Slave 249: Successful read from Addr 27[0m
+[0;32mI (232988) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (233068) NANOMODBUS: recieved CRC = 20596,calc crc 20596[0m
+[0;32mI (233078) MODBUS: Slave 249: Successful read from Addr 28[0m
+[0;32mI (233098) RTU_OVER_TCP_OUT: f9 03 02 00 3c 19 81 [0m
+[0;32mI (233168) NANOMODBUS: recieved CRC = 49540,calc crc 49540[0m
+[0;32mI (233178) MODBUS: Slave 249: Successful read from Addr 29[0m
+[0;32mI (233208) RTU_OVER_TCP_OUT: f9 03 80 31 30 2e 31 37 39 2e 34 32 2e 36 37 00 [0m
+[0;32mI (233218) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (233218) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (233238) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (233238) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (233288) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (233288) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (233298) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (233298) RTU_OVER_TCP_OUT: 00 00 00 3a 13 [0m
+[0;32mI (233388) NANOMODBUS: recieved CRC = 96,calc crc 96[0m
+[0;32mI (233398) MODBUS: Slave 249: Successful read from Addr 93[0m
+[0;32mI (233408) RTU_OVER_TCP_OUT: f9 03 02 1f 40 10 50 [0m
+[0;32mI (233488) NANOMODBUS: recieved CRC = 12408,calc crc 12408[0m
+[0;32mI (233508) MODBUS: Slave 249: Successful read from Addr 94[0m
+[0;32mI (233518) RTU_OVER_TCP_OUT: f9 03 40 66 69 72 6d 77 61 72 65 39 2e 62 69 6e [0m
+[0;32mI (233528) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (233548) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (233548) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (233558) RTU_OVER_TCP_OUT: 00 00 00 0b c0 [0m
+[0;32mI (233618) NANOMODBUS: recieved CRC = 61866,calc crc 61866[0m
+[0;32mI (233628) MODBUS: Slave 249: Successful read from Addr 126[0m
+[0;32mI (233648) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (233678) NANOMODBUS: recieved CRC = 5546,calc crc 5546[0m
+[0;32mI (233688) MODBUS: Slave 249: Successful read from Addr 127[0m
+[0;32mI (233708) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (233788) NANOMODBUS: recieved CRC = 9626,calc crc 9626[0m
+[0;32mI (233798) MODBUS: Slave 249: Successful read from Addr 128[0m
+[0;32mI (233848) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (233878) NANOMODBUS: recieved CRC = 29786,calc crc 29786[0m
+[0;32mI (233888) MODBUS: Slave 249: Successful read from Addr 129[0m
+[0;32mI (233908) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (265308) NANOMODBUS: recieved CRC = 25715,calc crc 25715[0m
+[0;32mI (265318) MODBUS: Slave 249: Successful read from Addr 0[0m
+[0;32mI (265338) RTU_OVER_TCP_OUT: f9 04 04 00 0f 46 32 01 fd [0m
+[0;32mI (265408) NANOMODBUS: recieved CRC = 50611,calc crc 50611[0m
+[0;32mI (265428) MODBUS: Slave 249: Successful read from Addr 2[0m
+[0;32mI (265438) RTU_OVER_TCP_OUT: f9 04 04 01 50 7c ba 22 d5 [0m
+[0;32mI (265518) NANOMODBUS: recieved CRC = 58482,calc crc 58482[0m
+[0;32mI (265528) MODBUS: Slave 249: Successful read from Addr 4[0m
+[0;32mI (265548) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d a8 fc e1 [0m
+[0;32mI (265628) NANOMODBUS: recieved CRC = 5234,calc crc 5234[0m
+[0;32mI (265638) MODBUS: Slave 249: Successful read from Addr 7[0m
+[0;32mI (265658) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d aa 7d 20 [0m
+[0;32mI (266038) NANOMODBUS: recieved CRC = 61873,calc crc 61873[0m
+[0;32mI (266048) MODBUS: Slave 249: Successful read from Addr 10[0m
+[0;32mI (266068) RTU_OVER_TCP_OUT: f9 03 04 00 00 25 80 98 cc [0m
+[0;32mI (266138) NANOMODBUS: recieved CRC = 20913,calc crc 20913[0m
+[0;32mI (266148) MODBUS: Slave 249: Successful read from Addr 12[0m
+[0;32mI (266168) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (266368) NANOMODBUS: recieved CRC = 113,calc crc 113[0m
+[0;32mI (266378) MODBUS: Slave 249: Successful read from Addr 13[0m
+[0;32mI (266428) RTU_OVER_TCP_OUT: f9 03 02 00 08 18 56 [0m
+[0;32mI (266458) NANOMODBUS: recieved CRC = 61553,calc crc 61553[0m
+[0;32mI (266468) MODBUS: Slave 249: Successful read from Addr 14[0m
+[0;32mI (266488) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (266568) NANOMODBUS: recieved CRC = 41393,calc crc 41393[0m
+[0;32mI (266578) MODBUS: Slave 249: Successful read from Addr 15[0m
+[0;32mI (266598) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (266648) NANOMODBUS: recieved CRC = 36983,calc crc 36983[0m
+[0;32mI (266658) MODBUS: Slave 249: Successful read from Addr 16[0m
+[0;32mI (266678) RTU_OVER_TCP_OUT: f9 03 02 02 58 19 0a [0m
+[0;32mI (267058) NANOMODBUS: recieved CRC = 49591,calc crc 49591[0m
+[0;32mI (267068) MODBUS: Slave 249: Successful read from Addr 17[0m
+[0;32mI (267088) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (267158) NANOMODBUS: recieved CRC = 29110,calc crc 29110[0m
+[0;32mI (267178) MODBUS: Slave 249: Successful read from Addr 18[0m
+[0;32mI (267198) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a a8 6f 1d [0m
+[0;32mI (267268) NANOMODBUS: recieved CRC = 37303,calc crc 37303[0m
+[0;32mI (267278) MODBUS: Slave 249: Successful read from Addr 20[0m
+[0;32mI (267298) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a 69 ae 8d [0m
+[0;32mI (267368) NANOMODBUS: recieved CRC = 12407,calc crc 12407[0m
+[0;32mI (267378) MODBUS: Slave 249: Successful read from Addr 22[0m
+[0;32mI (267398) RTU_OVER_TCP_OUT: f9 03 04 ff ff ff 00 c2 28 [0m
+[0;32mI (267478) NANOMODBUS: recieved CRC = 4533,calc crc 4533[0m
+[0;32mI (267488) MODBUS: Slave 249: Successful read from Addr 24[0m
+[0;32mI (267498) RTU_OVER_TCP_OUT: f9 03 02 01 f6 98 46 [0m
+[0;32mI (267578) NANOMODBUS: recieved CRC = 16501,calc crc 16501[0m
+[0;32mI (267588) MODBUS: Slave 249: Successful read from Addr 25[0m
+[0;32mI (267638) RTU_OVER_TCP_OUT: f9 03 02 01 f7 59 86 [0m
+[0;32mI (267878) NANOMODBUS: recieved CRC = 45173,calc crc 45173[0m
+[0;32mI (267888) MODBUS: Slave 249: Successful read from Addr 26[0m
+[0;32mI (267908) RTU_OVER_TCP_OUT: f9 03 02 00 50 19 ac [0m
+[0;32mI (267988) NANOMODBUS: recieved CRC = 57781,calc crc 57781[0m
+[0;32mI (267998) MODBUS: Slave 249: Successful read from Addr 27[0m
+[0;32mI (268018) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (268098) NANOMODBUS: recieved CRC = 20596,calc crc 20596[0m
+[0;32mI (268108) MODBUS: Slave 249: Successful read from Addr 28[0m
+[0;32mI (268128) RTU_OVER_TCP_OUT: f9 03 02 00 3c 19 81 [0m
+[0;32mI (268198) NANOMODBUS: recieved CRC = 49540,calc crc 49540[0m
+[0;32mI (268208) MODBUS: Slave 249: Successful read from Addr 29[0m
+[0;32mI (268238) RTU_OVER_TCP_OUT: f9 03 80 31 30 2e 31 37 39 2e 34 32 2e 36 37 00 [0m
+[0;32mI (268248) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (268258) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (268278) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (268278) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (268288) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (268288) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (268308) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (268308) RTU_OVER_TCP_OUT: 00 00 00 3a 13 [0m
+[0;32mI (268508) NANOMODBUS: recieved CRC = 96,calc crc 96[0m
+[0;32mI (268558) MODBUS: Slave 249: Successful read from Addr 93[0m
+[0;32mI (268558) RTU_OVER_TCP_OUT: f9 03 02 1f 40 10 50 [0m
+[0;32mI (268598) NANOMODBUS: recieved CRC = 12408,calc crc 12408[0m
+[0;32mI (268608) MODBUS: Slave 249: Successful read from Addr 94[0m
+[0;32mI (268628) RTU_OVER_TCP_OUT: f9 03 40 66 69 72 6d 77 61 72 65 39 2e 62 69 6e [0m
+[0;32mI (268638) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (268648) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (268648) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (268658) RTU_OVER_TCP_OUT: 00 00 00 0b c0 [0m
+[0;32mI (268828) NANOMODBUS: recieved CRC = 61866,calc crc 61866[0m
+[0;32mI (268838) MODBUS: Slave 249: Successful read from Addr 126[0m
+[0;32mI (268858) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (268908) NANOMODBUS: recieved CRC = 5546,calc crc 5546[0m
+[0;32mI (268918) MODBUS: Slave 249: Successful read from Addr 127[0m
+[0;32mI (268938) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (269018) NANOMODBUS: recieved CRC = 9626,calc crc 9626[0m
+[0;32mI (269028) MODBUS: Slave 249: Successful read from Addr 128[0m
+[0;32mI (269048) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (269118) NANOMODBUS: recieved CRC = 29786,calc crc 29786[0m
+[0;32mI (269138) MODBUS: Slave 249: Successful read from Addr 129[0m
+[0;32mI (269148) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (299728) NANOMODBUS: recieved CRC = 25715,calc crc 25715[0m
+[0;32mI (299738) MODBUS: Slave 249: Successful read from Addr 0[0m
+[0;32mI (299788) RTU_OVER_TCP_OUT: f9 04 04 00 0f 46 32 01 fd [0m
+[0;32mI (299928) NANOMODBUS: recieved CRC = 50611,calc crc 50611[0m
+[0;32mI (299948) MODBUS: Slave 249: Successful read from Addr 2[0m
+[0;32mI (299968) RTU_OVER_TCP_OUT: f9 04 04 01 50 7c ba 22 d5 [0m
+[0;32mI (300038) NANOMODBUS: recieved CRC = 58482,calc crc 58482[0m
+[0;32mI (300048) MODBUS: Slave 249: Successful read from Addr 4[0m
+[0;32mI (300058) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d a8 fc e1 [0m
+[0;32mI (300128) NANOMODBUS: recieved CRC = 5234,calc crc 5234[0m
+[0;32mI (300148) MODBUS: Slave 249: Successful read from Addr 7[0m
+[0;32mI (300158) RTU_OVER_TCP_OUT: f9 04 06 b4 3a 45 ba 1d aa 7d 20 [0m
+[0;32mI (300448) NANOMODBUS: recieved CRC = 61873,calc crc 61873[0m
+[0;32mI (300458) MODBUS: Slave 249: Successful read from Addr 10[0m
+[0;32mI (300478) RTU_OVER_TCP_OUT: f9 03 04 00 00 25 80 98 cc [0m
+[0;32mI (300658) NANOMODBUS: recieved CRC = 20913,calc crc 20913[0m
+[0;32mI (300668) MODBUS: Slave 249: Successful read from Addr 12[0m
+[0;32mI (300688) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (300758) NANOMODBUS: recieved CRC = 113,calc crc 113[0m
+[0;32mI (300768) MODBUS: Slave 249: Successful read from Addr 13[0m
+[0;32mI (300788) RTU_OVER_TCP_OUT: f9 03 02 00 08 18 56 [0m
+[0;32mI (300858) NANOMODBUS: recieved CRC = 61553,calc crc 61553[0m
+[0;32mI (300868) MODBUS: Slave 249: Successful read from Addr 14[0m
+[0;32mI (300888) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (300958) NANOMODBUS: recieved CRC = 41393,calc crc 41393[0m
+[0;32mI (300978) MODBUS: Slave 249: Successful read from Addr 15[0m
+[0;32mI (301028) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (301058) NANOMODBUS: recieved CRC = 36983,calc crc 36983[0m
+[0;32mI (301068) MODBUS: Slave 249: Successful read from Addr 16[0m
+[0;32mI (301078) RTU_OVER_TCP_OUT: f9 03 02 02 58 19 0a [0m
+[0;32mI (301158) NANOMODBUS: recieved CRC = 49591,calc crc 49591[0m
+[0;32mI (301168) MODBUS: Slave 249: Successful read from Addr 17[0m
+[0;32mI (301178) RTU_OVER_TCP_OUT: f9 03 02 00 00 19 90 [0m
+[0;32mI (301458) NANOMODBUS: recieved CRC = 29110,calc crc 29110[0m
+[0;32mI (301478) MODBUS: Slave 249: Successful read from Addr 18[0m
+[0;32mI (301498) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a a8 6f 1d [0m
+[0;32mI (301678) NANOMODBUS: recieved CRC = 37303,calc crc 37303[0m
+[0;32mI (301688) MODBUS: Slave 249: Successful read from Addr 20[0m
+[0;32mI (301708) RTU_OVER_TCP_OUT: f9 03 04 0a b3 2a 69 ae 8d [0m
+[0;32mI (301888) NANOMODBUS: recieved CRC = 12407,calc crc 12407[0m
+[0;32mI (301898) MODBUS: Slave 249: Successful read from Addr 22[0m
+[0;32mI (301918) RTU_OVER_TCP_OUT: f9 03 04 ff ff ff 00 c2 28 [0m
+[0;32mI (301978) NANOMODBUS: recieved CRC = 4533,calc crc 4533[0m
+[0;32mI (301988) MODBUS: Slave 249: Successful read from Addr 24[0m
+[0;32mI (302008) RTU_OVER_TCP_OUT: f9 03 02 01 f6 98 46 [0m
+[0;32mI (302388) NANOMODBUS: recieved CRC = 16501,calc crc 16501[0m
+[0;32mI (302398) MODBUS: Slave 249: Successful read from Addr 25[0m
+[0;32mI (302418) RTU_OVER_TCP_OUT: f9 03 02 01 f7 59 86 [0m
+[0;32mI (302488) NANOMODBUS: recieved CRC = 45173,calc crc 45173[0m
+[0;32mI (302498) MODBUS: Slave 249: Successful read from Addr 26[0m
+[0;32mI (302518) RTU_OVER_TCP_OUT: f9 03 02 00 50 19 ac [0m
+[0;32mI (302598) NANOMODBUS: recieved CRC = 57781,calc crc 57781[0m
+[0;32mI (302608) MODBUS: Slave 249: Successful read from Addr 27[0m
+[0;32mI (302658) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (302718) NANOMODBUS: recieved CRC = 20596,calc crc 20596[0m
+[0;32mI (302728) MODBUS: Slave 249: Successful read from Addr 28[0m
+[0;32mI (302738) RTU_OVER_TCP_OUT: f9 03 02 00 3c 19 81 [0m
+[0;32mI (302808) NANOMODBUS: recieved CRC = 49540,calc crc 49540[0m
+[0;32mI (302818) MODBUS: Slave 249: Successful read from Addr 29[0m
+[0;32mI (302848) RTU_OVER_TCP_OUT: f9 03 80 31 30 2e 31 37 39 2e 34 32 2e 36 37 00 [0m
+[0;32mI (302858) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (302858) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (302878) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (302878) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (302888) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (302898) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (302908) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (302918) RTU_OVER_TCP_OUT: 00 00 00 3a 13 [0m
+[0;32mI (303118) NANOMODBUS: recieved CRC = 96,calc crc 96[0m
+[0;32mI (303128) MODBUS: Slave 249: Successful read from Addr 93[0m
+[0;32mI (303138) RTU_OVER_TCP_OUT: f9 03 02 1f 40 10 50 [0m
+[0;32mI (303328) NANOMODBUS: recieved CRC = 12408,calc crc 12408[0m
+[0;32mI (303348) MODBUS: Slave 249: Successful read from Addr 94[0m
+[0;32mI (303358) RTU_OVER_TCP_OUT: f9 03 40 66 69 72 6d 77 61 72 65 39 2e 62 69 6e [0m
+[0;32mI (303368) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (303418) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (303418) RTU_OVER_TCP_OUT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (303428) RTU_OVER_TCP_OUT: 00 00 00 0b c0 [0m
+[0;32mI (303508) NANOMODBUS: recieved CRC = 61866,calc crc 61866[0m
+[0;32mI (303518) MODBUS: Slave 249: Successful read from Addr 126[0m
+[0;32mI (303528) RTU_OVER_TCP_OUT: f9 03 02 00 01 d8 50 [0m
+[0;32mI (303608) NANOMODBUS: recieved CRC = 5546,calc crc 5546[0m
+[0;32mI (303618) MODBUS: Slave 249: Successful read from Addr 127[0m
+[0;32mI (303638) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (303708) NANOMODBUS: recieved CRC = 9626,calc crc 9626[0m
+[0;32mI (303718) MODBUS: Slave 249: Successful read from Addr 128[0m
+[0;32mI (303738) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m
+[0;32mI (303938) NANOMODBUS: recieved CRC = 29786,calc crc 29786[0m
+[0;32mI (303948) MODBUS: Slave 249: Successful read from Addr 129[0m
+[0;32mI (303968) RTU_OVER_TCP_OUT: f9 04 02 00 00 18 e4 [0m

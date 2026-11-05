@@ -226,7 +226,7 @@ esp_err_t chunked_ota_post_report(const char *report_ip,
 }
 
 /* Plain CRC-16/Modbus (poly 0xA001, init 0xFFFF). Local copy so we don't
-   inherit the byte-swap toggles baked into modbus_rtu.c's modbus_crc16(). */
+   inherit the byte-order handling in modbus_rtu.c's modbus_crc16(). */
 static uint16_t ota_crc16_modbus(const uint8_t *data, size_t len)
 {
     uint16_t crc = 0xFFFF;

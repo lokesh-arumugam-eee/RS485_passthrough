@@ -10,13 +10,14 @@
 #define ADD_REL_DATE	2
 #define ADD_WIFI_MAC	4
 #define ADD_BLE_MAC	7
+#define ADD_WIFI_RSSI	9	// RO: signed dBm, 127 = not connected
 #define ADD_BAUDRATE	10
 #define ADD_PARITY	12
 #define ADD_DATABITS	13
 #define ADD_STOP_BITS	14
 #define ADD_RETRY_CNT	15
 #define ADD_RETRY_PRD	16
-#define ADD_RTU_SWAP_CRC	17
+#define ADD_RESERVED_17	17	// formerly RTU swap-CRC; reads 0, writes ignored
 #define ADD_STATIC_IP	18
 #define ADD_GW_IP	20
 #define ADD_NW_MASK	22

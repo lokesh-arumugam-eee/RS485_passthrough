@@ -79,7 +79,7 @@ void save_config_json() {
     
     // 2. Add the nested values using our C helper function
     add_json_string_as_object(root, "hlt", "{\"0\":{\"dhlt1\":\"900:900\"}}");
-    add_json_string_as_object(root, "urt", "{\"0\":{\"curt0\":\"0:9600:0:8:1:1:600:0:1:0:0:1:0\"}}");
+    add_json_string_as_object(root, "urt", "{\"0\":{\"curt0\":\"0:9600:0:8:1:1:600:0:1:0:0:1\"}}");
     add_json_string_as_object(root, "ipc",
         "{\"0\":{\"static_ip\":\"192.168.1.0\",\"gw\":\"192.168.1.1\",\"nm\":\"255.255.255.0\","
         "\"mb_port\":502,\"pt_port\":503,\"http_port\":80,\"timeout\":60,\"pt_retry\":0,\"static_en\":1}}");
@@ -374,14 +374,13 @@ void init_system_settings(const char* json_buffer) {
             cJSON *curt_val = cJSON_GetObjectItem(id_node, "curt0");
             if (cJSON_IsString(curt_val)) {
                 strcpy_j(system_urts[idx].key_name, KEY_NAME_MX_LEN, id_node->string, strlen(id_node->string));
-                sscanf_j(curt_val->valuestring, "%d:%ld:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d",
+                sscanf_j(curt_val->valuestring, "%d:%ld:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d",
                        &system_urts[idx].urt_id, &system_urts[idx].baud,
                        &system_urts[idx].parity, &system_urts[idx].data_bits,
                        &system_urts[idx].stop_bits, &system_urts[idx].retry_cnt,
                        &system_urts[idx].retry_period, &system_urts[idx].DisconnectonNoA,
                        &system_urts[idx].DefConnStatus, &system_urts[idx].InterwriteDelay,
-                       &system_urts[idx].InterReadDelay, &system_urts[idx].AutoConnect,
-                       &system_urts[idx].swapcrc);
+                       &system_urts[idx].InterReadDelay, &system_urts[idx].AutoConnect);
                 idx++;
             }
         }
@@ -685,7 +684,6 @@ void Check_config()
         system_urts[0].InterwriteDelay=0;
         system_urts[0].InterReadDelay=0;
         system_urts[0].AutoConnect=0;
-        system_urts[0].swapcrc = 0;
 		total_urts =1;
 		ESP_LOGI("CONFIG", "Default uart setting loaded");
 	}
@@ -707,8 +705,6 @@ void Check_config()
     if (system_urts[0].retry_period<0||system_urts[0].retry_period>65535) 
     		system_urts[0].retry_period = 600;
     
-    if(system_urts[0].swapcrc<0 || system_urts[0].swapcrc>1)
-        system_urts[0].swapcrc=0;
 
     system_urts[0].DisconnectonNoA=0;
     system_urts[0].DefConnStatus=0;
@@ -861,10 +857,10 @@ void debug_print_configs() {
     // 1. Print URT Settings
     printf("[URT SETTINGS] Total: %d\n", total_urts);
     if (system_urts != NULL) {
-        printf("ID   | Name       | Baud    | P | D | S | RETRY_CNT | RTY_PRD | SWAPCRC \n");
+        printf("ID   | Name       | Baud    | P | D | S | RETRY_CNT | RTY_PRD\n");
         printf("--------------------------------------------\n");
         for (int i = 0; i < total_urts; i++) {
-            printf("%-4d | %-10s | %-7ld | %d | %d | %d | %-9d | %-7d|%-9d\n",
+            printf("%-4d | %-10s | %-7ld | %d | %d | %d | %-9d | %-7d\n",
                    system_urts[i].urt_id,
                    system_urts[i].key_name,
                    system_urts[i].baud,
@@ -872,8 +868,7 @@ void debug_print_configs() {
                    system_urts[i].data_bits,
                    system_urts[i].stop_bits,
                    system_urts[i].retry_cnt,
-                   system_urts[i].retry_period,
-                   system_urts[i].swapcrc);
+                   system_urts[i].retry_period);
         }
     } else {
         printf("No URT configurations loaded.\n");
